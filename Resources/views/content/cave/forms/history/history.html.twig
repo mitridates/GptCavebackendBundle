@@ -1,0 +1,13 @@
+{#
+/**
+ * @file history.html.twig
+ * Formulario de edición para Cavehistory entity
+ * @parent ../onetoone.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+{% block heading %}{{ form_label(form.history)}}{% endblock heading %}
+{% block body %}
+{{ form_widget(form.history, { 'attr': {'style': 'min-height: 300px'} })}}
+{% endblock body %}
+{% endembed %}

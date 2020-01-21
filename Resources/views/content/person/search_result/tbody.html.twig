@@ -1,0 +1,15 @@
+{#
+/**
+ * @file tbody.html.twig
+ * @parent ../index_ajax.html.twig
+#}
+{% for entity in entities%}
+<tr>
+    <td><a href="{{path('cave_backend_person_edit', { 'id': entity.getPersonid() })}}">{{ entity.getPersonid() }}</a></td>
+    <td>{{ entity.getName() }}</td>
+    <td class="text-center">{{ entity.getSurname()}}</td>
+    <td class="text-center">{%if entity.getCountry() is not null%}{{entity.getCountry().getName()}}{%endif%}</td>
+    <td class="text-center">{%if entity.getAdmin2() is not null%}{{entity.getAdmin2.getName()}}{%endif%}</td>
+    <td class="text-center">{%if entity.getAdmin3() is not null%}{{entity.getAdmin3().getName()}}{%endif%}</td>
+</tr>
+{% endfor %}

@@ -1,0 +1,47 @@
+{#
+/**
+ * @file article.html.twig
+ * Formulario parcial
+ * @parent ../form.html.twig
+ */
+#}
+{% set articleIsNotNull = form.article.vars.value!='' %}
+<table class="table">
+    <tr>
+        <td><input type="radio" name="form_specie_article_check" {{ articleIsNotNull? 'checked' : ''}} onchange="Grot('.form-article').form('clear').form('disable').hide();">
+            {{ form_label(form.article)}}
+        </td>
+    </tr>
+    <tr>
+        <td class="form-article form-article-id">{{ form_widget(form.article)}}</td>
+
+    </tr>
+</table>
+
+<table class="table">
+    <tr>
+        <td><input type="radio" name="form_specie_article_check" {{ articleIsNotNull? '' : 'checked'}} onchange="Grot('.form-article').form('clear').form('disable');">
+            {{ form_label(form.refsurname)}}
+        </td>
+        <td class="form-article form-article-string">{{ form_widget(form.refsurname)}}</td>
+    </tr>
+    <tr class="form-article form-article-string">
+        <td>{{ form_label(form.refyear)}}</td>
+        <td>{{ form_widget(form.refyear)}}</td>
+    </tr>
+    <tr class="form-article form-article-string">
+        <td>{{ form_label(form.refyearsuffix)}}</td>
+        <td>{{ form_widget(form.refyearsuffix)}}</td>
+    </tr>
+</table>
+<script>
+    $(document).ready(function() {
+        $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+        Grot('#{{form.article.vars.id}}').select2paginado('{{path('cave_backend_autocomplete_article')}}', {placeholder: '{{('select.article')|trans({},'cavemessages')|raw}}'});
+        {% if  articleIsNotNull %}
+        Grot('.form-article-string').form('clear').form('disable');
+        {% else %}
+        Grot('#{{ form.article.vars.id }}').form('clear').form('disable');
+        {% endif %}
+    });
+</script>

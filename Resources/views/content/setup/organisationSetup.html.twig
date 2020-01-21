@@ -1,0 +1,43 @@
+{#
+/**
+ * @file organisationsetup.html.twig
+ * Creación de organizacion
+ *
+ * @param array arrayParams
+ * @param FormView form
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+{% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+{#scripts de la página#}
+{% block page_javascripts %}
+{%include '@GptCavebackend/content/area/script/scripts.html.twig'%}
+{# load pagination #}
+<script>
+
+</script>
+{% endblock page_javascripts %}
+
+{# contenido #}
+{% block content %}
+
+{% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+{{ form_start(form) }}
+
+<table class="table table-bordered">
+    <tr>
+        <td>{{ form_label(form.name)}}</td>
+        <td>{{ form_label(form.country)}}</td>
+        <td>{{ form_label(form.code)}}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>{{ form_widget(form.name) }}</td>
+        <td>{{ form_widget(form.country) }}</td>
+        <td>{{ form_widget(form.code) }}</td>
+        <td>{%include '@GptCavebackend/partial/form/buttons.html.twig'  with {'btns' : {'save':{'type':'submit'}}} only %}</td>
+    </tr>
+</table>
+{{ form_end(form) }}
+
+{% endblock content %}

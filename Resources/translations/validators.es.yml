@@ -1,0 +1,20 @@
+## YAML Template.
+cave.validator.exact.length: "El texto ha tener exáctamente {{ limit }}  caract&eacute;res."
+cave.validator.min.length: "El campo no puede tener menos de {{ limit }}  caract&eacute;res."
+cave.validator.max.length: "El texto ha tener un m&aacute;ximo de {{ limit }}  caract&eacute;res."
+cave.validator.match.regex: "la cadena de texto no tiene el formato adecuado"
+cave.validator.min.number: "El número no puede ser menor de {{ limit }}."
+cave.validator.max.number: "El número no puede ser mayor de {{ limit }}."
+cave.circularreference.field: 'Un registro no puede referenciarse a s&iacute; mismo'
+#
+##FORM ERRORS Se utilizan en los Formtype
+#form.must.complete.all.fields: "Debe completar todos los campos para guardar el formulario"
+#form.empty.master.has.filled.children: "Este campo debe completarse si los campos relacionados tienene valores"
+#form.field.has.dependencies: "Este campo contiene campos relacionados que han de ser completados"
+#form.invalid.date: "La fecha no es v&aacute;lida"
+#form.use.selector.or.text: "Utilice el selector o compete el campo de texto alternativo."
+#form.field.circular.reference.error: 'Un registro no puede referenciarse a s&iacute; mismo'
+#form.cave.grid.incomplete: "Utilice el selector o complete los datos de un mapa"
+#form.use.onefield: "Utilice s&oacute;lo uno de los campos disponibles"
+#form.map.map.incomplete.form: "Complete los campos disponibles"
+#form.org.defunct.check: "Marque el check de organizaci&oacute;n desaparecida para completar los dem&aacute;s campos de la secci&oacute;n"

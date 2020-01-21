@@ -1,0 +1,35 @@
+{#
+/**
+ * @file defunct.html.twig
+ * @parent ../edit.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel }%}
+{% block heading %}{{ 'organisation.edit.form.defunct'|trans({},'cavepages')|raw }}
+{% endblock heading %}
+{% block body %}
+    <table class="table">
+        <tr>
+            <td>{{ form_label(form.defunct)}}</td>
+            <td>{{ form_label(form.currentidifdefunct)}}
+            </td>
+            <td>{{ form_label(form.defunctyear)}}</td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_widget(form.defunct, { 'attr': {'onChange': 'toggleDefunct(this);'} })}}
+            </td>
+            <td>{{ form_widget(form.currentidifdefunct)}}{{ form_errors(form.currentidifdefunct)}}</td>
+            <td>{{ form_widget(form.defunctyear)}}</td>
+        </tr>
+    </table>
+    <script>
+        function toggleDefunct(e) {
+            if(!e.checked){
+                document.getElementById('{{ form.defunctyear.vars.id }}').value='';
+                $('#{{ form.currentidifdefunct.vars.id }}').val(null).trigger('change');
+            }
+        }
+    </script>
+{% endblock body %}
+{% endembed %}

@@ -1,0 +1,23 @@
+{#
+/**
+ * @file organisations.html.twig
+ * @parent ../edit.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel }%}
+{% block heading %}{{ 'person.edit.form.organisations'|trans({},'cavepages')|raw }}{% endblock heading %}
+{% block body %}
+<table class="table">
+    <tr>
+      <td class="col-lg-4">{{ form_label(form.organisation1)}}</td>
+      <td class="col-lg-4">{{ form_label(form.organisation2)}}</td>
+      <td class="col-lg-4">{{ form_label(form.organisation3)}}</td>
+    </tr>
+    <tr>
+      <td>{{ form_widget(form.organisation1) }}</td>
+      <td>{{ form_widget(form.organisation2) }}</td>
+      <td>{{ form_widget(form.organisation3) }}</td>
+    </tr>
+</table>
+{% endblock body %}
+{% endembed %}

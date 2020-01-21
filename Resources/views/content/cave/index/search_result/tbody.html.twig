@@ -1,0 +1,26 @@
+{#
+/**
+ * @file tbody.html.twig
+ * @parent ../../index_ajax.html.twig
+#}
+{% for entity in entities%}
+    <tr id="tr_{{name}}_{{entity.getCaveid()}}">
+        <td><a href="{{path('cave_backend_cave_edit',{'id': entity.getCaveid()})}}">{{ entity.getCaveid()}}</a></td>
+        <td>{{ entity.getName()}}</td>
+        <td>{{ entity.getCountry() is not null ? entity.getCountry().getName() : ''}}</td>
+        <td>{{ entity.getAdmin1() is not null ? entity.getAdmin1().getName() : ''}}</td>
+        <td>{{ entity.getAdmin2() is not null ? entity.getAdmin2().getName() : ''}}</td>
+        <td>{{ entity.getAdmin3() is not null ? entity.getAdmin3().getName() : ''}}</td>
+        <td>
+            {%if entity.getCavetodo().isEmpty() == false%}
+                {%for k , v in entity.getCavetodo().slice(0, 10)%}
+                    {% include '@GptCavebackend/partial/page/priority_icon.html.twig' with {
+                    'level': entity.getCavetodo().get(k).getPriority().getCode() ,
+                    'msg': entity.getCavetodo().get(k).getTodo()}
+                    only%}
+                {%endfor%}
+                {%if entity.getCavetodo().count() > 10 %}...{{entity.getCavetodo().count()-10}}+{%endif%}
+            {%endif%}
+        </td>
+    </tr>
+{% endfor %}

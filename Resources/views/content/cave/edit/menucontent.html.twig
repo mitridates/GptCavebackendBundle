@@ -1,0 +1,48 @@
+{#
+/**
+ * @file menucontent.html.twig
+ * @parent ./edit.html.twig
+ */
+#}
+<div style="display: none" id="karst-identity"
+     data-path="{{path('cave_backend_cave_create_partial', { 'id': cave.getCaveid(), name: 'identity' })}}">
+    <div class="text-center">...</div>
+</div>
+<div style="display: none" id="karst-coordinates"
+     data-path="{{path('cave_backend_cave_create_partial', { 'id': cave.getCaveid(), name: 'coordinates' })}}">
+    <div class="text-center">...</div>
+</div>
+<div style="display: none" id="karst-coarse"
+     data-path="{{path('cave_backend_cave_create_partial', { 'id': cave.getCaveid(), name: 'coarse' })}}">
+    <div class="text-center">...</div>
+</div>
+
+<div style="display: none" id="karst-history"
+     data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'history' })}}">
+    <div class="text-center">...</div>
+</div>
+<div style="display: none" id="karst-description"
+     data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'description' })}}">
+    <div class="text-center">...</div>
+</div>
+<div style="display: none" id="karst-howtofind"
+     data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'howtofind' })}}">
+    <div class="text-center">...</div>
+</div>
+<div style="display: none" id="karst-environment"
+     data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'environment' })}}">
+    <div class="text-center">...</div>
+</div>
+<div style="display: none" id="karst-management"
+     data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'management' })}}">
+    <div class="text-center">...</div>
+</div>
+<div style="display: none" id="karst-mto01">
+    {%include '@GptCavebackend/content/cave/edit/mto01.html.twig'%}
+</div>
+<div style="display: none" id="karst-mto02">
+    {%include '@GptCavebackend/content/cave/edit/mto02.html.twig'%}
+</div>
+<div style="display: none" id="karst-mto03">
+    {%include '@GptCavebackend/content/cave/edit/mto03.html.twig'%}
+</div>

@@ -1,0 +1,72 @@
+{#
+/**
+ * @file thead.html.twig
+ *
+ * @parent ./index.html.twig
+#}
+{% for e in entities %}
+    <tr class="text-center-row">
+        <td>{{e.getLanguage() ?? e}}</td>
+        <td>{{e.getName() ?? ''}}</td>
+        <td>{{e.getCreated()|date(arrayParams.bundle.dateformat)}}</td>
+        <td>{%- if e.getUpdated() != e.getCreated()%}
+                {{e.getUpdated()|date(arrayParams.bundle.dateformat)}} {{e.getUpdated()|date('H:i:s')}}
+            {%endif-%}</td>
+        <td>{{e.getReview() ?? '' }}</td>
+        <td>
+            <button type="button" class="btn btn-primary  btn-sm" onclick="
+                    let modalmod = new Modalmod(document.getElementById('exampleModal'));
+                    let submitUrl = '{{path('cave_backend_fielddefinition_editonetomany', { "id": entity.getCode(), 'language': e.getLanguage()})}}';
+                    modalmod.setTitle('{{ ('fielddefinition.modal.edit.translation')|trans({},'cavepages')|raw }}.  {{ entity.getName() }} ({{e.getLanguage()}})')
+                    .fetchForm(submitUrl,function(form) {
+                        modalmod.bindSubmit(form, submitUrl, function() {Grot('#language_search_results').loader('reload');})
+                    });
+                    ">
+                <span class="fa fa-edit" aria-hidden="true" ></span> {{ 'edit'|trans({},'cavemessages')|raw -}}
+            </button>
+
+            <button type="button" class="btn btn-danger btn-xs" onclick="
+                    let icon = this.querySelector('.fa');
+                    if(icon.classList.contains('fa-trash')){
+                        icon.classList.replace('fa-trash', 'fa-exclamation-triangle');
+                         setTimeout(function(){
+                            icon.classList.replace('fa-exclamation-triangle','fa-trash');
+                        }, 3000);
+                        return false;
+                    }
+                    $.post('{{path('cave_backend_fielddefinition_deleteonetomany', { "id": entity.getCode(), 'language': e.getLanguage()})}}',
+                    {_token: '{{entity_token}}'},
+                    function(data){
+                        if(data.length===0){
+                            Grot('#language_search_results').loader('reload');
+                        }else{
+                         alert(data[0]);
+                        }
+                    });
+                    "><span class="fa fa-trash" aria-hidden="true" ></span> {{ 'erase'|trans({},'cavemessages')|raw -}}
+            </button>
+        </td>
+    </tr>
+{% endfor %}
+
+{% for locale in translation.pending %}
+<tr class="text-center-row">
+    <td>{{locale}}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>
+        <button type="button" class="btn btn-default  btn-xs" onclick="
+                let modalmod = new Modalmod(document.getElementById('exampleModal'));
+                let submitUrl = '{{path('cave_backend_fielddefinition_editonetomany', { "id": entity.getCode(), 'language': locale})}}';
+                modalmod.setTitle('{{ ('fielddefinition.modal.new.translation')|trans({},'cavepages')|raw }}.  {{ entity.getName() }} ({{locale}})')
+                .fetchForm(submitUrl,function(form) {
+                modalmod.bindSubmit(form, submitUrl, function() {Grot('#language_search_results').loader('reload');})
+                });
+                ">
+            <span class="fa fa-plus" aria-hidden="true" ></span> {{ 'new'|trans({},'cavemessages')|raw -}}
+        </button>
+    </td>
+</tr>
+{% endfor %}

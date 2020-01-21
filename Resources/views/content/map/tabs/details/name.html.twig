@@ -1,0 +1,24 @@
+{#
+/**
+ * @file name.html.twig
+ * Formulario parcial
+ * @parent ./details.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel}%}
+{% block heading %}{{ 'map.tab.panel.named'|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+    <table class="table table-bordered">
+        <tr>
+            <td>{{ form_label(form.sheetsize)}}</td>
+            <td>{{ form_label(form.sheetquantity)}}</td>
+            <td>{{ form_label(form.specialsheetname)}}</td>
+        </tr>
+        <tr>
+            <td>{{ form_widget(form.sheetsize)}}</td>
+            <td>{{ form_widget(form.sheetquantity)}}</td>
+            <td>{{ form_widget(form.specialsheetname)}}</td>
+        </tr>
+    </table>
+{% endblock body %}
+{% endembed %}

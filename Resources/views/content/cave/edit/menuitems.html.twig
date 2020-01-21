@@ -1,0 +1,33 @@
+{#
+/**
+ * @file menuitems.html.twig
+ * @parent ./edit.html.twig
+ */
+#}
+<div class="row">
+<div class="col-sm-4">
+    <div class="list-group">
+        <span class="list-group-item">{{ 'cave.menu.main.titleGroup'|trans({}, 'cavepages') }}</span>
+        <a href="#karst-identity" onclick="menuloader.load(this)" class="list-group-item active">{{ 'cave.menu.main.id'|trans({}, 'cavepages') }}</a>
+        <a href="#karst-coordinates" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.menu.main.coordinates'|trans({}, 'cavepages') }}</a>
+        <a href="#karst-coarse" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.menu.main.coarse'|trans({}, 'cavepages') }}</a>
+    </div>
+</div>
+<div class="col-sm-4">
+    <div class="list-group">
+        <span class="list-group-item">{{ 'cave.menu.texts.titleGroup'|trans({}, 'cavepages') }}</span>
+        <a href="#karst-history" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.card.history'|trans({}, 'cavepages') }}</a>
+        <a href="#karst-description" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.card.description'|trans({}, 'cavepages') }}</a>
+        <a href="#karst-howtofind" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.card.howtofind'|trans({}, 'cavepages') }}</a>
+    </div>
+</div>
+
+<div class="col-sm-4">
+    <div class="list-group">
+        <span class="list-group-item">{{ 'cave.menu.texts.titleGroup'|trans({}, 'cavepages') }}</span>
+        <a href="#karst-environment" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.card.environment'|trans({}, 'cavepages') }}</a>
+        <a href="#karst-management" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.card.management'|trans({}, 'cavepages') }}</a>
+    </div>
+</div>
+
+</div>

@@ -1,0 +1,45 @@
+{#
+/**
+ * Search form
+ * @file index.html.twig
+ * @param array arrayParams
+ * @param FormView form
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+{% block content %}
+    {% embed '@GptCavebackend/partial/form/block_navbar.html.twig'%}
+        {% block right %}
+            <div class="navbar-btn">
+                {%include '@GptCavebackend/partial/form/buttons.html.twig'  with {'btns' : {'new': path('cave_backend_area_new')}} only %}
+            </div>
+        {% endblock %}
+    {% endembed %}
+
+    {% include '@GptCavebackend/content/area/form/index_search_form.html.twig'%}
+
+    {# pager div #}
+    <div id="search_results"
+         class="grotte-paginable"
+         data-path='{{path('cave_backend_area_ajaxpager')}}'
+         data-params=''>
+    </div>
+{% endblock content %}
+
+{% block footer_javascripts %}
+    <script>
+        let repo = new Repopulate( '#{{ form.country.vars.id }}');
+        repo.on('ev.onLoadResponse', (data, el, attr)=>{
+            return JSON.parse(data.response).out;//data is in 'out' array
+        });
+        repo.bindAll();
+
+        let searchForm = document.getElementById('{{ form.vars.attr.id}}');
+        searchForm.addEventListener('submit', event => {
+            event.preventDefault();
+            Grot('#search_results').loader('form', '#{{ form.vars.attr.id }}');
+        });
+        searchForm.querySelector('button[type="submit"]').click();
+
+    </script>
+{% endblock footer_javascripts %}

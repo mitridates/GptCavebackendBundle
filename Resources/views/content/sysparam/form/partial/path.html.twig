@@ -1,0 +1,21 @@
+{#
+/**
+ * @file path.html.twig
+ * @parent ./form.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+{% block heading %}{{ 'sysparam.edit.section.path'| trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table">
+<tr>
+  <td>{{ form_label(form.mapdir)}}</td>
+  <td>{{ form_label(form.topodir)}}</td>
+</tr>
+<tr>
+  <td>{{ form_widget(form.mapdir) }}</td>
+  <td>{{ form_widget(form.topodir) }}</td>
+</tr>
+</table>
+{% endblock body %}
+{% endembed %}

@@ -1,0 +1,59 @@
+{#
+/**
+ * @file onetomany.html.twig
+ * Genera el formulario y botonera para entidades del tipo onetomany
+ *
+ * @param array entities Resultados de la búsqueda
+ * @param string name Sufijo de la entidad Cave{name}
+ * @param string entity_token CSRF token
+ * @param array arrayParams Parametros del Backend
+ * @parent ./main.html.twig
+ */
+#}
+{%set vars = {
+        'msg': form.vars.attr.id~'_msg',
+        'path_pager': path('cave_backend_map_onetomany', { 'id': map.getMapid(), 'name': name }),
+        'path' : path('cave_backend_map_newonetomany',{'id': map.getMapid(), 'name':  name}),
+        'params': {'entity': name}
+        }
+%}
+{# evento para boton (onclick) y formulario (onsubmit) #}
+{%set clickEvent %}Grot('#{{form.vars.attr.id}}').form('enviar', 
+    '{{vars.path}}',
+    {'entity': '{{name}}'},
+    {
+        before: function(){
+            $('#form-notification').html('').hide();
+        },
+        error: function(data){
+            (new Grot.mustache('form-notification', 'mst-form-error' )).show(data);
+        }
+    });return false;
+{%endset%} 
+{% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+{{ form_start(form, {'attr': {'onsubmit': clickEvent} }) }}
+{% include '@GptCavebackend/content/map/tabs/'~name~'/form.html.twig'%}
+<div class="hidden">{{ form_widget(form.position)}}</div>
+{{ form_end(form) }} 
+{#
+/**
+ * Paginación con botones de navegación para entidades del tipo onetomany
+ * La carga se realiza en un div con la clase "grotte-paginable"
+ * "data-path" contiene la ruta del controlador que realiza la paginación
+ * "data-params" contiene al menos el parámetro de la entity a listar.
+ * Dinámicamente se pueden alterar los parámetros para realizar filtros, ordenar...
+ *
+ *
+ * Variables minimas del controlador:
+ * - string name nombre de la entidad
+ * - Map map entity de la cavidad en la relación
+ * - array entities resultados de la búsqueda
+ * - Paginator paginador objeto para la paginación (nº páginas, nº resultados...)
+ * - entity_token token generado para acciones con enlaces
+ */
+#}
+<div id="{{name}}_search_results" 
+     class="grotte-paginable"
+     data-path='{{path('cave_backend_map_onetomany', { 'id': map.getMapid(), 'name': name })}}'
+     data-params='{"entity": "{{name}}"}'>
+</div>

@@ -1,0 +1,11 @@
+{#
+/**
+ * @file thead.html.twig
+ * @parent ./index.html.twig
+#}
+<tr class="active">
+  <th class="text-center col-lg-1">{{get_fielddefinition_name(10001,app.request.locale)|raw}}</th>
+  <th class="text-center">{{get_fielddefinition_name(586,app.request.locale)|raw}}<!--surveyor id (person)--> /
+    {{get_fielddefinition_name(584,app.request.locale)|raw}}<!--surveyor--></th>
+  <th class="text-center col-lg-2"></th>
+</tr>

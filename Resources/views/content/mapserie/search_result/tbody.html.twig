@@ -1,0 +1,15 @@
+{#
+/**
+ * @file tbody.html.twig
+ * @parent ../index_ajax.html.twig
+#}
+{% for entity in entities%}
+    <tr class="text-center-row">
+        <td>{{ entity.getmapserieid() }}</td>
+        <td style="text-align: left"><a href="{{path('cave_backend_mapserie_edit', { 'id': entity.getmapserieid() })}}">{{ entity.getName() }}</a></td>
+        <td>{{ entity.getCode()}}</td>
+        <td>{{ entity.getName()}}</td>
+        <td>{{ entity.getScale()}}</td>
+        <td>{%if entity.getPublisher() is not null%}<a href="{{path('cave_backend_organisation_edit', { 'id': entity.getPublisher() })}}">{{entity.getPublisher().getName()}}</a>{%endif%}</td>
+    </tr>
+{% endfor %}

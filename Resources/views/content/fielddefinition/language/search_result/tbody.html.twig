@@ -1,0 +1,130 @@
+{#
+/**
+ * @file thead.html.twig
+ *
+ * @parent ./index.html.twig
+#}
+{% for e in entities %}
+    <tr class="text-center-row">
+        <td>{{e.getLanguage() ?? e}}</td>
+        <td>{{e.getName() ?? ''}}</td>
+        <td>{{e.getCreated()|date(arrayParams.bundle.dateformat)}}</td>
+        <td>{%- if e.getUpdated() != e.getCreated()%}
+                {{e.getUpdated()|date(arrayParams.bundle.dateformat)}} {{e.getUpdated()|date('H:i:s')}}
+            {%endif-%}</td>
+        <td>{{e.getReview() ?? '' }}</td>
+        <td>
+            <button type="button" class="btn btn-primary  btn-sm" onclick="
+                    let modal = document.getElementById('exampleModal'), xhr = new XMLHttpRequest(),
+                    url= '{{path('cave_backend_fielddefinition_editonetomany', { "id": entity.getCode(), 'language': e.getLanguage()})}}';
+
+                    submitForm= function(form, modal){
+                        let xhr = new XMLHttpRequest(),
+                        bttn = modal.querySelector('.modal-submit'),
+                        newBttn= bttn.cloneNode(true);
+
+                        xhr.open('POST', url);
+                        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                        xhr.onload = function () {
+                            if(this.responseText===''){
+                                bttn.parentNode.replaceChild(newBttn, bttn);
+                                $(modal).modal('hide');
+                                Grot('#language_search_results').loader('reload')
+                            }else{
+                                modal.querySelector('.modal-body').innerHTML= this.responseText;
+                            }
+                        }
+                        xhr.send( new FormData(form));
+                    };
+
+                    modal.querySelector('.modal-title').innerHTML='{{ ('fielddefinition.modal.edit.translation')|trans({},'cavepages')|raw }}.  {{ entity.getName() }} ({{e.getLanguage()}})';
+                    xhr.open('POST', url);
+                    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+                    xhr.onload = function () {
+                        modal.querySelector('.modal-body').innerHTML= this.responseText;
+                        let form = modal.getElementsByTagName('form')[0], bttn = modal.querySelector('.modal-submit');
+                        form.addEventListener('submit', function(event) { event.preventDefault();submitForm(form, modal)});
+                        bttn.addEventListener('click', function(event) {event.preventDefault();submitForm(form, modal)});
+                        $(modal).on('shown.bs.modal', function (e) {form.elements[0].focus();})
+                        $(modal).modal('show').modal('handleUpdate');
+                    }
+                    xhr.send();
+                    ">
+                <span class="fa fa-edit" aria-hidden="true" ></span> {{ 'edit'|trans({},'cavemessages')|raw -}}
+            </button>
+
+            <button type="button" class="btn btn-danger btn-xs" onclick="
+                    let icon = this.querySelector('.fa');
+                    if(icon.classList.contains('fa-trash')){
+                    icon.classList.replace('fa-trash', 'fa-exclamation-triangle');
+                    setTimeout(function(){
+                    icon.classList.replace('fa-exclamation-triangle','fa-trash');
+                    }, 3000);
+                    return false;
+                    }
+                    $.post('{{path('cave_backend_fielddefinition_deleteonetomany', { "id": entity.getCode(), 'language': e.getLanguage()})}}',
+                    {_token: '{{entity_token}}'},
+                    function(data){
+                    if(data.length===0){
+                    Grot('#language_search_results').loader('reload');
+                    }else{
+                    alert(data[0]);
+                    }
+                    });
+                    "><span class="fa fa-trash" aria-hidden="true" ></span> {{ 'erase'|trans({},'cavemessages')|raw -}}
+            </button>
+        </td>
+    </tr>
+{% endfor %}
+
+{% for locale in translation.pending %}
+    <tr class="text-center-row">
+        <td>{{locale}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            <button type="button" class="btn btn-default  btn-xs" onclick="
+                    let modal = document.getElementById('exampleModal'), xhr = new XMLHttpRequest(),
+                    url= '{{path('cave_backend_fielddefinition_editonetomany', { "id": entity.getCode(), 'language': locale})}}',
+
+                    submitForm= function(form, modal){
+                        let xhr = new XMLHttpRequest(),
+                        bttn = modal.querySelector('.modal-submit'),
+                        newBttn= bttn.cloneNode(true);
+
+                        xhr.open('POST', url);
+                        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                        xhr.onload = function () {
+                            if(this.responseText===''){
+                                bttn.parentNode.replaceChild(newBttn, bttn);
+                                $(modal).modal('hide');
+                                Grot('#language_search_results').loader('reload')
+                            }else{
+                                modal.querySelector('.modal-body').innerHTML= this.responseText;
+                            }
+                        }
+                        xhr.send( new FormData(form));
+                    };
+
+                    modal.querySelector('.modal-title').innerHTML='{{ ('fielddefinition.modal.new.translation')|trans({},'cavepages')|raw }}.  {{ entity.getName() }} ({{locale}})';
+                    xhr.open('POST', url);
+                    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+                    xhr.onload = function () {
+                        modal.querySelector('.modal-body').innerHTML= this.responseText;
+                        let form = modal.getElementsByTagName('form')[0], bttn = modal.querySelector('.modal-submit');
+                        form.addEventListener('submit', function(event) { event.preventDefault();submitForm(form, modal)});
+                        bttn.addEventListener('click', function(event) {event.preventDefault();submitForm(form, modal)});
+                        $(modal).on('shown.bs.modal', function (e) {form.elements[0].focus();})
+                        $(modal).modal('show').modal('handleUpdate');
+                    }
+                    xhr.send();
+                    ">
+                <span class="fa fa-plus" aria-hidden="true" ></span> {{ 'new'|trans({},'cavemessages')|raw -}}
+            </button>
+        </td>
+    </tr>
+{% endfor %}

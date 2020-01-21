@@ -1,0 +1,27 @@
+{#
+/**
+ * Estandarizar iconos con texto hover y color dependiendo de la prioridad
+ * @file priority_icon.html.twig
+ * @param string msg texto hover
+ * @param string priority
+ */
+ Ejemplo:
+{% include '@GptCavebackend/partial/page/priority_icon.html.twig' with {level: 'int[1-5]', msg: 'string'}%}
+{% include '@GptCavebackend/partial/page/priority_icon.html.twig' with {arr: {{level: 'int[1-5]', msg: 'string'}, {level: 'int[1-5]', msg: 'string'}, {level: 'int[1-5]', msg: 'string'}}}%}
+#}
+{% spaceless %}
+{# paleta #}
+{%set paleta = {
+1: {'color':'danger', 'icon': 'fire'},
+2: {'color':'danger', 'icon': 'exclamation-triangle'},
+3: {'color':'warning', 'icon': 'exclamation'},
+4: {'color':'info', 'icon': 'info-circle'},
+5: {'color':'secondary', 'icon': 'info'}
+}%}
+{%set arr = arr|default({0: {'msg': msg|default(''), 'level': level}})%}
+{%for el in arr%}
+<span title="{{el.level ~' - '~ el.msg}}"
+      class="fa fa-{{paleta[el.level].icon}}
+      text-{{paleta[el.level].color}}"></span>
+{%endfor%}
+{% endspaceless %}

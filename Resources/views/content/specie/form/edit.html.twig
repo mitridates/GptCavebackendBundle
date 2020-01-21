@@ -1,0 +1,53 @@
+{#
+/**
+ * @file  edit.html.twig
+ * Formulario de edición
+ *
+ * @parent ../edit.html.twig
+ */
+#}
+{% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+{{ form_start(form, {'attr': { 'onsubmit': clickEvent } }) }}
+{# errores del formulario #}
+
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.get('page:style:form_panel_group') }%}
+{% block heading %}{{ ('specie.edit.form')|trans({},'cavepages')|raw -}}{% endblock heading %}
+    {% block body %}
+        {# specie name, id, ... #}
+    <table class="table table-bordered">
+        <tr>
+            <td>{{ form_label(form.commonname) }}</td>
+            <td>{{ form_label(form.name)}}</td>
+        </tr>
+        <tr>
+            <td>{{ form_widget(form.commonname) }}</td>
+            <td>{{ form_widget(form.name) }}</td>
+        </tr>
+    </table>
+    <table class="table table-bordered">
+        <tr>
+            <td>{{ form_label(form.genus)}}</td>
+            <td>{{ form_label(form.family)}}</td>
+            <td>{{ form_label(form.orden)}}</td>
+            <td>{{ form_label(form.class)}}</td>
+            <td>{{ form_label(form.phylum)}}</td>
+        </tr>
+        <tr>
+            <td>{{ form_widget(form.genus)}}</td>
+            <td>{{ form_widget(form.family)}}</td>
+            <td>{{ form_widget(form.orden)}}</td>
+            <td>{{ form_widget(form.class)}}</td>
+            <td>{{ form_widget(form.phylum)}}</td>
+            <td>{{ form_widget(form.genus)}}</td>
+        </tr>
+    </table>
+
+<input type='submit' class='hidden'>
+{{ form_end(form) }}
+
+<div id="delete-form"  style="display: none">
+{{ form_start(delete_form) }}
+{{ form_end(delete_form) }}
+</div>
+    {% endblock body %}
+{% endembed %}

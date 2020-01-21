@@ -1,0 +1,16 @@
+{#
+/**
+ * @file form.html.twig Cavedamage form
+ * @parent  ../onetomany.html.twig
+ */
+#}
+<table class="table">
+  <tr>
+    <td>{{ form_label(form.damage)}}</td>
+    <td class="w-25">{{ form_label(form.position)}}</td>
+  </tr>
+  <tr>
+    <td>{{ form_widget(form.damage)}}</td>
+    <td>{{ form_widget(form.position, {attr: {class: 'w-50'}})}}</td>
+  </tr>
+</table>

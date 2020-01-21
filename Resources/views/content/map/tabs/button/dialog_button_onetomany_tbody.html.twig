@@ -1,0 +1,27 @@
+{#
+/**
+ * @file dialog_button_onetomany_tbody.html.twig
+ * Botón para abrir una ventana modal un formulario de de edición en listados de entidades oneToMany
+ * @parent ./buttons_group_onetomany_tbody.html.twig
+ */
+#}
+{%- set dialog =  {'position': "{at: 'top+25%'}", 'width': '800', 'modal': 'true', 'show': 'true', 'title': "'"~data.title~"'"}|merge(data.dialog|default({})) %}
+<button type="button" class="btn btn-default btn-xs" title="{{'edit'|trans({},'cavemessages')|capitalize|raw}}" onclick="
+                    $('<div id=\'dialog-message\'></div>').appendTo('body')
+                    .load(
+                            '{{path('cave_backend_map_editonetomany', { "id": data.id, 'sequence': data.sequence, 'name': data.name})}}',
+                            {name: '{{data.name}}'},
+                             function(){
+                                 $.ui.dialog.prototype._allowInteraction = function (e) {return true;};
+                                 tabLoader.setSelectors();
+                             }
+                            )
+                    .dialog(
+                        {
+                        {%for param, value in dialog %}
+                            {{param}}: {{value|raw}}{%if loop.last==false%},{%endif%} 
+                        {%endfor%}
+                        }
+                    );">
+<span  class="fa fa-edit" style="cursor:pointer" aria-hidden="true" ></span>
+</button>

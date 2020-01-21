@@ -1,0 +1,22 @@
+{#
+/**
+ * @file datum.html.twig
+ * @parent ./form.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+{% block heading %}{{ 'sysparam.edit.section.datum'| trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+{# sysparam name, id, ... #}
+<table class="table">
+<tr>
+  <td>{{ form_label(form.geogeodetdatum)}}</td>
+  <td>{{ form_label(form.heightdatum)}}</td>
+</tr>
+<tr>
+  <td>{{ form_widget(form.geogeodetdatum) }}</td>
+  <td>{{ form_widget(form.heightdatum) }}</td>
+</tr>
+</table>
+{% endblock body %}
+{% endembed %}

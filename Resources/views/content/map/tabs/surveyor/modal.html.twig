@@ -1,0 +1,28 @@
+{#
+/**
+ * @file modal.html.twig Formulario de edición en ventana modal
+ * @parent  ../modal.html.twig
+ */
+#}
+{% set isId= (form.surveyorid.vars.value is empty)? false : true %}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel}%}
+{% block heading %}{{ ('map.form.'~name~'.tab')|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table table-bordered" id="surveyorTable">
+  <tr>
+    <td class="col-lg-3 text-center">
+      <input type="radio" name="surveyormodal" id="mod-op-surveyorid" {% if isId  %}checked="checked"{% endif %} onchange="toggleSurveyor(this)">{{ form_label(form.surveyorid)}}
+      <input type="radio" name="surveyormodal" id="mod-op-surveyor" {% if not isId%}checked="checked"{% endif %} onchange="toggleSurveyor(this)"> {{ form_label(form.surveyor)}}
+    </td>
+    <td class="surveyormodal_td" {% if isId %}style="display: none;"{% endif %}>{{ form_widget(form.surveyor)}}</td>
+    <td class="surveyormodal_td" {% if not isId %}style="display: none;"{% endif %}>{{ form_widget(form.surveyorid)}}</td>
+  </tr>
+</table>
+<table class="table table-bordered">
+  <tr>
+    <td class="col-lg-2">{{ form_label(form.position)}}</td>
+    <td><div class="col-lg-1 nopadding">{{ form_widget(form.position)}}</td>
+  </tr>
+</table>
+{% endblock body %}
+{% endembed %}

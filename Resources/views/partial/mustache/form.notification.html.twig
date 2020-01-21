@@ -1,0 +1,37 @@
+{#
+/**
+ * Errores en formularios con mustache
+ * @file form.notification.html.twig
+ * @parent ../../base.html.twig
+ */
+#}
+{# Div de notificacion #}
+<div id="form-notification" class="alert alert-warning notification">   
+</div>
+{#Template Mustache #}
+<script id="mst-form-error" type="text/html">
+<button class="close"  type="button" onclick="this.parentNode.style.display='none';this.parentNode.innerHTML=''">×</button>
+<a href="javascript:void(0);" class="href-toggle" onclick="$('#table-mst-form-error').toggle();">Encontrados errores en el formulario <span class="fa fa-caret-down"></span></a>
+ {#  {%verbatim%} {{#error.global.length}} Errores globales: ({{error.global.length}}).{{/error.global.length}}
+    {{#error.fields.length}} Campos erroneos: ({{error.fields.length}}){{/error.fields.length}}.{%endverbatim%}#}
+<table class="table table-hover table-condensed" id="table-mst-form-error" style="display: table;">
+<thead>
+<tr>
+</tr>
+</thead>     
+<tbody>
+{% verbatim %}
+{{#error.global}}
+    <tr>
+         <td>{{{message}}}</td>
+    </tr>
+{{/error.global}}
+{{#error.fields}}
+    <tr>
+        <td><a href="JavaScript:void(0);" onclick="document.getElementById('{{{error.form}}}_{{{field}}}').focus();">{{{name}}}</a> : {{{message}}}</td>
+    </tr>
+{{/error.fields}}
+{% endverbatim %}
+</tbody>
+</table>   
+</script>

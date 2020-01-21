@@ -1,0 +1,21 @@
+{#
+/**
+ * @file map.html.twig
+ * Agrupa los formularios de edición parciales para Map entity
+ * @parent ../onetoone.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.get('page:style:form_panel_group') }%}
+{% block heading %}{{ ('map.form.'~name~'.tab')|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+
+    {% include '@GptCavebackend/content/map/tabs/map/name.html.twig'%}
+    {% include '@GptCavebackend/content/map/tabs/map/scope_politic.html.twig'%}
+    {% include '@GptCavebackend/content/map/tabs/map/datum.html.twig'%}
+    {% include '@GptCavebackend/content/map/tabs/map/scope_geographic.html.twig'%}
+    {% include '@GptCavebackend/content/map/tabs/map/source.html.twig'%}
+    {% include '@GptCavebackend/content/map/tabs/map/survey.html.twig'%}
+
+{% endblock body %}
+{% endembed %}
+{% include '@GptCavebackend/content/map/tabs/map/script.html.twig'%}

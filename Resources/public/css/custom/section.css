@@ -1,0 +1,16 @@
+/*------------------------------------*\
+	#SECCIONES
+\*------------------------------------*/
+/*<body>*/
+.default-body{background-color: #F3F3F3;}
+.map-body{background-color: #e6f9ff;}
+.organisation-body{background-color: #fff9e6;}
+.person-body{background-color: #ffeee6;}
+.mapserie-body{background-color:  #e6e6ff;}
+.article-body{background-color:  #efeff5;}
+.cave-body{background-color: #F0FFFF;}
+.sysparam-body{background-color: #ffeee6;}
+/*body container*/
+.content-default, .content-map , .content-organisation, .content-person, .content-mapserie, .content-article, .content-cave, .content-sysparam {
+    background-color: #FFFFFF;
+}

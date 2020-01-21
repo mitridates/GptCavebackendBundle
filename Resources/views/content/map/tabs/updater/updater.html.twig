@@ -1,0 +1,83 @@
+{#
+/**
+ * @file updater.html.twig
+ * Formularios de edición para Mapupdater entity
+ * @parent ../onetoone.html.twig
+ */
+#}
+{% set nullValue =  {'attr': {'disabled': 'disabled'} } %}
+{% set issetPerson = (form.vars.value.person is not null) %}
+{% set issetName = (form.vars.value.name is not null) %}
+{% set issetOrganisation = (form.vars.value.organisation is not null) %}
+{% set organisationinitials = (form.vars.value.organisationinitials is not null) %}
+
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.get('page:style:form_panel_group') }%}
+{% block heading %}{{ ('map.form.'~name~'.tab')|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+
+<table class="table table-bordered" id="table_updater_id">
+    <tr>
+        <td>{{ form_label(form.organisation)}}
+            <input type="radio" name="map-updater-org" {% if issetOrganisation or organisationinitials== false %}checked="checked"{% endif %}
+                   onchange="toggleUpdater.disableOrganisation(false)">
+        </td>
+        <td>{{ form_label(form.organisationinitials)}}
+            <input type="radio" name="map-updater-org" {% if issetOrganisation==false and  organisationinitials %}checked="checked"{% endif %}
+                   onchange="toggleUpdater.disableOrganisation(true)">
+
+        </td>
+        <td>{{ form_label(form.person)}}
+            <input type="radio" name="map-updater-person" {% if issetPerson or issetName== false %}checked="checked"{% endif %}
+                   onchange="toggleUpdater.disablePerson(false)">
+        </td>
+        <td>{{ form_label(form.name)}}
+            <input type="radio" name="map-updater-person" {% if issetName==false and  issetPerson %}checked="checked"{% endif %}
+                   onchange="toggleUpdater.disablePerson(true)">
+        </td>
+    </tr>
+    <tr>
+        <td>{{ form_widget(form.organisation, issetOrganisation or organisationinitials==false? {} : nullValue)}}</td>
+        <td>{{ form_widget(form.organisationinitials, organisationinitials ? {} : nullValue)}}</td>
+        <td>{{ form_widget(form.person, issetPerson or issetName==false ? {} : nullValue)}}</td>
+        <td>{{ form_widget(form.name, issetName ? {} : nullValue)}}</td>
+    </tr>
+</table>
+
+<table class="table table-bordered" id="table_updater_id">
+            <tr>
+                <td class="col-lg-2">{{ form_label(form.year)}}</td>
+                <td class="col-lg-10"></td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.year)}}</td>
+                <td></td>
+            </tr>
+</table>
+{% endblock body %}
+{% endembed %}
+
+<script>
+    var toggleUpdater = (function () {
+
+        var person = '#{{ form.person.vars.id }}';
+        var name = '#{{ form.name.vars.id }}';
+        var organisation = '#{{ form.organisation.vars.id }}';
+        var organisationinitials = '#{{ form.organisationinitials.vars.id }}';
+
+        function disablePerson(to) {
+            Grot(person).form('clear').form('disable',to);
+            Grot(name).form('clear').form('disable',!to);
+        }
+
+        function disableOrganisation(to) {
+            Grot(organisation).form('clear').form('disable',to);
+            Grot(organisationinitials).form('clear').form('disable',!to);
+        }
+
+        return {
+            disablePerson: disablePerson,
+            disableOrganisation: disableOrganisation,
+        };
+
+    })();
+</script>

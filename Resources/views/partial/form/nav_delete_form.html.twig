@@ -1,0 +1,24 @@
+{#
+/**
+ * Delete form. Must be outside Edit form
+ * @file delete_form.html.twig
+ */
+#}
+<!-- delete form-->
+{{ form_start(delete_form) }}
+<button type="submit" id="delete-button" class="btn btn-danger" onclick="
+        let icon = document.querySelector('.fa');
+        let text = document.querySelector('.delete-text');
+        if(icon.classList.contains('fa-trash')){
+                icon.classList.replace('fa-trash', 'fa-exclamation-triangle');
+                text.innerHTML = '{{'delete.confirm'|trans({}, 'cavemessages')|raw}}';
+                        setTimeout(function(){
+                        icon.classList.replace('fa-exclamation-triangle','fa-trash');
+                        text.innerHTML = '{{'delete'|trans({}, 'cavemessages')|raw}}';
+                        }, 3000);
+                return false;
+        }
+        "><i class="fa fa-trash"></i> <span class="delete-text">{{'delete'|trans({}, 'cavemessages')|raw}}</span>
+</button>
+{{ form_end(delete_form) }}
+<!-- end delete form-->

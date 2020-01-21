@@ -1,0 +1,94 @@
+{#
+/**
+ * Navegador de paginacion.
+ * @file navigator_simple.html.twig
+ * @param Paginator paginator Clase para paginación que devuelve:
+ *       getTotalPages(): número total de páginas
+ *       getPage(): página activa
+ *       getLimits()
+ *       getPageRows()
+ *       getTotalRows()
+ *       ...
+ */
+#}
+{% spaceless %}
+{# the number of pages that are displayed around the active page #}
+{% set showAlwaysFirstAndLast = showAlwaysFirstAndLast|default(true) %}
+{%set navigatorid =  navigatorid|default('navigatorid-'~random(100))%}
+<table class="table table-condensed nopadding nomargin table-borderless" id="{{navigatorid}}">
+<tr>
+<td class="text-left">
+{# page x of y #}
+    {{('pager.page.of.pages')|trans({'%page%': paginator.getPage(), '%pages%': paginator.getTotalPages()},'cavemessages')|raw}} 
+{# END page x de y #}
+    <span class="fa fa-info" aria-hidden="true"
+title="{{('pager.page.of.pages')|trans({'%page%': paginator.getPage(), '%pages%': paginator.getTotalPages()},'cavemessages')|raw}},
+    {{('pager.results.from.to')|trans({'%from%': paginator.getLimits()[0], '%to%': paginator.getLimits()[0]+paginator.getPageRows()},'cavemessages')|raw}},
+    {{('pager.partial.results')|trans({'%result%': paginator.getPageRows()},'cavemessages')|raw}},
+    {{('pager.total.results')|trans({'%result%': paginator.getTotalRows()},'cavemessages')|raw}},
+    {{('pager.maxresults.perpage')|trans({'%result%': paginator.getLimits()[1]},'cavemessages')|raw}}."
+    ></span>&nbsp;
+{# add spinner  onclik #}
+<span onclick="Grot($(this).closest('.grotte-paginable')).loader('reload', {}, false);this.className = 'fa fa-refresh fa-spin'; return false;"
+          style="cursor:pointer" title="{{('update')|trans({},'cavemessages')|raw}}"  class="fa fa-refresh" aria-hidden="true"></span>&nbsp;
+{# END add spinner  onclik #}
+
+{# show all pages option#}
+{% if paginator.getTotalPages()>1 %}
+ <span onclick="Grot($(this).closest('.grotte-paginable')).loader('reload', {page: 1, ipp: {{paginator.getTotalRows()}} }, false); this.className = 'fa fa-refresh fa-spin'; return false;"
+       style="cursor:pointer" title="{{('show.all')|trans({},'cavemessages')|raw}}" class="fa fa-list-alt" aria-hidden="true"></span>
+{% endif %}
+{# extend navigation buttons embed ...block extendNavigator #}
+{% block extendNavigator %}{% endblock extendNavigator %}
+</td>
+
+{# navigation#}
+<td class="text-right">
+        {% if paginator.getTotalPages() > 1 %}
+<nav aria-label="Page navigation" class="nomargin nopadding" >
+  <ul class="pagination nomargin pagination-sm">
+            {% if paginator.getPage() > 1 %}
+                <li><a aria-label="Previous" 
+                       style="cursor:pointer" 
+                       title="{{('previous.page')|trans({},'cavemessages')|raw}}" 
+                       onclick="Grot($(this).closest('.grotte-paginable')).loader('reload', {page: {{paginator.getPage()-1}}}); return false;"
+                       >&laquo;</a></li>
+                       
+            {% elseif showAlwaysFirstAndLast %}
+                <li class="disabled"><a 
+                        aria-label="Previous" 
+                       >&laquo;</a></li>
+            {% endif %}
+
+            {% for i in range(1, paginator.getTotalPages()) %}
+
+            <li {% if paginator.getPage() == i  %} class="active"{%endif%}>
+
+            <a 
+                onclick="Grot($(this).closest('.grotte-paginable')).loader('reload',{page: {{i}}});" 
+                style="cursor:pointer" 
+                title="{{('page.number')|trans({'%number%': i},'cavemessages')|raw}}"
+                >{{ i }}</a>
+            </li>
+            {%endfor%}
+
+            {% if paginator.getPage() < paginator.getTotalPages() %}
+                <li><a 
+                        aria-label="Next" 
+                        onclick="Grot($(this).closest('.grotte-paginable')).loader('reload',{page: {{paginator.getPage()+1}}});"
+                        style="cursor:pointer" 
+                        title="{{('next.page')|trans({},'cavemessages')|raw}}"                        
+                       >&raquo;</a></li>
+                <li>
+            {% elseif showAlwaysFirstAndLast %}
+                <li class="disabled"><a 
+                        aria-label="Next" 
+                        >&raquo;</a></li>
+            {% endif %}
+  </ul>
+</nav>
+</td>
+{% endif %}
+</tr>
+</table>
+{% endspaceless %}

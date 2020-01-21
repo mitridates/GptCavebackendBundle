@@ -1,0 +1,30 @@
+{#
+/**
+ * @file available.html.twig
+ * Formulario parcial
+ * @parent ./details.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel}%}
+{% block heading %}{{- ('map.tab.panel.available')|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table table-bordered">
+  <tr>
+    <td>{{ form_widget(form.vectorversionavail)}}</td>
+    <td>{{ form_widget(form.rasterversionavail)}}</td>
+    <td>{{ form_widget(form.digitalmaster)}}</td>
+    <td>{{ form_widget(form.microfilmed)}}</td>    
+  </tr>
+</table>
+<table class="table table-bordered">
+    <tr>
+        <th rowspan="2" class="col-lg-3" style="vertical-align:middle; text-align: center">{{ form_widget(form.restricted)}}</th>
+        <th>{{ form_label(form.restrictedcomment)}}</th>
+        </tr>
+    <tr>
+        <td>{{ form_widget(form.restrictedcomment)}}</td>
+    </tr>
+</table>
+{% endblock body %}
+{% endembed %}
+

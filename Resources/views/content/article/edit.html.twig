@@ -1,0 +1,53 @@
+{#
+/**
+ * Edit Article
+ * @file edit.html.twig
+ * @param array arrayParams
+ * @param FormView form Formulario de edición
+ * @param FormView delete_form Formulario delete
+ * @param Article article
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+{% block page_javascripts %}
+{%endblock%}
+{% block content %}
+    {%include '@GptCavebackend/content/article/form/navbar.html.twig'%}
+    {% include '@GptCavebackend/partial/form/error/all_errors_message.html.twig'%}
+    <div class="alert alert-primary" role="alert">
+        {{ ('article.edit.form.title')|trans({},'cavepages')|raw -}}
+    </div>
+    {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+    {{ form_start(form) }}
+
+    <div class="row no-gutters">
+        <div class="col">
+            {% include '@GptCavebackend/content/article/form/partial/name.html.twig' %}
+        </div>
+        <div class="col">
+            {% include '@GptCavebackend/content/article/form/partial/publication.html.twig' %}
+        </div>
+    </div>
+
+    <div class="row no-gutters">
+        <div class="col">
+            {% include '@GptCavebackend/content/article/form/partial/physical.html.twig' %}
+        </div>
+        <div class="col">
+            {% include '@GptCavebackend/content/article/form/partial/ssc.html.twig'%}
+        </div>
+    </div>
+
+    <div class="row no-gutters">
+        <div class="col-lg-6">
+            {% include '@GptCavebackend/content/article/form/partial/issn.html.twig' %}
+        </div>
+        <div class="col-lg-6">
+            {% include '@GptCavebackend/content/article/form/partial/isbn.html.twig'%}
+        </div>
+    </div>
+    {% include '@GptCavebackend/content/article/form/partial/abstract.html.twig'%}
+
+    {% include '@GptCavebackend/partial/form/nav_edit_submit_button.html.twig' %}
+    {{ form_end(form) }}
+{% endblock %}

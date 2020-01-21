@@ -1,0 +1,14 @@
+{#
+/**
+ * New Fielddefinition
+ * @file new.html.twig
+ * @param array arrayParams
+ * @param FormView form
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+{% block content %}
+    {%include '@GptCavebackend/content/fielddefinition/form/navbar.html.twig'%}
+    {% include '@GptCavebackend/partial/form/error/all_errors_message.html.twig'%}
+    {%include '@GptCavebackend/content/fielddefinition/form/new.html.twig'%}
+{%endblock content%}

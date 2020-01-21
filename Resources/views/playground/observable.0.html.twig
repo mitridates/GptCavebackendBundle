@@ -1,0 +1,22 @@
+{#
+/**
+ * @file observable0.html.twig
+ * Prueba
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+
+{% block page_javascripts %}
+    {% set javascripts = [
+    'Grot/dev/Grot.observable.0.js'
+    ]
+    %}
+
+{%for file in javascripts %}
+<script type="text/javascript" src="{{asset(arrayParams.get('cave_backend:webasset:js')~file)}}"></script>
+{%endfor%}
+{% endblock page_javascripts %}
+
+{# contenido #}
+{% block content %}
+{% endblock content %}

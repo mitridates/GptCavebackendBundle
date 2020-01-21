@@ -1,0 +1,57 @@
+{#
+/**
+ * Bootstrap poload. Load Fielddefinition html with ./field_value_code_popover.html.twig
+ * @file fdpoload.html.twig
+ * @param int id Fielddefinition ID
+ * @param string|undefined name Fielddefinition name
+  */
+#}
+{% if name is not defined %}
+    {% set name= get_fielddefinition_name(id,app.request.locale)|raw %}
+{% endif %}
+{% if title is not defined %}
+    {% set title= id~' - '~name %}
+{% endif %}
+{{name}} <span
+        data-toggle="popover"
+        data-html="true"
+        data-url="{{path('cave_backend_xhr_fielddefinition',{'code': id})}}"
+        data-ispopoverloaded="false"
+        title="{{title}}"
+        data-content="loading..."
+        class="tooltipfdd ui-icon ui-icon-comment" style="display: inline-block"
+        onclick="
+        let $this=$(this);
+        if($this.data('ispopoverloaded')) return;
+                    $.ajax({
+                    url: $this.data('url'),
+                    method: 'GET',
+                    success: function(data){
+                        $this.popover('hide');
+                        $this.attr('data-content',data);
+                        $this.popover('show');
+                        $this.data('ispopoverloaded', true);
+                    }});
+                    //dismiss on Escape
+                      document.onkeydown = function(evt) {
+                            evt = evt || window.event;
+                            var isEscape = false;
+                            if ('key' in evt) {
+                                isEscape = (evt.key === 'Escape' || evt.key ==='Esc');
+                            } else {
+                                isEscape = (evt.keyCode === 27);
+                            }
+                            if (isEscape) {
+                            $('[data-ispopoverloaded]').popover('hide');
+                            }
+                        }
+                        $('html').on('mouseup', function (e) {
+                            let l = $(e.target);
+                            //hide si el elemento o parentNode no contienen la clase *popover*
+                            if (l[0].className.indexOf('popover') == -1 && l[0].parentNode.className.indexOf('popover')) {
+                                $('.popover').each(function () {
+                                    $(this).popover('hide');
+                                });
+                            }
+                        });
+                        ;"></span>

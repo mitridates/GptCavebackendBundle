@@ -1,0 +1,12 @@
+{#
+/**
+ * @file buttons_group_onetomany_tbody.html.twig
+ * Botonera para los listados de entidades del tipo oneToMany
+ * @parent../{name}/search_result/tbody.html.twig
+ */
+#}
+<div class="btn-group" role="group" aria-label="Botonera">
+{%include '@GptCavebackend/content/map/tabs/button/dialog_button_onetomany_tbody.html.twig' with { 'data': data} only %}
+ <button type="button" class="btn btn-default disabled btn-xs">&nbsp;</button>
+{%include '@GptCavebackend/content/map/tabs/button/delete_button_onetomany_tbody.html.twig' with { 'data': data} only %}
+</div>

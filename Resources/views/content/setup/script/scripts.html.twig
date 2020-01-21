@@ -1,0 +1,42 @@
+{#
+/**
+ * @file scripts.html.twig
+ * Scripts comunes
+ *
+ */
+#}
+<script>
+ $(document).ready(function() {
+
+    $('.select2').select2();
+
+    $('.countryid').select2({
+         placeholder: '{{ 'select.government.level.country'|trans({},'cavemessages')|raw }}',
+         'allowClear': true
+     }).on('select2:unselecting', function(){
+         var val =  $(this).find(':selected').val();
+         if(val=='undefined' || val!==''){
+             $('.admin1id').html('');
+         }
+     });
+
+     $('.admin1id').select2({
+         placeholder: '{{ 'select.government.level.admin1'|trans({},'cavemessages')|raw }}',
+         'allowClear': true
+     }).nestedselect2({
+         url: '{{path('cave_backend_json_admin1')}}',
+         parent: {el:'.countryid', row: 'countryid'},
+         defaults: {placeholder: '{{ 'government.level.admin1'|trans({},'cavemessages')|raw }}'}
+     }).on('select2:unselecting', function(){
+         $('.countryid').trigger('change');
+     });
+
+
+
+ Grot('.mapsheet').select2paginado('{{path('cave_backend_map_json')}}',
+            {placeholder: '{{'select.map'|trans({},'cavemessages')|raw}}'}
+            );
+});
+
+
+</script> 

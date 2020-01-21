@@ -1,0 +1,12 @@
+{#
+/**
+ * @file scripts.html.twig
+ */
+#}
+<script>
+ $(document).ready(function() {
+ Grot('.map').select2paginado('{{path('cave_backend_map_json')}}',
+            {placeholder: '{{'select.map'|trans({},'cavemessages')|raw}}'}
+            );
+});
+</script>

@@ -1,0 +1,84 @@
+{#
+/**
+ * @todo
+ */
+#}
+<script>
+ $(document).ready(function() {
+               //Cave tab nested select country > admin1 > admin2 > admin3
+                
+               $('.countryid').select2({
+                    placeholder: '{{ 'government.level.country'|trans({},'cavemessages')|raw }}',
+                    'allowClear': true
+                }).on('change',function(){
+                    $('.admin1id, .admin2id, .admin3id').html('');
+                
+                }).on('select2:unselecting', function(){
+                    var val =  $(this).find(':selected').val();
+                    if(val==='undefined' || val!==''){
+                        $('.admin1id, .admin2id, .admin3id').html('');
+                    }
+                });
+
+             $('.admin1id').select2({
+                    placeholder: '{{ 'government.level.admin1'|trans({},'cavemessages')|raw }}',
+                    'allowClear': true
+                }).nestedselect2({
+                    url: '{{path('cave_backend_json_admin1')}}',
+                    parent: {el:'.countryid', row: 'countryid'},
+                    defaults: {placeholder: '{{ 'government.level.admin1'|trans({},'cavemessages')|raw }}'}
+                }).on('select2:unselecting', function(){
+                    var val =  $(this).find(':selected').val();
+                    if(val==='undefined' || val!==''){
+                        $('.admin2id, .admin3id').html('');
+                    }
+                }).on("select2:select", function(e) {
+                   var val =  $(this).find(':selected').val();
+                    if(typeof val!=='undefined' && val!==''){
+                            var $el = $('.admin3id');
+                            $.ajax({
+                              url: '{{path('cave_backend_json_admin2')}}',
+                              dataType: 'json',
+                              type:'POST',
+                              data: {'admin1id': val},
+                              success: function(result){
+                                $el.html('').select2({
+                                    data: result.out,
+                                    placeholder: '{{ 'select.government.level.admin3'|trans({},'cavemessages')|raw }}',
+                                    allowClear: true
+                                }).val('').trigger('change');
+
+                              }
+                        });  
+                        
+                    }else{
+                        $el.html('').select2();
+                    }
+                    
+                });
+                
+                
+                $('.admin2id').select2({
+                    placeholder: '{{ 'select.government.level.admin2'|trans({},'cavemessages')|raw }}',
+                    allowClear: true
+                }).nestedselect2({
+                    url: '{{path('cave_backend_json_admin2')}}',
+                    parent: {el:'.admin1id', row: 'admin1id'},
+                    defaults: {placeholder: '{{ 'select.government.level.admin2'|trans({},'cavemessages')|raw }}'}
+                });     
+
+                
+                $('.admin3id').select2({
+                    placeholder: '{{ 'select.government.level.admin3'|trans({},'cavemessages')|raw }}',
+                    allowClear: true
+                }).nestedselect2({
+                    url: '{{path('cave_backend_json_admin3')}}',
+                    parent: {el:'.admin2id', row: 'admin2id'},
+                    defaults: {placeholder: '{{ 'select.government.level.admin3'|trans({},'cavemessages')|raw }}'}
+                });
+
+                
+                $( '.grotte-paginable' ).each(function( index ) { Grot(this).loader('load'); });        
+
+});
+</script> 

@@ -1,0 +1,104 @@
+{#
+/**
+ * @file fields.html.twig
+ * Modificación al layout bootstrap_3_layout.html.twig
+ ^ Añadimos atributos a etiquetas del formulario html
+ * para mostrar una descripción obtenida de la base de datos
+ * mediante
+ */
+#}
+{% use '@GptCavebackend/symfony/bootstrap_3_layout.html.twig' %}
+
+{% block form_label -%}
+{% spaceless %}
+{#  En FormType añadimos el  atributo  "code_id" a cualquier objeto del formulario
+    que se corresponde con el ID en la tabla Fielddefinition.
+    Mediante la extensión twig "get_fielddefinition_name(attr.code_id,locale=null,abbreviation=false)" añadimos información extra.
+#}
+{% if attr.code_id is defined %}
+    {%- set fd_value_name = get_fielddefinition_name(attr.code_id,app.request.locale) -%}
+    {%if fd_value_name is null %}
+        {%- set fd_value_name = 'undefined code "'~attr.code_id -%}
+    {%endif%}
+
+    <label title="{{ attr.code_id }} - {{ fd_value_name }}"
+        {%- if label_attr is iterable-%}
+            {% for attrname, attrvalue in label_attr -%}
+                {{ attrname }}="{{ attrvalue }}"
+            {%- endfor -%}
+        {%- endif-%}>{{- fd_value_name -}}
+    </label>
+    {% include '@GptCavebackend/partial/page/fdpoload.html.twig' with {'id': attr.code_id , 'name': null, 'title': attr.code_id~' - '~fd_value_name} only %}
+{%else%}
+    {{- parent() -}}
+{%-endif-%}
+
+{# aplicamos estilos distintos a los campos obligatorios#}
+{%if required== true %}
+    <span class="ui-icon ui-icon-alert" title="{{ 'required'|trans({},'cavemessages')|raw }}" style="display: inline-block" ></span>
+{%endif%}
+{% endspaceless %}
+{%- endblock form_label %}
+
+{# Se pueden modificar los atributos para tomar el placeholder de la base de datos...  Interesante.
+{% block widget_attributes %}
+    {% if attr.code_id is defined %}
+              {%if attr.placeholder is not defined %}
+                {% set attr = attr|merge({'placeholder': fielddefinition_blah(attr.code_id,...)}) %}
+            {% endif %}
+    {%-endif-%}
+ {{- parent() -}}
+{% endblock widget_attributes %}
+#}
+
+{% block checkbox_widget %}
+{% spaceless %}
+{% if attr.code_id is defined %}
+
+{%- set fd_label_name = get_fielddefinition_name(attr.code_id,app.request.locale) -%}
+
+<div class="checkbox">
+        <label for="label-{{ attr.code_id }}">
+            <input class="checkbox" type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+            {{ fd_label_name }}
+        </label>
+    {% include '@GptCavebackend/partial/page/fdpoload.html.twig' with {'id': attr.code_id , 'name': null, 'title': attr.code_id~' - '~fd_label_name} only %}
+</div>
+{%else%}
+        {{- parent() -}}
+{%-endif-%}
+{% endspaceless %}    
+{% endblock checkbox_widget %}
+
+
+{# Form field Errors #}
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            {% if compound %}{# ¿no usados? #}
+                <ul>
+                    {% for error in errors %}
+                        <li>{{ error.message }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                {%- set error_field_name = (attr.code_id is defined)? get_fielddefinition_name(attr.code_id,app.request.locale) : name -%}
+                {%- set error_field_id = form.vars.id~'_error' -%}
+                <div id="{{ error_field_id }}" class="float-error">
+                    <div class="float-error-title">
+                        <span class="fa fa-exclamation"></span> {{ error_field_name }}
+                        <span class="float-error-close"  onclick="document.getElementById('{{ error_field_id }}').outerHTML = '';">x</span>
+                    </div>
+
+                    <div id="reldiv1" class="float-error-relative">
+                        <ul>
+                            {%- for error in errors -%}
+                                <li>{{ error.message|raw }}</li>
+                            {%- endfor -%}
+                         </ul>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}

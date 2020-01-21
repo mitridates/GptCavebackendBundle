@@ -1,0 +1,29 @@
+{#
+/**
+ * @file index_ajax.html.twig
+ * Muestra los resultados de la búsqueda
+ * Mediante javascript muestra un resultado directo del controlador.
+ *
+ * @param array arrayParams
+ * @param array entities resultados de la búsqueda
+ * @param FormView form formulario de búsqueda
+ * @param Paginator paginator
+ * @param string entity_token CsrfToken
+ */
+#}
+{# Variables dependiendo de la sección #}
+{%include '@GptCavebackend/partial/paginator/navigator_rango.html.twig' with {'paginator': paginator} only %}
+{# tabla de resultados #}
+{% embed '@GptCavebackend/partial/buscador/datatable_layout.html.twig' with {'tableid': 'tabla_resultados_art' }%}
+{% block thead %}
+{%include '@GptCavebackend/content/person/search_result/thead.html.twig' only %}
+{% endblock thead %}
+{% block tbody %}
+{%include '@GptCavebackend/content/person/search_result/tbody.html.twig' with {
+    'entities': entities,
+    'entity_token': entity_token
+} only%}
+{% endblock tbody %}
+{% block tfoot %}
+{% endblock tfoot %}
+{% endembed %}

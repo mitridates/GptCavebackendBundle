@@ -1,0 +1,64 @@
+{#
+/**
+ * @file dropdown.html.twig
+ * Enlaces a formularios para este mapa
+ *
+ * @parent ./navbar.html.twig
+ */
+#}
+{% set menu = arrayParams.get('page:menu')  %}
+
+{% set hiddenGroups=   arrayParams.get('page:hidden:groups', [])%}
+{% set hiddenForms=   arrayParams.get('page:hidden:forms', [])%}
+        <!-- Dropdown megamenu full width (.yamm) -->
+        <li class="dropdown yamm-fw"><a href="#" data-toggle="dropdown" class="dropdown-toggle btn alert-success">{{- 'select.form'|trans({},'cavemessages')|capitalize|raw }}
+                 <span class="dropdown"><span class="fa fa-caret-down"></span></span>
+            </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <!-- Content container to add padding .yamm-content-->
+                  <div class="yamm-content">
+
+                  {% for header, names in menu if header not in hiddenGroups%}
+
+                      <!-- row each 6 col -->
+                      {%if loop.index is divisible by(6) %}<div class="row">{%endif%}
+                      <!-- vertical nav pill col-->
+                       <ul class="col-sm-2 nav nav-pills nav-tabs nav-stacked" role="tablist">
+                      <!-- vertical nav pill header -->
+                        <li class="list-unstyled">
+                          <p><strong>{{- ('map.tab.'~header)|trans({},'cavepages')|raw -}}</strong></p>
+                        </li>
+                    {%for name in names  if name not in arrayParams.get('page:hidden:forms', []) %}
+                        <!-- vertical nav pill list -->
+                        <li class="{%if active == name%} active{%endif%}">
+                            <a class="nopadding" id="{{name~'_'~sufix}}_anchor" href="#{{name~'-'~sufix}}" aria-controls="{{name~'-'~sufix}}" role="tab" data-toggle="pill" 
+                               onclick="tabLoader.load('#{{name~'-'~sufix}}'); $('.dropdown > .dropdown-menu').fadeOut('fast');">
+                                {{- ('map.'~name~'.'~sufix)|trans({},'cavepages')|raw -}}
+                            </a>
+                        </li>
+                    {%endfor%}  
+                      </ul>
+                  {%if loop.index is divisible by(6) %}</div>{%endif%}
+                  {%endfor%}
+
+                  </div><!-- end .yamm-content-->
+                </li>
+              </ul>
+        </li><!-- end dropdown megamenu -->
+<script>
+ $(document).ready(function() {
+     $(".dropdown").hover(
+            function() {
+                $('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
+                $(this).toggleClass('open');
+                $('.dropdown', this).toggleClass("dropdown dropup");
+            },
+            function() {
+                $('.dropdown-menu', this).stop( true, true ).fadeOut("fast");
+                $(this).toggleClass('open');
+                $('.dropup', this).toggleClass("dropdown dropup");
+            });
+});
+</script>
+        

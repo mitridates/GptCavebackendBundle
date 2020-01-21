@@ -1,0 +1,18 @@
+{#
+/**
+ * @file buttons.html.twig
+ * Botones para el formulario de edición
+ *
+ * @parent ./navbar.html.twig
+ */
+#}
+
+    {% set btns =  {
+            'save': {'type': 'submit', 'attr': { 'onclick': clickEvent }, 'icon': {'class': 'submit'} },
+    }
+    %}
+
+    <div class="navbar-btn">
+    {%include '@GptCavebackend/partial/form/buttons.html.twig'  with {'btns' : btns} only %}
+    </div>
+{# end botones #}

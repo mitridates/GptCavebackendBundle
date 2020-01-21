@@ -1,0 +1,29 @@
+{#
+/**
+ * @file form.html.twig Mapfurtherpc form
+ * @parent  ../onetomany.html.twig
+ */
+#}
+{#FIXME: La cobertura política adicional permite incluir nuevas áreas, admin2 es erróneo#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.get('page:style:form_panel_group') }%}
+  {% block heading %}{{ ('map.form.'~name~'.tab')|trans({},'cavepages')|raw -}}{% endblock heading %}
+  {% block body %}
+<table class="table table-bordered">
+  <tr>
+    <td>{{ form_label(form.country)}}</td>
+    <td>{{ form_label(form.admin1)}}</td>
+    <td>{{ form_label(form.admin2)}}</td>
+    <td></td>  
+  </tr>
+  <tr>
+    <td>{{ form_widget(form.country, {value: "" })}}</td>
+    <td>{{ form_widget(form.admin1, {value: "" })}}</td>
+    <td>{{ form_widget(form.admin2 , {value: "" })}}</td>
+    <td class="col-lg-4 text-center">
+    {%include '@GptCavebackend/content/map/tabs/button/buttons_group_onetomany_form.html.twig'%}
+    </td>
+  </tr>  
+</table>
+{% endblock body %}
+{% endembed %}
+{%include '@GptCavebackend/content/map/tabs/'~name~'/script.html.twig'%}

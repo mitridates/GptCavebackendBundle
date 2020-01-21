@@ -1,0 +1,12 @@
+{#
+/**
+ * @file save_button_onetomany_modal.html.twig
+ * Botón Guardar para ventana modal en formularios de entidades oneToMany
+ * @parent../modal.html.twig
+ */
+#}
+{%include '@GptCavebackend/partial/form/buttons.html.twig'  with {'btns' : {
+            'save': {'type': 'submit', 'attr': {'onclick': clickEvent }, 
+            'icon': {'class': 'edit-'~name, 'id': form.vars.attr.id~'_button_animation'} }
+           } 
+} only %}

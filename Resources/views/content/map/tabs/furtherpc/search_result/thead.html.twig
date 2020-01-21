@@ -1,0 +1,12 @@
+{#
+/**
+ * @file thead.html.twig
+ * @parent ./index.html.twig
+#}
+<tr class="active">
+  <th class="text-center col-lg-1">{{get_fielddefinition_name(10001,app.request.locale)|raw}}</th>
+  <th class="text-center">{{get_fielddefinition_name(368,app.request.locale)}}<!--country--></th>
+  <th class="text-center">{{get_fielddefinition_name(369,app.request.locale)}}<!--state--></th>
+  <th class="text-center">{{get_fielddefinition_name(409,app.request.locale)}}<!--area--></th>
+  <th class="text-center col-lg-2"></th>
+</tr>

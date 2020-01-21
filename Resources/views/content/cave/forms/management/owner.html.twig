@@ -1,0 +1,40 @@
+{#
+/**
+ * @file owner.html.twig
+ * Formulario parcial
+ * @parent ./management.html.twig
+ */
+#}
+
+<table class="table">
+    <tr>
+        <td>{{ form_label(form.ownertype)}}</td>
+        <td>{{ form_widget(form.ownertype)}}</td>
+    </tr>
+    {% for f in ['ownerperson' , 'ownerorganisation','ownername'] %}
+        {% set isNull= form[f].vars.value=='' %}
+        <tr>
+            <td>{{ form_label(form[f])}}
+                <input type="radio"  name="form_management_owner_check" data-target="{{ form[f].vars.id }}"
+                       {% if isNull==false %}checked="checked"{% endif %}
+                       onchange="managementOwnerDisabled(this)">
+            </td>
+
+            <td>{{ form_widget(form[f], {'attr': {'disabled': (isNull)? 'disabled' : false}})}}</td>
+        </tr>
+    {% endfor %}
+
+</table>
+
+<script>
+    function managementOwnerDisabled(element, notdsbld){
+        let form =    document.getElementById('{{ form.vars.attr.id }}');
+        let elements = form.querySelectorAll('[name=form_management_owner_check]');
+
+        for(let i = 0 ; i<elements.length; i++){
+            let field = document.getElementById(elements[i].dataset.target);
+            Grot(field).form('clear')
+            field.disabled = (elements[i]===element)?  false : true;
+        }
+    };
+</script>

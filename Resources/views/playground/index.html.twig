@@ -1,0 +1,74 @@
+{#
+/**
+ * @file index.html.twig
+ * Prueba
+ *
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+<style>
+  #map {
+    height: 100%;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+</style>
+{% endblock stylesheets %}
+{#
+{% block page_javascripts %}
+{% endblock page_javascripts %}
+
+#}
+{%set attr = {
+        'pager': {'id': 'search_results', 'params': {}},
+        'path': path('cave_backend_playground_ajaxpager')
+}%}
+{% block page_javascripts %}
+{%include '@GptCavebackend/playground/index/script/index_script.html.twig'%}
+{% endblock page_javascripts %}
+{# contenido #}
+{% block content %}
+{# formulario de búsqueda #}
+
+{%include '@GptCavebackend/playground/index/index_search_form.html.twig' %}
+{# carga de resultados y paginador #}
+<div id="{{attr.pager.id}}" 
+     class="grotte-paginable"
+     data-path='{{attr.path}}'
+     data-params=''
+     style="position: relative"
+     >
+</div> 
+    <div style="height: 800px;" id="mapData">
+        <div style="width: 100%; height: 100%" id="map">
+        </div>
+    </div>         
+{% endblock content %}
+{% block footer_javascripts %}
+    
+{{ parent() }}
+{# load pagination #}
+<script>
+    $(document).ready(function() {
+        //document.querySelector('.search').click();
+    });   
+
+    var geo = new Grot.geo('{{arrayParams.get('cave:bundle:google_maps_api_key')}}');
+    Grot.cache.set('geo', geo);
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 38.1486, lng: -1.0431},
+        zoom: 8
+        });
+        Grot.cache.set('map', map);
+    }
+    </script>
+
+    {#<script src="https://maps.googleapis.com/maps/api/js?key={{arrayParams.get('cave_backend:google_maps_api_key', null)}}&libraries=geometry&callback=initMap" async defer></script>#}
+{% endblock footer_javascripts%}

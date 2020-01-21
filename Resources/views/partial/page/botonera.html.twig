@@ -1,0 +1,17 @@
+{#
+/**
+ * Un intento de estandarizar estilos para los botones
+ * en todos los formularios de edición
+ * @file botonera.html.twig
+ */
+#}
+{# tipos de fila #}
+{%- set def =  {'class': ['row', 'botonera', class|default('')]} %}
+<div class="{{ def.class|join(' ')}}">
+{% block izquierda %}
+{% endblock izquierda %}
+{% block centro %}
+{% endblock centro %}
+{% block derecha %}
+{% endblock derecha %}
+</div>

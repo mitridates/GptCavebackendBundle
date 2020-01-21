@@ -1,0 +1,21 @@
+.table {
+    font-size: 0.9em;
+}
+.table-borderless tbody tr td,
+.table-borderless tbody tr th,
+.table-borderless thead tr th,
+.table-borderless thead tr td,
+.table-borderless tfoot tr th,
+.table-borderless tfoot tr td {
+    border: none !important;
+}
+
+.vertical-middle {
+    vertical-align: middle !important;
+}
+.vertical-top {
+    vertical-align: top !important;
+}
+.vertical-bottom {
+    vertical-align: bottom  !important;
+}

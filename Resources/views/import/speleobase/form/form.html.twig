@@ -1,0 +1,58 @@
+{#
+/**
+ * @file form.html.twig
+ * @parent ../index.html.twig
+ */
+#}
+{% form_theme formCSV '@GptCavebackend/symfony/fields.html.twig' %}
+{{ form_start(formCSV)}}
+{# errores del formulario #}
+{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+{% block heading %}{{ 'import.speleobase.cvs'| trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+
+<table class="table">
+<tr>
+  <td>{{ form_label(formCSV.submitSpeleobaseCSV)}}</td>
+</tr>
+<tr>
+  <td>{{ form_widget(formCSV.submitSpeleobaseCSV)}}</td>
+</tr>
+</table>
+{% endblock body %}
+{% endembed %}
+<input type='submit'>
+{{ form_end(formCSV) }}
+
+
+
+{% form_theme formGPX '@GptCavebackend/symfony/fields.html.twig' %}
+{{ form_start(formGPX)}}
+{# errores del formulario #}
+{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+{% block heading %}{{ 'import.speleobase.gpx'| trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+
+<table class="table">
+<tr>
+  <td>{{ form_label(formGPX.submitSpeleobaseGPX)}}</td>
+</tr>
+<tr>
+  <td>{{ form_widget(formGPX.submitSpeleobaseGPX)}}</td>
+</tr>
+</table>
+{% endblock body %}
+{% endembed %}
+<input type='submit'>
+{{ form_end(formGPX) }}
+
+
+<table class="table table-bordered">
+  <tr>
+    <td>Actualizar datos de tabla de Utm a Lat/Lng</td>
+  </tr>
+  <tr>
+    <td><a href="{{path('cave_backend_updateutmtolatlng')}}" TARGET="_blank">DALE!!!</a></td>
+  </tr>
+</table>
+

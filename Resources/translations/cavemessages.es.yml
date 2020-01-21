@@ -1,0 +1,133 @@
+#botoneras"
+add: "Añadir"
+backtolist: "Buscador"
+clear.input: "Limpiar campo de texto"
+clear: "Limpiar"
+close: "Cerrar"
+create.registry: "CREAR REGISTRO"
+delete: "Borrar"
+delete.confirm: "Confirme para eliminar este registro"
+delete.ondblclick: "Doble click para borrar"
+delete.this.form: "Borrar formulario"
+delete.confirm.this.form: "Confirme para eliminar este formulario"
+edit: "Editar"
+enable: "Habilitar"
+erase: "Eliminar"
+modify: "Modificar"
+new: "Nuevo"
+notdefined: 'No definido'
+new.disabled: "No se pueden crear nuevos registros"
+options: "Opciones"
+reload: "Recargar"
+reset: "Restaurar"
+search: "Buscar"
+save: "Guardar"
+save.form: "GUARDAR FORMULARIO"
+
+save.all: "Guardar todo"
+savechanges: "Guardar cambios"
+select.form: "Seleccionar formulario"
+show: "Mostrar"
+submit: "Enviar"
+
+#boton script
+ondblclick.erase: "Doble click para eliminar"
+#selects"
+select.area: "Seleccione área"
+select.article: "Seleccione artículo"
+select.cave: "Seleccione cavidad"
+select.gender: "Seleccione género"
+select.gender.undefined: "No definido"
+select.gender.male: "Masculino"
+select.gender.female: "Femenino"
+select.nooptionsavailable: "No hay más opciones"
+select.organisation: "Seleccione organización"
+select.person: "Seleccione persona"
+select.map: "Seleccione mapa"
+select.mapserie: "Seleccione serie"
+select.specie: "Seleccione especie"
+
+#state/CCAA
+select.government.level.country: "Seleccione País"
+select.government.level.admin1: "Seleccione CCAA"
+#province/county/Provincia
+select.government.level.admin2: "Seleccione Provincia"
+#municipality/parish/Municipio
+select.government.level.admin3: "Seleccione Municipio"
+#Pedanía
+select.government.level.admin4: "Seleccione Pedanía"
+
+#Buscadores"
+search.form: "Buscador"
+noresultfound: "No se encontraron resultados"
+search.more.options: "M&aacute;s opciones de búsqueda"
+search.administrative.division: "Divisi&oacute;n pol&iacute;tica"
+
+#paginacion"
+pager.page.of.pages: "P&aacute;gina %page% de %pages%"
+pager.results.from.to: "Resultados del %from% al %to%"
+pager.partial.results: "Resultados parciales: %result%"
+pager.total.results: "Resultados totales: %result%"
+page.number: "p&aacute;gina %number%"
+next.page: "Siguiente"
+previous.page: "Anterior"
+pager.maxresults.perpage: "Resultados por p&aacute;gina: %result%"
+show.on.map: "Mostrar en el mapa"
+show.on.table: "Mostrar en tabla"
+show.all: "Mostrar todo"
+update: "Actualizar"
+#sin determinar"
+yes: "sí"
+no: "no"
+
+#divisiones administrativas"
+#Country
+government.level.country: "Pais"
+#state/CCAA
+government.level.admin1: "CCAA"
+#province/county/Provincia
+government.level.admin2: "Provincia"
+#municipality/parish/Municipio
+government.level.admin3: "Municipio"
+#parish
+government.level.admin4: "Pedania"
+#hierarchical series of land units used within the country to identify and subdivide land   
+#Example for AU from smallest to largest:allotment, section, parish, county, and state   
+#state
+land.unit.fifth: "State"        
+#county
+land.unit.fourth: "County"
+#parish
+land.unit.third: "Parish"
+#section
+land.unit.second: "Section"
+#"Lots" (allotments)
+land.unit.smallest: "Lots"
+land.unit.special: "Special land parcel"
+
+#Palabras simples"
+name: "Nombre"
+organisation: "Organizaci&oacute;n"
+required: "Requerido"
+serial: "N&uacute;mero de serie (00000-99999)"
+
+#Fieldvaluecodes
+attributes: "Atributos"
+valuecodes: "Valores codificados"
+comment: "Comentario"
+usage: "Uso"
+example: "Ejemplo"
+codes: "C&oacute;digos"
+
+##COMMON"
+system.main.org: "Organizaci&oacute;n administradora"
+system.idgenerator.org: "Manager org."
+
+##flash messages xhtmlrequest"
+id.successfully.deleted: "El registro '%id%' ha sido borrado satisfactoriamente"
+id.successfully.created: "El registro ha sido creado satisfactoriamente"
+id.invalid.delete.form: "Formulario inv&aacute;lido! El registro '%id%' no ha podido ser borrado"
+invalid.token: "El token no es v&aacute;lido o a caducado. Refresque para generar un nuevo token"
+form.successfully.deleted: "El formulario ha sido eliminado satisfactoriamente"
+undefined.organisationdbm: "No se ha encontrado la organizaci&oacute;n controladora de los estandar y diseño de la base de datos."
+undefined.systemparameter: "No hay par&aacute;metros de administraci&oacute;n del sistema est&aacute;n incompletos!"

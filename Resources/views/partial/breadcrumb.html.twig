@@ -1,0 +1,29 @@
+{#
+/**
+ * Genera el breadcrumb
+ * @file breadcrumb.html.twig
+ * @parent ./base.html.twig
+ * @param array router Controller Action routes
+ * @param array breadcrumb router keys for this page
+ */
+#}
+<!-- Navigation breadcrumb .breadcrumb -->
+{% block breadcrumb %}  
+{%- if breadcrumb -%}
+    <ol  class="breadcrumb">
+{% for crumb in breadcrumb -%}
+    {% set route= router[crumb] %}
+<li>
+    {%- if route.path -%}
+    <a title="{{route.title|default(route.text)|raw}}"
+       href="{{(route.path is iterable)? path(route.path|first, route.path|last) : path(route.path)}}">
+        {{ route.text|raw }}</a>
+        {%- else -%}
+        {{ route.text|raw }}
+    {%- endif -%}
+</li>
+{% endfor%}
+</ol>
+{%- endif -%}
+{% endblock %}
+<!-- /.breadcrumb -->

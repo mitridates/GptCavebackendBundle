@@ -1,0 +1,26 @@
+{#
+/**
+ * @file physical.html.twig
+ *
+ * @parent ../../edit.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel }%}
+    {% block heading %}{{ 'article.edit.form.physical'| trans({},'cavepages')|raw -}}{% endblock heading %}
+    {% block body %}
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.pagerange)}}</td>
+                <td>{{ form_label(form.quantityofmaps)}}</td>
+                <td>{{ form_label(form.quantityofplates)}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.pagerange)}}</td>
+                <td>{{ form_widget(form.quantityofmaps)}}</td>
+                <td>{{ form_widget(form.quantityofplates)}}</td>
+                <td>{{ form_widget(form.bibliographypresent)}}</td>
+            </tr>
+        </table>
+    {% endblock body %}
+{% endembed %}

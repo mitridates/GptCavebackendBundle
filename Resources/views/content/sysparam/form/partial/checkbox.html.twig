@@ -1,0 +1,19 @@
+{#
+/**
+ * @file checkbox.html.twig
+ * @parent ./form.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+{% block heading %}{{ 'sysparam.edit.section.checkbox'| trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table">
+<tr>
+  <td><span class="ui-icon ui-icon-blank" style="display: inline-block"></span></td>
+</tr>
+<tr>
+  <td>{{ form_widget(form.transcodes) }}</td>
+</tr>
+</table>
+{% endblock body %}
+{% endembed %}

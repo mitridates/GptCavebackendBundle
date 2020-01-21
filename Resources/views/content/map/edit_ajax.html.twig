@@ -1,0 +1,21 @@
+{#
+/**
+ * @file edit_ajax.html.twig
+ * Carga un formulario en un tab
+ * Cargada mediante javascript muestra un resultado directo del controlador.
+ *
+ * @param Map map
+ * @param FormView form Formulario de edición
+ * @param string name Nombre (map o sufijo de las entidades relacionadas con Map) con el que solicitamos el FormType/entidad... que queremos cargar
+ * @param array arrayParams
+ * @param array onetoone Formularios para las relacines onetoone con Map
+ * @param array onetomany Formularios para las relacines onetomany con Map
+ * @param string delete_token CsrfToken
+ */
+#}
+{%if name in onetomany %}
+{%set path = '@GptCavebackend/content/map/tabs/onetomany.html.twig'%}
+{%else%}
+{%set path = '@GptCavebackend/content/map/tabs/onetoone.html.twig'%}
+{%endif%}    
+{%include path with { 'name': name, 'form': form, 'map' : map,  'delete_token': delete_token, 'xparams': xparams} only %}

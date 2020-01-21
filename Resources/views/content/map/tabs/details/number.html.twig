@@ -1,0 +1,26 @@
+{#
+/**
+ * @file number.html.twig
+ * Formulario parcial
+ * @parent ./details.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel}%}
+{% block heading %}{{ 'map.tab.panel.number'|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table table-bordered">
+  <tr>
+    <td>{{ form_label(form.issueyear)}}</td>
+    <td>{{ form_label(form.sequencenumber)}}</td>
+    <td>{{ form_label(form.caveserialnumber)}}</td>
+    <td>{{ form_label(form.numbererorgcode)}}</td>
+  </tr>
+  <tr>
+    <td>{{ form_widget(form.issueyear)}}</td>
+    <td>{{ form_widget(form.sequencenumber)}}</td>
+    <td>{{ form_widget(form.caveserialnumber)}}</td>
+    <td>{{ form_widget(form.numbererorgcode)}}</td>
+  </tr>
+</table>
+{% endblock body %}
+{% endembed %}

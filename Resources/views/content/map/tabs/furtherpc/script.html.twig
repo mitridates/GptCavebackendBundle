@@ -1,0 +1,51 @@
+<script>
+    /**
+     * Inicializa selectores de formularios para esta sección
+     */
+
+    {%  set fieldId = {
+        'country': '#'~form.country.vars.id,
+        'admin1': '#'~form.admin1.vars.id,
+        'admin2': '#'~form.admin2.vars.id
+    }  %}
+
+    $(document).ready(function() {
+
+
+        //Political coverage tab nested select countryidpc > admin1idpc > admin2idpc
+        $('{{ fieldId.country }}').select2({
+            placeholder: '{{ 'select.government.level.country'|trans({},'cavemessages')|raw }}',
+            'allowClear': true
+        }).on('select2:unselecting', function(){
+              $('{{ fieldId.admin1 }}, {{ fieldId.admin2 }}').val(null).trigger('change');
+        });
+
+
+        $('{{ fieldId.admin1 }}').select2({
+            placeholder: '{{ 'select.government.level.admin1'|trans({},'cavemessages')|raw }}',
+            'allowClear': true
+        }).nestedselect2({
+            url: '{{path('cave_backend_json_admin1')}}',
+            parent: {el:'{{ fieldId.country }}', row: 'countryid'},
+            defaults: {placeholder: '{{ 'government.level.admin1'|trans({},'cavemessages')|raw }}'}
+        }).on('select2:unselecting', function(){
+            $('{{ fieldId.country }}').trigger('change');
+        });
+
+
+        $('{{ fieldId.admin2 }}').select2({
+            placeholder: '{{ 'select.government.level.admin2'|trans({},'cavemessages')|raw }}',
+            'allowClear': true
+        }).nestedselect2({
+            url: '{{path('cave_backend_json_admin2')}}',
+            parent: {el:'{{ fieldId.admin1 }}', row: 'admin1id'},
+            defaults: {placeholder: '{{ 'select.government.level.admin2'|trans({},'cavemessages')|raw }}'}
+        }).on('select2:unselecting', function(){
+            $('{{ fieldId.admin1 }}').trigger('change');
+
+        });
+
+
+
+    });
+</script>

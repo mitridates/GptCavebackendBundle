@@ -1,0 +1,21 @@
+{#
+/**
+ * @file form.html.twig Caveequipment form
+ */
+#}
+<table class="table">
+  <tr>
+    <td colspan="2">{{ form_label(form.equipment)}}</td>
+  </tr>
+  <tr>
+    <td colspan="2">{{ form_widget(form.equipment)}}</td>
+  </tr>
+  <tr>
+    <td>{{ form_label(form.priority)}}</td>
+    <td class="w-25">{{ form_label(form.position)}}</td>
+  </tr>
+  <tr>
+    <td>{{ form_widget(form.priority)}}</td>
+    <td>{{ form_widget(form.position, {attr: {class: 'w-50'}})}}</td>
+  </tr>
+</table>

@@ -1,0 +1,103 @@
+{#
+/**
+ * @file controller.html.twig
+ * Formularios de edición para Mapcontroller entity
+ * @parent ../onetoone.html.twig
+ */
+#}
+{% set nullValue =  {'attr': {'disabled': 'disabled'} } %}
+{% set issetPerson = (form.vars.value.person is not null) %}
+{% set issetControllerifnoid = (form.vars.value.controllerifnoid is not null) %}
+{% set issetOrganisation = (form.vars.value.organisation is not null) %}
+{% if issetPerson %}
+    {%set issetCurrent =  'person' %}
+{% elseif issetOrganisation%}
+    {%set issetCurrent = 'organisation' %}
+{% elseif issetControllerifnoid %}
+    {%set issetCurrent = 'controllerifnoid' %}
+{% else %}
+    {%set issetCurrent = false %}
+{% endif %}
+
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.get('page:style:form_panel_group') }%}
+{% block heading %}{{ ('map.form.'~name~'.tab')|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+    <table class="table table-bordered" id="table_controller_id">
+      <tr>
+        <td>{{ form_label(form.person)}}
+            <input type="radio" name="map-controller" {% if issetCurrent == 'person' or issetCurrent== false %}checked="checked"{% endif %}  onchange="toggleController.editPerson()">
+        </td>
+        <td>{{ form_label(form.organisation)}}
+            <input type="radio" name="map-controller" {% if issetCurrent == 'organisation'  %}checked="checked"{% endif %}  onchange="toggleController.editOrg()">
+        </td>
+        <td>{{ form_label(form.controllerifnoid)}}
+            <input type="radio" name="map-controller" {% if issetCurrent == 'controllerifnoid'  %}checked="checked"{% endif %}  onchange="toggleController.editControllerifnoid()">
+        </td>
+      </tr>
+      <tr>
+          <td>{{ form_widget(form.person, issetPerson or issetCurrent== false ? {} : nullValue)}}</td>
+          <td>{{ form_widget(form.organisation, issetOrganisation ? {} : nullValue)}}</td>
+          <td>{{ form_widget(form.controllerifnoid, issetControllerifnoid ? {} : nullValue)}}</td>
+      </tr>
+    </table>
+
+    <table class="table table-bordered">
+      <tr>
+        <td>{{ form_label(form.comment)}}</td>
+        <td class="col-lg-9"></td>
+      </tr>
+      <tr>
+        <td>{{ form_widget(form.comment)}}</td>
+        <td></td>
+      <tr>
+    </table>
+{% endblock body %}
+{% endembed %}
+
+<script>
+    var toggleController = (function () {
+
+        var person = '#{{ form.person.vars.id }}';
+        var organisation = '#{{ form.organisation.vars.id }}';
+        var controllerifnoid = ['#{{ form.controllerifnoid.vars.id }}']
+
+        function disablePerson(to) {
+            Grot(person).form('clear').form('disable',to);
+        }
+
+        function disableOrganisation(to) {
+            Grot(organisation).form('clear').form('disable',to);
+        }
+
+        function disableControllerifnoid(to) {
+            Grot(controllerifnoid.join(', ')).form('clear').form('disable',to);
+        }
+
+
+        function editPerson() {
+            disablePerson(false);
+            disableOrganisation(true);
+            disableControllerifnoid(true);
+        }
+
+        function editOrg() {
+            disablePerson(true);
+            disableOrganisation(false);
+            disableControllerifnoid(true);
+        }
+
+        function editControllerifnoid() {
+            disablePerson(true);
+            disableOrganisation(true);
+            disableControllerifnoid(false);
+        }
+
+
+        return {
+            editPerson: editPerson,
+            editOrg: editOrg,
+            editControllerifnoid: editControllerifnoid,
+        };
+
+    })();
+</script>

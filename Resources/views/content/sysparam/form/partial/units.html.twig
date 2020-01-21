@@ -1,0 +1,22 @@
+{#
+/**
+ * @file units.html.twig
+ * @parent ./form.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+{% block heading %}{{ 'sysparam.edit.section.units'| trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+{# sysparam name, id, ... #}
+<table class="table">
+<tr>
+  <td>{{ form_label(form.refunits)}}</td>
+  <td>{{ form_label(form.altitudeunit)}}</td>
+</tr>
+<tr>
+  <td>{{ form_widget(form.refunits) }}</td>
+  <td>{{ form_widget(form.altitudeunit) }}</td>
+</tr>
+</table>
+{% endblock body %}
+{% endembed %}

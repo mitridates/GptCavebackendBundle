@@ -1,0 +1,71 @@
+{#
+/**
+ * @file index_search_form.html.twig
+ * Formulario de búsqueda
+ *
+ * @parent ../index.html.twig
+  */
+#}
+{% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+{# onsubmit #}
+{%set submit%}Grot('#{{attr.pager.id}}').loader('form', '#{{form.vars.attr.id}}',
+    {},
+    {
+        before: function(){
+            $('#form-notification').html('').hide();
+        },
+        error: function(data){
+            (new Grot.mustache('form-notification', 'mst-form-error' )).show(data);
+        }
+    }); return false;{%endset%}
+
+{{ form_start(form, {'attr': {'onsubmit': submit , 'autocomplete': 'off'} } ) }}
+
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.search_panel}%}
+{% block heading %}
+{{ 'specie.index.search.form'|trans({},'cavepages')|raw -}}
+{% endblock heading %}
+{% block body %}
+<!-- buscador básico -->
+{# specie name, id, ... #}
+<table class="table  table-bordered">
+    <tr>
+        <td>{{ form_label(form.name)}}</td>
+        <td>{{ form_label(form.commonname) }}</td>
+        <td class="col-lg-1"></td>
+    </tr>
+    <tr>
+        <td>{{ form_widget(form.name) }}</td>
+        <td>{{ form_widget(form.commonname) }}</td>
+        <td class="text-center col-lg-2">
+            {%include '@GptCavebackend/partial/form/buttons.html.twig'
+            with {'btns' :
+            {
+            'search': {'type': 'submit', 'icon': {'class': 'search'} },
+            'clear': {'attr': { 'onclick': 'Grot(\'#'~form.vars.attr.id~'\').form(\'clear\');' } }
+            },
+            } only %}
+        </td>
+    </tr>
+</table>
+<table class="table table-bordered">
+     <tr>
+        <td>{{ form_label(form.genus)}}</td>
+        <td>{{ form_label(form.family)}}</td>
+        <td>{{ form_label(form.orden)}}</td>
+        <td>{{ form_label(form.class)}}</td>
+        <td>{{ form_label(form.phylum)}}</td>
+    </tr>
+    <tr>
+        <td>{{ form_widget(form.genus)}}</td>
+        <td>{{ form_widget(form.family)}}</td>
+        <td>{{ form_widget(form.orden)}}</td>
+        <td>{{ form_widget(form.class)}}</td>
+        <td>{{ form_widget(form.phylum)}}</td>
+        <td>{{ form_widget(form.genus)}}</td>
+    </tr>
+</table>
+{% endblock body %}
+{% endembed %}
+{{ form_widget(form._token) }}
+{{ form_end(form) }}

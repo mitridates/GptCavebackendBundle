@@ -1,0 +1,42 @@
+{#
+/**
+ * New Article
+ * @file new.html.twig
+ * @param array arrayParams
+ * @param FormView form
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+{% block page_javascripts %}
+    {%include '@GptCavebackend/content/article/script/scripts.html.twig'%}
+{%endblock page_javascripts%}
+{% block content %}
+    {%include '@GptCavebackend/content/article/form/navbar.html.twig'%}
+    {% include '@GptCavebackend/partial/form/error/all_errors_message.html.twig'%}
+    <div class="alert alert-primary" role="alert">
+        {{ ('article.new.form.title')|trans({},'cavepages')|raw -}}
+    </div>
+    {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+    {{ form_start(form) }}
+    <table class="table">
+        <tr>
+            <td>{% include '@GptCavebackend/content/article/form/partial/name.html.twig' %}</td>
+            <td>{% include '@GptCavebackend/content/article/form/partial/ssc.html.twig' %}</td>
+        </tr>
+    </table>
+    <table class="table">
+        <tr>
+            <td>{% include '@GptCavebackend/content/article/form/partial/publication.html.twig' %}</td>
+            <td>{% include '@GptCavebackend/content/article/form/partial/physical.html.twig' %}</td>
+        </tr>
+    </table>
+
+    <table class="table">
+        <tr>
+            <td>{% include '@GptCavebackend/content/article/form/partial/serie.html.twig' %}</td>
+            <td>{% include '@GptCavebackend/content/article/form/partial/abstract.html.twig' %}</td>
+        </tr>
+    </table>
+    {% include '@GptCavebackend/partial/form/nav_new_submit_button.html.twig' %}
+    {{ form_end(form) }}
+{%endblock content%}

@@ -1,0 +1,37 @@
+{#
+/**
+ * @file survey.html.twig
+ * Formulario parcial
+ * @parent ./map.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel}%}
+{% block heading %}{{- ('map.tab.panel.survey')|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table table-bordered">
+ <tr>
+    <td class="col-lg-6">{{ form_label(form.principalsurveyorid)}}</td>
+    <td>{{ form_label(form.principaldrafterid)}}</td>
+</tr>
+ <tr>
+    <td>{{ form_widget(form.principalsurveyorid)}}</td>      
+    <td>{{ form_widget(form.principaldrafterid)}}</td>
+</tr>
+</table>
+
+<table class="table table-bordered">
+ <tr>
+    <td class="col-lg-3">{{ form_label(form.surveystartyear)}}</td>
+    <td class="col-lg-3">{{ form_label(form.surveyfinishyear)}}</td>        
+    <td>{{ form_label(form.surveygradeorg)}}</td>
+    <td>{{ form_label(form.surveygradevalue)}}</td>
+</tr>
+ <tr>
+    <td><span class="col-lg-5 nopadding">{{ form_widget(form.surveystartyear)}}</span></td>
+    <td><span class="col-lg-5 nopadding">{{ form_widget(form.surveyfinishyear)}}</span></td>      
+    <td>{{ form_widget(form.surveygradeorg)}}</td>      
+    <td>{{ form_widget(form.surveygradevalue)}}</td>
+</tr>
+</table>
+{% endblock body %}
+{% endembed %}

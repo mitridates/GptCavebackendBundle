@@ -1,0 +1,45 @@
+{#
+/**
+ * @file edit.html.twig
+ * Editar mapa
+ *
+ * @param Map map
+ * @param array arrayParams
+ * @param array $forms Formularios disponibles form[name][false]. Sólo se cargan en la llamada ajax.
+ * @param FormInterface delete_form Formulario delete
+ * @param array onetoone Formularios para las relacines onetoone con Map
+ * @param array onetomany Formularios para las relacines onetomany con Map
+ * @param string delete_token CsrfToken
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+
+
+{# active tab #}
+{%set active = app.request.get('name')|default('map')%}
+
+{# tab suffix name #}
+{%set sufix= 'tab'%}
+
+{#css de la página#}
+{% block page_css %}
+{% endblock page_css %}
+
+{# scripts #}
+{% block page_javascripts %}
+{%include '@GptCavebackend/content/map/script/scripts.html.twig'%}
+{%endblock  page_javascripts %}
+
+{% block content %}
+    {# navbar menu & btns #}
+{%include '@GptCavebackend/content/map/form/navbar.html.twig'%}
+
+{# Tabs con formularios #}
+{%include '@GptCavebackend/content/map/tabs/main.html.twig'%}
+
+<div id="delete-form"  style="display: none">
+{{ form_start(delete_form) }}
+{{ form_end(delete_form) }}
+</div>  
+
+{% endblock %}

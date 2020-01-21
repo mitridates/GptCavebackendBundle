@@ -1,0 +1,17 @@
+{#
+/**
+ * Macro rehusable para generar los enlaces en la paginación
+ * @file navigator_links_macro.html.twig
+ */
+#}
+{% macro link(min, max, page) %}
+    {% for i in range(min,max) %}
+        <li {% if page == i  %} class="active"{%endif%}>
+            <a
+                    onclick="Grot($(this).closest('.grotte-paginable')).loader('reload',{page: {{i}}});"
+                    style="cursor:pointer"
+                    title="{{('page.number')|trans({'%number%': i},'cavemessages')|raw}}"
+            >{{ i }}</a>
+        </li>
+    {%endfor%}
+{% endmacro %}

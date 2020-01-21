@@ -1,0 +1,49 @@
+{#
+/**
+ * Form
+ * @file index_search_form.html.twig
+ * @parent ../index.html.twig
+ */
+#}
+{% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+{{ form_start(form) }}
+
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel_search}%}
+    {% block heading %}{{ 'cave.index.search.form'|trans({},'cavepages')|raw -}}{% endblock heading %}
+    {% block body %}
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.name)}}</td>
+                <td>{{ form_label(form.country)}}</td>
+                <td>{{ form_label(form.admin1)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.name)}}</td>
+                <td>{{ form_widget(form.country)}}</td>
+                <td>{{ form_widget(form.admin1)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.admin2)}}</td>
+                <td>{{ form_label(form.admin3)}}</td>
+                <td></td>
+            <tr>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.admin2)}}</td>
+                <td>{{ form_widget(form.admin3)}}</td>
+                <td>
+                    {%include '@GptCavebackend/partial/form/buttons.html.twig'
+                        with {'btns' :
+                        {
+                            'search': {'type': 'submit', 'icon': {'class': 'search'},'attr': { 'onclick': 'Grot(\'#search_results\').loader(\'form\', \'#'~form.vars.attr.id~'\'); return false;' }
+                        },
+                            'clear': {'attr': { 'onclick': 'Grot(\'#'~form.vars.attr.id~'\').form(\'clear\');' } }
+                        },
+                    } only %}
+                </td>
+            </tr>
+        </table>
+        {{ form_end(form) }}
+
+    {% endblock body %}
+{% endembed %}

@@ -1,0 +1,50 @@
+{#
+/**
+ * @file specie.html.twig
+ * Formulario parcial
+ * @parent ../form.html.twig
+ */
+#}
+{% set specieIsNotNull = form.specie.vars.value!='' %}
+<table class="table">
+  <tr>
+    <td><input type="radio" name="form_specie_check" {{ specieIsNotNull? 'checked' : ''}} onchange="Grot('.form-specie').form('clear').form('disable');">
+      {{ form_label(form.specie)}}
+    </td>
+  </tr>
+  <tr><td class="form-specie form-specie-id">{{ form_widget(form.specie)}}</td></tr>
+</table>
+
+
+<table class="table">
+  <tr>
+    <td><input type="radio" name="form_specie_check"  {{ specieIsNotNull? '' : 'checked'}} onchange="Grot('.form-specie').form('clear').form('disable');">
+      {{ form_label(form.name)}}
+    </td>
+    <td class="form-specie form-specie-string">{{ form_widget(form.name)}}</td>
+  </tr>
+  <tr class="form-specie form-specie-string">
+    <td>{{ form_label(form.genus)}}</td>
+    <td>{{ form_widget(form.genus)}}</td>
+  </tr>
+  <tr class="form-specie form-specie-string">
+    <td>{{ form_label(form.refcomment)}}</td>
+    <td>{{ form_widget(form.refcomment)}}</td>
+
+  </tr>
+  <tr class="form-specie form-specie-string">
+    <td>{{ form_label(form.speciesignificance)}}</td>
+    <td>{{ form_widget(form.speciesignificance)}}</td>
+  </tr>
+</table>
+<script>
+  $(document).ready(function() {
+    $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+    Grot('#{{form.specie.vars.id}}').select2paginado('{{path('cave_backend_autocomplete_specie')}}', {placeholder: '{{('select.specie')|trans({},'cavemessages')|raw}}'});
+    {% if  specieIsNotNull %}
+      Grot('.form-specie-string').form('clear').form('disable');
+    {% else %}
+      Grot('#{{ form.specie.vars.id }}').form('clear').form('disable');
+    {% endif %}
+  });
+</script>

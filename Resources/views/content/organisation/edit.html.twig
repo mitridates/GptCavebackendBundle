@@ -1,0 +1,29 @@
+{#
+/**
+ * Edit Organisation
+ * @file edit.html.twig
+ * @param array arrayParams
+ * @param FormView form
+ * @param FormView delete_form
+ * @param Organisation organisation
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+{% block page_javascripts %}
+    {%include '@GptCavebackend/content/organisation/script/scripts.html.twig'%}
+{%endblock%}
+{% block content %}
+    {%include '@GptCavebackend/content/organisation/navbar.html.twig'%}
+    {% include '@GptCavebackend/partial/form/error/all_errors_message.html.twig'%}
+    <div class="alert alert-primary" role="alert">
+        {{ ('organisation.edit.form.title')|trans({},'cavepages')|raw -}}
+    </div>
+    {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+            {{ form_start(form) }}
+            {% include '@GptCavebackend/content/organisation/form/partial/identity.html.twig' %}
+            {% include '@GptCavebackend/content/organisation/form/partial/clasification.html.twig' %}
+            {% include '@GptCavebackend/content/organisation/form/partial/contact.html.twig' %}
+            {% include '@GptCavebackend/content/organisation/form/partial/defunct.html.twig'%}
+            {% include '@GptCavebackend/partial/form/nav_edit_submit_button.html.twig' %}
+            {{ form_end(form) }}
+{% endblock %}

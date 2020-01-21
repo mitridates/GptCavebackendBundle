@@ -1,0 +1,120 @@
+{#
+/**
+ * Manytoone pagination buttons
+ * @file macro_edit_onetomany_buttons.html.twig
+ */
+#}
+{% macro bttn_new(name, getFormUlr , sendFormUrl, title) %}
+    <button type="button" class="btn btn-sm btn-primary" title="{{ ('new')|trans({},'cavemessages')|raw -}}" onclick="
+            let modal = document.getElementById('exampleModal'), thisBttn = this,
+            xhr = new XMLHttpRequest(),
+            submitForm= function(form, modal){
+                let xhr = new XMLHttpRequest(), bttn = modal.querySelector('.modal-submit'), newBttn= bttn.cloneNode(true);
+                xhr.open('POST', '{{ sendFormUrl }}');
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.onload = function () {
+                    if(this.responseText===''){
+                        bttn.parentNode.replaceChild(newBttn, bttn);
+                        $(modal).modal('hide');
+                        Grot(document.getElementById('grottepaginable-{{ name }}')).loader('reload');
+                    }else{
+                        modal.querySelector('.modal-body').innerHTML= this.responseText;
+                    }
+                }
+                xhr.send( new FormData(form));
+            };
+
+            modal.querySelector('.modal-title').innerHTML='{{ title }}';
+            xhr.open('GET', '{{ getFormUlr }}');
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+            xhr.onload = function () {
+                let bodyElement= modal.querySelector('.modal-body');
+
+                //NO FUNCIONA
+                // let parsed= (new DOMParser()).parseFromString(this.responseText, 'text/html').body.childNodes;
+                // for (var i = 0; i < parsed.length; i++) {
+                //     bodyElement.appendChild(parsed[i])
+                // }
+
+                bodyElement.appendChild(document.createRange().createContextualFragment(this.responseText));
+
+                //https://j11y.io/jquery/#v=1.10.2&fn=domManip
+                //https://stackoverflow.com/questions/29208793/scripts-wont-work-inside-my-bootstrap-modal
+                //https://gist.github.com/joyrexus/7307312
+
+                //funciona
+                //$(bodyElement).append(this.responseText)
+
+                //NO funciona
+                //$(modal.querySelector('.modal-body')).html(this.responseText);
+
+                let form = bodyElement.getElementsByTagName('form')[0], bttn = modal.querySelector('.modal-submit');
+                form.addEventListener('submit', function(event) { event.preventDefault();submitForm(form, modal)});
+                bttn.addEventListener('click', function(event) {event.preventDefault();submitForm(form, modal)});
+                $(modal).on('shown.bs.modal', function (e) {form.elements[0].focus();})
+                $(modal).modal('show').modal('handleUpdate');
+            }
+            xhr.send();
+            "><i class="fa fa-plus-square"></i> {{ ('new')|trans({},'cavemessages')|raw -}}</button>{% endmacro %}
+
+
+{% macro bttn_edit(name, getFormUlr, sendFormUrl, title) %}
+    <button type="button" class="btn btn-sm fa fa-edit pull-right" title="{{ ('edit')|trans({},'cavemessages')|raw -}}" onclick="
+            let modal = document.getElementById('exampleModal'),
+            xhr = new XMLHttpRequest(),
+            submitForm= function(form, modal){
+                let xhr = new XMLHttpRequest(), bttn = modal.querySelector('.modal-submit'), newBttn= bttn.cloneNode(true);
+                xhr.open('POST', '{{ sendFormUrl }}');
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.onload = function () {
+                    if(this.responseText===''){
+                        bttn.parentNode.replaceChild(newBttn, bttn);
+                        $(modal).modal('hide');
+                        Grot(document.getElementById('grottepaginable-{{ name }}')).loader('reload');
+                    }else{
+                         modal.querySelector('.modal-body').innerHTML= this.responseText;
+                    }
+                }
+                xhr.send( new FormData(form));
+            };
+
+            modal.querySelector('.modal-title').innerHTML='{{ title }}';
+            xhr.open('GET', '{{ getFormUlr }}');
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+            xhr.onload = function () {
+                $(modal.querySelector('.modal-body')).html(this.responseText);
+                let form = modal.getElementsByTagName('form')[0], bttn = modal.querySelector('.modal-submit');
+                form.addEventListener('submit', function(event) { event.preventDefault();submitForm(form, modal)});
+                bttn.addEventListener('click', function(event) {event.preventDefault();submitForm(form, modal)});
+                $(modal).on('shown.bs.modal', function (e) {
+                    form.elements[0].focus();
+                })
+                $(modal).modal('show').modal('handleUpdate');
+            }
+            xhr.send();
+            "></button>
+{% endmacro %}
+
+{% macro bttn_delete(name, url) %}
+    <button type="button" class="btn btn-sm btn-danger fa fa-trash" title="{{ ('delete')|trans({},'cavemessages')|raw -}}" onclick="
+            if(this.classList.contains('fa-trash')){
+            this.classList.replace('fa-trash', 'fa-exclamation-triangle');
+            let replace = ()=> this.classList.replace('fa-exclamation-triangle','fa-trash');
+                setTimeout(replace, 3000);
+                return false;
+            }
+            let xhr = new XMLHttpRequest(), parent = this.parentNode;
+            xhr.open('GET', '{{ url }}');
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.onload = function () {
+                if(this.responseText.length!=0){
+                    alert(this.responseText);
+                }else{
+                    parent.parentNode.removeChild(parent);
+                }
+            };
+            xhr.send();
+            "></button>
+{% endmacro %}

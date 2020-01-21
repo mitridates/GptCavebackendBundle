@@ -1,0 +1,20 @@
+{#
+/**
+ * @file delete.html.twig
+ * Delete Map
+ *
+ * @parent ./navbar.html.twig
+ */
+#}
+<!-- delete -->
+<div class="btn-group navbar-btn">
+  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <span class="fa fa-trash-o" aria-hidden="true"></span>
+      {{'delete'|trans({}, 'cavemessages')|capitalize|raw}}
+      <span class="fa fa-caret-down"></span>
+  </button>
+  <ul class="dropdown-menu nopadding">
+    <li><a class="btn btn-warning" onclick="document.getElementById('{{delete_form.vars.attr.id}}').submit();" href="#Delete">{{'delete.confirm'|trans({}, 'cavemessages')|capitalize|raw}}</a></li>
+  </ul>
+</div>
+<!-- end delete -->

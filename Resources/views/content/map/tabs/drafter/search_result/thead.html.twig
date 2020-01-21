@@ -1,0 +1,11 @@
+{#
+/**
+ * @file thead.html.twig
+ * @parent ./index.html.twig
+#}
+<tr class="active">
+  <th class="text-center col-lg-1">{{get_fielddefinition_name(10001,app.request.locale)|raw}}</th>
+  <th align="center">{{get_fielddefinition_name(587,app.request.locale)}}<!--drafter id (person)--> /
+    {{get_fielddefinition_name(585,app.request.locale)}}<!--drafter--></th>
+  <th class="text-center col-lg-2"></th>
+</tr>

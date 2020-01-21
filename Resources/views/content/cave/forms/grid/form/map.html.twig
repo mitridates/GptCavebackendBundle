@@ -1,0 +1,31 @@
+{#
+/**
+ * @file map.html.twig
+ * Formulario parcial
+ * @parent ../form.html.twig
+ */
+#}
+    <table class="table table-bordered">
+        <tr>
+            <td class="col-lg-3">
+                {{ form_label(form.map)}}
+                <input type="radio" name="form_{{ name }}_map_check" checked="checked"  onchange="Grot('#form_{{ name }}_map_table').form('clear').form('disable')">
+            </td>
+            <td>
+                {{ form_label(form.mapname)}}
+                <input type="radio" name="form_{{ name }}_map_check"  onchange="Grot('#form_{{ name }}_map_table').form('clear').form('disable')">
+            </td>
+            <td>{{ form_label(form.mapnumber)}}</td>
+            <td>{{ form_label(form.mapscale)}}</td>
+            <td>{{ form_label(form.mapgrid)}}</td>
+            <td>{{ form_label(form.geodeticdatum)}}</td>
+        </tr>
+        <tr id="form_{{ name }}_map_table">
+            <td>{{ form_widget(form.map, {'value': ''} )}}</td>
+            <td>{{ form_widget(form.mapname, {'value': '', 'attr': {'disabled': 'disabled'}} )}}</td>
+            <td>{{ form_widget(form.mapnumber, {'value': '', 'attr': {'disabled': 'disabled'}} )}}</td>
+            <td>{{ form_widget(form.mapscale, {'value': '', 'attr': {'disabled': 'disabled'}} )}}</td>
+            <td>{{ form_widget(form.mapgrid, {'value': '', 'attr': {'disabled': 'disabled'}} )}}</td>
+            <td>{{ form_widget(form.geodeticdatum, {'value': '', 'attr': {'disabled': 'disabled'}} )}}</td>
+        </tr>
+    </table>

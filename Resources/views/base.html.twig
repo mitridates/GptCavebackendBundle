@@ -1,0 +1,91 @@
+{#
+/**
+ * Carga el esqueleto de la pagina de administracion
+ * @file base.html.twig
+ * @param array arrayParams Parámetros para el backend y la página a cargar
+ */
+#}
+
+{% set Sysparam = Sysparam|default(get_system_parameters()) %}{#Sysparam|null#}
+<!DOCTYPE html>
+<html lang="{{ app.request.locale ?: params.locale }}">
+<head>
+    {% block head %}
+        {%- include '@GptCavebackend/partial/metadata.html.twig' -%}
+    {% endblock head%}
+    <!-- Css files -->
+    {% block stylesheets %}
+        {%- include '@GptCavebackend/partial/headercss.html.twig'%}
+    {% endblock stylesheets %}
+    <!-- JS vars -->
+    {% block javascripts %}
+        {%- include '@GptCavebackend/partial/headerjs.html.twig'%}
+    {% endblock javascripts %}
+    {# Variables twig a javascript no necesarios
+    {% block javascriptsvars %}
+    {%- include '@GptCavebackend/partial/jsvars.html.twig'%}
+    {% endblock javascriptsvars %}
+    #}
+    {% block page_javascripts %}
+    {% endblock page_javascripts %}
+    {% block page_css %}
+    {% endblock page_css %}
+</head>
+<body id="top" class="{{arrayParams.page.section|default('default')}}-body">
+<!-- Page Content -->
+{% block test %}{% endblock test %}
+
+
+{% block body %}
+    <div class="container-fluid content-{{arrayParams.page.section|default('default')}}">
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                {% block navbar %}
+                    {%- include '@GptCavebackend/partial/navbar.html.twig'-%}
+                {% endblock navbar%}
+                <!-- .notification-container -->
+                {% block notification %}
+                    <div id="mst-container">
+                        {%- include '@GptCavebackend/partial/mustache/form.notification.html.twig'%}
+                        {%- include '@GptCavebackend/partial/mustache/msg.notification.html.twig'%}
+                    </div>
+                {% endblock notification %}
+                <!-- End .notification-container -->
+
+                {% block breadcrumb %}
+                    {%- include '@GptCavebackend/partial/breadcrumb.html.twig'with {
+                        'router': arrayParams.page.router,
+                        'breadcrumb': arrayParams.page.breadcumb|default(false),
+                    } only -%}
+                {% endblock breadcrumb%}
+
+                {% block flashMessage %}
+                    {%- include '@GptCavebackend/partial/flash_messages.html.twig' -%}
+                {% endblock flashMessage%}
+
+                <!-- Page Heading -->
+                {% block heading_title %}
+                    {%- if page.heading|default(false) -%}
+                        <h1>{{page.heading|raw}}</h1><hr>
+                    {%- endif -%}
+                {%endblock heading_title%}
+                {% block content %}Contenido{% endblock content%}
+            </div><!-- /.col -->
+            {#navbar footer#}
+            {%- include '@GptCavebackend/partial/footer.html.twig'-%}
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+
+{% endblock body%}
+
+{% block hidden %}
+{% endblock hidden %}
+</body>
+{% block footer_javascripts %}
+{% endblock footer_javascripts%}
+{% block footer2_javascripts %}
+    {%- include '@GptCavebackend/partial/footerjs.html.twig'%}
+{% endblock footer2_javascripts%}
+</html>

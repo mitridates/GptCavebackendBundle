@@ -1,0 +1,57 @@
+{#
+/**
+ * @file modal.html.twig Formulario de edición en ventana modal
+ * @parent  ../modal.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.get('page:style:form_panel_group')}%}
+  {% block heading %}{{ ('cave.tab.panel.'~name~'.form')|trans({},'cavepages')|raw -}}{% endblock heading %}
+  {% block body %}
+
+    <table class="table table-bordered">
+      <tr>
+        <td>{{ form_label(form.article)}}
+            <span class="fa fa-trash-o pointer" onclick="Grot('#{{ form.article.vars.id }}').form('clear');"></span>
+        </td>
+        <td>{{ form_label(form.subjects)}}</td>
+        <td>{{ form_label(form.range)}}</td>
+        <td>{{ form_label(form.position)}}</td>
+      </tr>
+      <tr>
+        <td>{{ form_widget(form.article)}}</td>
+        <td>{{ form_widget(form.subjects)}}</td>
+        <td>{{ form_widget(form.range)}}</td>
+        <td>{{ form_widget(form.position)}}</td>
+      </tr>
+    </table>
+
+      <table class="table table-bordered" id="table-modal-{{ name }}-article-str">
+          <tr>
+              <td>{{ form_label(form.articlename)}}
+                  <span class="fa fa-trash-o pointer" onclick="Grot('#table-modal-{{ name }}-article-str').form('clear')"></span>
+              </td>
+              <td>{{ form_label(form.publication)}}</td>
+              <td>{{ form_label(form.surnames)}}</td>
+          </tr>
+          <tr>
+              <td>{{ form_widget(form.articlename)}}</td>
+              <td>{{ form_widget(form.publication)}}</td>
+              <td>{{ form_widget(form.surnames)}}</td>
+          </tr>
+      </table>
+      <table class="table table-bordered">
+          <tr>
+              <td>{{ form_label(form.volume)}}</td>
+              <td>{{ form_label(form.issue)}}</td>
+              <td>{{ form_label(form.year)}}</td>
+              <td>{{ form_label(form.yearsuffix)}}</td>
+          </tr>
+          <tr>
+              <td>{{ form_widget(form.volume)}}</td>
+              <td>{{ form_widget(form.issue)}}</td>
+              <td>{{ form_widget(form.year)}}</td>
+              <td>{{ form_widget(form.yearsuffix)}}</td>
+          </tr>
+      </table>
+  {% endblock body %}
+{% endembed %}

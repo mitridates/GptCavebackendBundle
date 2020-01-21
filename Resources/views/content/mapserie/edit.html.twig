@@ -1,0 +1,27 @@
+{#
+/**
+ * Edit Mapserie
+ * @file edit.html.twig
+ * @param array arrayParams
+ * @param FormView form
+ * @param FormInterface delete_form
+ * @param Mapserie mapserie
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+{% block page_javascripts %}
+    {%include '@GptCavebackend/content/mapserie/script/scripts.html.twig'%}
+{%endblock%}
+{% block content %}
+    {%include '@GptCavebackend/content/mapserie/navbar.html.twig'%}
+    {% include '@GptCavebackend/partial/form/error/all_errors_message.html.twig'%}
+    <div class="alert alert-primary" role="alert">
+        {{ ('mapserie.edit.form.title')|trans({},'cavepages')|raw -}}
+    </div>
+    {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+    {{ form_start(form) }}
+    {% include '@GptCavebackend/content/mapserie/form/partial/identity.html.twig' %}
+    {% include '@GptCavebackend/content/mapserie/form/partial/data.html.twig' %}
+    {% include '@GptCavebackend/partial/form/nav_edit_submit_button.html.twig' %}
+    {{ form_end(form) }}
+{% endblock %}

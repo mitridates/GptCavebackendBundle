@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% set javascripts = [
+        'jquery/jquery-1.10.2.min.js',
+        'jquery/jquery-ui.min.js'
+    ]
+    %}
+    {%for file in javascripts %}
+        <script type="text/javascript" src="{{asset(arrayParams.bundle.webasset.js~file)}}"></script>
+    {%endfor%}
+    <script>
+
+
+
+
+        $(function() {
+            $( "#admin1" ).autocomplete({
+                source: function( request, response ) {
+                    $.ajax({
+                        url: "{{ path('cave_backend_json_admin1') }}",
+                        dataType: "json",
+                        data: {
+                            string: request.term,
+                            format: 'suggest',
+                            countryid: 'ES'
+                        },
+                        success: function( data ) {
+                            response( data.out );
+                        }
+                    });
+                },
+                minLength: 3,
+                select: function( event, ui ) {
+                    // log( ui.item ?
+                    //     "Selected: " + ui.item.label :
+                    //     "Nothing selected, input was " + this.value);
+                },
+                open: function() {
+                    $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+                },
+                close: function() {
+                    $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+                }
+            });
+        });
+    </script>
+
+    {% set styles = [
+        'jquery/jquery-ui.min.css',
+        'bootstrap/bootstrap.min.css',
+    ]
+    %}
+    {%for file in styles %}
+        <link href="{{asset(arrayParams.bundle.webasset.css~file)}}" type="text/css" rel="stylesheet" />
+    {%endfor%}
+
+</head>
+<body>
+
+<input  type="text" id="admin1" data-child="#admin2"
+        data-url="{{ path('cave_backend_json_admin1') }}"
+        data-querykey="countryid"
+{#        data-returnformat="label,value"#}
+        data-emptyOption="Seleccione admin1"
+        data-parameters='{"format":"select2"}'#}
+></input>
+
+</body>
+</html>

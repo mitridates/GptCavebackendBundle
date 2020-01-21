@@ -1,0 +1,19 @@
+{#
+/**
+ * Muestra los errores del formulario pasados por FormErrorsFielddefinitionSerializer, por tanto con las traducciones pertinentes hechas
+ * @file error_fielddefinitionserializer.html.twig
+ * @param array error[global,fields]
+ */
+#}
+{%spaceless%}
+{% if error.global is defined %}
+ {% for g in error.global %}
+   <div class="alert alert-danger">{{ g.message }}</div>
+ {% endfor %}
+{% endif %}
+ {% if error.fields is defined %}
+  {% for f in error.fields %}
+   <div class="alert alert-danger">{{ f.name }}: {{ f.message }}</div>
+  {% endfor %}
+ {% endif %}
+{%endspaceless%}

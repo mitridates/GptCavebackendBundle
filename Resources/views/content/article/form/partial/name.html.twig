@@ -1,0 +1,21 @@
+{#
+/**
+ * @file name.html.twig
+ * @parent ../../edit.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel }%}
+{% block heading %}{{ 'article.edit.form.name'| trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table">
+<tr>
+  <td>{{ form_label(form.name)}}</td>
+  <td>{{ form_label(form.author) }}</td>
+</tr>
+<tr>
+  <td>{{ form_widget(form.name) }}</td>
+  <td>{{ form_widget(form.author) }}</td>
+</tr>
+</table>
+{% endblock body %}
+{% endembed %}

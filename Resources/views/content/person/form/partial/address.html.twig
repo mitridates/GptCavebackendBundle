@@ -1,0 +1,43 @@
+{#
+/**
+ * @file address.html.twig
+ * @parent ../edit.html.twig
+ */
+#}
+ {% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel }%}
+{% block heading %}{{ 'person.edit.form.address'|trans({},'cavepages')|raw }}{% endblock heading %}
+{% block body %}
+    {# Location#}
+    <table class="table">
+        <tr>
+            <td>{{ form_label(form.country)}}</td>
+            <td>{{ form_label(form.admin2)}}</td>
+            <td>{{ form_label(form.admin3)}}</td>
+            <td>{{ form_label(form.cityorsuburb)}}</td>
+        </tr>
+        <tr>
+            <td class="col-lg-2">{{ form_widget(form.country) }}</td>
+            <td class="col-lg-3">{{ form_widget(form.admin2) }}</td>
+            <td class="col-lg-3">{{ form_widget(form.admin3) }}</td>
+            <td class="col-lg-3">{{ form_widget(form.cityorsuburb) }}</td>
+        </tr>
+    </table>
+    {# Location 2#}
+    <table class="table">
+        <tr>
+            <td>{{ form_label(form.postcode)}}</td>
+            <td>{{ form_label(form.addressline1)}}</td>
+            <td>{{ form_label(form.addressline2)}}</td>
+            <td>{{ form_label(form.addressline3)}}</td>
+            <td>{{ form_label(form.addressline4)}}</td>
+        </tr>
+        <tr>
+            <td class="col-lg-1">{{ form_widget(form.postcode) }}</td>
+            <td class="col-lg-2">{{ form_widget(form.addressline1) }}</td>
+            <td class="col-lg-3">{{ form_widget(form.addressline2) }}</td>
+            <td class="col-lg-3">{{ form_widget(form.addressline3) }}</td>
+            <td class="col-lg-3">{{ form_widget(form.addressline4) }}</td>
+        </tr>
+    </table>
+{% endblock body %}
+{% endembed %}

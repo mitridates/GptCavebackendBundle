@@ -1,0 +1,55 @@
+{#
+/**
+ * submenu
+ * @file forms.html.twig
+ * @parent ../navbar.html.twig
+ */
+#}
+<ul class="navbar-nav mr-auto">
+ <li class="nav-item dropdown">
+  <a class="nav-item nav-link dropdown-toggle" href="#" id="bd-forms" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Formularios
+  </a>
+  <div class="dropdown-menu" aria-labelledby="bd-forms">
+ <a class="dropdown-item" href="{{ path('cave_backend_organisation_index') }}">{{ 'organisation.menu.index'|trans({},'cavepages')|raw }}</a>
+ <a class="dropdown-item" href="{{ path('cave_backend_organisation_new') }}">{{ 'organisation.menu.new'|trans({},'cavepages')|raw }}</a>
+ 
+ <div class="dropdown-divider"></div>
+ 
+ <a class="dropdown-item" href="{{ path('cave_backend_person_index') }}">{{ 'person.menu.index'|trans({},'cavepages')|raw }}</a>
+ <a class="dropdown-item" href="{{ path('cave_backend_person_new') }}">{{ 'person.menu.new'|trans({},'cavepages')|raw }}</a>
+
+  <div class="dropdown-divider"></div>
+  
+ <a class="dropdown-item" href="{{ path('cave_backend_cave_index') }}">{{ 'cave.menu.index'|trans({},'cavepages')|raw }}</a>
+ <a class="dropdown-item" href="{{ path('cave_backend_cave_new') }}">{{ 'cave.menu.new'|trans({},'cavepages')|raw }}</a>
+
+  <div class="dropdown-divider"></div>
+  
+ <a class="dropdown-item" href="{{ path('cave_backend_article_index') }}">{{ 'article.menu.index'|trans({},'cavepages')|raw }}</a>
+ <a class="dropdown-item" href="{{ path('cave_backend_article_new') }}">{{ 'article.menu.new'|trans({},'cavepages')|raw }}</a>
+
+ <div class="dropdown-divider"></div>
+
+ <a class="dropdown-item" href="{{ path('cave_backend_mapserie_index') }}">{{ 'mapserie.menu.index'|trans({},'cavepages')|raw }}</a>
+ <a class="dropdown-item" href="{{ path('cave_backend_mapserie_new') }}">{{ 'mapserie.menu.new'|trans({},'cavepages')|raw }}</a>
+ 
+ <div class="dropdown-divider"></div>
+ 
+ <a class="dropdown-item" href="{{ path('cave_backend_map_index') }}">{{ 'map.menu.index'|trans({},'cavepages')|raw }}</a>
+ <a class="dropdown-item" href="{{ path('cave_backend_map_new') }}">{{ 'map.menu.new'|trans({},'cavepages')|raw }}</a>
+ 
+ <div class="dropdown-divider"></div>
+ 
+ <a class="dropdown-item" href="{{ path('cave_backend_specie_index') }}">{{ 'specie.menu.index'|trans({},'cavepages')|raw }}</a>
+ <a class="dropdown-item" href="{{ path('cave_backend_specie_new') }}">{{ 'specie.menu.new'|trans({},'cavepages')|raw }}</a>
+
+ <div class="dropdown-divider"></div>
+
+ <a class="dropdown-item" href="{{ path('cave_backend_area_index') }}">{{ 'area.menu.index'|trans({},'cavepages')|raw }}</a>
+ <a class="dropdown-item" href="{{ path('cave_backend_area_new') }}">{{ 'area.menu.new'|trans({},'cavepages')|raw }}</a>
+
+  </div>
+</li>
+
+</ul>

@@ -1,0 +1,15 @@
+{#
+/**
+ * @file tbody.html.twig
+ * @parent ../index_ajax.html.twig
+#}
+{% for entity in entities%}
+    <tr class="text-center-row">
+        <td>{{ entity.getAreaid() }}</td>
+        <td style="text-align: left;"><a href="{{path('cave_backend_area_edit', { 'id': entity.getAreaid() })}}">{{ entity.getName() }}</a></td>
+        <td>{{ entity.getCode()}}</td>
+        <td>{%if entity.getCountry()%}{{entity.getCountry().getName()}}{%endif%}</td>
+        <td>{%if entity.getAdmin1()%}{{entity.getAdmin1().getName()}}{%endif%}</td>
+        <td>{{ entity.getMapsheet()}}</td>
+    </tr>
+{% endfor %}

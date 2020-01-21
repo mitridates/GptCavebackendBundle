@@ -1,0 +1,28 @@
+{#
+/**
+ * @file form.html.twig
+ * Formulario de edición
+ *
+ * @parent ../edit.html.twig
+ */
+#}
+{% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+{{ form_start(form, {'attr': { 'onsubmit': clickEvent } }) }}
+{# errores del formulario #}
+
+{% include '@GptCavebackend/content/sysparam/form/partial/name.html.twig'   with {'class':'col-lg-6'}%}
+{% include '@GptCavebackend/content/sysparam/form/partial/locale.html.twig'   with {'class':'col-lg-6'}%}
+
+{% include '@GptCavebackend/content/sysparam/form/partial/organisation.html.twig' with {'class':'col-lg-6'}%}
+{% include '@GptCavebackend/content/sysparam/form/partial/units.html.twig' with {'class':'col-lg-6'}%}
+
+{% include '@GptCavebackend/content/sysparam/form/partial/map.html.twig'  with {'class':'col-lg-5'}%}
+{% include '@GptCavebackend/content/sysparam/form/partial/datum.html.twig' with {'class':'col-lg-5'}%}
+{% include '@GptCavebackend/content/sysparam/form/partial/checkbox.html.twig' with {'class':'col-lg-2'}%}
+
+{% include '@GptCavebackend/content/sysparam/form/partial/coarse.html.twig' %}
+
+{% include '@GptCavebackend/content/sysparam/form/partial/app.html.twig'  with {'class':'col-lg-6'}%}
+{% include '@GptCavebackend/content/sysparam/form/partial/path.html.twig' with {'class':'col-lg-6'}%}
+<input type='submit' class='hidden'>
+{{ form_end(form) }}

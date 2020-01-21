@@ -1,0 +1,25 @@
+{#
+/**
+ * @file edit.html.twig
+ * Editar Parámetros
+ *
+ * @param array arrayParams
+ * @param FormView form Formulario de edición
+ */
+#}
+{# event onsubmit para el formulario y botones externos #}
+{%set clickEvent %}document.getElementById('{{form.vars.attr.id}}').submit();{%endset%}
+{% extends '@GptCavebackend/base.html.twig' %}
+{# scripts #}
+{% block page_javascripts %}
+{%include '@GptCavebackend/content/sysparam/script/scripts.html.twig'%}
+{%endblock%}
+
+{% block content %}
+{# navbar menu & btns #}
+{%include '@GptCavebackend/content/sysparam/form/navbar.html.twig'%}
+
+{# formulario#}
+{%include '@GptCavebackend/content/sysparam/form/form.html.twig'%}
+
+{% endblock %}

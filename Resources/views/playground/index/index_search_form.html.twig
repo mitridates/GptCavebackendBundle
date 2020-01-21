@@ -1,0 +1,57 @@
+{#
+/**
+ * Formulario de búsqueda
+ * @file index_search_form.html.twig
+ * @parent ../index.html.twig
+ */
+#}
+{% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+{# onsubmit #}
+{%set submit%}Grot('#{{attr.pager.id}}').loader('form', '#{{form.vars.attr.id}}'); return false;{%endset%}
+
+{{ form_start(form, {'attr': {'onsubmit': submit , 'autocomplete': 'off'} } ) }}
+{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+{% block heading %}{{ 'cave.index.search.form'|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table">
+  <tr>
+    <td>{{ form_label(form.name)}}</td>
+    <td>{{ form_label(form.country)}}</td>
+    <td>{{ form_label(form.admin1)}}</td>
+    <td>{{ form_label(form.admin2)}}</td>
+    <td>{{ form_label(form.admin3)}}</td>
+  </tr>
+    <tr>
+    <td>{{ form_widget(form.name)}}</td>
+    <td>{{ form_widget(form.country)}}</td>
+    <td>{{ form_widget(form.admin1)}}</td>
+    <td>{{ form_widget(form.admin2)}}</td>
+    <td>{{ form_widget(form.admin3)}}</td>
+      <td class="text-center"> {%include '@GptCavebackend/partial/form/element/button/buttons.html.twig'
+        with {'btns' :
+            {
+        'search': {'type': 'submit', 'icon': {'class': 'search'}, 'attr': {'class': 'btn btn-primary'}  },
+        'clear': {'type': 'submit'}
+        }
+        }only %}</td>
+
+    </tr>
+  
+</table>
+<table class="table">
+  <tr>
+
+
+    <td class="col-lg-2"></td>
+  </tr>
+  <tr> 
+
+
+
+  </tr>
+</table>     
+{% endblock body %}
+{% endembed %}
+{{ form_widget(form._token) }}
+{# botonera #}
+{{ form_end(form) }}

@@ -1,0 +1,21 @@
+{#
+/**
+ * Botones de accion en paginadores
+ * @file paginator_bttn.html.twig
+ * {% import '@GptCavebackend/partial/paginator/paginator_bttn.html.twig' as pager_bttn %}
+ * {{ pager_bttn.delete_button(path('cave_backend_controllerName_delete', { "id": entity.getId()}), entity_token)}}
+ */
+#}
+{% macro delete_button(path, token) %}
+<span ondblclick="
+this.className = 'fa fa-refresh fa-spin';
+$.ajax({ url: '{{path}}', type: 'delete', data: {_token: '{{token}}' },
+success: function(data) {
+        (typeof data.error !== 'undefined')?  alert(data.error) : Grot($('#search_results')).loader('reload');
+    },
+error: function(XMLHttpRequest, textStatus, errorThrown){
+    alert('Status: ' + textStatus + '. Error: ' + errorThrown);
+    }
+}); return false;"
+style="cursor:pointer;" title="{{ 'delete.ondblclick'|trans({},'cavemessages')|capitalize|raw -}}" class="fa fa-trash-o" aria-hidden="true"></span>
+{% endmacro %}

@@ -1,0 +1,23 @@
+{#
+/**
+ * Fielddefinitionlang pagination & access to modal editor
+ * @file index.html.twig
+ * @param array arrayParams
+ * @param Fielddefinition entity resultados de la búsqueda
+ * @param array entities resultados de la búsqueda
+ * @param Fielddefinition entity Definición buscada
+ * @param Paginator paginator
+ * @param string entity_token CsrfToken
+ * @param array translation keys: pending, available, done
+ */
+#}
+{%include '@GptCavebackend/partial/paginator/navigator_rango.html.twig' with {'paginator': paginator} only %}
+{# tabla de resultados #}
+{% embed '@GptCavebackend/partial/buscador/datatable_layout.html.twig' with {'tableid': 'tabla_resultados_language'}%}
+{% block thead %}
+{%include '@GptCavebackend/content/fielddefinition/language/search_result/thead.html.twig' only %}
+{% endblock thead %}
+{% block tbody %}
+{%include '@GptCavebackend/content/fielddefinition/language/search_result/tbody.html.twig'%}
+{% endblock tbody %}
+{% endembed %}

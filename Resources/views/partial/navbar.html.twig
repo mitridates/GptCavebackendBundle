@@ -1,0 +1,29 @@
+{#
+/**
+ * Barra de navegación
+ * @file navbar.html.twig
+ * @parent ./base.html.twig
+ */
+#}
+<!-- Navigation .navbar -->
+  <nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar Brand</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+      <!-- nav-item locale-->
+        {%include '@GptCavebackend/partial/nav/locale.html.twig'%}
+        <!-- nav-item playground-->
+        {%include '@GptCavebackend/partial/nav/playground.html.twig'%}
+        <!-- nav-item findfielddefinition-->
+        {%include '@GptCavebackend/partial/nav/findfielddefinition.html.twig'%}
+      </ul>
+      {%include '@GptCavebackend/partial/nav/forms.html.twig'%}
+
+    </div>
+
+  </nav>
+<!-- /.navbar -->

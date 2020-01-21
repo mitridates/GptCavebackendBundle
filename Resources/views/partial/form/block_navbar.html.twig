@@ -1,0 +1,25 @@
+{#
+/**
+ * @file navbar.html.twig
+ * @parent ../../edit.html.twig
+ */
+#}
+<nav class="navbar navbar-expand-sm navbar-light">
+    <div class="navbar-brand">{% block brand %}{% endblock brand %}</div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-grid" aria-controls="navbar-collapse-grid" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+  <div id="navbar-collapse-grid" class="navbar-collapse collapse">
+        <div class="nav navbar-nav">
+          {% block left %}{% endblock left %}
+        </div>
+        <div class="nav navbar-nav ml-auto">
+                {% block right %}{% endblock right %}
+        </div>
+    </div>
+</nav>
+
+
+
+
+

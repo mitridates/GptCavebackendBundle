@@ -1,0 +1,21 @@
+{#
+/**
+ * @file texttype.html.twig
+ * @parent ../edit.html.twig
+ */
+#}
+{%- set attr = { 'attr': {'style': 'height: 150px'} } -%}
+<table class="table">
+<tr>
+    <td>{{ form_label(form.definition)}}</td>
+    <td>{{ form_label(form.example)}}</td>
+    <td>{{ form_label(form.comment)}}</td>
+    <td>{{ form_label(form.uso)}}</td>         
+</tr>
+<tr>
+    <td>{{ form_widget(form.definition, attr)}}</td>
+    <td>{{ form_widget(form.example, attr)}}</td>
+    <td>{{ form_widget(form.comment, attr)}}</td>  
+    <td>{{ form_widget(form.uso, attr)}}</td>  
+</tr>
+</table>

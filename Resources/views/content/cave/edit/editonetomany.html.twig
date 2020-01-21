@@ -1,0 +1,16 @@
+{#
+/**
+ * Edit Cave onetomany form
+ * @file editonetomany.html.twig
+ * @string name Form name
+ * @param array arrayParams
+ * @param FormView form
+ * @param Cave cave
+ * @param string delete_token THIS form delete token
+ */
+#}
+{% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+{{ form_start(form) }}
+    {% include '@GptCavebackend/content/cave/forms/'~name~'/form.html.twig'%}
+<input type="submit" style="position: absolute; left: -9999px"/>{#enter submit#}
+{{ form_end(form) }}

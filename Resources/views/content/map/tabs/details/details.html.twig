@@ -1,0 +1,16 @@
+{#
+/**
+ * @file details.html.twig
+ * Formularios de edición para Mapdetails entity
+ * @parent ../onetoone.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.get('page:style:form_panel_group') }%}
+{% block heading %}{{ ('map.form.'~name~'.tab')|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+        {% include '@GptCavebackend/content/map/tabs/details/number.html.twig'%}
+        {% include '@GptCavebackend/content/map/tabs/details/name.html.twig'%}
+        {% include '@GptCavebackend/content/map/tabs/details/viewshown.html.twig'%}
+        {% include '@GptCavebackend/content/map/tabs/details/available.html.twig'%}
+{% endblock body %}
+{% endembed %}

@@ -1,0 +1,54 @@
+{#
+/**
+ * @file new.html.twig
+ * Nuevo mapa
+ *
+ * @param array arrayParams
+ * @param array forms array con formulario/s auto/man...
+ * @param string activeForm nombre del formulario activo
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+
+{# scripts #}
+{% block page_javascripts %}
+{%include '@GptCavebackend/content/map/script/scripts.html.twig'%}
+{%endblock page_javascripts%}
+{# fin scripts #}
+
+{# contenido #}
+{% block content %}
+
+{#botones #}
+{% set btns =  {
+    'new': {'path':path('cave_backend_map_new')},
+    'search': {'path':path('cave_backend_map_index')},
+} %}
+{% embed '@GptCavebackend/partial/page/botonera.html.twig'%}
+{% block derecha %}
+    <div class="col-lg-12 text-right">
+        {%include '@GptCavebackend/partial/form/buttons.html.twig'  with {'btns' : btns} only %}
+    </div>
+    {% endblock derecha%}
+{% endembed %}
+{# fin botones #}
+
+{# bucle for para cargar los formularios #}
+ <div class="panel-group" id="accordion">
+{%for name,form in forms %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{loop.index}}">
+       {% set translation = 'map.new.form.'~name~'generator.title' %}
+       {{ translation | trans({},'cavepages') -}}</a>
+      </h4>
+    </div>
+       <div id="collapse{{loop.index}}" class="panel-collapse collapse {% if activeForm == name -%} in {%- endif -%}">
+      <div class="panel-body"> {%include '@GptCavebackend/content/map/form/id'~name~'Form.html.twig' with {'form': form, 'name': name, 'active': (activeForm == name)}%}</div>
+    </div>
+  </div>
+{%endfor%}
+</div>
+{# fin formularios #}
+{%endblock content%}

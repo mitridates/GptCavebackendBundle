@@ -1,0 +1,13 @@
+{#
+/**
+ * @file howtofind.html.twig
+ * Formulario de edición para Cavehowtofind entity
+ * @parent ../onetoone.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+{% block heading %}{{ form_label(form.howtofind)}}{% endblock heading %}
+{% block body %}
+{{ form_widget(form.howtofind, { 'attr': {'style': 'min-height: 300px'} })}}
+{% endblock body %}
+{% endembed %}

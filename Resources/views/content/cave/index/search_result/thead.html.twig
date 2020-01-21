@@ -1,0 +1,14 @@
+{#
+/**
+ * @file thead.html.twig
+ * @parent ../../index_ajax.html.twig
+#}
+<tr class="text-center-row">
+  <th>ID</th>
+  <th>{{get_fielddefinition_name(70,app.request.locale,true)|raw}}<!--principal name--></th>
+  <th>{{ 'government.level.country'|trans({},'cavemessages')|capitalize|raw}}<!--country--></th>
+  <th>{{ 'government.level.admin1'|trans({},'cavemessages')|capitalize|raw}}<!--state--></th>
+  <th>{{ 'government.level.admin2'|trans({},'cavemessages')|capitalize|raw}}<!--scope province--></th>
+  <th>{{ 'government.level.admin3'|trans({},'cavemessages')|capitalize|raw}}<!--scope admin3--></th>
+  <th>{{get_fielddefinition_name(10381,app.request.locale,true)|raw}}<!--todo--></th>
+</tr>

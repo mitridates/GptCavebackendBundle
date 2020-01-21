@@ -1,0 +1,15 @@
+{#
+/**
+ * @file form.html.twig Cavegrid form
+ * @parent  ../onetomany.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.get('page:style:form_panel_group')}%}
+{% block heading %}{{ ('cave.tab.'~name~'.form')|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+
+    {%include '@GptCavebackend/content/cave/forms/grid/form/map.html.twig'%}
+    {%include '@GptCavebackend/content/cave/forms/grid/form/grid.html.twig'%}
+
+{% endblock body %}
+{% endembed %}

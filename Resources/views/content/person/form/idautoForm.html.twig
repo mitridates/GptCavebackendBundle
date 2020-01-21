@@ -1,0 +1,40 @@
+{#
+/**
+ * @file idautoForm.html.twig
+ * Formulario auto
+ *
+ * @parent ../new.html.twig
+ */
+#}
+{% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+{{ form_start(form) }}
+<table class="table table-condensed table-borderless form-table">
+    <tr>
+      <td class="col-lg-2">{{ form_label(form.name)}}</td>
+      <td class="col-lg-3 text-left">{{ form_label(form.surname)}}</td>     
+      <td class="col-lg-2 text-left"></td>
+      <td class="col-lg-2"></td>
+      <td class="col-lg-1"></td>
+    </tr>
+    <tr>
+      <td>{{- form_widget(form.name) -}}</td>
+      <td>{{- form_widget(form.surname) -}}</td>
+      <td>{%include '@GptCavebackend/partial/form/buttons.html.twig'  with {'btns' : {'save':{'type':'submit'}}} only %}</td>
+      <td></td>
+      <td></td>
+    </tr>
+ </table>
+{{ form_end(form) }}
+<blockquote>
+<p class="small">
+{% set translation = 'person.new.form.'~name~'generator.text' %}
+{{ translation | trans({},'cavepages')|raw -}}
+</p>
+</blockquote>
+{% if active %}
+<script type="text/javascript">
+$(document).ready(function(){
+ $("#{{ form.name.vars.id }}").focus();
+});
+</script>
+{% endif %}

@@ -1,0 +1,169 @@
+{#
+/**
+ * @file index_ajax.html.twig
+ * Muestra los resultados de la búsqueda
+ * Mediante javascript muestra un resultado directo del controlador.
+ *
+ * @param array arrayParams
+ * @param array entities resultados de la búsqueda
+ * @param FormView form formulario de búsqueda
+ * @param Paginator paginator
+ * @param string CsrfToken
+ */
+#}
+{# Variables dependiendo de la sección #}
+{#
+{%include '@GptCavebackend/partial/paginator/navigator_simple.html.twig' with {'paginator': paginator} only %}
+#}
+{# tabla de resultados #}
+{% embed '@GptCavebackend/partial/paginator/navigator_rango.html.twig' with {'paginator': paginator} %}
+{% block extendNavigator %}
+ &nbsp;
+  <button type="button" id="mapBtn" title="{{('show.on.map')|trans({},'cavemessages')|raw}}" class="btn btn-default btn-sm mapBtn" 
+          onclick="toggleView('map')">
+        <span class="fa fa-map-marker" aria-hidden="true"></span>
+  </button>
+  <button id="tableBtn" title="{{('show.on.table')|trans({},'cavemessages')|raw}}" type="button" class="btn btn-default btn-sm active"
+          onclick="toggleView('table')">
+          <span class="fa fa-list" aria-hidden="true"></span></button>
+{% endblock extendNavigator %}
+{% endembed %}
+
+{# tabla de resultados #}
+<div style="overflow-y: auto; max-height: 800px">
+{% embed '@GptCavebackend/partial/buscador/datatable_layout.html.twig' with {'tableid': 'tableData'}%}
+{% block thead %}
+{%include '@GptCavebackend/playground/index/search_result/thead.html.twig' only %}
+{% endblock thead %}
+{% block tbody %}
+{%include '@GptCavebackend/playground/index/search_result/tbody.html.twig' with {'name': 'cave', 'data': data, 'entity_token': entity_token, 'section': section} only%}
+{% endblock tbody %}
+{% block tfoot %}
+{% endblock tfoot %}
+{% block script %}
+{% endblock script %}
+{% endembed %}
+</div>
+<script type="text/javascript">
+    var geojson = {{ geojson|json_encode|raw }};
+    //inicializados en window
+    var map = map || Grot.cache.get('map');
+    var geo = geo || Grot.cache.get('geo', geo);
+
+    var bounds = new google.maps.LatLngBounds();
+    var markers = Grot.cache.get('markers');
+    if(markers!==null){
+        for (var i in markers) {
+          markers[i].setMap(null);
+        }
+        Grot.cache.unset('markers');
+    }
+    markers = {};
+    var features = geojson.features;
+    
+    for(var i in features){
+        var prop = features[i].properties;
+        var coords = features[i].geometry.coordinates;
+        var latLng = new google.maps.LatLng(coords[0],coords[1]);
+        var infowindow = new google.maps.InfoWindow();                       
+        var marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+            title: prop.name
+        });
+        marker.metadata = {type: "point", id: prop.caveid};
+        var content=
+                '<b id="firstHeading" class="firstHeading">'+prop.name+' <a href="'+prop.edit+'">'+prop.caveid+'</a></b>'+
+                '<p>'+ (prop.countryname || 'n/d') +' > '+ (prop.admin1name || 'n/d') +' > '+(prop.admin2name ||  'n/d') +' > '+ (prop.admin3name || 'n/d') +'</p>'+
+                '<p>'+
+                '<a onclick="calcRoute(\''+prop.caveid+'\');" href="#nogo">C&oacute;mo llegar</a> | '+
+                '<a onclick="calcRoute(\''+prop.caveid+'\', true);" href="#nogo">Ver en Google Maps</a>'+
+                '</p>';
+
+        google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+            return function() {
+                var LastInfoWindow = Grot.cache.get('LastInfoWindow');
+                if(LastInfoWindow!==null){
+                    LastInfoWindow.close();
+                } 
+                infowindow.setContent(content);
+                infowindow.open(map,marker);
+                if(map.getZoom()>15) map.setZoom(15);
+                Grot.cache.set('LastInfoWindow', infowindow);
+            };
+        })(marker,content,infowindow));
+        marker.setMap(map);
+        markers[prop.caveid] = marker;
+        bounds.extend(marker.getPosition());
+        
+        
+    }
+
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+    var directionsService = new google.maps.DirectionsService();
+    var lastInfowindow = Grot.cache.get('LastInfoWindow');
+    if(lastInfowindow!==null){
+          lastInfowindow.close();
+          Grot.cache.unset('LastInfoWindow');
+    }    
+    var oldDirections = Grot.cache.get('directions');
+    if(oldDirections!==null){
+        oldDirections.setMap(null);
+        Grot.cache.unset('directions');
+    }
+    directionsDisplay.setMap(map);   
+    Grot.cache.set('directions', directionsDisplay);
+    
+    function calcRoute(id, g_) {
+        if(typeof geo.getPosition()==='undefined'){
+            if(geo.getErrors().length) Grot().exception({errors: get.getErrors()});
+            else Grot.exception({errors: [{title: 'Error desconocido. No ha sido posible establecer un origen para la ruta'}]});
+            return;
+        }
+        
+      var end=  Grot.cache.get('markers')[id].getPosition();
+      
+      var request = {
+        origin: geo.getPosition(),
+        destination: end,
+        travelMode: 'DRIVING'
+      };
+      
+      if(!g_){
+        directionsService.route(request, function(result, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(result);
+          }
+        });
+      }else{
+          var url = 'origin='+geo.toString()+'&'+'destination='+end.lat()+','+end.lng()+'&'+'travelMode=DRIVING';
+          window.open('https://www.google.com/maps/dir/?api=1&'+url, '_blank');
+      }
+    }    
+    
+    map.fitBounds(bounds);
+    Grot.cache.set('markers', markers);
+    
+    
+    function toggleView(to){
+        var el = ['table', 'map'];
+        var map = map || Grot.cache.get('map');
+        var bounds = bounds || new google.maps.LatLngBounds();
+        var markers = markers || Grot.cache.get('markers');
+        if(to==='map') el.reverse();
+        $('#'+el[0]+'Btn').addClass('active');
+        $('#'+el[1]+'Btn').removeClass('active');
+        $('#'+el[0]+'Data').show();
+        $('#'+el[1]+'Data').hide();
+        Grot.cache.set('show', to);
+        
+        if(to==='map'){
+            for (var i in markers) {
+                bounds.extend(markers[i].getPosition());
+            }
+            map.fitBounds(bounds);
+        }
+    }
+    toggleView(Grot.cache.get('show')==='table'? 'table': 'map');
+    if(map.getZoom()>15) map.setZoom(15);//zoom maximo
+</script>

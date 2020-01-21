@@ -1,0 +1,32 @@
+## YAML Template.
+#TODO revisar que no queden traducciones colgando sin usar
+admin.organisation.not.found: "Organización administradora no encontrada!"
+organisation.id.not.found: "Organización '%id%' no encontrada!"
+organisation.parameters.default.notfound: "No se han podido encontrar los parámetros de la organización principal en parameters.yml"
+organisation.parameters.country.notfound: "El país '%country%' no se encuentra en la tabla de países."
+integrity.constraint.violation.duplicate: "Violación de la restricción de integridad: entrada duplicada %string% para la entidad %entity%"
+serial.number.wrong.format: "Serial  %serial% fuera de rango (%min% al %max%)"
+serial.number.limit.reached: "Límite alcanzado '%country%%code%%serial%'. No hay más números de serie disponibles para país '%country%', codigo '%code%'"
+code.letters.wrong.format: "El código %code%  tiene un formato incorrecto [A-Z]{3}"
+organisation.id.wrong.format: "El Id %id% de la organización tiene un formato incorrecto [A-Z]{2}"
+country.id.wrong.format: "El Id %id% del país tiene un formato incorrecto"
+identifier.id.wrong.format: "El identificador %id% suministrado no tiene un formato correcto ^[a-zA-Z0-9]{10}$"
+invalid.prefix: "Prefijo invalido para '%entity%'. El prefijo suministrado '%string%' no tiene un formato correcto \"/^[A-Z]{5}$/\" !"
+invalid.serial: "Serial invalido para '%entity%'. La cadena '%string%' no tiene un formato correcto \"/^[0-9]{5}$/\" !"
+cannot.find.max.primary.key: "La tabla maestra %entity% no puede encontrar la clave primaria maxima para %string%"
+invalid.entity: "Entidad inválida '%entity%'. Se esperaba %expected%"
+registry.not.found: "registro no encontrado con los parámetros: %params%"
+registry.already.exists: "El registro ya existe"
+not.enough.args: "Argumentos insuficientes. %more%"
+unknown.error: "Error desconocido!"
+form.must.complete.this.field: "Este campo es obligatorio"
+
+
+
+#Errores para XmlHttpRequest.
+error.form.not.found: "No se ha encontrado el formulario en la petici&oacute;n"
+error.registry.not.found: "Registro no encontrado. %more%"
+critical.unknow.form: "Formulario '%name%' desconocido"
+form.errors.found: "Encontrados errores en el formulario"
+form.cannot.be.empty: "No se puede guardar un formulario vac&iacute;o"
+#form.use.button.to.delete: "Para eliminar el formulario actual utilice los botones en pantalla"

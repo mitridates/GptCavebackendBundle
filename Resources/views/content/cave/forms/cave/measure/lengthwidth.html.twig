@@ -1,0 +1,62 @@
+{#
+/**
+ * @file lengthwidth.html.twig
+ * Formulario parcial
+ * @parent ./measure.html.twig
+ */
+#}
+<div class="row">
+    <div class="col-sm-4">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.length)}}</td>
+                <td>{{ form_widget(form.length)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.lengthmethod)}}</td>
+                <td>{{ form_widget(form.lengthmethod)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.lengthaccuracy)}}</td>
+                <td>{{ form_widget(form.lengthaccuracy)}}</td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="col-sm-4">
+        <table class="table">
+
+            <tr>
+                <td>{{ form_label(form.extentlength)}}</td>
+                <td>{{ form_widget(form.extentlength)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.extentwidth)}}</td>
+                <td>{{ form_widget(form.extentwidth)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.lengthcategory)}}</td>
+                <td>{{ form_widget(form.lengthcategory)}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-sm-4">
+        <table class="table">
+        <tr>
+            <td>{{ form_label(form.widthlargestchamber)}}</td>
+            <td>{{ form_widget(form.widthlargestchamber)}}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.heighlargestchamber)}}</td>
+            <td>{{ form_widget(form.heighlargestchamber)}}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.lengthlargestchamber)}}</td>
+            <td>{{ form_widget(form.lengthlargestchamber)}}</td>
+        </tr>
+    </table>
+    </div>
+
+</div>

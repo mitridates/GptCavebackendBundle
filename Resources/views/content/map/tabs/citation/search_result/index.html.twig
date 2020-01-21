@@ -1,0 +1,17 @@
+{#
+/**
+ * @file index.html.twig Paginación con botones de navegación para entidades oneToMany
+ * @parent ../../onetomany.html.twig
+ #}
+{%include '@GptCavebackend/partial/paginator/navigator_rango.html.twig' with {'paginator': paginator} only %}
+{# tabla de resultados #}
+{% embed '@GptCavebackend/partial/buscador/datatable_layout.html.twig' with {'tableid': 'tabla_resultados_'~name }%}
+{% block thead %}
+{%include '@GptCavebackend/content/map/tabs/'~name~'/search_result/thead.html.twig'%}
+{% endblock thead %}
+{% block tbody %}
+{%include '@GptCavebackend/content/map/tabs/'~name~'/search_result/tbody.html.twig'%}
+{% endblock tbody %}
+{% block tfoot %}
+{% endblock tfoot %}
+{% endembed %}

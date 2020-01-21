@@ -1,0 +1,25 @@
+{#
+/**
+ * Squeleton
+ * @file datatable_layout.html.twig
+ * @param string|undefined tableid
+ */
+#}
+{# Variables #}
+{%set tableid =  tableid|default('dataTable-'~random(100))%}
+<table class="table table-hover table-bordered nomargin nopadding" id="{{tableid}}">
+<thead class="text-capitalize">
+{% block thead %}
+{% endblock thead %}
+</thead>
+<tbody>
+{% block tbody %}
+{% endblock tbody %}
+</tbody>
+<tfoot>
+{% block tfoot %}
+{% endblock tfoot %}
+</tfoot>
+</table>
+{% block script %}
+{% endblock script %}

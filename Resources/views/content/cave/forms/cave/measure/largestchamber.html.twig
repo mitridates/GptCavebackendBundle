@@ -1,0 +1,26 @@
+{#
+/**
+ * @file largestchamber.html.twig
+ * @parent ./measure.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {form: form, type: arrayParams.page.style.form_panel } only%}
+    {% block heading %}{{ ('cave.tab.cave.measure.panel.largestchamber')|trans({},'cavepages')|raw -}}{% endblock heading %}
+    {% block body %}
+        {% set fieldNames= ['heighlargestchamber','heighlargestchamber', 'lengthlargestchamber']%}
+        <table class="table">
+          <tr>
+            <td>{{ form_label(form.widthlargestchamber)}}</td>
+            <td>{{ form_label(form.heighlargestchamber)}}</td>
+            <td>{{ form_label(form.lengthlargestchamber)}}</td>
+          </tr>
+          <tr>
+            <td>{{ form_widget(form.widthlargestchamber)}}</td>
+            <td>{{ form_widget(form.heighlargestchamber)}}</td>
+            <td>{{ form_widget(form.lengthlargestchamber)}}</td>
+          </tr>
+        </table>
+{% endblock body %}
+{% endembed %}
+
+

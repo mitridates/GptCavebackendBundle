@@ -1,0 +1,48 @@
+{#
+/**
+ * @file form.html.twig Mapdrafter form
+ * @parent  ../onetomany.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.get('page:style:form_panel_group') }%}
+  {% block heading %}{{ ('map.form.'~name~'.tab')|trans({},'cavepages')|raw -}}{% endblock heading %}
+  {% block body %}
+    <table class="table table-bordered" id="drafterTable">
+      <tr>
+        <td class="col-lg-3 text-right">
+          <input type="radio" name="drafter" id="mod-op-drafterid" checked="checked"  onchange="toggleDrafter(this)">{{ form_label(form.drafterid)}}
+          <input type="radio" name="drafter" id="mod-op-drafter" onchange="toggleDrafter(this)"> {{ form_label(form.drafter)}}
+        </td>
+        <td class="drafter_td" style="display: none;">{{ form_widget(form.drafter, {value : ''})}}</td>
+        <td class="drafter_td">{{ form_widget(form.drafterid, {value : ''})}}</td>
+        <td class="col-lg-4 text-center">
+          {%include '@GptCavebackend/content/map/tabs/button/buttons_group_onetomany_form.html.twig'%}
+        </td>
+      </tr>
+    </table>
+    <script>
+      var toggleDrafter = function(bttn){
+        $(bttn).closest('tr').find('td.'+bttn.getAttribute('name')+'_td').each(function(){
+          if($(this).is(':visible')){
+            $(this).find('input').each(function(){
+              $(this).prop('disabled', true);
+            })
+            $(this).find('select').each(function(){
+              $(this).prop("disabled", true);
+            });
+            $(this).hide();
+          }else{
+            $(this).find('input').each(function(){
+              $(this).val('').prop('disabled', false);
+            });
+            $(this).find('select').each(function(){
+              $(this).val(null).trigger('change');
+              $(this).prop("disabled", false);
+            });
+            $(this).show();
+          }
+        });
+      }
+    </script>
+  {% endblock body %}
+{% endembed %}

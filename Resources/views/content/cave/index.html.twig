@@ -1,0 +1,38 @@
+{#
+/**
+ * Search form
+ * @file index.html.twig
+ * @param array arrayParams
+ * @param FormView form
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+
+{% block page_javascripts %}
+    {%include '@GptCavebackend/content/cave/forms/cave/script.html.twig'%}
+    <script>
+        $(document).ready(function() {
+           document.querySelector('.search').click();
+        });
+    </script>
+{% endblock page_javascripts %}
+
+{% block content %}
+
+    {% embed '@GptCavebackend/partial/form/block_navbar.html.twig'%}
+        {% block right %}
+            <div class="navbar-btn">
+                {%include '@GptCavebackend/partial/form/buttons.html.twig'  with {'btns' : {'new': path('cave_backend_cave_new')}} only %}
+            </div>
+        {% endblock %}
+    {% endembed %}
+
+    {%include '@GptCavebackend/content/cave/index/index_search_form.html.twig' %}
+
+    {# pager div #}
+    <div id="search_results"
+         class="grotte-paginable"
+         data-path='{{path('cave_backend_cave_ajaxpager')}}'
+         data-params=''>
+    </div>
+{% endblock content %}

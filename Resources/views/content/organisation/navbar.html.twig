@@ -1,0 +1,28 @@
+{#
+/**
+ * @file navbar.html.twig
+ * @parent ./edit.html.twig
+ * @parent ./new.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/form/block_navbar.html.twig'%}
+    {% block brand %}
+        {% include '@GptCavebackend/partial/page/fdpoload.html.twig' with {'id': 380} only %}:
+        {{organisation.getOrganisationid()|default('notdefined'|trans({},'cavemessages'))}}
+    {% endblock %}
+    {% block left %}
+        {% if delete_form is defined %}{%include '@GptCavebackend/partial/form/nav_delete_form.html.twig' with {'delete_form': delete_form} only%}{% endif %}
+    {% endblock %}
+    {% block right %}
+        <div class="navbar-btn">
+            {%include '@GptCavebackend/partial/form/buttons.html.twig'  with {'btns' : {
+                'new': path('cave_backend_organisation_new'),
+                'search': path('cave_backend_organisation_index'),
+            }} only %}
+        </div>
+    {% endblock %}
+{% endembed %}
+
+
+
+

@@ -1,0 +1,63 @@
+{#
+/**
+ * @file altitude.html.twig
+ * @parent ./coordinates.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+    {% block heading %}{{ ('cave.card.altitude')|trans({},'cavepages')|raw -}}{% endblock heading %}
+    {% block body %}
+        <div class="row">
+            <div class="col-lg-4 col-sm-12">
+                <table class="table">
+                    <tr>
+                        <td>{{ form_label(form.altitude)}}</td>
+                        <td>{{ form_widget(form.altitude)}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.altitudeunits)}}</td>
+                        <td>{{ form_widget(form.altitudeunits)}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                <table class="table">
+                    <tr>
+                        <td>{{ form_label(form.altitudemethod)}}</td>
+                        <td>{{ form_widget(form.altitudemethod)}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.altitudeheightdatum)}}</td>
+                        <td>{{ form_widget(form.altitudeheightdatum)}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                <table class="table">
+                    <tr>
+                        <td>{{ form_label(form.altitudeprecision)}}</td>
+                        <td>{{ form_widget(form.altitudeprecision)}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.altitudeaccuracy)}}</td>
+                        <td>{{ form_widget(form.altitudeaccuracy)}}</td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <tr>
+                        <td>{{ form_label(form.altitudecomment)}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_widget(form.altitudecomment)}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+{% endblock body %}
+{% endembed %}

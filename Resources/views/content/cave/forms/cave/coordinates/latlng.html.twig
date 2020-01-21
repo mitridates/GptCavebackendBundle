@@ -1,0 +1,69 @@
+{#
+/**
+ * @file latlng.html.twig
+ * @parent ./coordinates.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' %}
+{% block heading %}{{ ('cave.card.latlng')|trans({},'cavepages')|raw -}}
+{% endblock heading %}
+
+    {% block body %}
+    <div class="row">
+        <div class="col-lg-4 col-sm-12">
+            <table class="table">
+                <tr>
+                    <td>{{ form_label(form.latitude)}}</td>
+                    <td>{{ form_widget(form.latitude)}}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.longitude)}}</td>
+                    <td>{{ form_widget(form.longitude)}}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.geographicdate)}}</td>
+                    <td>{{ form_widget(form.geographicdate)}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+                    <table class="table">
+                        <tr>
+                            <td>{{ form_label(form.geogeodetdatum)}}</td>
+                            <td>{{ form_widget(form.geogeodetdatum)}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(form.geographicmethod)}}</td>
+                            <td>{{ form_widget(form.geographicmethod)}}</td>
+                        </tr>
+                    </table>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <table class="table">
+                <tr>
+                    <td>{{ form_label(form.geogprecision)}}</td>
+                    <td>{{ form_widget(form.geogprecision)}}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.geogaccuracy)}}</td>
+                    <td>{{ form_widget(form.geogaccuracy)}}</td>
+                </tr>
+                </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <tr>
+                    <td>{{ form_label(form.geographiccomment)}}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_widget(form.geographiccomment)}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    {% endblock body %}
+{% endembed %}

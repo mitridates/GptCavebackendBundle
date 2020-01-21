@@ -1,0 +1,17 @@
+{#
+/**
+ * @file buttons.html.twig
+ * Botonera
+ *
+ * @parent ./navbar.html.twig
+ */
+#}
+    {% set btns =  {
+            'new': path('cave_backend_map_new'),
+            'search': path('cave_backend_map_index'),
+            'submit': {'txt': 'save.all', 'attr': { 'onclick': '$( \'.submit\' ).each(function( index ) { this.click();})' } }
+            } %}
+    <div class="navbar-btn">
+    {%include '@GptCavebackend/partial/form/buttons.html.twig'  with {'btns' : btns} only %}
+    </div>
+{# end botones #}

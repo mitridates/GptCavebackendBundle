@@ -1,0 +1,29 @@
+{#
+/**
+ * Muestra mensajes flash para cualquier página
+ * @file flash_messages.html.twig
+ * @parent ./base.html.twig
+ */
+#}
+{# read and display every flash message available #}
+
+{% for type, flash_messages in app.session.flashBag.all %}
+    {% for flash_message in flash_messages %}
+        <div class="alert alert-{{ type }}">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+{% if Sysparam is null%}
+    <div class="alert alert-danger">
+        {{- 'undefined.systemparameter' | trans({},'cavemessages') | raw -}}
+    </div>
+{% else %}
+{# Muestra una alerta si no existe organización generadora de registros #}
+    {% if Sysparam.getOrganisationdbm() == null %}
+    <div class="alert alert-danger">
+        {{- 'undefined.organisationdbm' | trans({},'cavemessages') | raw -}}
+    </div>
+    {% endif %}
+{% endif %}

@@ -1,0 +1,34 @@
+{#
+/**
+ * Ejemplo de macro rehusable para generar los enlaces en la paginación
+ * @file navigator_links_macro.html.twig
+ */
+#}
+{% macro link(min, max, page) %}
+    {% for i in range(min,max) %}
+        <li {% if page == i  %} class="active"{%endif%}>
+            <a
+                    onclick="Grot($(this).closest('.grotte-paginable')).loader('reload',{page: {{i}}});"
+                    style="cursor:pointer"
+                    title="{{('page.number')|trans({'%number%': i},'cavemessages')|raw}}"
+            >{{ i }}</a>
+        </li>
+    {%endfor%}
+{% endmacro %}
+
+
+... en la página que queramos utilizar la macro:
+
+{# importamos macro para generar grupos de enlaces #}
+{% import '@GptCavebackend/partial/paginator/navigator_links_macro.html.twig' as links %}
+
+Usamos la macro en la página
+{{links.link(1, paginator.getTotalPages(), page)}}
+
+...
+
+{{links.link(1, adjacents, page)}}
+
+...
+
+{{links.link(paginator.getPage() - arround, paginator.getPage() + arround, page)}}

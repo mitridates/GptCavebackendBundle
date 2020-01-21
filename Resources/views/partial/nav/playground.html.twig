@@ -1,0 +1,19 @@
+{#
+/**
+ * submenu
+ * @file playground.html.twig
+ * @parent ../navbar.html.twig
+ */
+#}
+<li class="nav-item dropdown">
+ <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  Playground
+ </a>
+ <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <a class="dropdown-item" href="{{path('cave_backend_playground_index')}}">Prototype</a>
+  <a class="dropdown-item" href="{{path('cave_backend_playground_test', {'name': 'test'})}}">test</a>
+  <a class="dropdown-item" href="{{path('cave_backend_playground_test', {'name': 'observable.0'})}}">observable 0</a>
+  <a class="dropdown-item" target="_blank" href="http://www.uisic.uis-speleo.org/exchange/catables.html">Tablas UIS</a>
+  <a class="dropdown-item" target="_blank" href="http://kid.caves.org.au/kid/doc/index">Tablas con mas info espeleo AU</a>
+ </div>
+</li>

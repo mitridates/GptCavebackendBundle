@@ -1,0 +1,43 @@
+{#
+/**
+ * @file modal.html.twig Formulario de edición en ventana modal
+ * @parent  ../modal.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel}%}
+{% block heading %}{{ ('map.form.'~name~'.tab')|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table table-bordered">
+  <tr>
+    <td>{{ form_label(form.scopenlatitude)}}</td>
+  </tr>
+  <tr>
+    <td>{{ form_widget(form.scopenlatitude)}}</td>
+  </tr>
+  <tr>
+    <td >{{ form_label(form.scopeslatitude)}}</td>
+  </tr>
+  <tr>
+    <td >{{ form_widget(form.scopeslatitude)}}</td>
+  </tr>
+  <tr>
+    <td >{{ form_label(form.scopeelongitude)}}</td>
+  </tr>
+  <tr>
+    <td >{{ form_widget(form.scopeelongitude)}}</td>
+  </tr>
+  <tr>
+    <td >{{ form_label(form.scopewlongitude)}}</td>
+  </tr>
+  <tr>
+    <td >{{ form_widget(form.scopewlongitude)}}</td>
+  </tr>  
+  <tr>
+    <td >{{ form_label(form.position)}}</td>
+  </tr>
+  <tr>
+    <td ><div class="col-lg-4 nopadding">{{ form_widget(form.position)}}</td>
+  </tr>  
+</table>
+{% endblock body %}
+{% endembed %}

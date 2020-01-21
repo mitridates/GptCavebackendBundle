@@ -1,0 +1,19 @@
+{#
+/**
+ * Buttons onetoone form
+ * @file nav_edit_onetoone_other_buttons.html.twig
+ * @string formname Form name
+ * @param array arrayParams
+ * @param FormView form
+ * @param Cave cave
+ * @param string delete_token THIS form delete token
+ */
+#}
+<!-- submit -->
+<nav class="navbar navbar-light bg-light">
+    <div class="form-inline">
+        <button type="button" class="delete btn btn-danger"><i class="fa fa-trash"></i> <span class="delete-text">{{'delete.this.form'|trans({}, 'cavemessages')|raw}}</span>
+        </button>
+    </div>
+</nav>
+<!-- end submit -->

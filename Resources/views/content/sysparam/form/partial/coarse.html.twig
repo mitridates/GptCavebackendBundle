@@ -1,0 +1,27 @@
+{#
+/**
+ * @file coarse.html.twig
+ * @parent ./form.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+{% block heading %}{{ 'sysparam.edit.section.coarse'| trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table">
+  <tr>
+    <td>{{ form_label(form.grrefqualifier)}}</td>
+    <td>{{ form_label(form.geogprecision)}}</td>
+    <td>{{ form_label(form.grefprecision)}}</td>
+    <td>{{ form_label(form.altitudeprecision)}}</td>
+    <td>{{ form_label(form.landunit)}}</td>
+  </tr>
+  <tr>
+    <td>{{ form_widget(form.grrefqualifier)}}</td>
+    <td>{{ form_widget(form.geogprecision)}}</td>
+    <td>{{ form_widget(form.grefprecision)}}</td>
+    <td>{{ form_widget(form.altitudeprecision)}}</td>
+    <td>{{ form_widget(form.landunit)}}</td>
+  </tr>
+</table>
+{% endblock body %}
+{% endembed %}

@@ -1,0 +1,61 @@
+{#
+/**
+ * @file countrysetup.html.twig
+ * Instalación de países
+ *
+ * @param array arrayParams
+ * @param FormView form
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+{% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+{#scripts de la página#}
+{% block page_javascripts %}
+{%include '@GptCavebackend/content/area/script/scripts.html.twig'%}
+{# load pagination #}
+<script>
+
+</script>
+{% endblock page_javascripts %}
+
+{# contenido #}
+{% block content %}
+
+    {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+    {{ form_start(form) }}
+    <table class="table">
+        <tr>
+            <td>{{ form_label(form.country)}}</td>
+            <td>{{ form_label(form.deep)}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>{{- form_widget(form.country) -}}</td>
+            <td>{{- form_widget(form.deep) -}}</td>
+            <td>{{- form_widget(form.submit) -}}</td>
+        </tr>
+    </table>
+    {{ form_end(form) }}
+
+    <table class="table table-bordered table-hover">
+         <tr>
+             <th>Country</th>
+             <th>Admin1</th>
+             <th>Admin2</th>
+             <th>Admin3</th>
+             <th></th>
+         </tr>
+             {% for country in arrayParams.page.countries%}
+         <tr>
+                 <td>({{ country.countryid }}) {{ country.name }}</td>
+                 <td>{{country.admin1}}</td>
+                 <td>{{country.admin2}}</td>
+                 <td>{{country.admin3}}</td>
+             <td><a href="{{ path('cave_backend_setup_delete_country', {'countryCode': country.countryid}) }}"><span class="fa fa-trash-o" aria-hidden="true"></span></a></td>
+
+         </tr>
+             {% endfor %}
+     </table>
+
+
+{% endblock content %}

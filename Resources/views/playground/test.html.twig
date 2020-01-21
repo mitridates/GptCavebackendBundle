@@ -1,0 +1,129 @@
+{#
+/**
+ * @file test.html.twig
+ * Prueba
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+<style>
+  #map {
+    height: 100%;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+</style>
+{% endblock stylesheets %}
+{#
+{% block page_javascripts %}
+{% endblock page_javascripts %}
+
+#}
+{%set attr = {
+        'pager': {'id': 'search_results', 'params': {}},
+        'path': path('cave_backend_playground_ajaxpager')
+}%}
+{% block page_javascripts %}
+    <script type='text/javascript'>
+        function addFields(){
+            // Number of inputs to create
+            var number = document.getElementById("member").value;
+            var frm = document.createElement("form");
+            frm.setAttribute('name', 'test');
+
+            var abc = ['a','b','c','d'];
+            // Container <div> where dynamic content will be placed
+            var container = document.getElementById("formcontainer");
+            // Clear previous contents of the container
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+
+            for (i=0;i<number;i++){
+
+                var div = document.createElement('div');
+                div.setAttribute('name', i);
+                div.setAttribute('class', 'option-group');
+
+                div.appendChild(document.createTextNode((i+1)+'.- '));
+
+                var opciones = document.createElement('span');
+                opciones.setAttribute('id', 'opciones'+(i));
+
+
+                var abc = ['a','b','c','d'];
+                for (z=0;z<abc.length;z++){
+                    opciones.appendChild(getCheckBox(abc[z], i));
+                }
+                div.appendChild(opciones);
+                frm.appendChild(div);
+            }
+            container.appendChild(frm);
+
+        }
+
+
+        function getCheckBox(op, num){
+            var label = document.createElement("label");
+            label.setAttribute('for', 'respuesta.'+num);
+            label.style='margin: 0 10px';
+
+            var radio = document.createElement("input");
+            radio.type = "radio";    // make the element a checkbox
+            radio.name = 'respuesta.'+num;      // give it a name we can check on the server side
+            radio.value = op;         // make its value "abcd"
+            label.appendChild(document.createTextNode(op+')'));
+            label.appendChild(radio);
+            return label;
+        }
+
+        function getSelected(){
+            var respuestas = document.getElementsByClassName('option-group');
+            for (i=0;i<respuestas.length;i++){
+                var id = respuestas[i].getAttribute('name');
+                var respuesta = getRadioValue('respuesta.'+id);
+                    var div = document.getElementById('opciones'+id);
+                    while (div.hasChildNodes()) {
+                        div.removeChild(div.lastChild);
+                    }
+                    div.appendChild(document.createTextNode(respuesta));
+                    var input = document.createElement("input");
+                    input.type = "text";
+                    input.style='margin: 0 10px';
+                    input.size= 1;
+                    div.appendChild(input);
+            }
+        }
+
+        function getRadioValue(theRadioGroup)
+        {
+            var elements = document.getElementsByName(theRadioGroup);
+            for (var i = 0, l = elements.length; i < l; i++)
+            {
+                if (elements[i].checked)
+                {
+                    return elements[i].value;
+                }
+            }
+            return '--';
+        }
+
+    </script>
+{% endblock page_javascripts %}
+
+{# contenido #}
+{% block content %}
+    <input type="text" id="member" name="member" value="20">Number of members<br />
+    <a href="#" id="filldetails" onclick="addFields()">Fill Details</a>
+    <a href="#" id="getselected" onclick="getSelected()">Get selected</a>
+    <div id="formcontainer"/></div>
+{% endblock content %}
+
+{% block footer_javascripts %}
+{{ parent() }}
+{% endblock footer_javascripts%}

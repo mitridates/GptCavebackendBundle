@@ -1,0 +1,40 @@
+{#
+/**
+ * @file event.html.twig
+ */
+#}
+<div class="row">
+    <div class="col-lg-7 col-sm-12">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.type)}}</td>
+                <td>{{ form_widget(form.type)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.datequalifier)}}</td>
+                <td>{{ form_widget(form.datequalifier)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.position)}}</td>
+                <td>{{ form_widget(form.position, {attr: {class: 'w-30'}})}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-lg-5 col-sm-12 card-minimo">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.day)}}</td>
+                <td class="w-40">{{ form_widget(form.day)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.month)}}</td>
+                <td>{{ form_widget(form.month)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.year)}}</td>
+                <td>{{ form_widget(form.year)}}</td>
+            </tr>
+        </table>
+    </div>
+
+</div>

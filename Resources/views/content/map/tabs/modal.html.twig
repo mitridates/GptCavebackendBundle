@@ -1,0 +1,35 @@
+{#
+/**
+ * @file modal.html.twig
+ * Esqueleto de formulario en ventana modal
+ */
+#}
+{%set vars = {
+        'msg': form.vars.attr.id~'_msg',
+        'path' : path('cave_backend_map_editonetomany',{'id': map.getMapid(), 'sequence':  entity.getSequence(), 'name':  name}),
+        'params': {'entity': name}
+        }
+%}
+{# evento para boton (onclick) y formulario (onsubmit) #}
+{%set clickEvent %}Grot('#{{form.vars.attr.id}}').form('enviar', 
+    '{{vars.path}}',
+    {'entity': '{{name}}'},
+    {
+        before: function(){
+            $('#form-notification').html('').hide();
+        },
+        success: function(){
+            Grot('#{{name}}_search_results').loader('reload'); $('#dialog-message').remove();
+        },
+        error: function(data){
+            (new Grot.mustache('form-notification', 'mst-form-error' )).show(data);
+        }
+    });return false;
+{%endset%} 
+    
+{% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+{{ form_start(form, {'attr': {'onsubmit': clickEvent} }) }}
+{%include '@GptCavebackend/content/map/tabs/'~name~'/modal.html.twig'%}
+<div class="col-lg-12 text-center">{%include '@GptCavebackend/content/map/tabs/button/save_button_onetomany_modal.html.twig'%}</div>
+{{ form_end(form) }}  
+<div id="{{form.vars.attr.id}}_msg" class="text-center"></div>

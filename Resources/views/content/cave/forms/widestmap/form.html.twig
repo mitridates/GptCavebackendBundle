@@ -1,0 +1,90 @@
+{#
+/**
+ * @file form.html.twig Cavewidestmap form
+ */
+#}
+{% set mapIdIsNull = form.map is null %}
+
+<div class="row">
+    <div class="col-12">
+        <table class="table">
+            <tr>
+                <td class="w-25">{{ form_label(form.position)}}</td>
+                <td>{{ form_widget(form.position, {attr: {class: 'w-25'}})}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+    <table class="table">
+        <tr>
+            <td class="w-25">{{ form_label(form.map)}}<input type="radio" name="{{ name }}check"  {{ mapIdIsNull==false?: 'checked'}} onchange="Grot('.widestmapId, .widestmapString').form('clear').form('disable');"></td>
+            <td class="widestmapId">{{ form_widget(form.map)}}</td>
+        </tr>
+    </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+    <table class="table">
+        <tr>
+            <td class="w-25">{{ form_label(form.mapname)}}<input type="radio" name="{{ name }}check" {{ mapIdIsNull?: 'checked'}} onchange="Grot('.widestmapId, .widestmapString').form('clear').form('disable');"></td>
+            <td class="widestmapString">{{ form_widget(form.mapname)}}</td>
+        </tr>
+    </table>
+    </div>
+</div>
+
+
+<div class="row widestmapString">
+    <div class="col-lg-5 col-sm-12">
+
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.orgcode)}}</td>
+                <td class="w-25">{{ form_widget(form.orgcode)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.scale)}}</td>
+                <td>{{ form_widget(form.scale)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.sequencenumber)}}</td>
+                <td>{{ form_widget(form.sequencenumber)}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-lg-7 col-sm-12">
+
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.surveygradeorg)}}</td>
+                <td td class="w-25">{{ form_widget(form.surveygradeorg)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.surveygradevalue)}}</td>
+                <td>{{ form_widget(form.surveygradevalue)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.survissueamend)}}</td>
+                <td>{{ form_widget(form.survissueamend)}}</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function() {
+        $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+        Grot('#{{form.map.vars.id}}').select2paginado('{{path('cave_backend_autocomplete_map')}}', {placeholder: '{{('select.map')|trans({},'cavemessages')|raw}}'});
+        {% if  mapIdIsNull==false %}
+        Grot('.widestmapString').form('clear').form('disable');
+        {% else %}
+        Grot('.widestmapId').form('clear').form('disable');
+        {% endif %}
+    });
+</script>

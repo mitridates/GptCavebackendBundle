@@ -1,0 +1,82 @@
+/*------------------------------------*\
+	#FORM
+\*------------------------------------*/
+
+/**
+ * overwrite some Bootstrap css
+ */
+label {
+    margin-bottom: 0px;
+    font-weight: normal;
+}
+.checkbox, .radio {
+    /* position: relative; */
+    /* display: block; */
+    margin-top: 6px;
+    margin-bottom: 5px;
+}
+.form-control {
+    font-size: 13px;
+    height: 34px;
+}
+.btn {
+    padding-top: 4px;
+}
+.btn-space-right-1 {
+    margin-right: 2px;
+}
+.btn-space-right-2 {
+    margin-right: 4px;
+}
+.btn-space-right-3 {
+    margin-right: 6px;
+}
+
+.table >tbody>tr>td,
+.table >tbody>tr>th,
+.table >tfoot>tr>td,
+.table >thead>tr>td
+{
+    padding: 4px;
+    vertical-align: middle;
+}
+
+.text-center-row > th,.text-center-row > td{
+    text-align: center;
+}
+
+/* Make Select2 boxes match Bootstrap3 heights: */
+.select2-selection__rendered {
+  line-height: 32px !important;
+}
+
+.select2-selection {
+  height: 34px !important;
+}
+
+/*JQUERY*/
+.ui-autocomplete {
+            cursor:pointer;
+            height:200px;
+            overflow-y:scroll;
+        }
+
+.float-error {
+    opacity: 0.7;
+    padding: 0 2px 2px 2px;
+    position: absolute;
+    background-color: #cd0a0a;
+    z-index: 1;"
+}
+.float-error .float-error-title {
+ color: white;
+}
+.float-error .float-error-close {
+    float: right; text-shadow: 0 1px 0 #fff;font-weight: bold; cursor: pointer; padding: 0 2px;
+}
+.float-error .float-error-relative {
+    position: relative;background-color: white;
+}
+.float-error .float-error-relative > ul {
+    list-style:none; padding: 0; margin: 3px;
+}

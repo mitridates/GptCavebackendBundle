@@ -1,0 +1,20 @@
+{#
+/**
+ * Global errors
+ * @file global_errors_message.html.twig
+ * @param FormView form
+ */
+#}
+{%spaceless%}
+{# throw global errors#}
+{% if form.vars.errors|length %}
+<div class="alert alert-danger">
+<ul class="list-unstyled">
+{% for error in  form.vars.errors%}
+  <li><span class="fa fa-exclamation"></span> {{ error.message|raw }}</li>
+ {%- endfor -%}
+  </ul>
+</div>
+ {% endif %}
+{# For child errors must use form_errors(form.field) inside form  or render child_errors_message(form) #}
+{%endspaceless%}

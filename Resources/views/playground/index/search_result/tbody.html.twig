@@ -1,0 +1,30 @@
+{#
+/**
+ * @file tbody.html.twig
+ * @parent ../../index_ajax.html.twig
+ #}
+{% for entity in data%}
+<tr id="tr_{{name}}_{{entity.caveid}}">
+    <td align="center"><a href="{{path('cave_backend_cave_edit',{'id': entity.caveid})}}">{{ entity.caveid}}</a></td>
+    <td>{{ entity.name}}</td>
+    <td>{{ entity.countryname ?: '' }}</td>
+    <td>{{ entity.admin1name ?: '' }}</td>
+    <td>{{ entity.admin2name ?: '' }}</td>  
+    <td>{{ entity.admin3name ?: '' }}</td>  
+    <td class="text-center">
+    {%if (entity.latitude is not null) and (entity.longitude is not null)%}
+    <button type="button" class="btn btn-default btn-sm" onclick="
+                  toggleView('map');
+                  var markers = markers || Grot.cache.get('markers')||[];
+                  for(var marker in markers){
+                      if(markers[marker].metadata.id==='{{entity.caveid}}'){
+                          google.maps.event.trigger(markers[marker], 'click');
+                          break;
+                      }
+                  }">
+    <span class="fa fa-map-marker" aria-hidden="true"></span> {{('show.on.map')|trans({},'cavemessages')|raw}}
+    </button>
+      {%endif%}
+    </td>      
+</tr>
+{% endfor %}

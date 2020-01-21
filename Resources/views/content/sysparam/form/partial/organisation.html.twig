@@ -1,0 +1,22 @@
+{#
+/**
+ * @file organisation.html.twig
+ * @parent ./form.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {'class':'col-lg-6'}%}
+{% block heading %}{{ 'sysparam.edit.section.organisation'| trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+{# sysparam name, id, ... #}
+<table class="table">
+<tr>
+  <td>{{ form_label(form.organisationsite)}}</td>
+  <td>{{ form_label(form.organisationdbm)}}</td>
+</tr>
+<tr>
+  <td>{{ form_widget(form.organisationsite) }}</td>
+  <td>{{ form_widget(form.organisationdbm) }}</td>
+</tr>
+</table>
+{% endblock body %}
+{% endembed %}

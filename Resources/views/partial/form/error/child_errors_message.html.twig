@@ -1,0 +1,20 @@
+{#
+/**
+ * Child errors
+ * @file child_errors_message.html.twig
+ * @param FormView form
+ */
+#}
+{%spaceless%}
+    {% if not form.vars.valid %}
+        {% for children in form.children %}
+            {% if children.vars.errors is defined %}
+                {% for error in children.vars.errors %}
+                    {#intentamos traducir#}
+                    {%set name = (children.vars.attr.code_id is defined)? get_fielddefinition_name(children.vars.attr.code_id, app.request.locale) : children.vars.label %}
+                    <div class="alert alert-danger">{{ name|raw }}</b>: {{ error.message|raw }} {#{children.vars.value}#}</div>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{%endspaceless%}

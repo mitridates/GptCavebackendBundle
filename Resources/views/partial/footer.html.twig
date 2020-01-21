@@ -1,0 +1,16 @@
+{#
+/**
+ * Footer navbar
+ * @file footer.html.twig
+ * @parent ./base.html.twig
+ */
+#}
+<!-- footer -->
+{% block footer %}
+    <nav class="navbar fixed-bottom navbar-light bg-dark pb-1">
+        <p class="text-muted text-center">
+            {%include '@GptCavebackend/partial/page/organisationdb_info_div.html.twig' only %}
+        </p>
+    </nav>
+{% endblock footer%}
+<!-- /.footer -->

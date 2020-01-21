@@ -1,0 +1,27 @@
+{#
+/**
+ * Manytoone pagination
+ * @file pagination.html.twig
+ * @param string name Manytoone Cave{name}, form dir name: ../forms/{name}/...
+ * @param string delete_token
+ * @param Cave cave
+ * @param array arrayParams
+ * @param ArrayCollection entities
+ * @param Paginator  paginator
+ #}
+{% import '@GptCavebackend/content/cave/edit/macro_edit_onetomany_buttons.html.twig' as bttns %}
+<div class="row m-0 bg-light">
+    <div class="col">
+        {%include '@GptCavebackend/partial/paginator/navigator_rango.html.twig' with {'paginator': paginator} only %}
+    </div>
+    <div class="col  text-right">
+        {{bttns.bttn_new( name,
+            path('cave_backend_cave_create_onetomany', { cave: cave.getCaveid(), name: name}),
+            path('cave_backend_cave_save_onetomany', { cave: cave.getCaveid(), name: name}),
+            ('cave.card.'~name)|trans({},'cavepages')|raw)
+
+        }}</div>
+</div>
+<div class="overflow-auto" style="height: 150px;">
+{% include '@GptCavebackend/content/cave/forms/'~name~'/pagination.html.twig' %}
+</div>

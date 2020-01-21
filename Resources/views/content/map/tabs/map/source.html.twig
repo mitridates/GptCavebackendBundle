@@ -1,0 +1,25 @@
+{#
+/**
+ * @file source.html.twig
+ * Formulario parcial
+ * @parent ./map.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel}%}
+{% block heading %}{{ 'map.tab.panel.source'|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table table-bordered">
+    <tr>
+        <td>{{ form_label(form.sourcecountry)}}</td>
+        <td>{{ form_label(form.sourceorg)}}</td>
+        <td>{{ form_label(form.sourceifnoid)}}</td>
+        <td>{{ form_label(form.sourcetype)}}</td>
+    </tr>
+        <td>{{ form_widget(form.sourcecountry)}}</td>
+        <td>{{ form_widget(form.sourceorg)}}</td>
+        <td>{{ form_widget(form.sourceifnoid)}}</td>
+        <td>{{ form_widget(form.sourcetype)}}</td>
+    </tr>
+</table>
+{% endblock body %}
+{% endembed %}

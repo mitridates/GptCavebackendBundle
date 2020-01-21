@@ -1,0 +1,28 @@
+{#
+/**
+ * @file tbody.html.twig
+ * @parent ../index_ajax.html.twig
+#}
+{% for entity in entities%}
+  <tr class="text-center-row">
+    <td>{{ entity.getCode() }}</td>
+    <td style="text-align: left"><a href="{{path('cave_backend_fielddefinition_edit', { 'id': entity.getCode() })}}">{{ entity.getName() }}</a></td>
+    <td>{{ entity.getEntity() }}</th>
+    <td>{{ entity.getDatatype() }}</th>
+    <td>{{ entity.getMaxlength() }}</th>
+    <td>{{ entity.getCoding() }}</th>
+    <th>{{ entity.getSinglemultivalued() }}</th>
+    <th>{{ entity.getValuecode() }}</th>
+    <th>
+      {%if entity.getTranslation() is not null %}
+        {%for lang in entity.getTranslation() %}
+          {%if lang.getReview() == true %}
+            <ins class="text-danger" title="Revisar!"> {{lang.getLanguage()}}</ins>
+          {%else%}
+            {{lang.getLanguage()}}
+          {%endif%}
+        {%endfor%}
+      {%endif%}
+    </th>
+  </tr>
+{% endfor %}

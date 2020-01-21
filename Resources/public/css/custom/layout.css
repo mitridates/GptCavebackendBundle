@@ -1,0 +1,150 @@
+/**
+ * Bootstrap requires a containing element to wrap site contents
+ * and house the grid system. You may choose one of two containers.
+ * Use .container for a responsive fixed width container.
+ * Use .container-fluid for a full width container.
+ * If using container-fluid, you may need to set a maximum width,
+ * so that the container will not spread to the entire viewport.
+*/
+
+.container-fluid { max-width: 1600px; }
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+
+.card-soft-blue>.card-header{background-color:#d8ecff!important}
+.card-soft-green>.card-header{background-color:#d8ffd8!important}
+.card-soft-yellow>.card-header{background-color:#ffffd8!important}
+.card-soft-red>.card-header{background-color:#ffd8d8!important}
+.card-soft-grey>.card-header{background-color:#e6e6e6!important}
+.card-soft-orange>.card-header{background-color:#ffe5c9!important}
+
+.card-regular-blue>.card-header{background-color:#6fbbff!important}
+.card-regular-green>.card-header{background-color:#32cd32!important}
+.card-regular-yellow>.card-header{background-color:#ffff6f!important}
+.card-regular-red>.card-header{background-color:#ff6f6f!important}
+.card-regular-grey>.card-header{background-color:#aeaeae!important}
+.card-regular-orange>.card-header{background-color:#ffb460!important}
+
+.pointer {
+    cursor: pointer;
+    text-decoration: none;
+}
+.pointer:hover {
+    color: #23527c;
+    text-decoration: underline;
+}
+
+.nopadding {padding: 0 !important;}
+.nopadding-left {padding-left: 0 !important;}
+.nopadding-right {padding-right: 0 !important;}
+
+.grotte-paginable {
+   overflow-y: auto;
+}
+
+/**
+ * For just the dialog body:
+ */
+.ui-dialog .ui-dialog-content { background: white; }
+/**
+ * Or for the entire dialog:
+ * .ui-dialog.ui-widget-content { background: red; }
+ */
+
+
+.centerbox-xy{ /**center box on screen*/
+    top:20%;
+    left: 50%;
+    position:absolute;
+    z-index: 50;
+ }
+
+.dotted-info{
+    border-bottom: 1px dashed #000080;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#notification-container{
+position: relative;
+}
+
+#notification-container{
+    background-color:  #ccccff;
+    overflow: auto !important;
+
+}
+#mst-container{
+    position:absolute;
+    left:50%;
+}
+.notification{
+    position:relative;
+    top:45px;
+    left: -50%;
+    border: dotted red 1px;
+    width: 100% ;
+    z-index: 1001;
+    display: none;
+}
+
+
+.notification-container>.notification-sm{
+    left:40%;
+    padding: 0 15px;
+    z-index: 102;
+}
+.notification-scroll{
+position:absolute;
+margin-top: -30px;
+z-index: 1001;
+max-height:650px;
+min-width: 800px;
+overflow-y: auto;
+padding: 5px;
+}
+
+.cave-card{}
+.cave-card>thead>tr>td{
+
+}
+
+.hide{display: none;}
+.cavemenu{}
+.cavemenu > div > div > div > span:first-child,
+.cavemenu > div > div > div > a:first-child { padding: 0.3em 0; text-align: center; background-color: #f2f2f2}
+.cavemenu > div > div > div> a,
+.cavemenu > div > div > div > span{ padding: 0.1em 0.5em; font-size: small}
+
+.card-minimo {margin:0; padding: 0; }
+.card-minimo>.card-body {padding:0;}
+.card-minimo>.card-body>.table{margin-bottom:0px;}
+.card-minimo>.card-header{padding:3px 10px;}
+.card-minimo>.card-header>h4{margin:2px 0;}
+
+.card-minimo>.card-body>.table>tbody>tr>td,
+.card-minimo>.card-body>.table>tbody>tr>th,
+.card-minimo>.card-body>.table>tfoot>tr>td,
+.card-minimo>.card-body>.table>tfoot>tr>th,
+.card-minimo>.card-body>.table>thead>tr>td,
+.card-minimo>.card-body>.table>thead>tr>th {
+    padding: 3px;
+    /*     border: none !important;*/
+}
+.w-10{width:10%!important}
+.w-20{width:20%!important}
+.w-30{width:30%!important}
+.w-40{width:40%!important}
+.w-60{width:60%!important}
+.w-80{width:80%!important}
+.w-90{width:90%!important}

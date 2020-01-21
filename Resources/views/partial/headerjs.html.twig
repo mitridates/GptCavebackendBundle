@@ -1,0 +1,48 @@
+{#
+/**
+ * javascript en el header
+ * @file headerjs.html.twig
+ * @parent ./base.html.twig
+ */
+#}
+<!-- Variables globales-->
+
+<script type="text/javascript">
+    const _SYS = {
+        env: '{{ app.environment }}'
+    };
+
+    // Profile is now an object with a nickname property.
+    // use profile.nickname on your javascripts
+</script>
+{% set javascripts = [
+        'jquery/jquery-1.10.2.min.js',
+        'jquery/jquery-ui.min.js',
+        'popper.min.js',
+        'Grot/Grot.js',
+        'Grot/Grot.polyfill.js',
+        'Grot/Grot.fn.js',
+        'Grot/Grot.form.js',
+        'Grot/Grot.geo.js',
+        'Grot/Grot.select2paginado.js',
+        'Grot/Grot.loader.js',
+        'Grot/nestedselect2.js',
+        'Grot/Grot.mustache.js',
+        'Grot/Grot.class.js',
+        'select2/select2.full.min.js',
+        'bootstrap.min.js',
+        'shortcut/shortcut.js',
+        'mustache/mustache.js',
+        'Grot/Repopulate.js',
+        'Grot/EventEmitter.js',
+   ]
+%}
+<!-- TODOS LOS SCRIPTS EN DEV ENV, COMPRIMIR PARA PASAR A PROD-->
+{# file in javascripts[app.environment] 
+{%for file in javascripts[app.environment] %}
+  <script type="text/javascript" src="{{...}}"></script>
+{%endfor%}
+#}       
+{%for file in javascripts %}
+  <script type="text/javascript" src="{{asset(arrayParams.bundle.webasset.js~file)}}"></script>
+{%endfor%}

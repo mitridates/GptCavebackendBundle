@@ -1,0 +1,34 @@
+{#
+/**
+ * @file numbers.html.twig
+ * @parent ../edit.html.twig
+ */
+#}
+ {% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel }%}
+{% block heading %}{{ 'person.edit.form.numbers'|trans({},'cavepages')|raw }}{% endblock heading %}
+{% block body %}
+<table class="table">
+    <tr>
+      <td class="col-lg-4">{{ form_label(form.phoneprefix)}}</td>
+      <td class="col-lg-4">{{ form_label(form.mobilephonenumber)}}</td>
+      <td class="col-lg-4">{{ form_label(form.faxphonenumber)}}</td>
+    </tr>
+    <tr>
+      <td>{{ form_widget(form.phoneprefix) }}</td>
+      <td>{{ form_widget(form.mobilephonenumber) }}</td>
+      <td>{{ form_widget(form.faxphonenumber) }}</td>
+    </tr>
+
+    <tr>    
+      <td class="col-lg-4">{{ form_label(form.homephonenumber)}}</td>
+      <td class="col-lg-4">{{ form_label(form.workphonenumber)}}</td>
+      <td class="col-lg-4">{{ form_label(form.pagerphonenumber)}}</td>
+    </tr>
+    <tr>
+      <td>{{ form_widget(form.homephonenumber) }}</td>
+      <td>{{ form_widget(form.workphonenumber) }}</td>
+      <td>{{ form_widget(form.pagerphonenumber) }}</td>
+    </tr>
+ </table>
+{% endblock body %}
+{% endembed %}

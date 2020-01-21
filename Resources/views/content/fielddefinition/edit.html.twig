@@ -1,0 +1,30 @@
+{#
+/**
+ * Edit Fielddefinition
+ * @file edit.html.twig
+ * @param array arrayParams
+ * @param FormView form
+ * @param FormInterface delete_form
+ * @param Fielddefinition fielddefinition
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+{% block page_javascripts %}
+    <script>
+        $(document).ready(function() {
+            $( '.grotte-paginable' ).each(function( index ) { Grot(this).loader(); });
+        });
+    </script>
+{%endblock%}
+{% block content %}
+    {%include '@GptCavebackend/content/fielddefinition/form/navbar.html.twig'%}
+    {% include '@GptCavebackend/partial/form/error/all_errors_message.html.twig'%}
+    {%include '@GptCavebackend/content/fielddefinition/form/edit.html.twig'%}
+{# Fielddefinitionlang pagination #}
+<div id="language_search_results"
+     class="grotte-paginable"
+     data-path='{{path('cave_backend_fielddefinition_onetomanypager', { 'id': fielddefinition.getCode()})}}'
+     data-params='{}'>
+</div>
+    {% include '@GptCavebackend/partial/form/modal.html.twig' %}
+{% endblock %}

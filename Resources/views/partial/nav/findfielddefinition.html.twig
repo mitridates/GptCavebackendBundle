@@ -1,0 +1,50 @@
+{#
+/**
+ * submenu
+ * @file playground.html.twig
+ * @parent ../navbar.html.twig
+ */
+#}
+<li class="nav-item">
+ <form class="form-inline my-2 my-lg-0">
+  <select class="form-control" style="width: 230px;" id="findfd" placeholder="Field definition by ID">
+   <option>Find Field definition</option>
+  </select>
+  <div id="fdpop" title="Basic dialog"></div>
+  <script type="text/javascript">
+   $(document).ready(function(){
+    $('#findfd').mouseenter(function(){
+             Grot('#findfd').select2paginado(
+                     '{{path('cave_backend_autocomplete_fielddefinition')}}',
+                     {minimumInputLength: 1, placeholder: 'Find field definition', cache: false}
+             );
+
+             $("#findfd").on("select2:select",function(){
+              let val =  $(this).find(':selected').val();
+              let text =  $(this).find(':selected').text();
+              let $pop = $('#fdpop');
+              if(val==='') return;
+              $.ajax({
+               url: '{{path('cave_backend_xhr_fielddefinition')}}/'+val,
+               type: 'GET',
+               //data: data,
+               dataType: 'html',
+               success: function(d) {
+                $pop.html(d).dialog({
+                 title: text,
+                 position: {my: "center top", at: "top+200px", of: window},
+                 closeOnEscape: true
+                });
+               }
+              });
+              return false;
+             });
+            }
+    );
+
+
+   });
+  </script>
+ </form>
+</li>
+

@@ -1,0 +1,35 @@
+{#
+/**
+ * Mensajes en formularios con mustache
+ * @file msg.notification.html.twig
+ * @parent ../../base.html.twig
+ */
+#}
+{#Area de notificacion #}
+<div id="msg-notification" class="alert alert-info notification">   
+</div>
+
+<script id="mst-msg" type="text/html">
+<button class="close"  type="button" onclick="this.parentElement.style.display='none';this.parentElement.innerHTML=''">×</button>
+<a href="javascript:;" onclick="$('#table-msg-notification').toggle();"><b>{%verbatim%}{{msgs.length}}{%endverbatim%}</b> mensajes <span class="fa fa-caret-down"></span></a>
+<table class="table table-hover table-condensed" id="table-msg-notification" style="display: table;">
+<thead>
+<tr>
+    <th>#</th>
+    <th>Título</th>
+    <th>mensaje</th>
+</tr>
+</thead>     
+<tbody>
+{%verbatim%}
+{{#msgs}}
+    <tr>
+        <td>{{index}}</td>
+        <td>{{title}}</td>
+        <td>{{msg}}</td>
+    </tr>
+{{/msgs}}           
+{%endverbatim%}
+</tbody>
+</table>  
+</script>

@@ -1,0 +1,22 @@
+{#
+/**
+ * @file megamenu.html.twig
+ * Enlaces de navegación
+ * @parent ../navbar.html.twig
+ */
+#}
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mantenimiento <span class="fa fa-caret-down"></span></a>
+    <div class="dropdown-menu">
+      <ul class="list-unstyled col-lg-3" role="menu">
+        {%include '@GptCavebackend/partial/nav/megamenu/col1.html.twig'%}
+      </ul>
+      <ul class="list-unstyled col-lg-3" role="menu">
+        {%include '@GptCavebackend/partial/nav/megamenu/col2.html.twig'%}
+      </ul>
+      <ul class="col-lg-3 list-unstyled" role="menu">
+        {%include '@GptCavebackend/partial/nav/megamenu/col3.html.twig'%}
+      </ul>
+      <ul class="col-lg-3 list-unstyled" role="menu">
+        {%include '@GptCavebackend/partial/nav/megamenu/col4.html.twig'%}
+      </ul>
+    </div>

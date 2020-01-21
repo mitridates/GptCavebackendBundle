@@ -1,0 +1,48 @@
+{#
+/**
+ * Edit Area
+ * @file edit.html.twig
+ * @param array arrayParams
+ * @param FormView form
+ * @param FormInterface delete_form
+ * @param Area area
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+{% block content %}
+    {%include '@GptCavebackend/content/area/navbar.html.twig'%}
+    <div id="errors"></div>
+    <div class="alert alert-primary" role="alert">
+        {{ ('area.edit.form.title')|trans({},'cavepages')|raw -}}
+    </div>
+    {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+    {{ form_start(form) }}
+
+    {% include '@GptCavebackend/content/area/form/edit_form.html.twig' %}
+    {% include '@GptCavebackend/partial/form/nav_edit_submit_button.html.twig' %}
+    {{ form_end(form) }}
+{% endblock %}
+{% block footer_javascripts %}
+    <script>
+        let repo = new Repopulate( '#{{ form.country.vars.id }}'),
+            editForm = document.getElementById('{{ form.vars.attr.id}}'),
+            errors= document.getElementById('errors');
+
+        repo.on('ev.onLoadResponse', (data, el, attr)=>{
+            return JSON.parse(data.response).out;//data is in 'out' array
+        });
+        repo.bindAll();
+
+
+        editForm.addEventListener('submit', event => {
+            event.preventDefault();
+            Grot(editForm).form('enviar','{{path('cave_backend_area_save', {id: area.getAreaid()})}}', {}, function (data) {
+                errors.innerHTML= typeof data=== "string"? data : '';
+            })
+        });
+        {#Grot('#{{ form.map.vars.id }}').select2paginado('{{path('cave_backend_map_json')}}',#}
+        {#    {placeholder: '{{'select.map'|trans({},'cavemessages')|raw}}'}#}
+        {#);#}
+
+    </script>
+{% endblock footer_javascripts %}

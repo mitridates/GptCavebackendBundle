@@ -1,0 +1,25 @@
+{#
+/**
+ * @file name.html.twig
+ * @parent ./form.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+{% block heading %}{{ 'sysparam.edit.section.name'| trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table">
+<tr>
+  <td>{{ form_label(form.name)}}<span class="ui-icon ui-icon-blank" style="display: inline-block"></span></td>
+  {% if form.active is defined %}
+  <td>{{ form_label(form.active)}}</td>
+  {% endif %}
+</tr>
+<tr>
+  <td>{{ form_widget(form.name) }}</td>
+  {% if form.active is defined %}
+  <td>{{ form_widget(form.active) }}</td>
+  {% endif %}
+</tr>
+</table>
+{% endblock body %}
+{% endembed %}

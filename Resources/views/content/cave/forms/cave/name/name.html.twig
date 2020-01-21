@@ -1,0 +1,153 @@
+{#
+/**
+ * @file name.html.twig
+ * @parent ../cave.html.twig
+ */
+#}
+{% set country_attr= {attr: {'data-child': '#'~form.admin1.vars.id}} %}
+
+{% set admin1_attr= {attr: {
+  'data-child': '#'~form.admin2.vars.id,
+  'data-url': path('cave_backend_json_admin1'),
+  'data-parentid': 'countryid',
+  'data-placeholder': 'select.government.level.admin1'|trans({},'cavemessages')|raw,
+}}%}
+
+{% set admin2_attr= {attr: {
+  'data-child': '#'~form.admin3.vars.id,
+  'data-url': path('cave_backend_json_admin2'),
+  'data-parentid': 'admin1id',
+  'data-placeholder': 'select.government.level.admin2'|trans({},'cavemessages')|raw
+}}%}
+
+{% set admin3_attr= {attr: {
+  'data-url': path('cave_backend_json_admin3'),
+  'data-parentid': 'admin2id',
+  'data-placeholder': 'select.government.level.admin3'|trans({},'cavemessages')|raw,
+}}%}
+
+{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+  {% block heading %}{{ ('cave.card.identity')|trans({},'cavepages')|raw -}}{% endblock heading %}
+  {% block body %}
+
+    <div class="row">
+      <div class="col-lg-5 col-sm-12">
+        <table class="table">
+          <tr>
+            <td>{{ form_label(form.name)}}</td>
+            <td>{{ form_widget(form.name)}}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.featuretype)}}</td>
+            <td>{{ form_widget(form.featuretype)}}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.entrancetype)}}</td>
+            <td>{{ form_widget(form.entrancetype)}}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.updatestatus)}}</td>
+            <td>{{ form_widget(form.updatestatus)}}</td>
+          </tr>
+
+          <tr>
+            <td>{{ form_label(form.quantityofentrances)}}</td>
+            <td>{{ form_widget(form.quantityofentrances)}}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-lg-3 col-sm-12">
+        <table class="table">
+
+          <tr>
+            <td>{{ form_label(form.country)}}</td>
+            <td>{{ form_widget(form.country, country_attr)}}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.admin1)}}</td>
+            <td>{{ form_widget(form.admin1, admin1_attr)}}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.admin2)}}</td>
+            <td>{{ form_widget(form.admin2, admin2_attr)}}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.admin3)}}</td>
+            <td>{{ form_widget(form.admin3,admin3_attr)}}</td>
+          </tr>
+            <tr>
+              <td>{{ form_label(form.hide)}}</td>
+              <td>{{ form_widget(form.hide)}}</td>
+            </tr>
+        </table>
+      </div>
+<script>
+  $(document).ready(function() {
+    let repo = new Repopulate( '#{{ form.country.vars.id }}');
+    repo.on('ev.onLoadResponse', (data, el, attr)=>{
+      return JSON.parse(data.response).out;//data is in 'out' array
+    });
+    repo.bindAll();
+  });
+
+</script>
+      <div class="col-lg-4 col-sm-12">
+        <table class="table">
+          <tr>
+            <td>{{ form_label(form.degreeexplored)}}</td>
+            <td>{{ form_widget(form.degreeexplored)}}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.percentmapped)}}</td>
+            <td>{{ form_widget(form.percentmapped)}}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.penetrability)}}</td>
+            <td>{{ form_widget(form.penetrability)}}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.entrancemarking)}}</td>
+            <td>{{ form_widget(form.entrancemarking)}}</td>
+          </tr>
+          <tr>
+            <td>{{ form_label(form.serial)}}</td>
+            <td>{{ form_widget(form.serial)}}</td>
+          </tr>
+        </table>
+
+    </div>
+    </div>
+
+
+    <div class="row">
+
+    <div class="col-lg-6 col-sm-12">
+      <table class="table">
+        <tr>
+          <td>{{ form_label(form.geographiclocation)}}</td>
+          <td>{{ form_label(form.system)}}</td>
+        </tr>
+        <tr>
+          <td>{{ form_widget(form.geographiclocation)}}</td>
+          <td>{{ form_widget(form.system)}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="col-lg-6 col-sm-12">
+      <table class="table">
+        <tr>
+          <td>{{ form_label(form.nearestlocality)}}</td>
+          <td>{{ form_label(form.localgovernmentarea)}}</td>
+        </tr>
+        <tr>
+          <td>{{ form_widget(form.nearestlocality)}}</td>
+          <td>{{ form_widget(form.localgovernmentarea)}}</td>
+        </tr>
+      </table>
+    </div>
+
+    </div>
+  {% endblock body %}
+{% endembed %}

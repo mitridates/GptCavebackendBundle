@@ -1,0 +1,84 @@
+{#
+/**
+ * @file gridref.html.twig
+ * Formulario parcial
+ * @parent ./coordinates.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+    {% block heading %}{{ ('cave.card.gridref')|trans({},'cavepages')|raw -}}{% endblock heading %}
+    {% block body %}
+        <div class="row">
+            <div class="col-lg-4 col-sm-12">
+
+                <table class="table">
+                    <tr>
+                        <td>{{ form_label(form.easting)}}</td>
+                        <td>{{ form_widget(form.easting)}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.northing)}}</td>
+                        <td>{{ form_widget(form.northing)}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.gridzone)}}</td>
+                        <td>{{ form_widget(form.gridzone)}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.grefgeodetdatum)}}</td>
+                        <td>{{ form_widget(form.grefgeodetdatum)}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-lg-4 col-sm-12">
+                <table class="table">
+                    <tr>
+                        <td>{{ form_label(form.grefmethod)}}</td>
+                        <td>{{ form_widget(form.grefmethod)}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.grefdate)}}</td>
+                        <td>{{ form_widget(form.grefdate)}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.mapgrid)}}</td>
+                        <td>{{ form_widget(form.mapgrid)}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.gridrefunits)}}</td>
+                        <td>{{ form_widget(form.gridrefunits)}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-lg-4 col-sm-12">
+                <table class="table">
+                    <tr>
+                        <td>{{ form_label(form.grefprecision)}}</td>
+                        <td>{{ form_widget(form.grefprecision)}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.grefaccuracy)}}</td>
+                        <td>{{ form_widget(form.grefaccuracy)}}</td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <tr>
+                        <td>{{ form_label(form.grefcomment)}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_widget(form.grefcomment)}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+{% endblock body %}
+{% endembed %}

@@ -1,0 +1,53 @@
+{#
+/**
+ * @file scripts.html.twig
+ * Scripts comunes
+ *
+ */
+#}
+    {%  set fieldId = {
+        'country': '#'~form.country.vars.id,
+        'admin2': '#'~form.admin2.vars.id,
+        'admin3': '#'~form.admin3.vars.id,
+    }  %}
+
+<script type="text/javascript">
+ $(document).ready(function() {
+
+    $('.select2').select2();
+    
+    $('.countryid').select2({
+         placeholder: '{{ 'select.government.level.country'|trans({},'cavemessages')|raw }}',
+         'allowClear': true
+    }).on('select2:unselecting', function(){
+        $('{{ fieldId.admin2 }}, {{ fieldId.admin3 }}').val(null).trigger('change');
+    });
+
+     $('.admin2id').select2({
+         placeholder: '{{ 'select.government.level.admin2'|trans({},'cavemessages')|raw }}',
+         'allowClear': true
+     }).nestedselect2({
+         url: '{{path('cave_backend_json_admin2')}}',
+         parent: {el:'.countryid', row: 'countryid'},
+         defaults: {placeholder: '{{ 'select.government.level.admin2'|trans({},'cavemessages')|raw }}'}
+     }).on('select2:unselecting', function(){
+         $('{{ fieldId.admin3 }}').html('');
+         $('{{ fieldId.country }}').trigger('change');
+
+     });
+
+     $('.admin3id').select2({
+         placeholder: '{{ 'select.government.level.admin3'|trans({},'cavemessages')|raw }}',
+         'allowClear': true
+     }).nestedselect2({
+         url: '{{path('cave_backend_json_admin3')}}',
+         parent: {el:'.admin2id', row: 'admin2id'},
+         defaults: {placeholder: '{{ 'select.government.level.admin3'|trans({},'cavemessages')|raw }}'}
+     }).on('select2:unselecting', function(){
+         $('{{ fieldId.admin2 }}').trigger('change');
+
+     })
+    Grot('.organisation*').select2paginado('{{path('cave_backend_autocomplete_organisation')}}',{placeholder: '{{'select.organisation'|trans({},'cavemessages')|raw}}'});
+   
+});
+</script> 

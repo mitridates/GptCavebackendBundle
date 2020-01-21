@@ -1,0 +1,39 @@
+{#
+/**
+ * @file tbody.html.twig
+ * @parent ../index_ajax.html.twig
+#}
+{% set Organisationdbm = Sysparam.getOrganisationdbm()|default(null) %}
+
+{% for entity in entities%}
+<tr class="text-center-row">
+    <td>{{ entity.getOrganisationid() }}</td>
+    <td style="text-align: left"><a href="{{path('cave_backend_organisation_edit', { 'id': entity.getOrganisationid() })}}">{{ entity.getName() }}</a></td>
+    <td>{{ entity.getCode()}}</td>
+    <td>{{ entity.getCountry().getName() ?? ''}}</td>
+    <td title="{{entity.admin2.getAdmin2id() ?? ''}}">{{entity.admin2.getName() ?? ''}}</td>
+    <td>{{ entity.getType().getValue() ?? '' }}</td>
+    <td>{{ entity.getCoverage().getValue() ?? ''}}</span></td>
+    <td>{{ entity.getGrouping().getValue() ?? '' }}</td>
+    <td>
+        {%if entity.getDefunct() %}
+            <span title="{{'organisation.index.search.defunct.organisation'|trans({},'cavepages')|raw}}" class="fa fa-eraser" aria-hidden="true"></span>
+                {%if entity.getCurrentidifdefunct() %}
+                <a href="{{ path('cave_backend_organisation_edit', { 'id': entity.getCurrentidifdefunct().getOrganisationid() }) }}">
+                    <span title="{{get_fielddefinition_name('384')}}. {{entity.getCurrentidifdefunct().getOrganisationid()~'.
+                    '~entity.getCurrentidifdefunct().getName()}}" class="fa fa-random" aria-hidden="true">
+                    </span>
+                </a>
+                {%endif%}
+        {%endif%}
+
+        {%if entity.getIdgenerator()==1  %}
+            <span title="{{ 'system.idgenerator.org' | trans({},'cavemessages')|raw -}}" class="fa fa-star" aria-hidden="true"></span>
+        {%endif%}
+
+        {% if Organisationdbm is not null and (entity.getOrganisationid() == Organisationdbm.getOrganisationid())%}
+            <span title="{{ 'system.main.org' | trans({},'cavemessages')|raw -}}" class="fa fa-star" aria-hidden="true"></span>
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}

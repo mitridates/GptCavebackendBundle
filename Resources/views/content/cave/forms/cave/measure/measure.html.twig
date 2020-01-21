@@ -1,0 +1,46 @@
+{#
+/**
+ * @file measure.html.twig
+ * @parent ../cave.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+    {% block heading %}{{ ('cave.card.measure')|trans({},'cavepages')|raw -}}{% endblock heading %}
+    {% block body%}
+        <div class="row">
+
+            <div class="col-lg-4 col-sm-12">
+                <table class="table">
+                    {% for f in ['verticalextent' , 'verticalmethod','verticalaccuracy', 'extentbelowentrance','extentaboveentrance', 'depthcategory'] %}
+                        <tr>
+                            <td class="w-60">{{ form_label(form[f])}}</td>
+                            <td class="w-40">{{ form_widget(form[f])}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <div class="col-lg-4 col-sm-12">
+                <table class="table">
+        {% for f in ['length' , 'lengthmethod','lengthaccuracy', 'lengthcategory', 'extentlength', 'extentwidth'] %}
+                    <tr>
+                    <td class="w-60">{{ form_label(form[f])}}</td>
+                    <td class="w-40">{{ form_widget(form[f])}}</td>
+                    </tr>
+        {% endfor %}
+                </table>
+            </div>
+
+            <div class="col-lg-4 col-sm-12">
+                <table class="table">
+                    {% for f in ['widthlargestchamber' , 'heighlargestchamber','lengthlargestchamber'] %}
+                        <tr>
+                            <td class="w-60">{{ form_label(form[f])}}</td>
+                            <td class="w-40">{{ form_widget(form[f])}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    {% endblock body %}
+{% endembed %}

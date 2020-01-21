@@ -1,0 +1,63 @@
+{#
+/**
+ * Manytoone pagination
+ * @file pagination.html.twig
+ * @param string name Manytoone Cave{name}
+ * @param string delete_token
+ * @param Cave cave
+ * @param array arrayParams
+ * @param ArrayCollection entities
+ * @param Paginator  paginator
+ #}
+{% import '@GptCavebackend/content/cave/edit/macro_edit_onetomany_buttons.html.twig' as bttns %}
+{% for entity in entities%}
+    {% if entity.getPerson() or
+        entity.getFirstname() or
+        entity.getSurname() %}
+    {% set person= {
+        name: entity.getPerson()? entity.getPerson().getName() : entity.getFirstname(),
+        surname: entity.getPerson()? entity.getPerson().getSurname() : entity.getSurname(),
+        id: entity.getPerson()? entity.getPerson().getPersonid() : null
+    } %}
+    {% endif %}
+
+    {% if entity.getOrganisation() or
+        entity.getOrganisationinitials() %}
+        {% set org= {
+            name: entity.getOrganisation()? entity.getOrganisation().getName() : entity.getOrganisationinitials(),
+            id: entity.getOrganisation()? entity.getOrganisation().getOrganisationid() : null
+        } %}
+    {% endif %}
+<div class="border border-dark rounded">
+    {{- bttns.bttn_delete( name, path('cave_backend_cave_delete_onetomany', { cave: cave.getCaveid(), sequence: entity.getSequence(), name: name, deletetoken: delete_token}))-}}
+
+{% if entity.getPosition() %}{{ entity.getPosition() }}.- {% endif %}
+<span title="ID: {{ entity.getType().getId()}},
+Field: {{entity.getType().getField()}},
+Code:  {{entity.getType().getCode()}}">{{entity.getType().getValue() }}</span>
+
+{% if person is defined %}
+    <span>
+        [
+        <i class="fa fa-user" aria-hidden="true"></i> {{ person.surname!=''? person.name~' '~person.surname : person.name }}
+        {% if person.id %} <a title="{{ person.id }}, {{ person.name }}" class="fa fa-link" href="{{ path('cave_backend_person_edit', {id: person.id}) }}"></a>{% endif %}
+        ]
+    </span>
+{% endif %}
+
+{% if org is defined %}
+    [
+    <span><i class="fa fa-home" aria-hidden="true"></i> {{ org.name }}
+    {% if org.id %} <a title="{{ org.id }}, {{ org.name }}" class="fa fa-link" href="{{ path('cave_backend_organisation_edit', {id: org.id}) }}"></a>{% endif %}</span>
+    ]
+
+{% endif %}
+
+    {{- bttns.bttn_edit(name,
+        path('cave_backend_cave_create_onetomany', { cave: cave.getCaveid(), name: name, sequence: entity.getSequence()}),
+        path('cave_backend_cave_save_onetomany', { cave: cave.getCaveid(), name: name, sequence: entity.getSequence()}),
+        ('cave.card.'~name)|trans({},'cavepages')|raw)
+    -}}
+</div>
+{% endfor %}
+

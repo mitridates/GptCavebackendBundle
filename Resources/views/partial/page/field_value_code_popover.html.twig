@@ -1,0 +1,77 @@
+{#
+/**
+ * Bootstrap popover template
+ *
+ * @file field_value_code_popover.html.twig
+ * @param Fielddefinition fielddefinition
+ * @param array arrayParams Bundle and page parameters
+ */
+#}
+{{fielddefinition.getDefinition()|raw}}
+<br/>
+{#Atributos#}
+<a href="#fd-{{fielddefinition.getCode()}}-dataattributes" data-toggle="collapse"
+   onclick="$('#fd-{{fielddefinition.getCode()}}-dataattributes').collapse('toggle');">
+    {{ 'attributes' | trans({},'cavemessages')|capitalize|raw -}} <span class="fa fa-caret-down"></span></a>
+{% set entity = arrayParams.choices.entity[fielddefinition.getEntity()]|default('nd')%}
+{% set type = arrayParams.choices.datatype[fielddefinition.getDatatype()]|default('nd')%}
+{% set coding = arrayParams.choices.coding[fielddefinition.getCoding()]|default('nd')%}
+{% set smvalue = arrayParams.choices.singlemultivalued[fielddefinition.getSinglemultivalued()]|default('nd')%}
+<div id="fd-{{fielddefinition.getCode()}}-dataattributes" class="collapse" >
+    Code: {{fielddefinition.getCode()}}<br/>
+    Name: {{fielddefinition.getName()}}<br/>
+    Entity: <span class="dotted-info"
+                  title="{{entity}}">
+        {{ fielddefinition.getEntity() }}</span><br/>
+    Datatype: <span class="dotted-info" title="{{ type }}">{{ fielddefinition.getDatatype() }}</span><br/>
+    Maxlength: {{fielddefinition.getMaxlength()}}<br/>
+    Coding: <span class="dotted-info" title="{{ coding }}">{{ fielddefinition.getCoding() }}</span><br/>
+    Single / multi valued: <span class="dotted-info" title="{{ smvalue }}">{{ fielddefinition.getSinglemultivalued() }}</span><br/>
+</div>
+{#End Atributos#}
+{#Valuecode#}
+{% if fielddefinition.getValuecode() is not null%}
+<br/>
+<a href="#fd-{{fielddefinition.getValuecode()}}-valuecodes" data-toggle="collapse" onclick="$('#fd-{{fielddefinition.getValuecode()}}-valuecodes').collapse('toggle');" title="Code {{ fielddefinition.getValuecode() }}">
+    {{ 'valuecodes' | trans({},'cavemessages')|capitalize|raw -}}<span class="fa fa-caret-down"></span></a>
+
+    <div id="fd-{{fielddefinition.getValuecode()}}-valuecodes" class="collapse" >
+        {% set valuecode = get_valuecodes(fielddefinition.getValuecode()) %}
+
+        {% if valuecode is iterable %}
+            {% for item in valuecode %}
+                {{ item.getCode()~' - '~item.getValue() }}<br>
+            {% endfor %}
+        {% else %}
+            {{ 'noresultfound' | trans({},'cavemessages')|capitalize|raw -}}
+        {%endif%}
+    </div>
+{% endif %}
+{#End Valuecode#}
+{% if fielddefinition.getComment() is not null%}
+<br/>
+<a href="#fd-{{fielddefinition.getCode()}}-comment" data-toggle="collapse" onclick="$('#fd-{{fielddefinition.getCode()}}-comment').collapse('toggle');">
+{{ 'comment' | trans({},'cavemessages')|capitalize|raw -}}<span class="fa fa-caret-down"></span></a>
+<div id="fd-{{fielddefinition.getCode()}}-comment" class="collapse" >
+    {{fielddefinition.getComment()|raw}}
+</div>
+{%endif%}
+{% if fielddefinition.getUso() is not null%}
+<br/>
+<a href="#fd-{{fielddefinition.getCode()}}-usage" data-toggle="collapse" onclick="$('#fd-{{fielddefinition.getCode()}}-usage').collapse('toggle');">
+{{ 'usage' | trans({},'cavemessages')|capitalize|raw -}}<span class="fa fa-caret-down"></span></a>
+<div id="fd-{{fielddefinition.getCode()}}-usage" class="collapse" >
+    {{fielddefinition.getUso()|raw}}
+</div>
+{%endif%}
+{% if fielddefinition.getExample() is not null%}
+<br/>
+<a href="#fd-{{fielddefinition.getCode()}}-example" data-toggle="collapse" onclick="$('#fd-{{fielddefinition.getCode()}}-example').collapse('toggle');">
+{{ 'example' | trans({},'cavemessages')|capitalize|raw -}}<span class="fa fa-caret-down"></span></a>
+<div id="fd-{{fielddefinition.getCode()}}-example" class="collapse" >
+    {{fielddefinition.getExample()|raw}}
+</div>
+{%endif%}
+<br>
+<a href="http://www.uisic.uis-speleo.org/exchange/atendefn.html#{{fielddefinition.getCode()}}" target="_blank">Fuente</a> | 
+<a href="{{path('cave_backend_fielddefinition_edit', {'id': fielddefinition.getCode()})}}" target="_self">Editar</a>

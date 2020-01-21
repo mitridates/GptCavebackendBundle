@@ -1,0 +1,44 @@
+{#
+/**
+ * @file publication.html.twig
+ *
+ * @parent ../../edit.html.twig
+ */
+#}
+{% set country_attr= {attr: {'data-child': '#'~form.admin1.vars.id}} %}
+{% set admin1_attr= {attr: {
+  'data-url': path('cave_backend_json_admin1'),
+  'data-parentid': 'countryid',
+  'data-placeholder': 'select.government.level.admin1'|trans({},'cavemessages')|raw,
+}}%}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel }%}
+  {% block heading %}{{ 'article.edit.form.publication'| trans({},'cavepages')|raw -}}{% endblock heading %}
+  {% block body %}
+    <table class="table">
+      <tr>
+        <td>{{ form_label(form.country)}}</label></td>
+        <td>{{ form_label(form.admin1)}}</td>
+        <td>{{ form_label(form.publicationyear)}}</label></td>
+        <td>{{ form_label(form.publicationyearsuffix)}}</td>
+
+        <td></td>
+      </tr>
+      <tr>
+        <td>{{ form_widget(form.country, country_attr) }}</td>
+        <td>{{ form_widget(form.admin1, admin1_attr) }}</td>
+        <td>{{ form_widget(form.publicationyear)}}</td>
+        <td>{{ form_widget(form.publicationyearsuffix)}}</td>
+        <td></td>
+      </tr>
+    </table>
+    <script>
+      $(document).ready(function() {
+        let repo = new Repopulate( '#{{ form.country.vars.id }}');
+        repo.on('ev.onLoadResponse', (data, el, attr)=>{
+          return JSON.parse(data.response).out;//data is in 'out' array
+        });
+        repo.bindAll();
+      });
+    </script>
+  {% endblock body %}
+{% endembed %}

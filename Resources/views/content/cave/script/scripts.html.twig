@@ -1,0 +1,226 @@
+{#
+/**
+ * @file scripts.html.twig
+ * Scripts comunes
+ *
+ */
+#}
+<script>
+
+    /**
+     * @class
+     * @constructor
+     * @name Menuloader
+     * @param {Object} targetsContainer
+     * @param {Object} menu
+     */
+    function Menuloader (menu, targetsContainer) {
+        this.menu  = menu;
+        this.targetsContainer = targetsContainer;
+        this.postloadAction = [];
+        this.lastActiveMenuItem= false;
+    }
+
+    /**
+     * Add functions to run before load
+     * @param {Function} func(dataTarget, menu, menuItem, reload)
+     * @return self
+     */
+    Menuloader.prototype.addPostLoadAction= function(func)
+    {
+        this.postloadAction.push(func);
+        return this;
+    };
+
+    /**
+     * show data
+     * @param {Object} dataTarget data div container
+     */
+    Menuloader.prototype.showData= function(dataTarget)
+    {
+        for (let i = 0; i < this.targetsContainer.children.length; i++) {
+            let e = this.targetsContainer.children[i];
+            e.style.display = 'none';
+        }
+        dataTarget.style.display= 'inline';
+    };
+
+    /**
+     * Load/reload div
+     * @param {Object} tab element anchor
+     * @param {boolean} [reload]
+     */
+    Menuloader.prototype.load= function(menuItem, reload)
+    {
+        let dataTarget  = document.querySelector(menuItem.hash) ;
+        $this = this;
+        if(typeof dataTarget === 'undefined'){
+            console.log('Target hash ID desconocido: '+ menuItem.hash);
+            return false;
+        }
+
+        //window.history.pushState(null, null, menuItem.href);
+        document.location.hash = menuItem.hash;
+
+        let updateTab = function(){
+            menuItem.dataset.loaded = "true";
+            for(let i=0; i<$this.postloadAction.length; i++){
+                $this.postloadAction[i](dataTarget, $this.menu, menuItem, reload);
+            }
+        };
+
+        if(!dataTarget.dataset.path && menuItem.dataset.loaded !== "true"){
+            updateTab();
+        }else if(reload || menuItem.dataset.loaded !== "true"){
+            dataTarget.innerHTML= '<div class="text-center">{{'loading'|trans({},'cavemessages')|raw}}</div>';
+            Grot(dataTarget).loader({}, {'success': updateTab});
+        }
+
+        this.menu.querySelector('.active').classList.remove('active')
+        menuItem.classList.add('active');
+        this.lastActiveMenuItem = menuItem
+        this.showData(dataTarget);
+    };
+
+
+    let modalFormButton = function (context) {
+        let $this= context || this,
+            m = document.getElementById('exampleModal'),
+            modal= {
+                ob      : m,
+                bttn    : m.querySelector('.modal-submit'),
+                title   : m.querySelector('.modal-title'),
+                body    : m.querySelector('.modal-body'),
+                footer  : m.querySelector('.modal-footer'),
+                error   : m.querySelector('.modal-error'),
+                replaceBttn: ()=> {
+                    let bttn = m.querySelector('.modal-submit'), newBttn = bttn.cloneNode(true);
+                    m.querySelector('.modal-footer').replaceChild(newBttn, bttn);
+                }
+
+        },
+        func= {
+            submitForm: function(sendFormUrl, form, name){
+                $.ajax({type: 'POST', url: sendFormUrl, data: $(form).serialize(),
+                    success: function(data) {
+                        if(data!==''){
+                            modal.error.innerHTML= data;
+                        }else{
+                            Grot($($this).closest('.grotte-paginable')[0]).loader('reload');
+                            modal.body.innerHTML = modal.error.innerHTML ='';
+                            $(modal.ob).modal('hide');
+                        }
+                    }
+                });
+            },
+            getForm: function(name, getFormUlr , sendFormUrl){
+                $.ajax({type: 'GET', url: getFormUlr,
+                    success: function(data) {
+                        $(modal.body).append(data);
+                        let form = modal.body.getElementsByTagName('form')[0];
+                        if(typeof form==='undefined') return;
+                        form.addEventListener('submit', function(event) { event.preventDefault();func.submitForm(sendFormUrl, form, name)});
+                        modal.bttn.addEventListener('click', function(event) {event.preventDefault();func.submitForm(sendFormUrl, form, name)});
+                        $(modal.ob).modal('show').modal('handleUpdate');
+                        $(modal.ob).on('hidden.bs.modal', function () {
+                            modal.body.innerHTML = modal.error.innerHTML= '';
+                            modal.replaceBttn();
+                            $(modal.ob).modal('dispose');
+                        })
+                    }
+                });
+            }
+        }
+        ;
+
+
+        let getForm= function (name, getFormUlr , sendFormUrl, title) {
+            modal.title.innerHTML= title;
+            func.getForm(name, getFormUlr , sendFormUrl)
+        },
+            removeForm= function (deleteFormUrl) {
+                if($this.classList.contains('fa-trash')){
+                    $this.classList.replace('fa-trash', 'fa-exclamation-triangle');
+                    let replace = ()=> $this.classList.replace('fa-exclamation-triangle','fa-trash');
+                    setTimeout(replace, 3000);
+                    return false;
+                }
+
+                $.ajax({type: 'GET', url: deleteFormUrl,
+                    success: function(data) {
+                        if(data!==''){
+                            alert(this.data);
+                        }else {
+                            Grot($($this).closest('.grotte-paginable')).loader('reload')
+                            //$this.parentNode.parentNode.removeChild($this.parentNode);
+                        }
+                    }
+                });
+            };
+
+        return {
+            getForm: getForm,
+            removeForm: removeForm,
+        }
+    };
+
+
+
+    /**
+     * Cargamos el tab en url si existe y estamos en edición
+     * 1 - carga hash si existe: ejem: app_dev.php/cave/admin/cave/edit/ESGPT00001/map#citation-tab
+     * 2 - else ultima parte de la url si existe app_dev.php/cave/admin/cave/edit/ESGPT00001/map
+     * 3 - else tab activa por defecto: cave-tab
+     *
+     */
+
+    $(document).ready(function() {
+        /**
+         * Cargamos el tab en url si existe y estamos en edición
+         * 1 - carga hash si existe: ejem: app_dev.php/cave/admin/cave/edit/ESGPT00001#citation-tab
+         * 2 - else tab activa por defecto: cave-tab
+         *
+         */
+        let menuloader = new  Menuloader(document.getElementById('menuItems'), document.getElementById('menuContent'));
+
+        window.menuloader = menuloader;
+
+        menuloader.addPostLoadAction(function (dataTarget, menu, menuItem, reload) {
+            Grot.fn.init();
+            {%set selectors = ['organisation', 'mapserie', 'person', 'article', 'cave', 'specie']%}{#'map',#}
+            {%for selector in selectors %}
+            Grot('.{{selector}}*', dataTarget).select2paginado('{{path('cave_backend_autocomplete_'~selector)}}', {placeholder: '{{('select.'~selector)|trans({},'cavemessages')|raw}}'});
+            {%endfor%}
+        }).addPostLoadAction(function (dataTarget, menu, menuItem, reload) {
+            let paginables = dataTarget.querySelectorAll('.grotte-paginable');
+            for(let i=0; i<paginables.length; i++)
+            {
+                Grot(paginables[i]).loader();
+            }
+        });
+
+        //add tab click to history
+       // $('a[data-toggle="tab"]').on('click', function(e) {
+       //     history.pushState(null, null, $(this).attr('href'));
+       // });
+
+
+        let hash = window.location.hash;//guardamos hash si existe
+        let page = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);//guardamos el último elemento de la url
+
+        if(hash!==''){ //existe hash
+            page = page.replace(hash,"");//quitamos el hash del final de la url
+            hash= hash.split('#')[1];//quitamos la almoadilla del hash
+        }
+
+
+        if(hash!=='' && document.getElementById(hash)){//intentamos primero el hash
+            menuloader.load($('a[href="#'+ hash +'"]')[0]);
+        }else{//el tab activo por defecto
+            menuloader.load($('a.active')[0]);
+        }
+
+    });
+
+
+</script>

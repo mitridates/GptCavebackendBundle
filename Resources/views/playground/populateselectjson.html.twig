@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% set javascripts = [
+        'Grot/Repopulate.js',
+        'Grot/EventEmitter.js',
+    ]
+    %}
+    {%for file in javascripts %}
+        <script type="text/javascript" src="{{asset(arrayParams.bundle.webasset.js~file)}}"></script>
+    {%endfor%}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let repo = new Repopulate('#country');
+            repo.on('ev.onLoadResponse', (data, el, attr)=>{
+                return JSON.parse(data.response).out;//data is in 'out' array
+            });
+            repo.bindAll();
+        });
+    </script>
+</head>
+<body>
+
+
+<select id="country" data-child="#admin1, #area">
+    <option value="">Seleccione país</option>
+    <option value="es">España</option>
+    <option value="au">Australia</option>
+</select>
+
+
+<select id="admin1" data-child="#admin2"
+        data-url="{{ path('cave_backend_json_admin1') }}"
+        data-querykey="countryid"
+        data-emptyOption="Seleccione admin1"
+        data-parameters='{"format":"select2"}'#}
+></select>
+
+
+<select id="admin2" data-child="#admin3"
+        data-url="{{ path('cave_backend_json_admin2') }}"
+        data-querykey="admin1id"
+        {#        data-returnformat="text,id"#}
+        data-emptyOption="Seleccione admin2"
+        {#        data-parameters='{"format":"select2"}'#}
+></select>
+
+<select id="admin3"
+        data-url="{{ path('cave_backend_json_admin3') }}"
+        data-querykey="admin2id"
+        {#        data-returnformat="text,id"#}
+        data-emptyOption="Seleccione admin3"
+        {#        data-parameters='{"format":"select2"}'#}
+></select>
+
+
+<select id="area"
+        data-url="{{ path('cave_backend_json_area') }}"
+        data-querykey="countryid"
+        {#        data-returnformat="text,id"#}
+        data-emptyOption="Seleccione area"
+        {#        data-parameters='{"format":"select2"}'#}
+></select>
+</body>
+
+</html>

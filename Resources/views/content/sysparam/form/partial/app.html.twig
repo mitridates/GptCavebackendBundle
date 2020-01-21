@@ -1,0 +1,21 @@
+{#
+/**
+ * @file app.html.twig
+ * @parent ./form.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {'class':'col-lg-4'}%}
+{% block heading %}{{ 'sysparam.edit.section.app'| trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table">
+<tr>
+  <td>{{ form_label(form.version)}}</td>
+  <td>{{ form_label(form.softwarelevel)}}</td>
+</tr>
+<tr>
+  <td>{{ form_widget(form.version) }}</td>
+  <td>{{ form_widget(form.softwarelevel) }}</td>
+</tr>
+</table>
+{% endblock body %}
+{% endembed %}

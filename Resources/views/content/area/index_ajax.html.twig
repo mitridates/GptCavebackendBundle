@@ -1,0 +1,21 @@
+{#
+/**
+ * Search results.
+ * @file index_ajax.html.twig
+ * @param array arrayParams
+ * @param array entities
+ * @param FormView form
+ * @param Paginator
+ * @param string entity_token CsrfToken
+ */
+#}
+{%include '@GptCavebackend/partial/paginator/navigator_rango.html.twig' with {'paginator': paginator} only %}
+{# tabla de resultados #}
+{% embed '@GptCavebackend/partial/buscador/datatable_layout.html.twig'%}
+    {% block thead %}
+        {%include '@GptCavebackend/content/area/search_result/thead.html.twig' only %}
+    {% endblock thead %}
+    {% block tbody %}
+        {%include '@GptCavebackend/content/area/search_result/tbody.html.twig' with {'name': 'area', 'entities': entities, 'entity_token': entity_token } only%}
+    {% endblock tbody %}
+{% endembed %}

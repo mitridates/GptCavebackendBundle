@@ -1,0 +1,60 @@
+{#
+/**
+ * Form
+ * @file index_search_form.html.twig
+ * @parent ../index.html.twig
+ */
+#}
+{% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+{{ form_start(form) }}
+
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel_search}%}
+    {% block heading %}
+        {{ 'fielddefinition.index.search.form'|trans({},'cavepages')|raw -}}
+    {% endblock heading %}
+    {% block body %}
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.code)}}</td>
+                <td>{{ form_label(form.name)}}</td>
+                <td>{{ form_label(form.entity)}}</td>
+                <td>{{ form_label(form.datatype)}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.code) }}</td>
+                <td>{{ form_widget(form.name) }}</td>
+                <td>{{ form_widget(form.entity)}}</td>
+                <td>{{ form_widget(form.datatype)}}</td>
+                <td>
+                    {%include '@GptCavebackend/partial/form/buttons.html.twig'
+                        with {'btns' :
+                        {
+                            'search': {'type': 'submit',
+                            'icon': {'class': 'search'},
+                            'attr': { 'onclick': 'Grot(\'#search_results\').loader(\'form\', \'#'~form.vars.attr.id~'\'); return false;' }
+                        },
+                            'clear': {'attr': { 'onclick': 'Grot(\'#'~form.vars.attr.id~'\').form(\'clear\');' } }
+                        },
+                    } only %}
+                </td>
+            </tr>
+        </table>
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.coding)}}</td>
+                <td>{{ form_label(form.singlemultivalued)}}</td>
+                <td>{{ form_label(form.valuecode)}}</td>
+                <td>{{ form_label(form.maxlength)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.coding)}}</td>
+                <td>{{ form_widget(form.singlemultivalued)}}</td>
+                <td>{{ form_widget(form.valuecode)}}</td>
+                <td>{{ form_widget(form.maxlength)}}</td>
+            </tr>
+        </table>
+    {% endblock body %}
+{% endembed %}
+{{ form_widget(form._token) }}
+{{ form_end(form) }}

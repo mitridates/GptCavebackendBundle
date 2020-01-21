@@ -1,0 +1,39 @@
+{#
+/**
+ * @file name.html.twig
+ * Formulario parcial
+ * @parent ./map.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel}%}
+{% block heading %}{{ ('map.form.'~name~'.tab')|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table table-bordered">
+<tr>
+    <td>{{ form_label(form.name)}}</td>
+    <td>{{ form_label(form.subsheetname)}}</td>
+    <td>{{ form_label(form.number)}}</td>
+    <td>{{ form_label(form.edition)}}</td>
+</tr>
+<tr>
+    <td>{{ form_widget(form.name)}}</td>
+    <td>{{ form_widget(form.number)}}</td>
+    <td>{{ form_widget(form.subsheetname)}}</td>
+    <td>{{ form_widget(form.edition)}}</td>
+</tr>
+</table>
+    <table class="table table-bordered">
+        <tr>
+            <td>{{ form_label(form.type)}}</td>
+            <td>{{ form_label(form.latestupdateyear)}}</td>
+            <td>{{ form_label(form.mapserie)}}</td>
+        </tr>
+        <tr>
+            <td>{{ form_widget(form.type)}}</td>
+            <td>{{ form_widget(form.latestupdateyear)}}</td>
+            <td>{{ form_widget(form.mapserie)}}</td>
+        </tr>
+    </table>
+{% endblock body %}
+{% endembed %}
+  

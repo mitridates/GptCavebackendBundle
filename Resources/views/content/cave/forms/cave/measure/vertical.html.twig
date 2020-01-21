@@ -1,0 +1,45 @@
+{#
+/**
+ * @file vertical.html.twig
+ * @parent ./measure.html.twig
+ */
+#}
+<div class="row">
+
+    <div class="col-sm-4">
+        <table class="table">
+
+            <tr>
+                <td>{{ form_label(form.extentbelowentrance)}}</td>
+                <td>{{ form_widget(form.extentbelowentrance)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.extentaboveentrance)}}</td>
+                <td>{{ form_widget(form.extentaboveentrance)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.depthcategory)}}</td>
+                <td>{{ form_widget(form.depthcategory)}}</td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="col-sm-4">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.widthlargestchamber)}}</td>
+                <td>{{ form_widget(form.widthlargestchamber)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.heighlargestchamber)}}</td>
+                <td>{{ form_widget(form.heighlargestchamber)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.lengthlargestchamber)}}</td>
+                <td>{{ form_widget(form.lengthlargestchamber)}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+

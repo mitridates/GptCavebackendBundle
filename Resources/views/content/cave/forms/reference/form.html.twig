@@ -1,0 +1,52 @@
+{#
+/**
+ * @file form.html.twig Cavereference form
+ */
+#}
+{% set disabled = {'value': '', 'attr': {'disabled': 'disabled'} } %}
+      <table class="table table-bordered">
+          <tr>
+              <td>{{ form_label(form.article)}}
+                  <input type="radio" id="radio-{{ name }}-article-id" checked="checked" name="form_{{ name }}_article_check" onchange="disableArticle.editArticleId()">
+              </td>
+              <td>{{ form_label(form.subjects)}}</td>
+              <td>{{ form_label(form.range)}}</td>
+          </tr>
+          <tr>
+              <td>{{ form_widget(form.article, {value:''})}}</td>
+              <td>{{ form_widget(form.subjects, {value:''})}}</td>
+              <td>{{ form_widget(form.range, {value:''})}}</td>
+              <td align="center">{%include '@GptCavebackend/content/cave/forms/button/buttons_group_onetomany_form.html.twig'%}</td>
+          </tr>
+      </table>
+
+      <table class="table table-bordered">
+          <tr>
+              <td>{{ form_label(form.articlename)}}
+                  <input type="radio" id="radio-{{ name }}-article-str" name="form_{{ name }}_article_check" onchange="disableArticle.editArticleStr()">
+              </td>
+              <td>{{ form_label(form.publication)}}</td>
+              <td>{{ form_label(form.surnames)}}</td>
+          </tr>
+          <tr>
+              <td>{{ form_widget(form.articlename,disabled)}}</td>
+              <td>{{ form_widget(form.publication,disabled)}}</td>
+              <td>{{ form_widget(form.surnames,disabled)}}</td>
+          </tr>
+      </table>
+      <table class="table table-bordered">
+          <tr>
+              <td>{{ form_label(form.volume)}}</td>
+              <td>{{ form_label(form.issue)}}</td>
+              <td>{{ form_label(form.year)}}</td>
+              <td>{{ form_label(form.yearsuffix)}}</td>
+          </tr>
+          <tr>
+              <td>{{ form_widget(form.volume,disabled)}}</td>
+              <td>{{ form_widget(form.issue,disabled)}}</td>
+              <td>{{ form_widget(form.year,disabled)}}</td>
+              <td>{{ form_widget(form.yearsuffix,disabled)}}</td>
+          </tr>
+      </table>
+
+      {%include '@GptCavebackend/content/cave/forms/reference/script.html.twig'%}

@@ -1,0 +1,48 @@
+{#
+/**
+ * @file form.html.twig Mapsurveyor form
+ * @parent  ../onetomany.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.get('page:style:form_panel_group') }%}
+    {% block heading %}{{ ('map.form.'~name~'.tab')|trans({},'cavepages')|raw -}}{% endblock heading %}
+    {% block body %}
+<table class="table" id="surveyorTable">
+  <tr>
+    <td class="col-lg-3 text-right">
+      <input type="radio" name="surveyor" id="mod-op-surveyorid" checked="checked"  onchange="toggleSurveyor(this)">{{ form_label(form.surveyorid)}}
+      <input type="radio" name="surveyor" id="mod-op-surveyor" onchange="toggleSurveyor(this)"> {{ form_label(form.surveyor)}}
+    </td>
+    <td class="surveyor_td" style="display: none;">{{ form_widget(form.surveyor, {value : ''})}}</td>
+    <td class="surveyor_td">{{ form_widget(form.surveyorid, {value : ''})}}</td>
+    <td class="col-lg-4 text-center">
+      {%include '@GptCavebackend/content/map/tabs/button/buttons_group_onetomany_form.html.twig'%}
+    </td>
+  </tr>
+</table>
+<script>
+    var toggleSurveyor = function(bttn){
+        $(bttn).closest('tr').find('td.'+bttn.getAttribute('name')+'_td').each(function(){
+            if($(this).is(':visible')){
+                $(this).find('input').each(function(){
+                     $(this).prop('disabled', true);
+                })
+                $(this).find('select').each(function(){
+                    $(this).prop("disabled", true);
+                });
+                $(this).hide();
+            }else{
+                $(this).find('input').each(function(){
+                    $(this).val('').prop('disabled', false);
+                });
+                $(this).find('select').each(function(){
+                    $(this).val(null).trigger('change');
+                    $(this).prop("disabled", false);
+                });
+                $(this).show();
+            }
+        });
+    }
+</script>
+{% endblock body %}
+{% endembed %}

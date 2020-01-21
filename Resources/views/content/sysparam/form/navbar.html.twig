@@ -1,0 +1,26 @@
+{#
+/**
+ * @file navbar.html.twig
+ * @parent ../edit.html.twig
+ */
+#}
+<nav class="navbar yamm navbar-default" role="navigation">
+    <div class="navbar-header">
+        <button type="button" data-toggle="collapse" data-target="#navbar-collapse-grid" class="navbar-toggle">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand">
+            {% if sysparam %}
+                {{sysparam.getName()}}
+            {% else %}
+                {{ 'sysparam.edit.form' | trans({},'cavepages')|raw -}}
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+
+
+

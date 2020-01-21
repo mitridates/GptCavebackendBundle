@@ -1,0 +1,14 @@
+{#
+/**
+ * DB Manager info.
+ * @file organisationdb_info_div.html.twig
+ */
+#}
+{% set Sysparam = Sysparam|default(get_system_parameters()) %}{#Sysparam|null#}
+<div align="center" class="text-muted">
+    {% if Sysparam is not null and Sysparam.getOrganisationdbm() is not null%}
+        {{ 'system.idgenerator.org' | trans({},'cavemessages')|raw -}}:
+        {{Sysparam.getOrganisationdbm().getName()}}
+    {% else %}
+    {{ 'undefined.organisationdbm' | trans({},'cavemessages')|raw -}}{% endif %}
+</div>

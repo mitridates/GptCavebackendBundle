@@ -1,0 +1,32 @@
+{#
+/**
+ * @file scope_politic.html.twig
+ * Formulario parcial
+ * @parent ./map.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel}%}
+{% block heading %}{{ 'map.tab.panel.scope.politic'|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table table-bordered">
+  <tr>
+    <td>{{ form_label(form.scopecountry)}}</td>
+    <td>{{ form_label(form.scopeadmin1)}}</td>
+    <td>{{ form_label(form.scopeadmin2)}}</td>
+    <td>{{ form_label(form.scopeadmin3)}}</td>
+    {#TODO: No entiendo el campo 211 map_host_area_map_ID. Es farragoso de entender y de escasa utilidad.#}
+   {# <td>{{ form_label(form.scopeadmin2areamap)}}</td>#}
+    {#FIXME: La cobertura política adicional permite incluir nuevas áreas, incluir un selector aquí#}
+
+  </tr>
+  <tr>
+    <td>{{ form_widget(form.scopecountry)}}</td>
+    <td>{{ form_widget(form.scopeadmin1)}}</td>
+    <td>{{ form_widget(form.scopeadmin2)}}</td>
+    <td>{{ form_widget(form.scopeadmin3)}}</td>
+   {# <td>{{ form_widget(form.scopeadmin2areamap)}}</td>#}
+
+  </tr>
+</table>
+{% endblock body %}
+{% endembed %}

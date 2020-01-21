@@ -1,0 +1,53 @@
+{#
+/**
+ * @file buttons.html.twig
+ * Generar botones bootstrap
+ * @param array btns
+ */
+Ejemplo: 
+<button type="button" class="btn btn-default" onclick="window.open('/sf/web/app_dev.php/cave/admin/organisation/', '_self')">
+        <span class="fa fa-search" aria-hidden="true"></span>
+Buscar</button>
+#}
+{% set icon = {
+        'search':  'search',
+        'new':'plus-circle',
+        'add':'plus',
+        'save':'save',
+        'submit': 'database',
+        'delete': 'trash',
+        'clear': 'eraser',
+        'reset': 'undo',
+        'reload': 'refresh',
+        'disabled': 'ban'
+        }
+%}
+{% set class = {
+        'search': 'btn btn-default btn-outline-success',
+        'new':'btn btn-success btn-outline-default',
+        'add':'btn btn-primary btn-outline-default',
+        'save':'btn btn-primary btn-outline-default',
+        'submit': 'btn btn-primary btn-outline-default',
+        'delete': 'btn btn-danger btn-outline-default ' ,
+        'clear': 'btn btn-warning',
+        'reset': 'btn btn-warning',
+        'reload': 'btn btn-warning',
+        'disabled': 'btn btn-warning'
+        }
+%}
+{%for name,btn in btns %}
+    {%if btn is not iterable%}{%set btn = {'path': btn} %}{%endif%}
+    
+    {% set btn = {
+            'txt':  btn.txt|default(false) ?  btn.txt|trans({},'cavemessages') : name|trans({},'cavemessages'),
+            'icon': btn.icon|default({}),
+            'attr': {'class': class[name]}|merge(btn.attr|default({})),
+            'type': btn.type|default('button'),
+            'path': btn.path|default(false),
+            'target': btn.target|default('_self'),
+            }
+    %}
+<button type="{{btn.type}}" {% for key, value in btn.attr %} {{ key }}="{{ value|raw }}"{% endfor %} {%if btn.path %}onclick="window.open('{{btn.path}}', '{{btn.target}}')"{%endif%}>
+{%if icon[name] is defined%}<i class="fa fa-{{icon[name]}}{% if btn.icon.class is defined %} {{ btn.icon.class }}{% endif %}"></i>{%endif%} {{ btn.txt|capitalize|raw -}}
+</button>
+{%endfor%}

@@ -1,0 +1,198 @@
+{#
+/**
+ * @file scripts.html.twig
+ * Scripts comunes
+ *
+ */
+#}
+<script>
+    
+   /**        
+    * @TODO scroll no deseado al hacer click en tab
+    * Add a hash to the URL when the user clicks on a tab
+    */    
+    $('a[data-toggle="tab"]').on('click', function(e) {
+      history.pushState(null, null, $(this).attr('href'));
+    });
+
+    // navigate to a tab when the history changes
+    window.addEventListener("popstate", function(e) {
+      var activeTab = $('[href=' + location.hash + ']');
+      if (activeTab.length) {
+        activeTab.tab('show');
+      } else {
+        $('.nav-tabs a:first').tab('show');
+      }
+    });
+
+   var tabLoader = {};
+    
+    /**
+     * Carga tab y paginacion si contiene la clase .grotte-paginable.
+     * @param {string} tab id
+     * @param {boolean} reload
+     */ 
+    tabLoader.load= function(tab, reload){
+
+                var paginar = function(){
+                    if($('.grotte-paginable', tab).length!== 0 )
+                    {
+                             $( '.grotte-paginable',tab ).each(function( index ) { Grot(this).loader(); });     
+
+                    }
+                    $(tab).data('loaded', true);
+                    tabLoader.setSelectors();
+                };
+                if(!reload){//default undefined
+                    $('.nav-pills li').removeClass('active');
+                    document.location.hash = tab;
+                    if($(tab).data('loaded')!==true){ 
+                        Grot(tab).loader({}, {success: paginar});
+                    }
+                }else{
+                    $(tab).html('<div class="loader centred" style="margin-top: 200px"></div>');
+                    Grot(tab).loader({}, {success: paginar});
+                }        
+        };
+    
+    /**
+     * Inicializa selectores de formularios para esta sección
+     */
+
+    tabLoader.setSelectors = function(){
+
+                Grot.fn.init();
+{#
+               //Map tab nested select country > admin1 > admin2 > admin3
+               $('.countryid').select2({
+                    placeholder: '{{ 'select.government.level.country'|trans({},'cavemessages')|raw }}',
+                    'allowClear': true
+                }).on('change', function(){
+                    $('.admin1id').html('');$('.admin2id').html('');
+                })
+               .on('select2:unselecting', function(){
+                    $('.admin1id, .admin2id, .admin3id').html('');
+                });
+
+
+               $('.admin1id').select2({
+                    placeholder: '{{ 'select.government.level.admin1'|trans({},'cavemessages')|raw }}',
+                    'allowClear': true
+                }).nestedselect2({
+                    url: '{{path('cave_backend_json_admin1')}}',
+                    parent: {el:'.countryid', row: 'countryid'},
+                    defaults: {placeholder: '{{ 'government.level.admin1'|trans({},'cavemessages')|raw }}'}
+                }).on('select2:unselecting', function(){
+                    $('.countryid').trigger('change');
+                });
+
+
+                $('.admin2id').select2({
+                    placeholder: '{{ 'select.government.level.admin2'|trans({},'cavemessages')|raw }}',
+                    'allowClear': true
+                }).nestedselect2({
+                    url: '{{path('cave_backend_json_admin2')}}',
+                    parent: {el:'.admin1id', row: 'admin1id'},
+                    defaults: {placeholder: '{{ 'select.government.level.admin2'|trans({},'cavemessages')|raw }}'}
+                }).on('select2:unselecting', function(){
+                        $('.admin3id').html('');
+                        $('.admin1id').trigger('change');
+
+                });
+
+                $('.admin3id').select2({
+                    placeholder: '{{ 'select.government.level.admin3'|trans({},'cavemessages')|raw }}',
+                    'allowClear': true
+                }).nestedselect2({
+                    url: '{{path('cave_backend_json_admin3')}}',
+                    parent: {el:'.admin2id', row: 'admin2id'},
+                    defaults: {placeholder: '{{ 'select.government.level.admin3'|trans({},'cavemessages')|raw }}'}
+                }).on('select2:unselecting', function(){
+                    $('.admin2id').trigger('change');
+
+                });
+#}
+{#
+               //Political coverage tab    nested select countryidpc > admin1idpc > admin2idpc
+               $('.countryidpc').select2({
+                    placeholder: '{{ 'select.government.level.country'|trans({},'cavemessages')|raw }}',
+                    'allowClear': true
+                }).on('change', function(){$('.admin1idpc').html('');$('.admin2idpc').html('');})
+               .on('select2:unselecting', function(){
+                        $('.admin1idpc, .areaidpc').html('');
+                });
+                
+               $('.admin1idpc').select2({
+                    placeholder: '{{ 'select.government.level.admin1'|trans({},'cavemessages')|raw }}',
+                    'allowClear': true
+                }).nestedselect2({
+                    url: '{{path('cave_backend_json_admin1')}}',
+                    parent: {el:'.countryidpc', row: 'countryid'},
+                    defaults: {placeholder: '{{ 'government.level.admin1'|trans({},'cavemessages')|raw }}'}
+                }).on('select2:unselecting', function(){
+                     $('.countryidpc').trigger('change');
+                });
+                
+                
+                $('.admin2idpc').select2({
+                    placeholder: '{{ 'select.government.level.admin2'|trans({},'cavemessages')|raw }}',
+                    'allowClear': true
+                }).nestedselect2({
+                    url: '{{path('cave_backend_json_admin2')}}',
+                    parent: {el:'.admin1idpc', row: 'admin1id'},
+                    defaults: {placeholder: '{{ 'select.government.level.admin2'|trans({},'cavemessages')|raw }}'}
+                }).on('select2:unselecting', function(){
+                    $('.admin1idpc').trigger('change');
+                });
+#}
+    {%set selectors = ['organisation', 'mapserie', 'map', 'person', 'article', 'cave', 'map']%}
+
+    {%for selector in selectors %}
+                Grot('.{{selector}}*').select2paginado('{{path('cave_backend_'~selector~'_json')}}', {placeholder: '{{('select.'~selector)|trans({},'cavemessages')|raw}}'});
+    {%endfor%}
+    };
+
+
+   $(document).ready(function() {
+     /**
+      * Cargamos el tab en url si existe y estamos en edición
+      * 1 - carga hash si existe: ejem: app_dev.php/cave/admin/map/edit/ESGPT00001/map#citation-tab
+      * 2 - else ultima parte de la url si existe app_dev.php/cave/admin/map/edit/ESGPT00001/map
+      * 3 - else tab activa por defecto: map-tab
+      *
+      */
+       if('{{ arrayParams.get('page:name') }}'==='edit'){
+        var loadTab = function (tab) {
+            history.pushState(null, null, tab.attr("href"));//añadimos al historial de la página
+            tabLoader.load(tab.attr("href"));//cargamos el tab
+            $('.nav-tabs a[href="'+ tab.attr("href")+'"]').tab('show');//mostramos el tab
+        };
+
+        var hash = window.location.hash;//guardamos hash si existe
+
+        var page = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);//guardamos el último elemento de la url
+    //    var activeTab = $('.nav-tabs li.active > a').attr("href");//tab activa por defecto: #map-tab
+
+        if(hash!==''){ //existe hash
+            page = page.replace(hash,"");//quitamos el hash del final de la url
+            hash= hash.split('#')[1];//quitamos la almoadilla del hash
+        }
+
+        if(hash!=='' && document.getElementById(hash)){//intentamos primero el hash
+            loadTab($('.nav-tabs a[href="#'+ hash +'"]'));
+        }else if(document.getElementById(page +'-tab')){//intentamos la url
+            loadTab($('.nav-tabs a[href="#'+ page +'-tab' +'"]'));
+        }else{//el tab por defecto
+            loadTab($('.nav-tabs li.active > a'));
+    }
+     }
+    /**
+     * Inicia los scripts para los selectores
+     */
+    tabLoader.setSelectors();
+    
+    //cargamos paginacion si existe
+     $( '.grotte-paginable' ).each(function( index ) { Grot(this).loader(); });     
+
+});
+</script> 

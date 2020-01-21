@@ -1,0 +1,13 @@
+{#
+/**
+ * @file thead.html.twig
+ * @parent ../index_ajax.html.twig
+#}
+<tr class="text-center-row">
+  <th>ID</th>
+  <th>{{ get_fielddefinition_name(80,app.request.locale, true)|raw}}</th><!--name-->
+  <th>{{get_fielddefinition_name(81,app.request.locale, true)|raw}}</th><!--code-->
+  <th>{{ 'government.level.country'|trans({},'cavemessages')|raw}}</th><!--country-->
+  <th>{{ 'government.level.admin1'|trans({},'cavemessages')|raw}}</th><!--state-->
+  <th>{{ get_fielddefinition_name(618,app.request.locale, true)|raw}}</th><!--Area designation-->
+</tr>

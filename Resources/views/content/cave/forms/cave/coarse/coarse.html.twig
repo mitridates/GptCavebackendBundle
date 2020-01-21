@@ -1,0 +1,27 @@
+{#
+/**
+ * Edit Cave partial form
+ * @file coarse.html.twig
+ * @parent partial.html.twig
+ * @string formname
+ * @param array arrayParams
+ * @param FormView form
+ * @param Cave cave
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+    {% block heading %}{{ ('cave.card.coarse')|trans({},'cavepages')|raw -}}{% endblock heading %}
+    {% block body %}
+        <div class="row">
+            <div class="col-lg-4 col-sm-12">
+                {% include '@GptCavebackend/content/cave/forms/cave/coarse/coordinates.html.twig'%}
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                {% include '@GptCavebackend/content/cave/forms/cave/coarse/map.html.twig'%}
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                {% include '@GptCavebackend/content/cave/forms/cave/coarse/landunit.html.twig'%}
+            </div>
+        </div>
+    {% endblock body %}
+{% endembed %}

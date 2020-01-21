@@ -1,0 +1,26 @@
+{#
+/**
+ * @file scope_geographic.html.twig
+ * Formulario parcial
+ * @parent ./map.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel}%}
+{% block heading %}{{ 'map.tab.panel.scope.geographic'|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table table-bordered">
+  <tr>
+    <td>{{ form_label(form.scopenlatitude)}}</td>
+    <td>{{ form_label(form.scopeslatitude)}}</td>
+    <td>{{ form_label(form.scopeelongitude)}}</td>
+    <td>{{ form_label(form.scopewlongitude)}}</td>
+  </tr>
+  <tr>
+    <td>{{ form_widget(form.scopenlatitude)}}</td>
+    <td>{{ form_widget(form.scopeslatitude)}}</td>
+    <td>{{ form_widget(form.scopeelongitude)}}</td>
+    <td>{{ form_widget(form.scopewlongitude)}}</td>
+  </tr>
+</table>
+{% endblock body %}
+{% endembed %}

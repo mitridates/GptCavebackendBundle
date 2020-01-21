@@ -1,0 +1,14 @@
+{#
+/**
+ * @file tbody.html.twig
+ * @parent ../../index_ajax.html.twig
+#}
+{% for entity in entities%}
+<tr id="tr_{{name}}_{{entity.getMapid()}}">
+    <td align="center"><a href="{{path('cave_backend_map_edit',{'id': entity.getMapid()})}}">{{ entity.getMapid()}}</a></td>
+    <td>{{ entity.getName()}}</td>
+    <td>{{ entity.getScopecountry() is not null ? entity.getScopecountry().getName() : ''}}</td>
+    <td>{{ entity.getScopeadmin1() is not null ? entity.getScopeadmin1().getName() : ''}}</td>
+    <td>{{ entity.getScopeadmin2() is not null ? entity.getScopeadmin2().getName() : ''}}</td>
+</tr>
+{% endfor %}

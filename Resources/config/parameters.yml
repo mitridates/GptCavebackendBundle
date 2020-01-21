@@ -1,0 +1,123 @@
+parameters:
+  cave_backend:
+    ################
+    ##  'languages' only show options. Translations comes from different sources:
+    ##      - Fielddefinitons popup: loaded from "Fielddefinitionlang" table. Default english.
+    ##      - twig {{ message|trans }} in Resources/Translations/*.
+    ##
+    ##  session _locale is set from:
+    ##    - languages[0] parameter
+    ##    - symfony default_locale.
+    ##
+    ##  session _locale is modified by
+    ##    - user login (Sysparam table).
+    ##    - Request with _locale parameter (link/url parameter)
+    ##
+    #################
+    languages: ['es', 'en']
+    dateformat: 'd/m/Y'
+    #################
+    ## Eliminar registros
+    ## Las espeficaciones dicen que no se deben borrar registros (Cave ID, Organisation Id ...) de las
+    ## entidades principales para evitar duplicidades en otros servidores.
+    ## Ver Fielddefinition Cave ID http://www.uisic.uis-speleo.org/exchange/atendefn.html#227
+    #################
+    ondelete:
+      remove: false # Hide if false. Default false.
+      backup: true # Backup if remove: true. Default true.
+    ####################################
+    #         TWIG THEME                #
+    ####################################
+    theme:
+      title: 'Administración de cavidades' #suffix en todos los títulos
+      description: 'Panel de administración'
+
+    ################
+    ##  Hay dos (o + en caso de Organisation) formularios para crear nuevos registros.
+    ##  Ha de existir una organización administradora o no es posible crear registros ya que parte del ID depende de esta.
+    ##  Los formType en Cave/BackendBundle/Form/Type/Someentity/Id...Type.
+    ##  - "auto" (IdAutoFormType.php). El más sencillo, por defecto, genera las claves secuencialmente a parir de la Organización Administradora.
+    ##  - "man" (IdManFormType.php) permite crear ID's manualmente seleccionando otra organización administradora
+    ##        y asignando el número secuencial manualmente. Sólo está disponible si existe más de una organización generadora de ID's
+    ##  En resumen. Mejor utilizar "auto".
+    #################
+#    table_generate_keys: #default: auto
+#    ##TODO: El formulario semi ya no tiene sentido. Ver dependencias y eliminar totalmente.
+#      organisation: [auto, custom, man] #auto,semi,man,custom
+#      person: [auto, man]
+#      article: [auto, man]
+#      area: [auto, man]
+#      specie: [auto, man]
+#      cave: [auto, man]
+#      mapserie: [auto, man]
+#      map: [auto, man]
+#      sysparam: 'multiple' # "multiple": Varias filas, para desarrollo. unique|false|null|etc Una sola fila, por defecto
+
+    webasset: ##Directorios de assets Twig: asset(params.webasset.js~file)
+        js:  'bundles/gptcavebackend/js/'
+        tpl: 'bundles/gptcavebackend/js/tpl/'
+        css: 'bundles/gptcavebackend/css/'
+        img: 'bundles/gptcavebackend/img/'
+
+  ####################################
+  #  CONFIGURACIÓN POR SECCIONES     #
+  ####################################
+    ##  Section configuration. Add section:[] to overwrite default/s parameters
+    section:
+      default: #por defecto para todas las demás
+        navigation_template: 'navigation_simple.html.twig'
+        itemsPerPage: 20
+        select2: 10
+        style:
+          form_panel: 'card-soft-blue'
+          form_panel_group: 'card-soft-orange'
+          form_panel_edit: 'card-regular-green'
+          form_panel_new: 'card-regular-red'
+          form_panel_search: 'panel-soft-blue'
+      map: # Agrupaciones y Sufijos (Grupo: [sufijo, ...])de entidades (Cavename, Cavecontent...) menu, plantillas ...
+        # si no aparece aquí o se encuentra en el array "hidden", no se muestra el botón para cargar el formulario.
+        menu:
+          main: ['map', 'details','comment']
+          authorship: ['surveyor', 'drafter']
+          management: ['controller', 'updater']
+          furthercoverage: ['furtherpc', 'furthergc']
+          other: [ 'cave', 'citation']
+        hidden:
+          ##hide menu group
+          groups: []
+          ##hide form
+          forms: []
+      cave: # Agrupaciones para el menu por temas de forma que:
+        # Cada clave del menu hace referencia a un submenu que agrupa entidades relacionadas.
+        # El array de cada submenú está formado por los sufijos de
+        #   entidades relacionadas (1-1/1-n) con Cave (Cavename, Cavecontent...)
+        # Si la entidad o grupo no aparece aquí o se encuentra en el array "hidden"
+        #   no se muestran los enlaces en la vista.
+        menu:
+          cave: ['cave', 'name', 'discovery']
+          description: ['description', 'descriptionline', 'history', 'comment']
+          descriptionother: ['environment', 'content', 'importance']
+          howtofind: ['howtofind', 'direction']
+          feature: ['rocktype', 'cavetype', 'decoration', 'pitch']
+          state: ['protection', 'access', 'prospect','damage']
+          entrance: ['entranceft','entranceline' , 'entrancedev']
+          uso: ['use', 'surfaceuse']
+          development: ['development', 'hazard']
+          equipment: ['equipment', 'difficulty']
+          manager: ['management']
+          map: ['grid','widestmap']
+          other: ['specie', 'reference']
+          dbid: ['otherdbid', 'crossreference', 'previousnumber',]
+          management: ['excluded', 'todo']
+        hidden:
+          groups: [] #Ocultar Agrupación.
+          forms: [] #Ocultar formulario
+      ################
+      ##  El array 'languages' en fielddefinition muestra los idiomas disponibles para traducir o editar
+      ##    - La traducción puede existir en la base de datos, pero si no se encuentra en este array no será posible editarlo.
+      ##    - Para un nuevo idioma, las opciones para añadir/editar aparecerán cuando el idioma se añada al array.
+      #################
+      fielddefinition:
+        languages: [es, fr, de]
+      specie: []
+

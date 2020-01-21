@@ -1,0 +1,22 @@
+{#
+/**
+ * Manytoone pagination buttons
+ * @file macro_edit_onetomany_buttons.html.twig
+ */
+#}
+{% macro bttn_new(name, getFormUlr , sendFormUrl, title) %}
+<button type="button" class="btn btn-sm btn-primary" title="{{ ('new')|trans({},'cavemessages')|raw -}}"
+    onclick="modalFormButton(this).getForm('{{ name }}', '{{ getFormUlr }}' , '{{ sendFormUrl }}', '{{ title }}')">
+    <i class="fa fa-plus-square"></i>{{ ('new')|trans({},'cavemessages')|raw -}}</button>
+{% endmacro %}
+
+{% macro bttn_edit(name, getFormUlr , sendFormUrl, title) %}
+    <button type="button" class="btn btn-sm fa fa-edit pull-right" title="{{ ('edit')|trans({},'cavemessages')|raw -}}"
+            onclick="modalFormButton(this).getForm('{{ name }}', '{{ getFormUlr }}' , '{{ sendFormUrl }}', '{{ title }}')"></button>
+{% endmacro %}
+
+
+{% macro bttn_delete(name, url) %}
+    <button type="button" class="btn btn-sm btn-danger fa fa-trash" title="{{ ('delete')|trans({},'cavemessages')|raw -}}"
+            onclick="modalFormButton(this).removeForm('{{ url }}');"></button>
+{% endmacro %}

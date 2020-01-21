@@ -1,0 +1,47 @@
+{#
+/**
+ * @file grid.html.twig
+ * Formulario parcial
+ * @parent ../form.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel}%}
+{% block heading %}{{ ('cave.tab.'~name~'.panel.poss')|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table table-bordered">
+  <tr>
+    <td>{{ form_label(form.mapeasting)}}</td>
+    <td>{{ form_label(form.mapnorthing)}}</td>
+    <td>{{ form_label(form.refunits)}}</td>
+    <td>{{ form_label(form.date)}}</td>
+    <td>{{ form_label(form.mapedition)}}</td>
+
+  </tr>
+  <tr>
+    <td>{{ form_widget(form.mapeasting)}}</td>
+    <td>{{ form_widget(form.mapnorthing)}}</td>
+    <td>{{ form_widget(form.refunits)}}</td>
+    <td>{{ form_widget(form.date)}}</td>
+    <td>{{ form_widget(form.mapedition)}}</td>
+
+  </tr>
+</table>  
+  
+<table class="table table-bordered">
+  <tr>
+
+    <td>{{ form_label(form.grefprecision)}}</td>
+    <td>{{ form_label(form.grefaccuracy)}}</td>
+    <td>{{ form_label(form.comment)}}</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>{{ form_widget(form.grefprecision)}}</td>
+    <td>{{ form_widget(form.grefaccuracy)}}</td>
+    <td>{{ form_widget(form.comment)}}</td>
+    <td align="center" class="col-lg-4">{%include '@GptCavebackend/content/cave/forms/button/buttons_group_onetomany_form.html.twig'%}</td>
+  </tr>
+</table>  
+{% endblock body %}
+{% endembed %}
+

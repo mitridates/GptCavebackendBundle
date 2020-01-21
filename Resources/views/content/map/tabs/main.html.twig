@@ -1,0 +1,27 @@
+{#
+/**
+ * @file main.html.twig
+ * Crea los tabs para los nombres de formulario existentes.
+ * Si encuentra un formulario lo carga, en otro caso muestra un spinner.
+ * @parent ../edit.html.twig
+ */
+#}
+<!-- Content -->
+<div class="tab-content">
+{%for name, form in forms  if name not in arrayParams.get('page:hidden:forms', [])%}
+<div class="tab-pane {%if name==active%}active{%endif%}" id="{{name~'-'~sufix}}" 
+            data-path='{{path('cave_backend_map_edit', { 'id': map.getMapid(), 'name': name })}}'>
+{%if form != false%}
+{%if name in onetomany %}
+{%set path = '@GptCavebackend/content/map/tabs/onetomany.html.twig'%}
+{%else%}
+{%set path = '@GptCavebackend/content/map/tabs/onetoone.html.twig'%}
+{%endif%}    
+{%include path with { 'name': name, 'form': form, 'map' : map, 'delete_token': delete_token, 'section': section } only %}
+{%else%}
+     <div class="loader centred" style="margin-top: 200px"></div> 
+{% endif %}
+</div>
+    <!-- end div .tab-pane -->
+{%endfor%}
+</div><!-- end .tab content -->

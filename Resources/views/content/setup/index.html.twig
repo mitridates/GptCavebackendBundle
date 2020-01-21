@@ -1,0 +1,66 @@
+{#
+/**
+ * @file index.html.twig
+ * Página de inicio
+ *
+ * @param array arrayParams
+ */
+#}
+{% extends '@GptCavebackend/base.html.twig' %}
+{#{% block page_javascripts %}#}
+{#{% endblock page_javascripts %}#}
+{% block content %}
+
+    <table class="table table-hover">
+
+        <tr class="alert {%if arrayParams.page.countries|length == 0 -%}alert-danger{% else %}alert-info{% endif %}">
+            <td>{{ 'setup.country.result'| trans({},'cavepages')|raw -}}:</td>
+            <td>{{ arrayParams.page.countries|length }}</td>
+            <td><a href="{{path('cave_backend_setup_country')}}">{{ 'add'|trans({},'cavemessages')|raw|capitalize }}</a></td>
+        </tr>
+
+        <tr class="alert {%if arrayParams.page.organisation == 0 -%}alert-danger{% else %}alert-info{% endif %}">
+            <td>{{ 'setup.organisation.result'| trans({},'cavepages')|raw -}}</td>
+            <td>{{ arrayParams.page.organisation }}</td>
+            <td>
+                {% if arrayParams.page.organisation == 0%}
+                    <a href="{{path('cave_backend_setup_organisation')}}"> {{ 'add'|trans({},'cavemessages')|raw|capitalize }}</a>
+                {% elseif  arrayParams.page.organisation == 1 %}
+                    <a href="{{path('cave_backend_setup_organisation')}}"> {{ 'edit'|trans({},'cavemessages')|raw|capitalize }}</a>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr class="alert {%if arrayParams.page.fielddefinition == 0 -%}alert-danger{% else %}alert-info{% endif %}">
+            <td>{{ 'setup.fielddefinition.result'| trans({},'cavepages')|raw -}}</td>
+            <td>{{ arrayParams.page.fielddefinition }}</td>
+            <td>
+                {% if arrayParams.page.fielddefinition == 0%}
+                    Run command in terminal: $ bin/console doctrine:database:import {AppDir}/Resources/Sql/Fielddefinition.sql
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr class="alert {%if arrayParams.page.fielddefinitionlang == 0 -%}alert-danger{% else %}alert-info{% endif %}">
+            <td>{{ 'setup.fielddefinitionlang.result'| trans({},'cavepages')|raw -}}</td>
+            <td>{{ arrayParams.page.fielddefinitionlang }}</td>
+            <td>
+                {% if arrayParams.page.fielddefinitionlang == 0%}
+                    Run command in terminal: $ bin/console doctrine:database:import {AppDir}/Resources/Sql/Fielddefinitionlang_{language_code}.sql
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr class="alert {%if arrayParams.page.fieldvaluecode == 0 -%}alert-danger{% else %}alert-info{% endif %}">
+            <td>{{ 'setup.fieldvaluecode.result'| trans({},'cavepages')|raw -}}</td>
+            <td>{{ arrayParams.page.fieldvaluecode }}</td>
+            <td>
+                {% if arrayParams.page.fieldvaluecode == 0%}
+                    Run command in terminal: $ bin/console doctrine:database:import {AppDir}/Resources/Sql/Fieldvaluecode.sql
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+
+{% endblock content %}

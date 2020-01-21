@@ -1,0 +1,20 @@
+{#
+/**
+ * @file viewshown.html.twig
+ * Formulario parcial
+ * @parent ./details.html.twig
+ */
+#}
+{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel}%}
+{% block heading %}{{ 'map.tab.panel.viewshown'|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% block body %}
+<table class="table table-bordered">
+  <tr>
+    <td>{{ form_widget(form.viewsshownp)}}</td>
+    <td>{{ form_widget(form.viewsshownl)}}</td>
+    <td>{{ form_widget(form.viewsshownx)}}</td>
+  </tr>
+</table>
+
+{% endblock body %}
+{% endembed %}

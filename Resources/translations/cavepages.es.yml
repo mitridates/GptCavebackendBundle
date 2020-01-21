@@ -1,0 +1,544 @@
+## YAML Template.
+########### COMUN ###########
+
+new.form.mangenerator.text: |
+    El registro ya ha sido creado por una organizaci&oacute;n administradora superior (Asociacion Nacional o similar) y vas a introducir el ID para editarlo manualmente. <br>
+    Ya sabes que aqu&iacute; seguimos las normas de la uisisc para la creaci&oacute;n de registros.<br>
+    Si quieres saber el por qu&eacute;, puedes echar un ojo a  las normas de la uisisc para la creaci&oacute;n de estos campos <a href="http://www.uisic.uis-speleo.org/exchange/tables.html">Table Design - Drafts</a>.<br>
+    Si lo anterior no tiene que ver contigo, utiliza el formulario autom&aacute;tico!
+#           SETUP
+#=======================================
+#--MENU
+setup.menu.home: "Setup"
+setup.menu.index: "Estado de la instalaci&oacute;n"
+#--INDEX
+setup.index.page.title: "Estado de la instalaci&oacute;n"
+setup.index.heading.title: "Estado de la instalaci&oacute;n"
+setup.countries.emptydabase: 'No se han encontrado registros en la tabla de paises.'
+setup.country.result: "Pa&iacute;ses en la base de datos"
+setup.organisation.result: "Organizacion administradora de la base de datos"
+setup.fielddefinition.result: "Definiciones de campo en la base de datos"
+setup.fielddefinitionlang.result: "Traducciones de definiciones de campo en la base de datos"
+setup.fieldvaluecode.result: "C&oacute;digos de campo en la base de datos"
+
+########### END PERSON ###########
+#           ORGANISATION
+#=======================================
+#--MENU
+organisation.menu.home: "Organizaciones"
+organisation.menu.new: "Nueva  Organización"
+organisation.menu.edit: "Editar  Organizaci&oacute;n"
+organisation.menu.index: "Buscar Organizaci&oacute;n"
+#--NEW
+organisation.new.page.title: "Nueva organización"
+organisation.new.heading.title: "Nueva organizaci&oacute;n"
+organisation.new.form.title: "NUEVA ORGANIZACI&Oacute;N"
+organisation.new.form.text: "Permite crear una Organizaci&oacute;n a partir del ID de organizaci&oacute;n administradora del sistema."
+#--INDEX
+organisation.index.page.title: "Listado de organizaciones"
+organisation.index.heading.title: "Listado de organizaciones"
+organisation.index.search.form: "Buscador"
+organisation.index.search.defunct.organisation: Organizaci&oacute;n extinguida
+#--EDITOR
+organisation.edit.page.title: "%name%. ID %id%"
+organisation.edit.heading.title: "%name%"
+organisation.edit.form.title: "EDITAR ORGANIZACI&Oacute;N"
+organisation.edit.form.identity: "Datos identificativos y localizaci&oacute;n"
+organisation.edit.form.contact: "Datos de contacto"
+organisation.edit.form.defunct: "La organizaci&oacute;n ha dejado de existir"
+organisation.edit.form.clasification: "Clasificaci&oacute;n"
+#           PERSON
+#=======================================
+#--MENU
+person.menu.home: "Personas"
+person.menu.new: "Nueva persona"
+person.menu.edit: "Editar persona"
+person.menu.index: "Buscar personas"
+#--NEW
+person.new.page.title: "Nueva persona"
+person.new.heading.title: "Nueva persona"
+person.new.form.mangenerator.title: "Persona importada manualmente"
+person.new.form.autogenerator.title: "Nueva persona"
+person.new.form.autogenerator.text: "Crea una persona d&aacute;ndole un nombre, el resto de datos es opcional."
+#--INDEX
+person.index.page.title: "Listado de personas"
+person.index.heading.title: "Listado de personas"
+person.index.search.form: "Buscador de personas"
+
+#--EDITOR
+person.edit.page.title: "%name%. ID %id%"
+person.edit.heading.title: "%name%"
+person.edit.form: "Editar persona"
+person.edit.form.name: "Persona"
+person.edit.form.address: "Localizaci&oacute;n"
+person.edit.form.numbers: "N&uacute;meros de contacto"
+person.edit.form.organisations: "Organizaciones relacionadas"
+########### END PERSON ###########
+#TODO: Area descartada por el uso de geonames
+#           AREA
+#=======================================
+#--MENU
+area.menu.home: "&Aacute;rea"
+area.menu.new: "Nueva &Aacute;rea"
+area.menu.edit: "Editar &Aacute;REA"
+area.menu.index: "Buscar &Aacute;rea"
+#--NEW
+area.new.page.title: "Nueva &aacute;rea"
+area.new.heading.title: "Nueva &aacute;rea"
+area.new.form.title: "NUEVA &Aacute;REA"
+#--INDEX
+area.index.page.title: "Buscador de &aacute;reas"
+area.index.navigator: "Buscador de &aacute;reas"
+area.index.heading.title: "Buscador de &aacute;reas"
+area.index.search.form: "Buscador de &aacute;reas"
+
+#--EDITOR
+area.edit.page.title: "%name%. ID %id%"
+area.edit.heading.title: "%name%"
+area.edit.form.title: "EDITAR &Aacute;REA"
+########### END AREA ###########
+
+
+#           ARTICLE
+#=======================================
+#--MENU
+article.menu.home: "Art&iacute;culos"
+article.menu.new: "Nuevo Art&iacute;culo"
+article.menu.edit: "Editar Art&iacute;culo"
+article.menu.index: "Buscar Art&iacute;culos"
+#--NEW
+article.new.form.title: "NUEVO ART&Iacute;CULO"
+article.new.page.title: "Nuevo artículo"
+article.new.heading.title: "Nuevo art&iacute;culo"
+#--INDEX
+article.index.page.title: "Buscador de art&iacute;culos"
+article.index.navigator: "Buscador de art&iacute;culos"
+article.index.heading.title: "Buscador de art&iacute;culos"
+article.index.search.form: "Buscador de art&iacute;culos"
+
+#--EDITOR
+article.edit.page.title: "%name%. ID %id%"
+article.edit.heading.title: "%name%"
+article.edit.form.title: "EDITAR ART&Iacute;CULO"
+article.edit.form.name: "T&iacute;tulo y menci&oacute;n de responsabilidad"
+article.edit.form.publication: "Publicaci&oacute;n"
+article.edit.form.physical: "Descripci&oacute;n f&iacute;sica"
+article.edit.form.abstracts: "Aparici&oacute;n en resúmenes"
+article.edit.form.ssc: "Signatura topogr&aacute;fica (Speleological Subject Classification Scheme)"
+
+########### END ARTICLE ###########
+
+
+
+#           MAPSERIES
+#=======================================
+#--MENU
+mapserie.menu.home: "Serie de mapas"
+mapserie.menu.new: "Nueva Serie de mapas"
+mapserie.menu.edit: "Editar Serie de mapas"
+mapserie.menu.index: "Buscar Series de mapas"
+#--NEW
+mapserie.new.page.title: "Nueva Serie de mapas"
+mapserie.new.heading.title: "Nueva Serie de mapas"
+mapserie.new.form.title: "NUEVA SERIE DE MAPAS"
+#--INDEX
+mapserie.index.page.title: "Listado de series de mapas"
+mapserie.index.navigator: "Listar Series de mapas"
+mapserie.index.heading.title: "Listado de series de mapas"
+mapserie.index.search.form: "Buscador de series de mapas"
+
+#--EDITOR
+mapserie.edit.form.title: "EDITAR SERIE DE MAPAS"
+mapserie.edit.page.title: "%name%. ID %id%"
+mapserie.edit.heading.title: "%name%"
+mapserie.edit.section.name: "Serie de mapas"
+########### END MAPSERIES ###########
+
+#           SPECIE
+#=======================================
+#--MENU
+specie.menu.home: "Esp&eacute;cie"
+specie.menu.new: "Nueva Esp&eacute;cie"
+specie.menu.edit: "Editar Esp&eacute;cie"
+specie.menu.index: "Buscar Esp&eacute;cies"
+#--NEW
+specie.new.page.title: "Nueva Espécie"
+specie.new.heading.title: "Nueva esp&eacute;cie"
+specie.new.form.mangenerator.title: "Esp&eacute;cie importada manualmente"
+specie.new.form.autogenerator.title: "Nueva Esp&eacute;cie"
+specie.new.form.autogenerator.text: "Crea una Esp&eacute;cie d&aacute;ndole un nombre, el resto de datos es opcional."
+#--INDEX
+specie.index.page.title: "Listado de Espécies"
+specie.index.navigator: "Listar Esp&eacute;cies"
+specie.index.heading.title: "Listado de Esp&eacute;cies"
+specie.index.search.form: "Buscador de Esp&eacute;cies"
+
+#--EDITOR
+specie.edit.page.title: "%name%. ID %id%"
+specie.edit.heading.title: "%name%"
+specie.edit.form: "Editar esp&eacute;cie y clasificaci&oacute;n cient&iacute;fica"
+########### END MAPSERIES ###########
+
+#           MAP
+#=======================================
+#--MENU
+map.menu.home: "Mapas"
+map.menu.new: "Nuevo Mapa"
+map.menu.edit: "Editar Mapa"
+map.menu.index: "Buscar Mapa"
+#--NEW
+map.new.page.title: "Nuevo mapa"
+map.new.heading.title: "Nuevo mapa"
+map.new.form.mangenerator.title: "Mapa importado manualmente"
+map.new.form.autogenerator.title: "Nuevo mapa"
+map.new.form.autogenerator.text: "Crea una mapa d&aacute;ndole un nombre, el resto de datos es opcional."
+#--INDEX
+map.index.page.title: "Listado de mapas"
+map.index.navigator: "Listar"
+map.index.heading.title: "Listado de mapas"
+map.index.search.form: Buscador
+
+#--EDITOR
+map.edit.page.title: "%name%. ID %id%"
+map.edit.heading.title: "%name%"
+map.edit.section.identity: "Datos identificativos y localizaci&oacute;n"
+map.edit.section.contact: "Datos de contacto"
+map.edit.section.defunct: "El mapa ha dejado de existir"
+map.edit.section.clasification: "Clasificaci&oacute;n"
+
+#--TAB GROUP
+map.tab.main: "Formularios principales"
+map.tab.authorship: "Otros topograf&iacute;a/delineaci&oacute;n"
+map.tab.management: "Otros control/actualizaci&oacute;n"
+map.tab.furthercoverage: "Coberturas adicionales"
+map.tab.other: "Otros s/d"
+
+#--TABS
+map.map.tab: "Mapa"
+map.comment.tab: "Comentarios"
+map.details.tab: "Detalles del mapa"
+map.controller.tab: "Controlador"
+map.citation.tab: "Citas bibliogr&aacute;ficas"
+map.furtherpc.tab: "Cobertura pol&iacute;tica adicional"
+map.furthergc.tab: "Cobertura geogr&aacute;fica adicional"
+map.surveyor.tab: "Top&oacute;grafos adicionales"
+map.drafter.tab: "Delineantes adicionales"
+map.cave.tab: "Cavidades en mapa"
+map.updater.tab: "Actualizador"
+
+#--FORM IN TABS
+map.form.map.tab: "Mapa"
+map.form.comment.tab: "Comentarios"
+map.form.details.tab: "Detalles del mapa"
+map.form.controller.tab: "Controlador"
+map.form.citation.tab: "Citas bibliogr&aacute;ficas"
+map.form.furtherpc.tab: "Cobertura pol&iacute;tica adicional"
+map.form.furthergc.tab: "Cobertura geogr&aacute;fica adicional"
+map.form.surveyor.tab: "Top&oacute;grafos adicionales"
+map.form.drafter.tab: "Delineantes adicionales"
+map.form.cave.tab: "Cavidades en mapa"
+map.form.updater.tab: "Actualizador"
+
+#--PANEL IN FORM TAB. Si sólo hay un panel se utiliza el nombre del tab: 'map.form.'~name~'.tab'
+map.tab.panel.available: "Disponibilidad"
+map.tab.panel.serie: "Serie a la que pertenece"
+map.tab.panel.mapname: "Nombre y tipo de mapa"
+map.tab.panel.scope.politic: "&Aacute;mbito pol&iacute;tico"
+map.tab.panel.scope.geographic: "L&iacute;mites del mapa"
+map.tab.panel.datum-grid: "Datum"
+map.tab.panel.source: "Fuente"
+map.tab.panel.maindetails: "Detalles principales"
+map.tab.panel.feature: "Tama&ntilde;o y n&uacute;mero de p&aacute;ginas"
+map.tab.panel.survey: "Topograf&iacute;a"
+map.tab.panel.updater: "Actualizador"
+map.tab.panel.otherdetails: "Otros detalles"
+map.tab.panel.named: "Detalles de la p&aacute;gina"
+map.tab.panel.number: "Año de lanzamiento y otros n&uacute;meros de identificaci&oacute;n"
+map.tab.panel.dates: "Fechas de publicaci&oacute;n y actualizaci&oacute;n"
+map.tab.panel.controller: "Controlador del mapa"
+map.tab.panel.citation.form: "Añadir nueva cita"
+map.tab.panel.cave.form: "Añadir cavidad en el &aacute;mbito del mapa"
+map.tab.panel.viewshown: "Vistas mostradas"
+map.tab.panel.controller.comment: "Comentario"
+map.tab.panel.updater.addid: "ID de Actualizador en la base de datos"
+map.tab.panel.updater.addinput: "Introducir nombre de actualizador"
+#map.tab.panel.updater.year: "Año de &uacute;ltima actualizaci&oacute;n"
+########### END MAP ###########
+
+
+#           CAVE
+#=======================================
+#--MENU
+cave.menu.home: "Cavidades"
+cave.menu.new: "Nueva cavidad"
+cave.menu.edit: "Editar cavidad"
+cave.menu.index: "Buscar Cavidad"
+#--NEW
+cave.new.page.title: "Nueva cavidad"
+cave.new.heading.title: "Nueva cavidad"
+cave.new.form.title: "NUEVA CAVIDAD"
+#--INDEX
+cave.index.page.title: "Listado de cavidades"
+cave.index.navigator: "Listar"
+cave.index.heading.title: "Listado de cavidades"
+cave.index.search.form: "Buscador"
+
+#--EDITOR
+cave.edit.form.title: "EDITAR CAVIDAD"
+cave.edit.page.title: "%name%. ID %id%"
+cave.edit.heading.title: "%name%"
+
+
+#--Partial forms (form page links: cave.menu.*) & Card titles(smaller form/page data subdivision: cave.card.* )
+
+cave.menu.main.titleGroup: 'Identificación localización y posición'
+cave.menu.main.id: "Datos identificativos y localización"
+cave.menu.main.coordinates: "Coordenadas, lat/lng y altitud"
+cave.menu.main.coarse: "Posición 'no exacta'"
+cave.menu.texts.titleGroup: 'Textos descriptivos'
+cave.card.environment: "Condiciones ambientales de la cavidad"
+cave.card.identity: "Identificación y principales datos descriptivos de la cavidad"
+cave.card.measure: "Medidas totales/parciales"
+cave.card.gridref: "Coordenadas UTM"
+cave.card.latlng: "Latitud/Longitud"
+cave.card.altitude: "Altitud"
+cave.card.coarse: "Datos aproximados de posición, en mapas o referencia catastral"
+cave.card.history: "Historia"
+cave.card.description: "Descripción"
+cave.card.howtofind: "Cómo llegar"
+cave.card.management: "Gestión de la cavidad"
+cave.card.name: "Otros nombres"
+
+
+
+
+#-OLD
+#cave.edit.section.contact: "Datos de contacto"
+#cave.edit.section.defunct: "El cavidad ha dejado de existir"
+#cave.edit.section.clasification: "Clasificaci&oacute;n"
+#cave.tab.access: "Acceso"
+#
+#cave.tab.dbid: "Bases de datos"
+#cave.tab.description: "Descripci&oacute;n"
+#cave.tab.descriptionother: "Descripci&oacute;n otros"
+#cave.tab.development: "Desarrollo/Equipo especial"
+#cave.tab.entrance: "Entrada (caracter&iacute;sticas)"
+#cave.tab.equipment: "Equipaci&oacute;n"
+#cave.tab.feature: "Caracter&iacute;sticas"
+#cave.tab.howtofind: "C&oacute;mo llegar"
+#cave.tab.position: "Posici&oacute;n geogr&aacute;fica"
+#cave.tab.management: "Tareas y mantenimiento"
+#cave.tab.manager: "Gestor de la cavidad"
+#cave.tab.map: "Mapas"
+#cave.tab.other: "Otros"
+#cave.tab.state: "Estado"
+#cave.tab.uso: "Uso"
+#
+##-SUB TABS
+##============
+#
+##-OLD
+##============
+#cave.access.tab: "Accesibilidad (keywords)"
+#cave.cave.tab: "Cavidad o formaci&oacute;n karstica"
+#cave.location.tab: "Localizaci&oacute;n"
+#cave.cavetype.tab: "Tipo de cavidad (keywords)"
+#cave.crossreference.tab: "Referencias cruzadas"
+#cave.comment.tab: "Comentarios (l&iacute;neas)"
+#cave.content.tab: "Contenidos de inter&eacute;s (keywords)"
+#cave.damage.tab: "Da&ntilde;os en cavidad (keywords)"
+#cave.decoration.tab: "Decoraci&oacute;n (keywords)"
+#cave.description.tab: "Descripci&oacute;n"
+#cave.descriptionline.tab: "Descripci&oacute;n (l&iacute;neas)"
+#cave.development.tab: "Desarrollo de la cavidad (keywords)"
+#cave.direction.tab: "C&oacute;mo llegar (l&iacute;neas)"
+#cave.difficulty.tab: "Obst&aacute;culos (keywords)"
+#cave.discovery.tab: "Descubrimiento"
+#cave.environment.tab: "Condiciones ambientales"
+#cave.excluded.tab: "Ocultar campos"
+#cave.entranceline.tab: "Entrada, descripci&oacute;n (l&iacute;neas)"
+#cave.entranceft.tab: "Entrada, tipol. k&aacute;rstica (keywords)"
+#cave.entrancedev.tab: "Entrada, desarrollo (keywords)"
+#cave.equipment.tab: "Equipación especial (l&iacute;neas)"
+#cave.grid.tab: "Posici&oacute;n en mapas"
+#cave.hazard.tab: "Riesgos (keywords)"
+#cave.history.tab: "Historia"
+#cave.howtofind.tab: "C&oacute;mo llegar"
+#cave.importance.tab: "Importancia (keywords)"
+#cave.management.tab: "Gesti&oacute;n / posesi&oacute;n"
+#cave.measure.tab: "Medidas"
+#cave.name.tab: "Otros nombres (l&iacute;neas)"
+#cave.number.tab: "Subdivisi&oacute;n administrativa, &Aacute;rea y c&oacute;digo de "
+#cave.otherdbid.tab: "ID en otras bases de datos"
+#cave.previousnumber.tab: "N&uacute;meros de serie anteriores"
+#cave.pitch.tab: "Pendientes"
+#cave.position.tab: "Posici&oacute;n geogr&aacute;fica"
+#cave.prospect.tab: "Prospecciones (keywords)"
+#cave.protection.tab: "M&eacute;todos de protecci&oacute;n (keywords)"
+#cave.reference.tab: "Referencias bibliogr&aacute;ficas"
+#cave.rocktype.tab: "Tipo de roca (keywords)"
+#cave.surfaceuse.tab: "Uso de superficie (keywords)"
+#cave.specie.tab: "Especies"
+#cave.todo.tab: "Pendiente"
+#cave.use.tab: "Uso de la cavidad (keywords)"
+#cave.widestmap.tab: "Mapas superiores"
+#
+##-FORM PANEL && FORM PARTIAL PANEL IN TAB
+##=======================================
+##--parcial Cave
+#cave.tab.cave.group: "Formación karstica"
+#cave.tab.cave.id: "Identificación"
+#cave.tab.cave.measure: "Medidas totales/parciales"
+
+#
+
+#
+#cave.tab.cave.position.panel: "Posici&oacute;n en mapas, aproximada y ubicaci&oacute;n catastral"
+#cave.tab.cave.position.panel.landunit: "Localizaci&oacute;n catastral manual si no es posible obtenerla de la base de datos"
+#cave.tab.cave.position.panel.coarse: "Posici&oacute;n aproximada (no exacta)"
+#cave.tab.cave.position.panel.mappossition: "Posici&oacute;n en mapas"
+##--Cavename onetomany
+#cave.tab.name.form: "Otros nombres"
+##--Cavehistory onetoone
+#cave.tab.history.form: "Historia"
+##--Description onetoone
+#cave.tab.description.form: "Descripci&oacute;n"
+##--descriptionline onetomany
+#cave.tab.descriptionline.form: "Descripci&oacute;n  mediante l&iacute;neas de texto"
+##--Caveenviroment onetoone
+#cave.tab.environment.form: "Mediciones ambientales de la cavidad"
+#cave.tab.environment.panel.temperature: "Temperatura"
+#cave.tab.environment.panel.waterflow: "Flujo de agua"
+#cave.tab.environment.panel.water: "Presencia de agua"
+#cave.tab.environment.panel.humidity: "Humedad"
+##--Cavecomment onetomany
+#cave.tab.comment.form: "Comentarios sobre la cavidad (l&iacute;neas)"
+##--Cavecontent onetomany
+#cave.tab.content.form: "Contenidos de inter&eacute;s (keywords)"
+##--Caveimportance onetomany
+#cave.tab.importance.form: "Importancia de la cavidad (keywords)"
+##-- Caverocktype onetomany
+#cave.tab.rocktype.form: "Tipo de roca"
+##-- Cavecavetype onetomany
+#cave.tab.cavetype.form: "Tipo de cavidad"
+##-- Cavedecoration onetomany
+#cave.tab.decoration.form: "Calidad (decoraci&oacute;n) de espeleotemas"
+##-- Caveprotection onetomany
+#cave.tab.protection.form: "M&eacute;todos de protecci&oacute;n"
+##-- Caveprotection onetomany
+#cave.tab.access.form: "Accesibilidad"
+##-- Caveprospect onetomany
+#cave.tab.prospect.form: "Posibles prospecciones"
+##-- Cavedamage onetomany
+#cave.tab.damage.form: "Da&ntilde;os en la cavidad"
+##-- Caveentranceft onetomany
+#cave.tab.entranceft.form: "Tipo de entrada de la formaci&oacute;n"
+##-- Caveentranceline onetomany
+#cave.tab.entranceline.form: "Descripci&oacute;n de la entrada (l&iacute;neas)"
+##-- Caveentranceline onetomany
+#cave.tab.entrancedev.form: "Morfolog&iacute;a de la entrada (keywords)"
+##-- Cavehowtofind onetoone
+#cave.tab.howtofind.form: "C&oacute;mo encontrar la cavidad"
+##-- Cavedirection onetomany
+#cave.tab.direction.form: "C&oacute;mo encontrar la cavidad (l&iacute;neas)"
+##-- Caveuse onetomany
+#cave.tab.use.form: "Uso de la cavidad"
+##-- Cavesurfaceuse onetomany
+#cave.tab.surfaceuse.form: "Uso de la superficie"
+##-- Cavedevelopment onetomany
+#cave.tab.development.form: "Desarrollo de la cavidad (keywords)"
+##-- Cavehazard onetomany
+#cave.tab.hazard.form: "Riesgos de la cavidad (keywords)"
+##-- Cavemanagement onetoone
+#cave.tab.management.form: "Gesti&oacute;n o posesi&oacute;n de la cavidad"
+#cave.tab.management.panel.manager: "Gestor"
+#cave.tab.management.panel.owner: "Poseedor"
+#cave.tab.management.panel.controller: "Controlador"
+##--Cavegrid onetomany
+#cave.tab.grid.form: "Mapa relacionado con esta formaci&oacute;n karstica y su posici&oacute;n"
+#cave.tab.grid.panel.map: "Mapa en la base de datos o texto alternativo"
+#cave.tab.grid.panel.poss: "Posici&oacute;n en este mapa"
+##-- Cavewidestmap onetomany
+#cave.tab.widestmap.form: "Mapas superiores"
+##-- Caveequipment onetomany
+#cave.tab.equipment.form: "Equipaci&oacute;n especial o complementaria (l&iacute;neas)"
+##-- Cavedifficulty onetomany
+#cave.tab.difficulty.form: "Equipaci&oacute;n especial o complementaria (keywords)"
+##--Cavediscovery
+#cave.tab.discovery.form: "Descubrimiento original o primer registro de la cavidad"
+#cave.tab.discovery.panel.event: "Tipo de evento"
+#cave.tab.discovery.panel.organisation: "Organizaci&oacute;n en el evento"
+#cave.tab.discovery.panel.person: "Persona en el evento"
+##-- Specie
+#cave.tab.specie.form: "Especies en la cavidad"
+#cave.tab.specie.panel.specie: "Especie"
+#cave.tab.specie.panel.article: "Art&iacute;culo (opcional cuando no hay especie en base de datos)"
+##--todo para revisar...
+##--Reference
+#cave.tab.reference.form: "Referencias bibliogr&aacute;ficas a la cavidad"
+##--Cave number
+#cave.tab.panel.number.countrystate: "Pa&iacute;s y divisi&oacute;n administrativa de primer nivel"
+#cave.tab.panel.number.statesudivision: "Segundo/tercer divisi&oacute;n administrativa y/o &Aacute;rea"
+#cave.tab.panel.number.sudivisionid: "ID/Serial en &Aacute;rea/subdivisi&oacute;n administrativa"
+
+########### END CAVE ###########
+
+#           FIELDDEFINITION
+#=======================================
+#--MENU
+fielddefinition.menu.home: "Field definitions"
+fielddefinition.menu.new: "New Field definition"
+fielddefinition.menu.edit: "Edit Field definition"
+fielddefinition.menu.index: "Search Field definition"
+#--NEW
+fielddefinition.new.page.title: "New field definition"
+fielddefinition.new.heading.title: ""
+fielddefinition.new.form.title: "Nueva definici&oacute;n de campo"
+#fielddefinition.new.form.text: ""
+#--INDEX
+fielddefinition.index.page.title: "Search field definitions"
+fielddefinition.index.heading.title: "Search Field definitions"
+fielddefinition.index.search.form: "Formulario de b&uacute;squeda"
+
+#--EDITOR
+fielddefinition.edit.page.title: "%name%. Code %id%"
+fielddefinition.edit.heading.title: "%name%"
+fielddefinition.edit.form: "Editar definici&oacute;n de campo"
+
+#MODAL
+fielddefinition.edit.section.text: "Editar definici&oacute;n"
+fielddefinition.modal.edit.translation: "Editar traducci&oacute;n"
+fielddefinition.modal.new.translation: "Crear traducci&oacute;n"
+########### END FIELDDEFINITION ###########
+
+#           SYSTEMPARAMETERS
+#=======================================
+#--MENU
+sysparam.menu.edit: "Editar parámetros del sistema"
+#--EDITOR
+sysparam.edit.page.title: "%name%. Code %id%"
+sysparam.edit.heading.title: "%name%"
+sysparam.edit.form: "Editar parámetros del sistema"
+#--EDITOR--FORMULARIO
+sysparam.edit.section.name: "Nombre de la configuración"
+sysparam.edit.section.locale: "Pa&iacute;s e idioma"
+sysparam.edit.section.organisation: "Organización"
+sysparam.edit.section.units: "Unidades"
+sysparam.edit.section.datum: "Datum"
+sysparam.edit.section.checkbox: "Traducir códigos"
+sysparam.edit.section.coarse: "Exactitud"
+sysparam.edit.section.map: "Mapas"
+sysparam.edit.section.app: "App"
+sysparam.edit.section.path: "Path"
+########### END FIELDDEFINITION ###########
+
+#           PLAYGROUND
+#=======================================
+#--MENU
+playground.menu.home: 'Playground >>>tests<<<'
+playground.menu.index: 'Playground >>>tests<<<'
+
+#--INDEX
+playground.index.page.title: "Playground >>>tests title<<<"
+playground.index.heading.title: "Playground >>>tests heading<<<"
+########### END PLAYGROUND ###########

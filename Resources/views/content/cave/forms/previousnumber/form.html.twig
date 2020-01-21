@@ -1,0 +1,65 @@
+{#
+/**
+ * @file form.html.twig Cavepreviousnumber form
+ * @parent  ../onetomany.html.twig
+ */
+#}
+{% set country_attr= {attr: {'data-child': '#'~form.admin1.vars.id}} %}
+
+{% set admin1_attr= {attr: {
+  'data-child': '#'~form.admin2.vars.id,
+  'data-url': path('cave_backend_json_admin1'),
+  'data-parentid': 'countryid',
+  'data-placeholder': 'select.government.level.admin1'|trans({},'cavemessages')|raw,
+}}%}
+
+{% set admin2_attr= {attr: {
+  'data-child': '#'~form.admin3.vars.id,
+  'data-url': path('cave_backend_json_admin2'),
+  'data-parentid': 'admin1id',
+  'data-placeholder': 'select.government.level.admin2'|trans({},'cavemessages')|raw
+}}%}
+
+{% set admin3_attr= {attr: {
+  'data-url': path('cave_backend_json_admin3'),
+  'data-parentid': 'admin2id',
+  'data-placeholder': 'select.government.level.admin3'|trans({},'cavemessages')|raw,
+}}%}
+<table class="table">
+  <tr>
+    <td>{{ form_label(form.serial)}}</td>
+    <td class="w-50">{{ form_label(form.position)}}</td>
+  </tr>
+  <tr>
+    <td>{{ form_widget(form.serial)}}</td>
+    <td>{{ form_widget(form.position, {attr: {class: 'w-50'}})}}</td>
+  </tr>
+</table>
+
+<table class="table">
+  <td class="w-50">{{ form_label(form.country)}}</td>
+  <td>{{ form_widget(form.country, country_attr)}}</td>
+  </tr>
+  <tr>
+    <td>{{ form_label(form.admin1)}}</td>
+    <td>{{ form_widget(form.admin1, admin1_attr)}}</td>
+  </tr>
+  <tr>
+    <td>{{ form_label(form.admin2)}}</td>
+    <td>{{ form_widget(form.admin2, admin2_attr)}}</td>
+  </tr>
+  <tr>
+    <td>{{ form_label(form.admin3)}}</td>
+    <td>{{ form_widget(form.admin3, admin3_attr)}}</td>
+  </tr>
+</table>
+
+<script>
+  $(document).ready(function() {
+    let repo = new Repopulate( '#{{ form.country.vars.id }}');
+    repo.on('ev.onLoadResponse', (data, el, attr)=>{
+      return JSON.parse(data.response).out;//data is in 'out' array
+    });
+    repo.bindAll();
+  });
+</script>
