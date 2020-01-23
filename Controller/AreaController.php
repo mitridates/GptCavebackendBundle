@@ -44,9 +44,7 @@ class AreaController extends AbstractController
      */
     public function indexAction()
     {
-        $form = $this->createForm(AreasearchType::class, new Area() , [
-            'attr'=> ['id'=>'area_search_form']
-        ]);
+        $form = $this->createForm(AreasearchType::class, new Area() , ['attr'=> ['id'=>'area_search_form']]);
 
         return $this->render('@GptCavebackend/content/area/index.html.twig',
             array(
@@ -116,7 +114,7 @@ class AreaController extends AbstractController
                 $em->clear();
                 return $this->redirectToRoute('cave_backend_area_edit', array('id' => $area->getAreaid()));
             }catch (\Exception $ex){
-                ($ex instanceof CaveExceptionInteface)?
+                $ex instanceof CaveExceptionInteface?
                     $form->addError(new FormError($this->controllerParams->getTranslator()->trans($ex->getMessageKey(), $ex->getMessageData()))) :
                     $form->addError(new FormError($ex->getMessage()));
             }
@@ -145,21 +143,6 @@ class AreaController extends AbstractController
             ['attr'=> ['id'=>'edit-area']]
         )->handleRequest($request);
 
-//        if($form->isSubmitted() && $form->isValid())
-//        {
-//            try {
-//                $em = $this->getDoctrine()->getManager();
-//                $em->persist($area);
-//                $em->flush();
-//                $em->clear();
-//            }catch (\Exception $ex){
-//                ($ex instanceof CaveExceptionInteface)?
-//                    $form->addError(new FormError($this->controllerParams->getTranslator()->trans($ex->getMessageKey(), $ex->getMessageData()))) :
-//                    $form->addError(new FormError($ex->getMessage()));
-//            }
-//
-//        }
-
         return $this->render('@GptCavebackend/content/area/edit.html.twig', array(
             'arrayParams'=>$this->controllerParams->editParams($area->getAreaid(), $area->getName()),
             'form' => $form->createView(),
@@ -178,7 +161,7 @@ class AreaController extends AbstractController
      * @param Area $area
      * @return Response|JsonResponse
      */
-    public function saveareaAction(Request $request, Area $area)
+    public function saveAction(Request $request, Area $area)
     {
         if(!$request->isXmlHttpRequest()){
             throw new HttpException(403, sprintf("Forbidden request method %s", $request->getMethod()));
@@ -197,7 +180,7 @@ class AreaController extends AbstractController
                     $em->clear();
                     return new JsonResponse([]);//no news is good news
                 }catch (\Exception $ex){
-                    ($ex instanceof CaveExceptionInteface)?
+                    $ex instanceof CaveExceptionInteface?
                         $form->addError(new FormError($this->controllerParams->getTranslator()->trans($ex->getMessageKey(), $ex->getMessageData(), 'caveerrors'))) :
                         $form->addError(new FormError($ex->getMessage()));
                 }
@@ -207,7 +190,6 @@ class AreaController extends AbstractController
         }
         return $this->render('@GptCavebackend/partial/form/error/all_errors_message.html.twig',['form' => $form->createView()]);
     }
-
 
     /**
      * Delete

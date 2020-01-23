@@ -57,9 +57,7 @@ person.menu.index: "Buscar personas"
 #--NEW
 person.new.page.title: "Nueva persona"
 person.new.heading.title: "Nueva persona"
-person.new.form.mangenerator.title: "Persona importada manualmente"
-person.new.form.autogenerator.title: "Nueva persona"
-person.new.form.autogenerator.text: "Crea una persona d&aacute;ndole un nombre, el resto de datos es opcional."
+person.new.form.title: "NUEVA PERSONA"
 #--INDEX
 person.index.page.title: "Listado de personas"
 person.index.heading.title: "Listado de personas"
@@ -68,10 +66,10 @@ person.index.search.form: "Buscador de personas"
 #--EDITOR
 person.edit.page.title: "%name%. ID %id%"
 person.edit.heading.title: "%name%"
-person.edit.form: "Editar persona"
-person.edit.form.name: "Persona"
-person.edit.form.address: "Localizaci&oacute;n"
-person.edit.form.numbers: "N&uacute;meros de contacto"
+person.edit.form.title: "EDITAR PERSONA"
+person.edit.form.name: "Nombre"
+person.edit.form.address: "Dirección"
+person.edit.form.numbers: "Teléfonos"
 person.edit.form.organisations: "Organizaciones relacionadas"
 ########### END PERSON ###########
 #TODO: Area descartada por el uso de geonames
@@ -493,7 +491,7 @@ fielddefinition.menu.index: "Search Field definition"
 #--NEW
 fielddefinition.new.page.title: "New field definition"
 fielddefinition.new.heading.title: ""
-fielddefinition.new.form.title: "Nueva definici&oacute;n de campo"
+fielddefinition.new.form.title: "NUEVA DEFINICIÓN DE CAMPO"
 #fielddefinition.new.form.text: ""
 #--INDEX
 fielddefinition.index.page.title: "Search field definitions"
@@ -503,7 +501,7 @@ fielddefinition.index.search.form: "Formulario de b&uacute;squeda"
 #--EDITOR
 fielddefinition.edit.page.title: "%name%. Code %id%"
 fielddefinition.edit.heading.title: "%name%"
-fielddefinition.edit.form: "Editar definici&oacute;n de campo"
+fielddefinition.edit.form.title: "EDITAR DEFINICIÓN DE CAMPO"
 
 #MODAL
 fielddefinition.edit.section.text: "Editar definici&oacute;n"

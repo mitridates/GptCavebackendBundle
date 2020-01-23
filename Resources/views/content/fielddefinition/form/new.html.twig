@@ -5,14 +5,12 @@
  * @parent ../new.html.twig
  */
 #}
-{% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
-{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel_new }%}
-{% block heading %}{{ ('fielddefinition.new.form.title')|trans({},'cavepages')|raw }} (en) {% endblock heading %}
+
+
+{% embed '@GptCavebackend/partial/card/card-new.html.twig'%}
+{% block heading %}&nbsp;{% endblock heading %}
 {% block body %}
-{{ form_start(form) }}
     {% include '@GptCavebackend/content/fielddefinition/form/partial/stringandchoices.html.twig'%}
     {% include '@GptCavebackend/content/fielddefinition/form/partial/texttype.html.twig'%}
-    {% include '@GptCavebackend/partial/form/nav_new_submit_button.html.twig' %}
-{{ form_end(form) }}
 {% endblock body %}
 {% endembed %}

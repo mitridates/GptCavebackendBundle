@@ -1,10 +1,7 @@
 <?php
 namespace App\GptCavebackendBundle\Form\Type\Person;
-
-use Doctrine\DBAL\Types\BooleanType;
-use phpDocumentor\Reflection\Types\Boolean;
+use App\GptCavebackendBundle\EventListener\Form\AddAdmin1FieldSubscriber;
 use Symfony\Component\Form\AbstractType;
-use App\Cave\LibBundle\Format\Arraypath;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,138 +10,93 @@ use App\GptCavebackendBundle\EventListener\Form\AddAdmin3FieldSubscriber;
 use App\GptCavebackendBundle\EventListener\Form\AddCountryFieldSubscriber;
 use App\GptCavebackendBundle\EventListener\Form\AddAdmin2FieldSubscriber;
 use App\GptCavebackendBundle\EventListener\Form\AddOrganisationFieldSubscriber;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PersonType extends AbstractType
 {
     /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $defaults
+     * @inheritDoc
      */
     public function buildForm(FormBuilderInterface $builder, array $defaults)
     {
-        /**
-         * @var Arraypath
-         */
-        $bundle = $defaults['parameters'];//Arraypath parametros del bundle
-        $this->translator = $defaults['translator'];
         $factory = $builder->getFormFactory();
 
-        $organisation = new Arraypath(array(//parametros del pais
-                        'name'=>'organisation1',//propiedad
-                        'getMethod'=>'getOrganisation1',//metodo
-                        'options'=>array(//opciones del campo html
-                                'placeholder'   => 'select.organisation',//para la traduccion del texto por defecto
-                                'attr'=>array(//attributos del html
-                                    'code_id'=>501,
-                                    'class'=>'select2 organisation',//css
-                                    'style'=>'width:100%',//css
-                                    )
-                                )
-                        )
-                );
-        $parameters = new Arraypath([
-                            'organisation'=>$organisation->toArray(),
-                            'bundle'=> $bundle
-                        ]);
-
-        $organisationSubscriber = new AddOrganisationFieldSubscriber(
-                                        $factory,array('parameters'=>$parameters));
+        $organisationSubscriber = new AddOrganisationFieldSubscriber($factory, array(
+            'name'=>'organisation1',
+            'getMethod'=>'getOrganisation1',
+            'options'=>array(
+                'attr'=>array(
+                    'code_id'=>501,
+                    'class'=>'select2 organisation'
+                )
+            )
+        ));
 
          $builder->addEventSubscriber($organisationSubscriber);
 
-         $organisation->set('name', 'organisation2')
-                 ->set('getMethod', 'getOrganisation2')
-                 ->set('options:attr:code_id', 502);
-
-         $parameters->set('organisation', $organisation->toArray());
-
-         $organisationSubscriber = new AddOrganisationFieldSubscriber(
-                                        $factory,array('parameters'=>$parameters));
-
-          $builder->addEventSubscriber($organisationSubscriber);
-
-         $organisation->set('name', 'organisation3')
-                 ->set('getMethod', 'getOrganisation3')
-                 ->set('options:attr:code_id', 503);
-
-         $parameters->set('organisation', $organisation->toArray());
-
-         $organisationSubscriber = new AddOrganisationFieldSubscriber(
-                                        $factory,array('parameters'=>$parameters));
-
+        $organisationSubscriber = new AddOrganisationFieldSubscriber(
+            $factory, array(
+            'name'=>'organisation2',
+            'getMethod'=>'getOrganisation2',
+            'options'=>array(
+                'attr'=>array(
+                    'code_id'=>502,
+                    'class'=>'select2 organisation'
+                )
+            )
+        ));
         $builder->addEventSubscriber($organisationSubscriber);
 
-        //PERSON LOCATION
-        $country = array(//parametros del pais
-                        'name'=>'country',//propiedad
-                        'getMethod'=>'getCountry',//metodo
-                        'options'=>array(//opciones del campo html
-                                'placeholder'   => 'select.government.level.country',//para la traduccion del texto por defecto
-                                'attr'=>array(//attributos del html
-                                    'class'=>'select2 countryid',//css
-                                    'style'=>'width:100%',//css
-                                    'onChange'=>"$('.admin2id, .admin3id').html('')"//js
-                                    )
-                                )
-                        );
+        $organisationSubscriber = new AddOrganisationFieldSubscriber(
+            $factory, array(
+            'name'=>'organisation3',
+            'getMethod'=>'getOrganisation3',
+            'options'=>array(
+                'attr'=>array(
+                    'code_id'=>503,
+                    'class'=>'select2 organisation'
+                )
+            )
+        ));
+        $builder->addEventSubscriber($organisationSubscriber);
 
-        $countrySubscriber = new AddCountryFieldSubscriber(
-                                        $factory,array('parameters'=>
-                                                new Arraypath([
-                                                        'country'=>$country,
-                                                        'bundle'=> $bundle->set('country', NULL)->toArray()//Evitar que aparezca seleccionado en el filtro
-                                                        ])
-                                                ));
+        $countrySubscriber = new AddCountryFieldSubscriber($factory, array(
+            'options'=>array(
+                'attr'=>array(
+                    'code_id'=>493
+                )
+            )
+        ));
         $builder->addEventSubscriber($countrySubscriber);
 
-        $province = array(//parametros de la provincia
-                        'name'=>'admin2',//propiedad
-                        'getMethod'=>'getAdmin2',//metodo
-                        'options'=>array(//opciones del campo html
-                                'attr'=>array(
-                                    'class'=>'select2 admin2id',//css
-                                    'style'=>'width:100%'//css
-                                    )
-                                )
-                        );
+        $admin1Subscriber = new AddAdmin1FieldSubscriber(
+            $factory, $countrySubscriber->getCountry(), [
+                'options'=>array(
+                    'attr'=>array('code_id'=>490)
+                )]
+        );
+        $builder->addEventSubscriber($admin1Subscriber);
 
-        $provinceSubscriber = new AddAdmin2FieldSubscriber(
-                                        $factory,array('parameters'=>
-                                                new Arraypath([
-                                                        'country'=>$country,
-                                                        'province'=>$province,
-                                                        'bundle'=> $bundle->toArray()
-                                                        ])
-                                                ));
-        $builder->addEventSubscriber($provinceSubscriber);
 
-        $municipality = array(//parametros del municipio
-                            'name'=>'admin3',//nombre del campo
-                            'getMethod'=>'getAdmin3',//método get
-                            'options'=>array(//opciones del campo html
-                                    'attr'=>array(//attributos del html
-                                           'class'=>'select2 admin3id',//css
-                                          'style'=>'width:100%'//css
-                                        )
-                                    )
-                            );
+        $admin2 = array('name'=>'admin2',
+            'options'=>array(
+                'attr'=>array()
+            )
+        );
+        $admin2Subscriber = new AddAdmin2FieldSubscriber(
+            $factory,
+            $countrySubscriber->getCountry(),
+            $admin1Subscriber->getAdmin1(),
+            $admin2
+        );
+        $builder->addEventSubscriber($admin2Subscriber);
 
-        $municipalitySubscriber = new AddAdmin3FieldSubscriber(
-                                        $factory,array('parameters'=>
-                                                new Arraypath([
-                                                        'country'=>$country,
-                                                        'province'=>$province,
-                                                        'municipality'=>$municipality,
-                                                        'bundle'=> $bundle->toArray()
-                                                        ])
-                                                ));
-        $builder->addEventSubscriber($municipalitySubscriber);
+        $admin3Subscriber= new AddAdmin3FieldSubscriber($factory, $admin2Subscriber->getAdmin2(),array(
+            'name'=>'admin3',
+            'options'=>array(
+                'attr'=>array()
+            )
+        ));
+        $builder->addEventSubscriber($admin3Subscriber);
 
         $builder->add('email', EmailType::class, [
             'required'=>false,
@@ -155,11 +107,7 @@ class PersonType extends AbstractType
         ])->add('gender', ChoiceType::class, array(
             'required'=>false,
             'choice_translation_domain' => 'cavemessages',
-            'attr'=>[
-                'code_id'=>'gender',
-            ],
             'choices' =>[
-               // 'select.gender.undefined'=>0,
                 'select.gender.male' => 'M',
                 'select.gender.female' => 'F'
             ]
@@ -171,7 +119,7 @@ class PersonType extends AbstractType
                             . ',addressline1:484,addressline2:485,addressline3:486,addressline4:487,cityorsuburb:488'
                             . ',postcode:491,phoneprefix:495,homephonenumber:496,workphonenumber:497'
                             . ',mobilephonenumber:498,faxphonenumber:499,pagerphonenumber:500'
-                            //.',organisation1:501,organisation2:502,organisation3:503'
+
                             ) as $el){
 
                                 $field = explode(':', $el);
@@ -194,8 +142,6 @@ class PersonType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'App\GptCaveBundle\Entity\Person',
-            'parameters'=>array(),
-            'translator'=>Translator::class
         ));
     }
 }

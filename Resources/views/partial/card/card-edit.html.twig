@@ -1,0 +1,18 @@
+{#
+/**
+ * Estandarizando contenidos con 'panel' de bootstrap
+ * A las tablas hay que quitarle el margin-bottom: style="margin-bottom: 0"
+ * @file panel.html.twig
+ * @param string type clase contextual
+ * @param string style Ej. unir dos paneles:  with {'style': 'margin-bottom:0'}
+ * @param string collapse id si lo queremos colapsable
+ * @param bool collapsein default false
+ */
+#}
+<div class="card m-0 p-0 card-soft-blue card-minimo">
+    <div class="card-header">{% block heading %}&nbsp;{% endblock heading %}</div>
+    <div class="card-body">
+        {% block body %}{% endblock body %}
+    </div>
+    {% block footer %}{% endblock footer %}
+</div>

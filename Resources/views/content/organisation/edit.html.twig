@@ -9,21 +9,82 @@
  */
 #}
 {% extends '@GptCavebackend/base.html.twig' %}
-{% block page_javascripts %}
-    {%include '@GptCavebackend/content/organisation/script/scripts.html.twig'%}
-{%endblock%}
 {% block content %}
     {%include '@GptCavebackend/content/organisation/navbar.html.twig'%}
-    {% include '@GptCavebackend/partial/form/error/all_errors_message.html.twig'%}
+    <div id="errors"></div>
     <div class="alert alert-primary" role="alert">
         {{ ('organisation.edit.form.title')|trans({},'cavepages')|raw -}}
     </div>
     {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
-            {{ form_start(form) }}
+    {{ form_start(form) }}
+    {% embed '@GptCavebackend/partial/card/card-edit.html.twig'%}
+        {% block heading %}{{ 'organisation.edit.form.identity'|trans({},'cavepages')|raw }}
+        {% endblock heading %}
+        {% block body %}
             {% include '@GptCavebackend/content/organisation/form/partial/identity.html.twig' %}
+        {% endblock body %}
+    {% endembed %}
+    {% embed '@GptCavebackend/partial/card/card-edit.html.twig'%}
+        {% block heading %}{{ 'organisation.edit.form.clasification'|trans({},'cavepages')|raw }}
+        {% endblock heading %}
+        {% block body %}
             {% include '@GptCavebackend/content/organisation/form/partial/clasification.html.twig' %}
+        {% endblock body %}
+    {% endembed %}
+    {% embed '@GptCavebackend/partial/card/card-edit.html.twig'%}
+        {% block heading %}{{ 'organisation.edit.form.contact'|trans({},'cavepages')|raw }}
+        {% endblock heading %}
+        {% block body %}
             {% include '@GptCavebackend/content/organisation/form/partial/contact.html.twig' %}
-            {% include '@GptCavebackend/content/organisation/form/partial/defunct.html.twig'%}
-            {% include '@GptCavebackend/partial/form/nav_edit_submit_button.html.twig' %}
-            {{ form_end(form) }}
+        {% endblock body %}
+    {% endembed %}
+    {% embed '@GptCavebackend/partial/card/card-edit.html.twig'%}
+        {% block heading %}{{ 'organisation.edit.form.defunct'|trans({},'cavepages')|raw }}
+        {% endblock heading %}
+        {% block body %}
+            {% include '@GptCavebackend/content/organisation/form/partial/defunct.html.twig' %}
+        {% endblock body %}
+    {% endembed %}
+
+    {% include '@GptCavebackend/partial/form/nav_edit_submit_button.html.twig' %}
+
+    {{ form_end(form) }}
 {% endblock %}
+
+{% block footer_javascripts %}
+    <script>
+        let repo = new Repopulate( '#{{ form.country.vars.id }}'),
+            editForm = document.getElementById('{{ form.vars.attr.id}}'),
+            errors= document.getElementById('errors');
+
+        repo.on('ev.onLoadResponse', (data, el, attr)=>{
+            return JSON.parse(data.response).out;//data is in 'out' array
+        });
+        repo.bindAll();
+
+
+        editForm.addEventListener('submit', event => {
+            event.preventDefault();
+            Grot(editForm).form('enviar','{{path('cave_backend_organisation_save', {id: organisation.getOrganisationid()})}}', {}, function (data) {
+                errors.innerHTML= typeof data=== "string"? data : '';
+            })
+        });
+
+
+        let repoaddress = new Repopulate( '#{{ form.countryaddress.vars.id }}');
+        repoaddress.on('ev.onLoadResponse', (data, el, attr)=>{
+            return JSON.parse(data.response).out;//data is in 'out' array
+        });
+        repoaddress.bindAll();
+
+        function toggleDefunct(e) {
+            if(!e.checked){
+                document.getElementById('{{ form.defunctyear.vars.id }}').value='';
+                $('#{{ form.currentidifdefunct.vars.id }}').val(null).trigger('change');
+            }
+        }
+
+        shortcut.add('Shift+ctrl+s', function(){ editForm.querySelector('button[type=submit]').click(); });
+    </script>
+    {% include '@GptCavebackend/content/organisation/script/scripts.html.twig' %}
+{% endblock footer_javascripts %}

@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,9 +52,8 @@ class MapserieController extends AbstractController
             array(
                 'arrayParams'=>$this->controllerParams->indexParams(),
                 'form'   => $form->createView()
-            ));
+        ));
     }
-
 
     /**
      * Search result
@@ -116,7 +116,7 @@ class MapserieController extends AbstractController
                 $em->clear();
                 return $this->redirectToRoute('cave_backend_mapserie_edit', array('id' => $mapserie->getMapserieid()));
             }catch (\Exception $ex){
-                ($ex instanceof CaveExceptionInteface)?
+                $ex instanceof CaveExceptionInteface?
                     $form->addError(new FormError($this->controllerParams->getTranslator()->trans($ex->getMessageKey(), $ex->getMessageData()))) :
                     $form->addError(new FormError($ex->getMessage()));
             }
@@ -145,21 +145,6 @@ class MapserieController extends AbstractController
             ['attr'=> ['id'=>'edit-mapserie']]
         )->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($mapserie);
-                $em->flush();
-                $em->clear();
-            }catch (\Exception $ex){
-                ($ex instanceof CaveExceptionInteface)?
-                    $form->addError(new FormError($this->controllerParams->getTranslator()->trans($ex->getMessageKey(), $ex->getMessageData()))) :
-                    $form->addError(new FormError($ex->getMessage()));
-            }
-
-        }
-
         return $this->render('@GptCavebackend/content/mapserie/edit.html.twig', array(
             'arrayParams'=>$this->controllerParams->editParams($mapserie->getMapserieid(), $mapserie->getName()),
             'form' => $form->createView(),
@@ -168,6 +153,45 @@ class MapserieController extends AbstractController
         ));
     }
 
+    /**
+     * Save form
+     *
+     * @Route("/mapserie/save/{id}",
+     *     name="cave_backend_mapserie_save",
+     *     methods={"GET","POST"})
+     * @param Request $request
+     * @param Mapserie $mapserie
+     * @return Response|JsonResponse
+     */
+    public function saveAction(Request $request, Mapserie $mapserie)
+    {
+        if(!$request->isXmlHttpRequest()){
+            throw new HttpException(403, sprintf("Forbidden request method %s", $request->getMethod()));
+        }
+
+        $form = $this->createForm(MapserieType::class, $mapserie)->handleRequest($request);
+
+        if($form->isSubmitted())
+        {
+            if($form->isValid())
+            {
+                try {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($mapserie);
+                    $em->flush();
+                    $em->clear();
+                    return new JsonResponse([]);//no news is good news
+                }catch (\Exception $ex){
+                    $ex instanceof CaveExceptionInteface?
+                        $form->addError(new FormError($this->controllerParams->getTranslator()->trans($ex->getMessageKey(), $ex->getMessageData(), 'caveerrors'))) :
+                        $form->addError(new FormError($ex->getMessage()));
+                }
+            }
+        }else{
+            $form->addError(new FormError($this->controllerParams->getTranslator()->trans('unknown.error', [], 'caveerrors'))) ;
+        }
+        return $this->render('@GptCavebackend/partial/form/error/all_errors_message.html.twig',['form' => $form->createView()]);
+    }
 
     /**
      * Delete

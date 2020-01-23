@@ -84,6 +84,14 @@ class AddOrganisationFieldSubscriber implements EventSubscriberInterface
     }
 
     /**
+     * @return array
+     */
+    public function getOrganisation(): array
+    {
+        return $this->organisation;
+    }
+
+    /**
      * @param FormEvent $event
      */
     public function preSetData(FormEvent $event)

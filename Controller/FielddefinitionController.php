@@ -117,7 +117,7 @@ class FielddefinitionController extends AbstractController
     {
         $form = $this->createForm(FielddefinitionType::class, new Fielddefinition(),
             [
-                'attr'=> ['id'=>'edit-fielddefinition'],
+                'attr'=> ['id'=>'new-fielddefinition', 'name'=> 'fielddefinitionnew'],
                 'choices'=> $this->controllerParams->getChoices()
             ]
         )->handleRequest($request);
@@ -165,21 +165,6 @@ class FielddefinitionController extends AbstractController
             ]
         )->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($fielddefinition);
-                $em->flush();
-                $em->clear();
-            }catch (\Exception $ex){
-                ($ex instanceof CaveExceptionInteface)?
-                    $form->addError(new FormError($this->controllerParams->getTranslator()->trans($ex->getMessageKey(), $ex->getMessageData()))) :
-                    $form->addError(new FormError($ex->getMessage()));
-            }
-
-        }
-
         return $this->render('@GptCavebackend/content/fielddefinition/edit.html.twig', array(
             'arrayParams'=>$this->controllerParams->editParams($fielddefinition->getCode(), $fielddefinition->getName()),
             'form' => $form->createView(),
@@ -187,6 +172,53 @@ class FielddefinitionController extends AbstractController
             'fielddefinition'=>$fielddefinition
         ));
     }
+
+    /**
+     * Save form
+     *
+     * @Route("/fielddefinition/save/{id}",
+     *     name="cave_backend_fielddefinition_save",
+     *     methods={"GET","POST"})
+     * @param Request $request
+     * @param Fielddefinition $fielddefinition
+     * @return Response|JsonResponse
+     */
+    public function saveAction(Request $request, Fielddefinition $fielddefinition)
+    {
+        if(!$request->isXmlHttpRequest()){
+            throw new HttpException(403, sprintf("Forbidden request method %s", $request->getMethod()));
+        }
+
+        $form = $this->createForm(FielddefinitionType::class, $fielddefinition,
+            [
+                'attr'=> ['id'=>'edit-fielddefinition'],
+                'choices'=> $this->controllerParams->getChoices()
+            ]
+        )->handleRequest($request);
+
+        if($form->isSubmitted())
+        {
+            if($form->isValid())
+            {
+                try {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($fielddefinition);
+                    $em->flush();
+                    $em->clear();
+                    return new JsonResponse([]);//no news is good news
+                }catch (\Exception $ex){
+                    ($ex instanceof CaveExceptionInteface)?
+                        $form->addError(new FormError($this->controllerParams->getTranslator()->trans($ex->getMessageKey(), $ex->getMessageData(), 'caveerrors'))) :
+                        $form->addError(new FormError($ex->getMessage()));
+                }
+            }
+        }else{
+            $form->addError(new FormError($this->controllerParams->getTranslator()->trans('unknown.error', [], 'caveerrors'))) ;
+        }
+        return $this->render('@GptCavebackend/partial/form/error/all_errors_message.html.twig',['form' => $form->createView()]);
+    }
+
+
 
     /**
      * Delete
@@ -256,8 +288,7 @@ class FielddefinitionController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
         $repository = new FielddefinitionBackendRepository($em);
-        $fielddefinitionlang = $repository->getTranslation($fielddefinition->getCode(), $language);
-        $isNewfielddefinitionlang = $fielddefinitionlang===null;
+        $translationExist = $fielddefinitionlang = $repository->getTranslation($fielddefinition->getCode(), $language);
         if ($fielddefinitionlang === null)
         {
             $fielddefinitionlang= new Fielddefinitionlang($fielddefinition);
@@ -280,7 +311,7 @@ class FielddefinitionController extends AbstractController
                 "language" => $language,
                 "entity"=>$fielddefinitionlang,
                 "fielddefinition"=>$fielddefinition,
-                'isNewFielddefinitionlang'=>$isNewfielddefinitionlang
+                'translationExist'=>$translationExist
             ));
         }else{
             if ($form->isValid()) {
@@ -303,7 +334,7 @@ class FielddefinitionController extends AbstractController
             "language" => $language,
             "entity"=>$fielddefinitionlang,
             "fielddefinition"=>$fielddefinition,
-            'isNewFielddefinitionlang'=>$isNewfielddefinitionlang
+            'translationExist'=>$translationExist
         ));
     }
 

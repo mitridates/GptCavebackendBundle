@@ -1,0 +1,36 @@
+{#
+/**
+ * @file edit.html.twig
+ * Formulario de edición
+ * @parent ../edit.html.twig
+ */
+#}
+{% set card = (type|default('edit')=='edit')? '@GptCavebackend/partial/card/card-edit.html.twig' : '@GptCavebackend/partial/card/card-new.html.twig' %}
+
+    {% embed card %}
+        {% block heading %}{{ 'person.edit.form.name'|trans({},'cavepages')|raw -}}{% endblock heading %}
+        {% block body %}
+            {% include '@GptCavebackend/content/person/form/partial/identity.html.twig' %}
+        {% endblock body %}
+    {% endembed %}
+
+    {% embed card %}
+        {% block heading %}{{ 'person.edit.form.address'|trans({},'cavepages')|raw -}}{% endblock heading %}
+        {% block body %}
+            {% include '@GptCavebackend/content/person/form/partial/address.html.twig' %}
+        {% endblock body %}
+    {% endembed %}
+
+    {% embed card %}
+        {% block heading %}{{ 'person.edit.form.numbers'|trans({},'cavepages')|raw -}}{% endblock heading %}
+        {% block body %}
+            {% include '@GptCavebackend/content/person/form/partial/numbers.html.twig' %}
+        {% endblock body %}
+    {% endembed %}
+
+    {% embed card %}
+        {% block heading %}{{ 'person.edit.form.organisations'|trans({},'cavepages')|raw -}}{% endblock heading %}
+        {% block body %}
+            {% include '@GptCavebackend/content/person/form/partial/organisations.html.twig'%}        {% endblock body %}
+    {% endembed %}
+

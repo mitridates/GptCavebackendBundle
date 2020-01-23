@@ -1,40 +1,46 @@
 {#
 /**
  * @file identity.html.twig
- * @parent ../edit.html.twig
  */
 #}
-{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel }%}
-    {% block heading %}{{ 'person.edit.form.name'|trans({},'cavepages')|raw -}}{% endblock heading %}
-    {% block body %}
-{# person name, id, ... #}
-<table class="table">
-    <tr>
-        <td>{{ form_label(form.name)}}</td>
-        <td>{{ form_label(form.surname)}}</td>
-        <td>{{ form_label(form.initialforgivennames)}}</td>
-        <td>{{ form_label(form.middleinitial)}}</td>
-        <td>{{ form_label(form.title)}}</td>
-    </tr>
-    <tr>
-        <td>{{ form_widget(form.name) }}</td>
-        <td>{{ form_widget(form.surname) }}</td>
-        <td>{{ form_widget(form.initialforgivennames) }}</td>
-        <td>{{ form_widget(form.middleinitial) }}</td>
-        <td>{{ form_widget(form.title) }}</td>
-    </tr>
- </table>
-        {# person name, id, ... #}
+<div class="row">
+    <div class="col-lg-6 col-sm-12">
         <table class="table">
             <tr>
-                <td>{{ form_label(form.gender)}}</td>
-                <td>{{ form_label(form.email)}}</td>
+                <td>{{ form_label(form.name)}}</td>
+                <td>{{ form_label(form.surname) }}</td>
             </tr>
             <tr>
-                <td>{{ form_widget(form.gender) }}</td>
-                <td>{{ form_widget(form.email) }}</td>
-
+                <td>{{ form_widget(form.name)}}</td>
+                <td>{{ form_widget(form.surname) }}</td>
             </tr>
         </table>
-{% endblock body %}
-{% endembed %}
+
+    </div>
+    <div class="col-lg-3 col-sm-12">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.initialforgivennames)}}</td>
+                <td>{{ form_label(form.middleinitial) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.initialforgivennames)}}</td>
+                <td>{{ form_widget(form.middleinitial) }}</td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="col-lg-3 col-sm-12">
+        <table class="table">
+            <tr>
+                <td class="w-25">{{ form_label(form.title) }}</td>
+                <td>{{ form_label(form.gender)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.title) }}</td>
+                <td>{{ form_widget(form.gender)}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

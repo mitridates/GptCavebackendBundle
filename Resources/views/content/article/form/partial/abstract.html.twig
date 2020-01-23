@@ -1,37 +1,40 @@
 {#
 /**
  * @file abstract.html.twig
- *
- * @parent ../../edit.html.twig
  */
 #}
-{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel }%}
-  {% block heading %}{{ 'article.edit.form.abstracts'| trans({},'cavepages')|raw -}}{% endblock heading %}
-  {% block body %}
-    <table class="table">
-      <tr>
-        <td>{{ form_label(form.abstractcategory)}}</td>
+{% embed '@GptCavebackend/partial/card/card-'~type|default('edit')~'.html.twig' %}
+    {% block heading %}{{ 'article.edit.form.abstracts'| trans({},'cavepages')|raw -}}{% endblock heading %}
+    {% block body %}
+    <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <table class="table">
+        <tr>
+          <td>{{ form_label(form.abstractcategory)}}</td>
+          <td>{{ form_widget(form.abstractcategory)}}</td>
+        </tr>
+        <tr>
         <td>{{ form_label(form.abstractreference)}}</td>
-        <td>{{ form_label(form.abstractyear)}}</td>
-      </tr>
-      <tr>
-        <td>{{ form_widget(form.abstractcategory)}}</td>
         <td>{{ form_widget(form.abstractreference)}}</td>
-        <td>{{ form_widget(form.abstractyear)}}</td>
-      </tr>
-    </table>
-
-    <table class="table">
-      <tr>
-        <td>{{ form_label(form.bbssequencenumber)}}</td>
-        <td>{{ form_label(form.bbsyear)}}</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>{{ form_widget(form.bbssequencenumber)}}</td>
-        <td>{{ form_widget(form.bbsyear)}}</td>
-        <td></td>
-      </tr>
-    </table>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.abstractyear)}}</td>
+          <td>{{ form_widget(form.abstractyear)}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <table class="table">
+        <tr>
+          <td>{{ form_label(form.bbssequencenumber)}}</td>
+          <td>{{ form_widget(form.bbssequencenumber)}}</td>
+        </tr>
+        <tr>
+          <td>{{ form_label(form.bbsyear)}}</td>
+          <td>{{ form_widget(form.bbsyear)}}</td>
+        </tr>
+      </table>
+    </div>
+    </div>
   {% endblock body %}
 {% endembed %}

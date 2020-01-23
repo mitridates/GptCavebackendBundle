@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,9 +44,7 @@ class ArticleController extends AbstractController
      */
     public function indexAction()
     {
-        $form = $this->createForm(ArticlesearchType::class, new Article() , [
-            'attr'=> ['id'=>'article_search_form']
-        ]);
+        $form = $this->createForm(ArticlesearchType::class, new Article() , ['attr'=> ['id'=>'article_search_form']]);
 
         return $this->render('@GptCavebackend/content/article/index.html.twig',
             array(
@@ -144,21 +143,6 @@ class ArticleController extends AbstractController
             ['attr'=> ['id'=>'edit-article']]
         )->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($article);
-                $em->flush();
-                $em->clear();
-            }catch (\Exception $ex){
-                ($ex instanceof CaveExceptionInteface)?
-                    $form->addError(new FormError($this->controllerParams->getTranslator()->trans($ex->getMessageKey(), $ex->getMessageData()))) :
-                    $form->addError(new FormError($ex->getMessage()));
-            }
-
-        }
-
         return $this->render('@GptCavebackend/content/article/edit.html.twig', array(
             'arrayParams'=>$this->controllerParams->editParams($article->getArticleid(), $article->getName()),
             'form' => $form->createView(),
@@ -167,11 +151,50 @@ class ArticleController extends AbstractController
         ));
     }
 
+    /**
+     * Save form
+     *
+     * @Route("/article/save/{id}",
+     *     name="cave_backend_article_save",
+     *     methods={"GET","POST"})
+     * @param Request $request
+     * @param Article $article
+     * @return Response|JsonResponse
+     */
+    public function saveAction(Request $request, Article $article)
+    {
+        if(!$request->isXmlHttpRequest()){
+            throw new HttpException(403, sprintf("Forbidden request method %s", $request->getMethod()));
+        }
+
+        $form = $this->createForm(ArticleType::class, $article)->handleRequest($request);
+
+        if($form->isSubmitted())
+        {
+            if($form->isValid())
+            {
+                try {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($article);
+                    $em->flush();
+                    $em->clear();
+                    return new JsonResponse([]);//no news is good news
+                }catch (\Exception $ex){
+                    $ex instanceof CaveExceptionInteface?
+                        $form->addError(new FormError($this->controllerParams->getTranslator()->trans($ex->getMessageKey(), $ex->getMessageData(), 'caveerrors'))) :
+                        $form->addError(new FormError($ex->getMessage()));
+                }
+            }
+        }else{
+            $form->addError(new FormError($this->controllerParams->getTranslator()->trans('unknown.error', [], 'caveerrors'))) ;
+        }
+        return $this->render('@GptCavebackend/partial/form/error/all_errors_message.html.twig',['form' => $form->createView()]);
+    }
 
     /**
      * Delete
      *
-     * @Route("/article/{id}/delete/",
+     * @Route("/article/delete/{id}",
      *     name="cave_backend_article_delete",
      *     methods={"DELETE"})
      * @param Request $request
@@ -215,6 +238,6 @@ class ArticleController extends AbstractController
             )))
             ->setMethod('DELETE')
             ->getForm()
-            ;
+        ;
     }
 }

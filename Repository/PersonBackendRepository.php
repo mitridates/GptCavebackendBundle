@@ -43,7 +43,7 @@ class PersonBackendRepository extends EntityRepository
         }
 
         //name = value
-        foreach(['country','admin2', 'admin3'] as $k)
+        foreach(['country','admin1','admin2', 'admin3'] as $k)
         {
             if($person->{'get'.  ucfirst($k)}()!=null)
             {

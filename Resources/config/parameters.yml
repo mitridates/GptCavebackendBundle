@@ -68,12 +68,12 @@ parameters:
         navigation_template: 'navigation_simple.html.twig'
         itemsPerPage: 20
         select2: 10
-        style:
-          form_panel: 'card-soft-blue'
-          form_panel_group: 'card-soft-orange'
-          form_panel_edit: 'card-regular-green'
-          form_panel_new: 'card-regular-red'
-          form_panel_search: 'panel-soft-blue'
+#        style:
+#          form_panel: 'card-soft-blue'
+#          form_panel_group: 'card-soft-orange'
+#          form_panel_edit: 'card-soft-grey'
+#          form_panel_new: 'card-regular-red'
+#          form_panel_search: 'panel-soft-blue'
       map: # Agrupaciones y Sufijos (Grupo: [sufijo, ...])de entidades (Cavename, Cavecontent...) menu, plantillas ...
         # si no aparece aquí o se encuentra en el array "hidden", no se muestra el botón para cargar el formulario.
         menu:

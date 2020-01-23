@@ -4,27 +4,57 @@
  * @parent ../edit.html.twig
  */
 #}
-<table class="table">
-<tr>
-    <td>{{ form_label(form.code)}}</td>
-    <td>{{ form_label(form.name)}}</td>
-    <td>{{ form_label(form.abbreviation)}}</td>           
-    <td>{{ form_label(form.entity)}}</td>
-    <td>{{ form_label(form.datatype)}}</td>
-    <td>{{ form_label(form.maxlength)}}</td>
-    <td>{{ form_label(form.coding)}}</td>
-    <td>{{ form_label(form.singlemultivalued)}}</td>
-    <td>{{ form_label(form.valuecode)}}</td>
-</tr>
-<tr>
-    <td>{{ form_widget(form.code)}}</td>
-    <td>{{ form_widget(form.name) }}</td>
-    <td>{{ form_widget(form.abbreviation)}}</td>              
-    <td>{{ form_widget(form.entity)}}</td>
-    <td>{{ form_widget(form.datatype)}}</td>
-    <td>{{ form_widget(form.maxlength)}}</td>
-    <td>{{ form_widget(form.coding)}}</td>
-    <td>{{ form_widget(form.singlemultivalued)}}</td>  
-    <td>{{ form_widget(form.valuecode)}}</td>
-</tr>
-</table>
+<div class="row">
+    <div class="col-lg-6 col-sm-12">
+        <table class="table">
+            <tr>
+                <td class="w-20">{{ form_label(form.code)}}</td>
+                <td>{{ form_label(form.name)}}</td>
+                <td class="w-25">{{ form_label(form.abbreviation)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.code) }}</td>
+                <td>{{ form_widget(form.name) }}</td>
+                <td>{{ form_widget(form.abbreviation)}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.entity)}}</td>
+                <td>{{ form_label(form.datatype)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.entity) }}</td>
+                <td>{{ form_widget(form.datatype) }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-sm-12">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.coding)}}</td>
+                <td>{{ form_label(form.singlemultivalued)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.coding) }}</td>
+                <td>{{ form_widget(form.singlemultivalued) }}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.valuecode)}}</td>
+                <td>{{ form_label(form.maxlength)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.valuecode) }}</td>
+                <td>{{ form_widget(form.maxlength) }}</td>
+            </tr>
+        </table>
+    </div>
+</div>

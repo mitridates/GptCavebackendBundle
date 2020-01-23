@@ -10,12 +10,12 @@
  * @param bool isNewFielddefinitionlang Checkked if is new translation in controller
  */
 #}
-{% set panelType =  isNewFielddefinitionlang ? arrayParams.page.style.form_panel_new : arrayParams.page.style.form_panel_edit %}
-{% set paneltitle =  isNewFielddefinitionlang ? 'fielddefinition.modal.new.translation' : 'fielddefinition.modal.edit.translation' %}
+{% set panelType =  translationExist ? '@GptCavebackend/partial/card/card-edit.html.twig': '@GptCavebackend/partial/card/card-new.html.twig' %}
+{% set paneltitle =  translationExist ? 'fielddefinition.modal.edit.translation' : 'fielddefinition.modal.new.translation' %}
 {% include '@GptCavebackend/partial/form/error/all_errors_message.html.twig'%}
 {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
 {{ form_start(form) }}
-{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: panelType } %}
+{% embed panelType %}
     {% block heading %}{{ paneltitle|trans({},'cavepages')|raw -}}{% endblock heading %}
     {% block body %}
         <table class="table">

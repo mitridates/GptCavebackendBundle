@@ -1,0 +1,69 @@
+{#
+/**
+ * Form
+ * @file edit_form.html.twig
+ */
+#}
+<div class="row">
+    <div class="col-lg-6 col-sm-12">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.name)}}</td>
+                <td>{{ form_label(form.abbreviation) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.name)}}</td>
+                <td>{{ form_widget(form.abbreviation) }}</td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.code)}}</td>
+                <td>{{ form_label(form.maptype)}}</td>
+
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.code, {attr: {class: 'w-50'}})}}</td>
+                <td>{{ form_widget(form.maptype)}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-sm-12">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.lengthunits) }}</td>
+                <td>{{ form_label(form.scale) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.lengthunits) }}</td>
+                <td>{{ form_widget(form.scale, {attr: {class: 'w-25'}}) }}</td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.publisher) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.publisher) }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <td>{{ form_label(form.comment)}}</td>
+    </tr>
+    <tr>
+        <td>{{ form_widget(form.comment) }}</td>
+    </tr>
+</table>

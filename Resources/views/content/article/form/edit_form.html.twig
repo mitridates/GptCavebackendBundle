@@ -1,0 +1,43 @@
+{#
+/**
+ * Form
+ * @file index_search_form.html.twig
+ * @parent ../index.html.twig
+ */
+#}
+{% set country_attr= {attr: {'data-child': '#'~form.admin1.vars.id}} %}
+{% set admin1_attr= {attr: {
+    'style':'min-width:150px',
+    'data-url': path('cave_backend_json_admin1'),
+    'data-parentid': 'countryid',
+    'data-placeholder': 'select.government.level.admin1'|trans({},'cavemessages')|raw,
+}}%}
+
+<div class="row no-gutters">
+    <div class="col-lg-6 col-sm-12">
+        {% include '@GptCavebackend/content/article/form/partial/name.html.twig' %}
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        {% include '@GptCavebackend/content/article/form/partial/publication.html.twig' %}
+    </div>
+</div>
+
+<div class="row no-gutters">
+    <div class="col-lg-6 col-sm-12">
+        {% include '@GptCavebackend/content/article/form/partial/physical.html.twig' %}
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        {% include '@GptCavebackend/content/article/form/partial/ssc.html.twig'%}
+    </div>
+</div>
+
+<div class="row no-gutters">
+    <div class="col-lg-6 col-sm-12">
+        {% include '@GptCavebackend/content/article/form/partial/issn.html.twig' %}
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        {% include '@GptCavebackend/content/article/form/partial/isbn.html.twig'%}
+    </div>
+</div>
+
+{% include '@GptCavebackend/content/article/form/partial/abstract.html.twig'%}

@@ -44,8 +44,16 @@
 {% endblock %}
 
 {% block footer_javascripts %}
-    {{ parent() }}
  <script type="text/javascript">
-    shortcut.add('Shift+ctrl+s', function(){ {{clickEvent}} });
+     let editForm = document.getElementById('{{ form.vars.attr.id}}'),
+         errors= document.getElementById('errors');
+
+     editForm.addEventListener('submit', event => {
+         event.preventDefault();
+         Grot(editForm).form('enviar','{{path('cave_backend_person_save', {id: person.getPersonid()})}}', {}, function (data) {
+             errors.innerHTML= typeof data=== "string"? data : '';
+         })
+     });
+     shortcut.add('Shift+ctrl+s', function(){ editForm.querySelector('button[type=submit]').click(); });
 </script>
 {%endblock%}

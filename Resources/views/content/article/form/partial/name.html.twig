@@ -4,9 +4,9 @@
  * @parent ../../edit.html.twig
  */
 #}
-{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel }%}
-{% block heading %}{{ 'article.edit.form.name'| trans({},'cavepages')|raw -}}{% endblock heading %}
-{% block body %}
+{% embed '@GptCavebackend/partial/card/card-'~type|default('edit')~'.html.twig' %}
+  {% block heading %}{{ 'article.edit.form.name'| trans({},'cavepages')|raw -}}{% endblock heading %}
+  {% block body %}
 <table class="table">
 <tr>
   <td>{{ form_label(form.name)}}</td>
@@ -17,5 +17,5 @@
   <td>{{ form_widget(form.author) }}</td>
 </tr>
 </table>
-{% endblock body %}
+  {% endblock body %}
 {% endembed %}

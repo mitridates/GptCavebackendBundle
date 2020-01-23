@@ -3,11 +3,11 @@
  * @file thead.html.twig
  * @parent ../index_ajax.html.twig
 #}
-<tr class="active">
-  <th class="text-center col-lg-1">ID</th>
-  <th class="text-center">{{get_fielddefinition_name(480,app.request.locale)|raw}}</th><!--first name-->
-  <th class="text-center">{{get_fielddefinition_name(479,app.request.locale)|raw}}</th><!--surname-->
-  <th class="text-center">{{ 'government.level.country'|trans({},'cavemessages')|capitalize|raw}}</th>
-  <th class="text-center">{{ 'government.level.admin2'|trans({},'cavemessages')|capitalize|raw}}</th>
-  <th class="text-center">{{ 'government.level.admin3'|trans({},'cavemessages')|raw}}</th>
+<tr class="text-center-row">
+  <th>ID</th>
+  <th>{{get_fielddefinition_name(480,app.request.locale)|raw}}</th><!--first name-->
+  <th>{{get_fielddefinition_name(479,app.request.locale)|raw}}</th><!--surname-->
+  <th>{{ 'government.level.country'|trans({},'cavemessages')|capitalize|raw}}</th>
+  <th>{{ 'government.level.admin2'|trans({},'cavemessages')|capitalize|raw}}</th>
+  <th>{{ 'government.level.admin3'|trans({},'cavemessages')|raw}}</th>
 </tr>

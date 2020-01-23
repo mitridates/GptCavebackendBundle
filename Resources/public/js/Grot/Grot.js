@@ -101,7 +101,7 @@ Grot.prototype.setSelector = function(selector){
         if(spinElement === null){
             spinElement = document.createElement('i');
             spinElement.setAttribute('id', 'grot-spinner');
-            spinElement.setAttribute('class', 'fa fa-cog fa-spin fa-3x fa-fw centerbox-xy');
+            spinElement.setAttribute('class', 'fa fa-cog fa-spin fa-2x fa-fw centerbox-xy');
             document.body.appendChild(spinElement);
         }else{
             spinElement=  document.getElementById('grot-spinner');
@@ -124,7 +124,7 @@ Grot.prototype.setSelector = function(selector){
   * Grot(constructor arguments).object([private context method], [arguments...])
  */
 /**
- * Module Pattern: immediately-invoked function expression : IIFE 
+ * Module Pattern: immediately-invoked function expression : IIFE
  * namespace (our namespace name) and undefined are passed here
  * to ensure 1. namespace can be modified locally and isn't
  * overwritten outside of our function context
@@ -135,13 +135,13 @@ Grot.prototype.setSelector = function(selector){
  * @param {undefined} undefined
  */
 //(function(Grot, undefined) {
-//   /**                                                                                                                                                                                   
+//   /**
 //    * Nueva función
 //    * @name Grot.name
 //    * @function
 //    * @param {string|undefined} method - Llamada a alguno de los metodos existentes
 //    * @return {*} methods|array... Depende si tiene sentido el encadenamiento o es una función para obtener datos
-//    */         
+//    */
 //    Grot.prototype.name = function(method) {
 //		if ( methods[method] ) {
 //		  return methods[ method ].apply(this , Array.prototype.slice.call( arguments, 1 ));
@@ -150,10 +150,10 @@ Grot.prototype.setSelector = function(selector){
 //		}else{
 //		  console.log( 'Method ' +  method + ' inexistente en Grot.name' );
 //		}
-//	}; 
+//	};
   // check to evaluate whether "namespace" exists in the
   // global namespace - if not, assign window.namespace an
-  // object literal    
+  // object literal
 //}( window.Grot = window.Grot || {}));
 
 
@@ -161,7 +161,7 @@ Grot.prototype.setSelector = function(selector){
  * Grot.object.publicmethod([arguments...])
  */
 /**
- * Module Pattern: immediately-invoked function expression : IIFE 
+ * Module Pattern: immediately-invoked function expression : IIFE
  * namespace (our namespace name) and undefined are passed here
  * to ensure 1. namespace can be modified locally and isn't
  * overwritten outside of our function context
@@ -172,18 +172,18 @@ Grot.prototype.setSelector = function(selector){
  * @param {undefined} undefined
  */
 //(function(Grot, undefined) {
-//   /**                                                                                                                                                                                   
+//   /**
 //    * Nueva función
 //    * @name Grot.name
 //    * @function
 //    * @param {string|undefined} method - Llamada a alguno de los metodos existentes
 //    * @return {*} methods|array... Depende si tiene sentido el encadenamiento o es una función para obtener datos
-//    */         
+//    */
 //    Grot.name = {
 //          key: function(args){}
 //          ...
-//	}; 
+//	};
   // check to evaluate whether "namespace" exists in the
   // global namespace - if not, assign window.namespace an
-  // object literal    
+  // object literal
 //}( window.Grot = window.Grot || {}));

@@ -4,27 +4,45 @@
  * @file edit.html.twig
  * @param array arrayParams
  * @param FormView form
- * @param FormInterface delete_form
+ * @param FormView delete_form
  * @param Fielddefinition fielddefinition
  */
 #}
 {% extends '@GptCavebackend/base.html.twig' %}
-{% block page_javascripts %}
-    <script>
-        $(document).ready(function() {
-            $( '.grotte-paginable' ).each(function( index ) { Grot(this).loader(); });
-        });
-    </script>
-{%endblock%}
 {% block content %}
     {%include '@GptCavebackend/content/fielddefinition/form/navbar.html.twig'%}
-    {% include '@GptCavebackend/partial/form/error/all_errors_message.html.twig'%}
+    <div id="errors"></div>
+    <div class="alert alert-primary" role="alert">
+        {{ ('fielddefinition.edit.form.title')|trans({},'cavepages')|raw -}}
+    </div>
+    {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+    {{ form_start(form) }}
     {%include '@GptCavebackend/content/fielddefinition/form/edit.html.twig'%}
-{# Fielddefinitionlang pagination #}
-<div id="language_search_results"
-     class="grotte-paginable"
-     data-path='{{path('cave_backend_fielddefinition_onetomanypager', { 'id': fielddefinition.getCode()})}}'
-     data-params='{}'>
-</div>
+    {% include '@GptCavebackend/partial/form/nav_edit_submit_button.html.twig' %}
+    {{ form_end(form) }}
+
+    <div id="language_search_results"
+         class="grotte-paginable"
+         data-path='{{path('cave_backend_fielddefinition_onetomanypager', { 'id': fielddefinition.getCode()})}}'
+         data-params='{}'>
+    </div>
+
     {% include '@GptCavebackend/partial/form/modal.html.twig' %}
+
 {% endblock %}
+{% block footer_javascripts %}
+    <script>
+        let i=0,
+            editForm = document.getElementById('{{ form.vars.attr.id}}'),
+            errors= document.getElementById('errors');
+
+        editForm.addEventListener('submit', event => {
+            event.preventDefault();
+            Grot(editForm).form('enviar','{{path('cave_backend_fielddefinition_save', {id: fielddefinition.getCode()})}}', {}, function (data) {
+                errors.innerHTML= typeof data=== "string"? data : '';
+            })
+        });
+        Grot('.grotte-paginable').loader();
+        shortcut.add('Shift+ctrl+s', function(){ editForm.querySelector('button[type=submit]').click(); });
+    </script>
+{% endblock footer_javascripts %}

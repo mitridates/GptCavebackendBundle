@@ -21,20 +21,6 @@ body {
 }
 
 
-.card-soft-blue>.card-header{background-color:#d8ecff!important}
-.card-soft-green>.card-header{background-color:#d8ffd8!important}
-.card-soft-yellow>.card-header{background-color:#ffffd8!important}
-.card-soft-red>.card-header{background-color:#ffd8d8!important}
-.card-soft-grey>.card-header{background-color:#e6e6e6!important}
-.card-soft-orange>.card-header{background-color:#ffe5c9!important}
-
-.card-regular-blue>.card-header{background-color:#6fbbff!important}
-.card-regular-green>.card-header{background-color:#32cd32!important}
-.card-regular-yellow>.card-header{background-color:#ffff6f!important}
-.card-regular-red>.card-header{background-color:#ff6f6f!important}
-.card-regular-grey>.card-header{background-color:#aeaeae!important}
-.card-regular-orange>.card-header{background-color:#ffb460!important}
-
 .pointer {
     cursor: pointer;
     text-decoration: none;
@@ -63,7 +49,7 @@ body {
 
 
 .centerbox-xy{ /**center box on screen*/
-    top:20%;
+    top:5%;
     left: 50%;
     position:absolute;
     z-index: 50;
@@ -126,6 +112,21 @@ padding: 5px;
 .cavemenu > div > div > div> a,
 .cavemenu > div > div > div > span{ padding: 0.1em 0.5em; font-size: small}
 
+
+.card-soft-blue>.card-header{background-color:#D6EAF8!important}
+.card-soft-green>.card-header{background-color:#d8ffd8!important}
+.card-soft-yellow>.card-header{background-color:#ffffd8!important}
+.card-soft-red>.card-header{background-color:#ffd8d8!important}
+.card-soft-grey>.card-header{background-color:#e6e6e6!important}
+.card-soft-orange>.card-header{background-color:#ffe5c9!important}
+
+.card-regular-blue>.card-header{background-color:#6fbbff!important}
+.card-regular-green>.card-header{background-color:#32cd32!important}
+.card-regular-yellow>.card-header{background-color:#ffff6f!important}
+.card-regular-red>.card-header{background-color:#ff6f6f!important}
+.card-regular-grey>.card-header{background-color:#aeaeae!important}
+.card-regular-orange>.card-header{background-color:#ffb460!important}
+
 .card-minimo {margin:0; padding: 0; }
 .card-minimo>.card-body {padding:0;}
 .card-minimo>.card-body>.table{margin-bottom:0px;}
@@ -141,6 +142,10 @@ padding: 5px;
     padding: 3px;
     /*     border: none !important;*/
 }
+
+
+
+
 .w-10{width:10%!important}
 .w-20{width:20%!important}
 .w-30{width:30%!important}

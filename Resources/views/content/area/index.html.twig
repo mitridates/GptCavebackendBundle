@@ -7,6 +7,7 @@
  */
 #}
 {% extends '@GptCavebackend/base.html.twig' %}
+
 {% block content %}
     {% embed '@GptCavebackend/partial/form/block_navbar.html.twig'%}
         {% block right %}
@@ -25,7 +26,6 @@
          data-params=''>
     </div>
 {% endblock content %}
-
 {% block footer_javascripts %}
     <script>
         let repo = new Repopulate( '#{{ form.country.vars.id }}');

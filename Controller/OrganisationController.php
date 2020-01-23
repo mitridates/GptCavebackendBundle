@@ -11,9 +11,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -43,9 +45,7 @@ class OrganisationController extends AbstractController
      */
     public function indexAction()
     {
-        $form = $this->createForm(OrganisationsearchType::class, new Organisation() , [
-            'attr'=> ['id'=>'organisation_search_form']
-        ]);
+        $form = $this->createForm(OrganisationsearchType::class, new Organisation() , ['attr'=> ['id'=>'organisation_search_form']]);
 
         return $this->render('@GptCavebackend/content/organisation/index.html.twig',
             array(
@@ -144,27 +144,52 @@ class OrganisationController extends AbstractController
             ['attr'=> ['id'=>'edit-organisation'], 'translator'=>$this->controllerParams->getTranslator()]
         )->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($organisation);
-                $em->flush();
-                $em->clear();
-            }catch (\Exception $ex){
-                ($ex instanceof CaveExceptionInteface)?
-                    $form->addError(new FormError($this->controllerParams->getTranslator()->trans($ex->getMessageKey(), $ex->getMessageData()))) :
-                    $form->addError(new FormError($ex->getMessage()));
-            }
-
-        }
-
         return $this->render('@GptCavebackend/content/organisation/edit.html.twig', array(
             'arrayParams'=>$this->controllerParams->editParams($organisation->getOrganisationid(), $organisation->getName()),
             'form' => $form->createView(),
             'delete_form' => $this->createDeleteForm($organisation)->createView(),
             'organisation'=>$organisation
         ));
+    }
+
+    /**
+     * Save form
+     *
+     * @Route("/organisation/save/{id}",
+     *     name="cave_backend_organisation_save",
+     *     methods={"GET","POST"})
+     * @param Request $request
+     * @param Organisation $organisation
+     * @return Response|JsonResponse
+     */
+    public function saveAction(Request $request, Organisation $organisation)
+    {
+        if(!$request->isXmlHttpRequest()){
+            throw new HttpException(403, sprintf("Forbidden request method %s", $request->getMethod()));
+        }
+
+        $form = $this->createForm(OrganisationType::class, $organisation, ['translator'=>$this->controllerParams->getTranslator()])->handleRequest($request);
+
+        if($form->isSubmitted())
+        {
+            if($form->isValid())
+            {
+                try {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($organisation);
+                    $em->flush();
+                    $em->clear();
+                    return new JsonResponse([]);//no news is good news
+                }catch (\Exception $ex){
+                    $ex instanceof CaveExceptionInteface?
+                        $form->addError(new FormError($this->controllerParams->getTranslator()->trans($ex->getMessageKey(), $ex->getMessageData(), 'caveerrors'))) :
+                        $form->addError(new FormError($ex->getMessage()));
+                }
+            }
+        }else{
+            $form->addError(new FormError($this->controllerParams->getTranslator()->trans('unknown.error', [], 'caveerrors'))) ;
+        }
+        return $this->render('@GptCavebackend/partial/form/error/all_errors_message.html.twig',['form' => $form->createView()]);
     }
 
     /**

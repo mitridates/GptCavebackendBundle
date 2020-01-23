@@ -7,18 +7,16 @@
 #}
 {% set country_attr= {attr: {'data-child': '#'~form.admin1.vars.id}} %}
 {% set admin1_attr= {attr: {
+    'style':'min-width:150px',
     'data-url': path('cave_backend_json_admin1'),
     'data-parentid': 'countryid',
     'data-placeholder': 'select.government.level.admin1'|trans({},'cavemessages')|raw,
 }}%}
 {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
 {{ form_start(form) }}
-{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel_search}%}
-    {% block heading %}
-        {{ 'article.index.search.form'|trans({},'cavepages')|raw -}}
-    {% endblock heading %}
+{% embed '@GptCavebackend/partial/card/card-search.html.twig'%}
+    {% block heading %}{{ 'article.index.search.form'|trans({},'cavepages')|raw -}}{% endblock heading %}
     {% block body %}
-        <!-- buscador básico -->
         <table class="table">
             <tr>
                 <td>{{ form_label(form.name)}}</td>
@@ -35,28 +33,10 @@
                 <td>{{ form_widget(form.country, country_attr) }}</td>
                 <td>{{ form_widget(form.admin1, admin1_attr) }}</td>
                 <td>
-                    {%include '@GptCavebackend/partial/form/buttons.html.twig'
-                        with {'btns' :
-                        {
-                            'search': {'type': 'submit',
-                            'icon': {'class': 'search'},
-                            'attr': { 'onclick': 'Grot(\'#search_results\').loader(\'form\', \'#'~form.vars.attr.id~'\'); return false;' }
-                        },
-                            'clear': {'attr': { 'onclick': 'Grot(\'#'~form.vars.attr.id~'\').form(\'clear\');' } }
-                        },
-                    } only %}
+                    {%include '@GptCavebackend/partial/form/buttons.html.twig'with {'btns' :{'search': {'type': 'submit'}, 'reset': {'type': 'reset' }},} only %}
                 </td>
             </tr>
         </table>
-        <script>
-            $(document).ready(function() {
-                let repo = new Repopulate( '#{{ form.country.vars.id }}');
-                repo.on('ev.onLoadResponse', (data, el, attr)=>{
-                    return JSON.parse(data.response).out;//data is in 'out' array
-                });
-                repo.bindAll();
-            });
-        </script>
     {% endblock body %}
 {% endembed %}
 {{ form_widget(form._token) }}

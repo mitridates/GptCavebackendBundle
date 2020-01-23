@@ -7,19 +7,22 @@
  */
 #}
 {% extends '@GptCavebackend/base.html.twig' %}
-{% block page_javascripts %}
-    {%include '@GptCavebackend/content/area/script/scripts.html.twig'%}
-{%endblock page_javascripts%}
 {% block content %}
     {%include '@GptCavebackend/content/area/navbar.html.twig'%}
     {% include '@GptCavebackend/partial/form/error/all_errors_message.html.twig'%}
-    <div class="alert alert-primary" role="alert">
+    <div class="alert alert-secondary" role="alert">
         {{ ('area.new.form.title')|trans({},'cavepages')|raw -}}
     </div>
     {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
     {{ form_start(form) }}
-    {% include '@GptCavebackend/content/area/form/edit_form.html.twig' %}
-    {% include '@GptCavebackend/partial/form/nav_new_submit_button.html.twig' %}
+
+    {% embed '@GptCavebackend/partial/card/card-new.html.twig' %}
+        {% block body %}
+            {% include '@GptCavebackend/content/area/form/edit_form.html.twig'%}
+            {% include '@GptCavebackend/partial/form/nav_new_submit_button.html.twig' %}
+        {% endblock body %}
+    {% endembed %}
+
     {{ form_end(form) }}
 {%endblock content%}
 {% block footer_javascripts %}

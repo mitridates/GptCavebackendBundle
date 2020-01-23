@@ -66,7 +66,7 @@ class MapserieType extends AbstractType
         }
 
 
-        foreach(explode(';', 'code:278;name:279;abbreviation:372;scale:373;comment:10374'
+        foreach(explode(';', 'code:278;abbreviation:372;scale:373;comment:10374'
         ) as $el){
 
             $field = explode(':', $el);
@@ -74,8 +74,8 @@ class MapserieType extends AbstractType
 
             $builder->add($field[0], NULL, $arr);
         }
-
-        $builder->add('comment', TextareaType::class, ['required' => false,'attr'=>['code_id'=> 10374]]);
+        $builder->add('name', null, ['required' => true,'attr'=>['code_id'=> 279]]);
+        $builder->add('comment', null, ['required' => false,'attr'=>['code_id'=> 10374]]);
 
 }
 

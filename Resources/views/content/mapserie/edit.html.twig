@@ -9,19 +9,36 @@
  */
 #}
 {% extends '@GptCavebackend/base.html.twig' %}
-{% block page_javascripts %}
-    {%include '@GptCavebackend/content/mapserie/script/scripts.html.twig'%}
-{%endblock%}
 {% block content %}
     {%include '@GptCavebackend/content/mapserie/navbar.html.twig'%}
-    {% include '@GptCavebackend/partial/form/error/all_errors_message.html.twig'%}
+    <div id="errors"></div>
     <div class="alert alert-primary" role="alert">
         {{ ('mapserie.edit.form.title')|trans({},'cavepages')|raw -}}
     </div>
     {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
     {{ form_start(form) }}
-    {% include '@GptCavebackend/content/mapserie/form/partial/identity.html.twig' %}
-    {% include '@GptCavebackend/content/mapserie/form/partial/data.html.twig' %}
+
+    {% embed '@GptCavebackend/partial/card/card-edit.html.twig' %}
+        {% block body %}
+    {% include '@GptCavebackend/content/mapserie/form/edit_form.html.twig' %}
     {% include '@GptCavebackend/partial/form/nav_edit_submit_button.html.twig' %}
+        {% endblock body %}
+    {% endembed %}
+
     {{ form_end(form) }}
 {% endblock %}
+
+{% block footer_javascripts %}
+    {%include '@GptCavebackend/content/mapserie/script/scripts.html.twig'%}
+    <script>
+        let editForm = document.getElementById('{{ form.vars.attr.id}}');
+
+        editForm.addEventListener('submit', event => {
+            event.preventDefault();
+            Grot(editForm).form('enviar','{{path('cave_backend_mapserie_save', {id: mapserie.getMapserieid()})}}', {}, function (data) {
+                errors.innerHTML= typeof data=== "string"? data : '';
+            })
+        });
+        shortcut.add('Shift+ctrl+s', function(){ editForm.querySelector('button[type=submit]').click(); });
+    </script>
+{% endblock footer_javascripts %}

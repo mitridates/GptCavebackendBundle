@@ -28,7 +28,7 @@ Repopulate.prototype.on = function (event, listener) {
  * @returns this
  */
 Repopulate.prototype.bindAll = function (element){
-    let nodeItem, evListener, nodeList,
+    let nodeList,
         i=0,
         elem = element||this.root,
         $this = this,
@@ -42,12 +42,12 @@ Repopulate.prototype.bindAll = function (element){
 
             elem.addEventListener("change", function(){
                 $this.clearSelectors(child, true);
-                if (elem.options.length==0 || (elem===$this.root && elem.options[elem.selectedIndex].value==0)) return;
+                if (elem.options.length===0 || (elem===$this.root && elem.options[elem.selectedIndex].value===0)) return;
                 $this.populateChild(child, elem.options[elem.selectedIndex].value);
             });
 
             child.addEventListener("change", function(){//repopulate before load page if child has one option available
-                 if(child.options.length==2 && !child.options[0].value){//has at least one value and first one is empty
+                 if(child.options.length===2 && !child.options[0].value){//has at least one value and first one is empty
                     if(!child.options[child.selectedIndex].value)//selected value is null
                     {
                         $this.clearSelectors(child);
@@ -73,7 +73,7 @@ Repopulate.prototype.bindAll = function (element){
 /**
  * @name Repopulate#clearSelectors
  * @method
- * @param {Object} el element type SELECT
+ * @param {Object} elem
  * @param {boolean} deep
  * @returns this
  */
@@ -106,7 +106,7 @@ Repopulate.prototype.populateChild = function(elem, value){
     $this = this,
         xhr = new XMLHttpRequest();
 
-    if(this.xhr_method=='POST')
+    if(this.xhr_method==='POST')
     {
         formdata= this.buildQueryPost(attr, value);
     }else{
@@ -196,6 +196,7 @@ Repopulate.prototype.getDataAttr = function(el){
         parameters: el.getAttribute('data-parameters'),//json enconded parameters key=value
         child:el.getAttribute('data-child'),//
         placeholder: el.getAttribute('data-placeholder'),//string
-        returnFormat: el.getAttribute('data-returnFormat'),//return format keys names "textName,valueName"
+        returnFormat: el.getAttribute('data-returnFormat'),//return format keys names ex.: "text,value"
+        origin: el.getAttribute('data-origin'),//original data "text,value"
     };
 };

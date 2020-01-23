@@ -14,7 +14,7 @@
             {%endif-%}</td>
         <td>{{e.getReview() ?? '' }}</td>
         <td>
-            <button type="button" class="btn btn-primary  btn-sm" onclick="
+            <button type="button" class="btn btn-primary  btn-sm py-0" onclick="
                     let modal = document.getElementById('exampleModal'), xhr = new XMLHttpRequest(),
                     url= '{{path('cave_backend_fielddefinition_editonetomany', { "id": entity.getCode(), 'language': e.getLanguage()})}}';
 
@@ -54,7 +54,7 @@
                 <span class="fa fa-edit" aria-hidden="true" ></span> {{ 'edit'|trans({},'cavemessages')|raw -}}
             </button>
 
-            <button type="button" class="btn btn-danger btn-xs" onclick="
+            <button type="button" class="btn btn-danger  btn-sm py-0" onclick="
                     let icon = this.querySelector('.fa');
                     if(icon.classList.contains('fa-trash')){
                     icon.classList.replace('fa-trash', 'fa-exclamation-triangle');
@@ -86,7 +86,7 @@
         <td></td>
         <td></td>
         <td>
-            <button type="button" class="btn btn-default  btn-xs" onclick="
+            <button type="button" class="btn btn-secondary  btn-sm py-0" onclick="
                     let modal = document.getElementById('exampleModal'), xhr = new XMLHttpRequest(),
                     url= '{{path('cave_backend_fielddefinition_editonetomany', { "id": entity.getCode(), 'language': locale})}}',
 

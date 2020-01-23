@@ -47,7 +47,7 @@ Buscar</button>
             'target': btn.target|default('_self'),
             }
     %}
-<button type="{{btn.type}}" {% for key, value in btn.attr %} {{ key }}="{{ value|raw }}"{% endfor %} {%if btn.path %}onclick="window.open('{{btn.path}}', '{{btn.target}}')"{%endif%}>
+&nbsp;<button type="{{btn.type}}" {% for key, value in btn.attr %} {{ key }}="{{ value|raw }}"{% endfor %} {%if btn.path %}onclick="window.open('{{btn.path}}', '{{btn.target}}')"{%endif%}>
 {%if icon[name] is defined%}<i class="fa fa-{{icon[name]}}{% if btn.icon.class is defined %} {{ btn.icon.class }}{% endif %}"></i>{%endif%} {{ btn.txt|capitalize|raw -}}
 </button>
 {%endfor%}

@@ -8,17 +8,7 @@
 #}
 {% extends '@GptCavebackend/base.html.twig' %}
 
-{% block page_javascripts %}
-    {%include '@GptCavebackend/content/mapserie/script/scripts.html.twig'%}
-    <script>
-        $(document).ready(function() {
-            document.querySelector('.search').click();
-        });
-    </script>
-{% endblock page_javascripts %}
-
 {% block content %}
-
     {% embed '@GptCavebackend/partial/form/block_navbar.html.twig'%}
         {% block right %}
             <div class="navbar-btn">
@@ -36,3 +26,15 @@
          data-params=''>
     </div>
 {% endblock content %}
+
+{% block footer_javascripts %}
+    {%include '@GptCavebackend/content/mapserie/script/scripts.html.twig'%}
+    <script>
+        let searchForm = document.getElementById('{{ form.vars.attr.id}}');
+        searchForm.addEventListener('submit', event => {
+            event.preventDefault();
+            Grot('#search_results').loader('form', '#{{ form.vars.attr.id }}');
+        });
+        searchForm.querySelector('button[type="submit"]').click();
+    </script>
+{% endblock footer_javascripts %}

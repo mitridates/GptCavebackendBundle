@@ -8,41 +8,51 @@
 {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
 {{ form_start(form) }}
 
-{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel_search}%}
-    {% block heading %}
-        {{ 'mapserie.index.search.form'|trans({},'cavepages')|raw -}}
-    {% endblock heading %}
+{% embed '@GptCavebackend/partial/card/card-search.html.twig'%}
+    {% block heading %}{{ 'mapserie.index.search.form'|trans({},'cavepages')|raw -}}{% endblock heading %}
     {% block body %}
-        <!-- buscador básico -->
-        <table class="table">
-            <tr>
-                <td>{{ form_label(form.name)}}</td>
-                <td>{{ form_label(form.publisher)}}</td>
-                <td>{{ form_label(form.code)}}</td>
-                <td>{{ form_label(form.abbreviation)}}</td>
-                <td>{{ form_label(form.scale)}}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>{{ form_widget(form.name) }}</td>
-                <td>{{ form_widget(form.publisher) }}</td>
-                <td>{{ form_widget(form.code) }}</td>
-                <td>{{ form_widget(form.abbreviation) }}</td>
-                <td>{{ form_widget(form.scale) }}</td>
-                <td>
-                    {%include '@GptCavebackend/partial/form/buttons.html.twig'
-                        with {'btns' :
-                        {
-                            'search': {'type': 'submit',
-                            'icon': {'class': 'search'},
-                            'attr': { 'onclick': 'Grot(\'#search_results\').loader(\'form\', \'#'~form.vars.attr.id~'\'); return false;' }
-                        },
-                            'clear': {'attr': { 'onclick': 'Grot(\'#'~form.vars.attr.id~'\').form(\'clear\');' } }
-                        },
-                    } only %}
-                </td>
-            </tr>
-        </table>
+        <div class="row">
+            <div class="col-lg-4 col-sm-12">
+                <table class="table">
+                    <tr>
+                        <td>{{ form_label(form.name)}}</td>
+                        <td>{{ form_label(form.publisher) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_widget(form.name)}}</td>
+                        <td>{{ form_widget(form.publisher) }}</td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                <table class="table">
+                    <tr>
+                        <td>{{ form_label(form.code)}}</td>
+                        <td>{{ form_label(form.abbreviation) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_widget(form.code)}}</td>
+                        <td>{{ form_widget(form.abbreviation) }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                <table class="table">
+                    <tr>
+                        <td>{{ form_label(form.scale) }}</td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <td>{{ form_widget(form.scale) }}</td>
+                        <td>
+                            {%include '@GptCavebackend/partial/form/buttons.html.twig'with {'btns' :{'search': {'type': 'submit'}, 'reset': {'type': 'reset' }},} only %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     {% endblock body %}
 {% endembed %}
 {{ form_widget(form._token) }}

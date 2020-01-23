@@ -1,15 +1,21 @@
 <?php
 namespace App\GptCavebackendBundle\Controller;
 use App\GptCavebackendBundle\Form\Error\FormErrorsFielddefinitionSerializer;
+use App\GptCavebackendBundle\Form\Type\Article\ArticlesearchType;
+use App\GptCavebackendBundle\Form\Type\Article\ArticleType;
 use App\GptCavebackendBundle\Form\Type\Specie\SpecieType;
 use App\GptCavebackendBundle\Form\Type\Specie\SpeciesearchType;
-use App\GptCavebackendBundle\Service\BackendParams\SpecieParams;
+use App\GptCavebackendBundle\Model\CaveExceptionInteface;
+use App\GptCavebackendBundle\Repository\ArticleBackendRepository;
+use App\GptCavebackendBundle\Repository\SpecieBackendRepository;
+use App\GptCavebackendBundle\Util\ControllerParameters\CommonParams;
+use App\GptCaveBundle\Entity\Article;
 use App\GptCaveBundle\Entity\Specie;
-use App\Cave\LibBundle\Format\Select2;
 use Doctrine\ORM\Id\AssignedGenerator;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,32 +24,29 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Specie controller.
  */
 class SpecieController extends AbstractController
 {
+    /**
+     * @var CommonParams
+     */
+    private $controllerParams;
 
     /**
-     * Retorna los parámetros para controlador y action
-     * @param mixed $action prefijo de la action y parámetros necesarios
-     * @return Arraypath
-     * @throws Exception
+     * @param TranslatorInterface $translator
+     * @param ParameterBagInterface $params
      */
-    private function getParams($action)
+    public function __construct(TranslatorInterface $translator, ParameterBagInterface $params)
     {
-        $params = new SpecieParams(
-            $this->get('translator'),
-            $this->get('router'),
-            $this->getParameter('cave_backend')
-        );
-
-        return call_user_func_array([$params, 'getActionParams'], func_get_args());
+        $this->controllerParams = new CommonParams('specie', $params->get('cave_backend'), $translator);
     }
 
     /**
-     * Formulario de busqueda y página de inicio
+     * Index search form
      *
      * @Route("/specie",
      *     name="cave_backend_specie_index")
@@ -52,236 +55,151 @@ class SpecieController extends AbstractController
      */
     public function indexAction()
     {
-        $xparams= $this->getParams('index');
-
-        $form = $this->createForm(SpeciesearchType::class, new Specie() , [
-            'method' => 'POST',
-            'attr'=> ['id'=>'search_form', 'novalidate'=>'novalidate'],//ajax
-            'parameters'=>$xparams->getNode('cave_backend')
-        ])->createView();
+        $form = $this->createForm(SpeciesearchType::class, new Specie() , ['attr'=> ['id'=>'specie_search_form']]);
 
         return $this->render('@GptCavebackend/content/specie/index.html.twig',
             array(
                 'arrayParams'=>$this->controllerParams->indexParams(),
-                'form'   => $form
-        ));
+                'form'   => $form->createView()
+            ));
     }
 
     /**
-     * filtra el formulario de búsqueda y retorna html para  paginar
-     *
+     * Search result
      * @Route("/specie/ajaxpager",
      *     name="cave_backend_specie_ajaxpager",
      *     methods={"GET","POST"})
+     * @param SpecieBackendRepository $repository
      * @param Request $request
      * @return Response
-     * @throws Exception
      * @throws NonUniqueResultException
      */
-    public function ajaxpagerAction(Request $request){
+    public function ajaxpagerAction(SpecieBackendRepository $repository, Request $request){
 
-        $repository = $this->getDoctrine()->getRepository('GptCaveBundle:Specie');
+        $arrayParams= $this->controllerParams->getParametersbag();
 
-        $xparams= $this->getParams('ajaxpager');
+        $page       = $request->get('page', 1);
+        $ipp        = $request->get('ipp', $arrayParams['page']['itemsPerPage'] ?? 20);
 
-        $page       = (int) $request->get('page', 1);
-        $ipp        = (int) $request->get('ipp', $xparams->get('page:itemsPerPage', 20));
+        $form = $this->createForm(SpeciesearchType::class, new Specie())->handleRequest($request);
 
-        $search_form = $this->createForm(SpeciesearchType::class, new Specie() , [
-            'method' => 'POST',
-            'action'=>$this->generateUrl('cave_backend_specie_index'),
-            'attr'=> ['id'=>'cave_specie_search'],
-            'parameters'=>$xparams->getNode('cave_backend')
-        ])->handleRequest($request);
-
-        if($search_form->isSubmitted()){//POST
-            if($search_form->isValid()){
-                $specie = $search_form->getData();
-            }else{
-                return $this->render('@GptCavebackend/partial/form/error/error_fielddefinitionserializer.html.twig',
-                    ['error'=> FormErrorsFielddefinitionSerializer::serializeFielddefinitions(
-                        $search_form,
-                        $this->getDoctrine()->getRepository('GptCaveBundle:Fielddefinition'),
-                        $request->getLocale()
-                    )]);
-            }
-        }else{//GET
-            $specie= new Specie();
+        if($form->isSubmitted() && $form->isValid()){
+            $entity = $form->getData();
+        }else{
+            return $this->render('@GptCavebackend/partial/form/error/all_errors_message.html.twig',
+                ['form'=>$form->createView()]
+            );
         }
 
-        list($paginator, $result) = $repository->pageBySpecie($specie ,$page,$ipp );
+        list($paginator, $result) = $repository->pageBySpecie($entity, $page, $ipp);
 
         return $this->render(
-        '@GptCavebackend/content/specie/index_ajax.html.twig',
-        array(
-            'arrayParams'=>$this->controllerParams->indexParams(),
-            'entities' => $result,//resultados filtrados
-            "entity_token"=>$this->container->get('security.csrf.token_manager')->getToken('specie_token'),
-            'paginator'=>$paginator
-        ));
+            '@GptCavebackend/content/specie/index_ajax.html.twig',
+            array(
+                'arrayParams'=>$arrayParams,
+                'entities' => $result,
+                "entity_token"=>$this->container->get('security.csrf.token_manager')->getToken('specie_token'),
+                'paginator'=>$paginator
+            ));
     }
 
     /**
-     * Crea una nuevo registro
+     * New registry
      *
      * @Route("/specie/new",
      *     name="cave_backend_specie_new",
      *     methods={"GET","POST"})
      * @param Request $request
      * @return Response
-     * @throws NonUniqueResultException
      */
     public function newAction(Request $request)
     {
-        $xparams= $this->getParams('new');
-        $systemparameterService = $this->get('cave_backend.service.system_params');//parámetros en db
-        $view = array();//array para la vista
-        $entity = new Specie();
-        $em = $this->getDoctrine()->getManager();
-        $availableForms = (array)$xparams->get('cave_backend:table_generate_keys:specie', 'auto');
-        $formTypes  = $availableForms;
-        $organisationRepository = $em->getRepository('GptCaveBundle:Organisation');
-        $organisationDbm = $systemparameterService->getOrganisationdbm();
-
-        if($organisationDbm == null){
-            return $this->redirectToRoute('cave_backend_organisation_new');
-        }
-
-        if(in_array('man', $availableForms) &&
-            $organisationRepository->countIdGenerators($organisationDbm)>0) {
-            $formTypes[] = 'man';
-        }else{
-            /**
-             * Si NO hay otras organizaciones creadoras de registros, no puedo crear registros manualmente.
-             */
-            $formTypes = array_diff($formTypes,['man']);
-        }
-
-        $view['activeForm'] = current($formTypes);
-
-        foreach($formTypes as $type){
-
-            $class= 'App\GptCavebackendBundle\Form\Type\Specie\\'.'Id'.ucfirst($type).'FormType';
-            if(!class_exists($class)) continue;
-            $form = $this->createForm($class, $entity, array(
-                'method' => 'POST',
-                'parameters'=>[
-                    'xparams'=>$xparams->getNode('cave_backend'),
-                    'adminorg'=>$organisationDbm
-                ]));
-
-            /*
-             * Posible TranslatableException en EventListener
-             */
+        $form = $this->createForm(SpecieType::class, new Specie())->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
             try {
-                $form->handleRequest($request);
-            }catch (Exception $ex){
-                if($form->isSubmitted()){
-                    $view['activeForm'] = $type;
-                }
-                if($ex instanceof TranslatableException){
-                    $ex->trans($this->get('translator'));
-                }
-                $form->addError(new FormError($ex->getMessage()));
-                $view['forms'][$type]= $form->createView();
-                break;
-            }
-
-            if($form->isSubmitted() && $form->isValid())
-            {//tratamos de guardar
-
-                $view['activeForm'] = $type;
-
-                try{
-
-                    if($type=='man'){
-                        $metadata = $em->getClassMetaData(get_class($entity));
-                        $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
-                        $metadata->setIdGenerator(new AssignedGenerator());
-                    }
-                    $em->persist($entity);
-                    $em->flush();
-                    $em->clear();
-                    return $this->redirectToRoute('cave_backend_specie_edit', array('id' => $entity->getSpecieid()));
-                }catch (Exception $ex){
-                    if($ex instanceof TranslatableException){
-                        $ex->trans($this->get('translator'));
-                    }
+                $specie = $form->getData();
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($specie);
+                $em->flush();
+                $em->clear();
+                return $this->redirectToRoute('cave_backend_specie_edit', array('id' => $specie->getSpecieid()));
+            }catch (\Exception $ex){
+                $ex instanceof CaveExceptionInteface ?
+                    $form->addError(new FormError($this->controllerParams->getTranslator()->trans($ex->getMessageKey(), $ex->getMessageData()))) :
                     $form->addError(new FormError($ex->getMessage()));
-                }
             }
-            $view['forms'][$type]= $form->createView();
         }
 
         return $this->render(
-            '@GptCavebackend/content/specie/new.html.twig',
-            array_merge($view, ['xparams'=>$xparams])
-        );
+            '@GptCavebackend/content/specie/new.html.twig', [
+            'arrayParams'=>$this->controllerParams->newParams(),
+            'form'=> $form->createView()
+        ]);
     }
 
     /**
-     * Edita y guarda un registro
+     * Edit registry
      *
      * @Route("/specie/edit/{id}",
      *     name="cave_backend_specie_edit",
      *     methods={"GET","POST"})
      * @param Request $request
      * @param Specie $specie
-     * @return Response|JsonResponse
-     * @throws Exception
+     * @return Response
      */
     public function editAction(Request $request, Specie $specie)
     {
-        $data = array();
-        $xparams= $this->getParams('edit', $specie);
+        $form = $this->createForm(SpecieType::class, $specie,
+            ['attr'=> ['id'=>'edit-specie']]
+        )->handleRequest($request);
 
-        $deleteForm = $this->createDeleteForm($specie);
-        $form = $this->createForm(SpecieType::class,
-                                        $specie, array(
-                                            'attr'=> ['id'=>'cave_specie_form'],
-                                            'method' => 'POST',
-                                            'parameters'=>$xparams
-                                            )
-                                        )->handleRequest($request);
+        return $this->render('@GptCavebackend/content/specie/edit.html.twig', array(
+            'arrayParams'=>$this->controllerParams->editParams($specie->getSpecieid(), $specie->getName()),
+            'form' => $form->createView(),
+            'delete_form' => $this->createDeleteForm($specie)->createView(),
+            'specie'=>$specie
+        ));
+    }
 
-        if (!$form->isSubmitted())
-        {//pidiendo el formulario
-            return $this->render('@GptCavebackend/content/specie/edit.html.twig', array(
-                'arrayParams'=>$this->controllerParams->indexParams(),
-                'form' => $form->createView(),
-                'delete_form' => $deleteForm->createView(),
-                'specie'=>$specie
-            ));
-        }
-        if(!$request->isXmlHttpRequest())
-        {
+    /**
+     * Save form
+     *
+     * @Route("/specie/save/{id}",
+     *     name="cave_backend_specie_save",
+     *     methods={"GET","POST"})
+     * @param Request $request
+     * @param Specie $specie
+     * @return Response|JsonResponse
+     */
+    public function saveAction(Request $request, Specie $specie)
+    {
+        if(!$request->isXmlHttpRequest()){
             throw new HttpException(403, sprintf("Forbidden request method %s", $request->getMethod()));
         }
 
-        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(SpecieType::class, $specie)->handleRequest($request);
 
-        if ($form->isValid()) {
-            $entity = $form->getData();
-//            $em->getConnection()->beginTransaction(); // Tansacciones. suspend auto-commit
-            try{
-                $em->persist($entity);
-                $em->flush();
-                $em->clear();
-//                $em->getConnection()->commit();
-            }catch (Exception $ex){
-//                    $em->getConnection()->rollBack();
-                if($ex instanceof TranslatableException){
-                    $ex->trans($this->get("translator"));
+        if($form->isSubmitted())
+        {
+            if($form->isValid())
+            {
+                try {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($specie);
+                    $em->flush();
+                    $em->clear();
+                    return new JsonResponse([]);//no news is good news
+                }catch (\Exception $ex){
+                    $ex instanceof CaveExceptionInteface?
+                        $form->addError(new FormError($this->controllerParams->getTranslator()->trans($ex->getMessageKey(), $ex->getMessageData(), 'caveerrors'))) :
+                        $form->addError(new FormError($ex->getMessage()));
                 }
-                //error para mustache
-                return new JsonResponse($data = ['error'=>['form'=>SpecieType::class,'global'=>[$ex->getMessage()]]]);
-            }           
-        }else{//catch errors
-            $data['error']= FormErrorsFielddefinitionSerializer::serializeFielddefinitions($form,
-                $this->getDoctrine()->getRepository('GptCaveBundle:Fielddefinition'),
-                $request->getLocale());
+            }
+        }else{
+            $form->addError(new FormError($this->controllerParams->getTranslator()->trans('unknown.error', [], 'caveerrors'))) ;
         }
-        return new JsonResponse($data);
+        return $this->render('@GptCavebackend/partial/form/error/all_errors_message.html.twig',['form' => $form->createView()]);
     }
 
     /**
@@ -308,7 +226,7 @@ class SpecieController extends AbstractController
                 $em->remove($specie);
                 $em->flush();
                 $this->addFlash('success', $msg);
-            }catch(Exception $ex){
+            }catch(\Exception $ex){
                 $this->addFlash('danger', $ex->getMessage() );
                 return $this->redirectToRoute('cave_backend_specie_edit', array('id' => $specie->getSpecieid()));
             }
@@ -328,7 +246,7 @@ class SpecieController extends AbstractController
         return $this->createFormBuilder(null, ['attr'=> ['id'=>'specie_delete_form']])
             ->setAction($this->generateUrl('cave_backend_specie_delete', array(
                 'id' => $specie->getSpecieid()
-                )))
+            )))
             ->setMethod('DELETE')
             ->getForm()
         ;

@@ -1,24 +1,22 @@
 {#
 /**
  * @file serie.html.twig
- *
- * @parent ../../edit.html.twig
  */
 #}
-{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel }%}
+{% embed '@GptCavebackend/partial/card/card-'~type|default('edit')~'.html.twig' %}
     {% block heading %}ISSN{% endblock heading %}
     {% block body %}
-        <table class="table">
-            <tr>
-                <td>{{ form_label(form.issn)}}</td>
-                <td>{{ form_label(form.volumenumber)}}</td>
-                <td>{{ form_label(form.issuenumber)}}</td>
-            </tr>
-            <tr>
-                <td>{{ form_widget(form.issn)}}</td>
-                <td>{{ form_widget(form.volumenumber)}}</td>
-                <td>{{ form_widget(form.issuenumber)}}</td>
-            </tr>
-        </table>
+<table class="table">
+    <tr>
+        <td>{{ form_label(form.issn)}}</td>
+        <td>{{ form_label(form.volumenumber)}}</td>
+        <td>{{ form_label(form.issuenumber)}}</td>
+    </tr>
+    <tr>
+        <td>{{ form_widget(form.issn)}}</td>
+        <td>{{ form_widget(form.volumenumber)}}</td>
+        <td>{{ form_widget(form.issuenumber)}}</td>
+    </tr>
+</table>
     {% endblock body %}
 {% endembed %}

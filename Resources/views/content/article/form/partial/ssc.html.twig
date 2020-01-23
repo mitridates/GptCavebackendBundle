@@ -1,23 +1,20 @@
 {#
 /**
  * @file ssc.html.twig
- *
- * @parent ../../edit.html.twig
  */
 #}
-{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel }%}
+{% embed '@GptCavebackend/partial/card/card-'~type|default('edit')~'.html.twig' %}
     {% block heading %}{{ 'article.edit.form.ssc'| trans({},'cavepages')|raw -}}{% endblock heading %}
     {% block body %}
-        <table class="table">
-            <tr>
-                <td>{{ form_label(form.ssccode)}}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>{{ form_widget(form.ssccode)}}</td>
-                <td></td>
-            </tr>
-        </table>
-
+<table class="table">
+    <tr>
+        <td>{{ form_label(form.ssccode)}}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>{{ form_widget(form.ssccode)}}</td>
+        <td></td>
+    </tr>
+</table>
     {% endblock body %}
 {% endembed %}

@@ -35,10 +35,15 @@ class FielddefinitionType extends AbstractType
         'required'=>false,
         'choices' => array_flip($choices['singlemultivalued'])
         ));        
-        foreach(explode(',', 'abbreviation,code,valuecode,name,maxlength,definition,example,comment,uso') as $el){
+        foreach(explode(',', 'abbreviation,valuecode,name,maxlength,definition,example,comment,uso') as $el){
             $builder->add($el, NULL, array(
                                 'required'=>false,
                                 ));
+        }
+        foreach(explode(',', 'code,name') as $el){
+            $builder->add($el, NULL, array(
+                'required'=>true,
+            ));
         }
     }
 
