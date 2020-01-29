@@ -15,7 +15,8 @@
 {% import '@GptCavebackend/partial/paginator/navigator_links_macro.html.twig' as links %}
 {% spaceless %}
 {# the number of pages that are displayed around the active page #}
-{% set showAlwaysFirstAndLast = showAlwaysFirstAndLast|default(false) %}
+{% set showAlwaysFirstAndLast = showAlwaysFirstAndLast is defined? showAlwaysFirstAndLast : false %}
+{% set showRange = showRange is defined? showRange : true %}
 {%set navigatorid =  navigatorid|default('navigatorid-'~random(100))%}
 {%set adjacents =  adjacents|default(1)%}
 {%set arround =  arround|default(1)%}
@@ -27,9 +28,9 @@
 <tr>
 <td class="text-left">
 {# page x of y #}
-    {{('pager.page.of.pages')|trans({'%page%': paginator.getPage(), '%pages%': paginator.getTotalPages()},'cavemessages')|raw}} 
+{% if showRange %} {{('pager.page.of.pages')|trans({'%page%': paginator.getPage(), '%pages%': paginator.getTotalPages()},'cavemessages')|raw}}{% endif %}
 {# END page x de y #}
-    <i class="fa fa-info-circle" aria-hidden="true"
+<i class="fa fa-info-circle" aria-hidden="true"
 title="{{('pager.page.of.pages')|trans({'%page%': paginator.getPage(), '%pages%': paginator.getTotalPages()},'cavemessages')|raw}},
     {{('pager.results.from.to')|trans({'%from%': paginator.getLimits()[0], '%to%': paginator.getLimits()[0]+paginator.getPageRows()},'cavemessages')|raw}},
     {{('pager.partial.results')|trans({'%result%': paginator.getPageRows()},'cavemessages')|raw}},

@@ -1,0 +1,15 @@
+{#
+/**
+ * Manytoone pagination
+ * @file ?.html.twig
+ * @parent menucontent.html.twig
+ * @param array arrayParams
+ * @param Cave cave
+ */
+#}
+<div class="row">
+    {%include '@GptCavebackend/content/cave/edit/col4.html.twig' with {name: 'otherdbid', cave: cave} only%}
+    {%include '@GptCavebackend/content/cave/edit/col4.html.twig' with {name: 'crossreference', cave: cave} only%}
+    {%include '@GptCavebackend/content/cave/edit/col4.html.twig' with {name: 'previousnumber', cave: cave} only%}
+
+</div>

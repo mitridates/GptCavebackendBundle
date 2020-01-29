@@ -10,17 +10,18 @@
  * @param Paginator  paginator
  #}
 {% import '@GptCavebackend/content/cave/edit/macro_edit_onetomany_buttons.html.twig' as bttns %}
-<div class="row m-0 bg-light">
-    <div class="col">
-        {%include '@GptCavebackend/partial/paginator/navigator_rango.html.twig' with {'paginator': paginator} only %}
+<div class="row" style="background-color: lightgray; border-bottom: 1px solid grey">
+    <div class="col-4">
+        {%include '@GptCavebackend/partial/paginator/navigator_rango.html.twig' with {'paginator': paginator, 'showRange': false} only %}
     </div>
-    <div class="col  text-right">
+    <div class="col-8 text-right">
         {{bttns.bttn_new( name,
             path('cave_backend_cave_create_onetomany', { cave: cave.getCaveid(), name: name}),
             path('cave_backend_cave_save_onetomany', { cave: cave.getCaveid(), name: name}),
             ('cave.card.'~name)|trans({},'cavepages')|raw)
 
-        }}</div>
+        }}
+    </div>
 </div>
 <div class="overflow-auto" style="height: 150px;">
 {% include '@GptCavebackend/content/cave/forms/'~name~'/pagination.html.twig' %}

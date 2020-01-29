@@ -1,0 +1,13 @@
+{#
+/**
+ * Manytoone pagination
+ * @file ?.html.twig
+ * @parent menucontent.html.twig
+ * @param array arrayParams
+ * @param Cave cave
+ */
+#}
+<div class="row">
+    {%include '@GptCavebackend/content/cave/edit/col6.html.twig' with {name: 'grid', cave: cave} only%}
+    {%include '@GptCavebackend/content/cave/edit/col6.html.twig' with {name: 'widestmap', cave: cave} only%}
+</div>
