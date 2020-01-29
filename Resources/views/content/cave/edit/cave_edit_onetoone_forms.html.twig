@@ -16,6 +16,10 @@
     {% include '@GptCavebackend/content/cave/forms/'~formname~'/'~formname~'.html.twig'%}
     {% include '@GptCavebackend/partial/form/nav_edit_submit_button.html.twig' %}
 {{ form_end(form) }}
+{#Es posible añadir un div paginable con formulario modal  #}
+{#{% if formname == 'description' %}#}
+{#    {%include '@GptCavebackend/content/cave/edit/col.html.twig' with {name: 'descriptionline', cave: cave} only%}#}
+{#{% endif %}#}
 <script type="text/javascript">
     $(document).ready(function() {
         let formMain =    document.getElementById('{{ form.vars.attr.id }}');

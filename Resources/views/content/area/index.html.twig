@@ -17,7 +17,7 @@
         {% endblock %}
     {% endembed %}
 
-    {% include '@GptCavebackend/content/area/form/index_search_form.html.twig'%}
+    {%include '@GptCavebackend/content/area/form/index_search_form.html.twig'%}
 
     {# pager div #}
     <div id="search_results"
@@ -26,6 +26,7 @@
          data-params=''>
     </div>
 {% endblock content %}
+
 {% block footer_javascripts %}
     <script>
         let repo = new Repopulate( '#{{ form.country.vars.id }}');

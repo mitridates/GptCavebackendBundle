@@ -1,6 +1,5 @@
 <?php
 namespace App\GptCavebackendBundle\Form\Type\Cave;
-use App\GptCaveBundle\Entity\Cave;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -9,14 +8,10 @@ use App\GptCavebackendBundle\EventListener\Form\AddAdmin1FieldSubscriber;
 use App\GptCavebackendBundle\EventListener\Form\AddAdmin2FieldSubscriber;
 use App\GptCavebackendBundle\EventListener\Form\AddAdmin3FieldSubscriber;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\FormInterface;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class EditCavepartialIdentityType extends AbstractType
+class EditCavepartialMeasureType extends AbstractType
 {
 
     /**
@@ -33,10 +28,7 @@ class EditCavepartialIdentityType extends AbstractType
         $this->translator = $defaults['translator'];
 
 
-        $fields = '70:name;512:updatestatus;9:quantityofentrances;27:nearestlocality;'
-            . '54:percentmapped;77:serial;'
-            . '10380:hide;13075:geographiclocation;13076:system;10380:hide;229:localgovernmentarea;'
-            . '56:length;58:lengthaccuracy;67:extentlength;68:extentwidth;511:verticalextent;62:verticalaccuracy;'
+        $fields = '56:length;58:lengthaccuracy;67:extentlength;68:extentwidth;511:verticalextent;62:verticalaccuracy;'
             .'59:extentbelowentrance;60:extentaboveentrance;'
             .'63:lengthlargestchamber;64:widthlargestchamber;65:heighlargestchamber';
 
@@ -49,8 +41,7 @@ class EditCavepartialIdentityType extends AbstractType
             $builder->add($field[1], NULL, $arr);
         }
 
-        foreach(explode(';','1:featuretype;10:entrancetype;20:penetrability;29:degreeexplored;78:entrancemarking;512:updatestatus;'
-            .'57:lengthmethod;61:verticalmethod;297:lengthcategory;527:depthcategory') as $el){
+        foreach(explode(';','57:lengthmethod;61:verticalmethod;297:lengthcategory;527:depthcategory') as $el){
             $field = explode(':', $el);
             $builder->add(
                 $field[1], EntityType::class, array(
@@ -68,48 +59,6 @@ class EditCavepartialIdentityType extends AbstractType
                 )
             );
         }
-
-
-        $countrySubscriber = new AddCountryFieldSubscriber($factory, array(
-            'options'=>array(
-                'attr'=>array(
-                    'code_id'=>220
-                )
-            )
-        ));
-        $builder->addEventSubscriber($countrySubscriber);
-
-        $admin1 = array(
-            'options'=>array(
-                'attr'=>array(
-                    'code_id'=>18,
-                )
-            )
-        );
-        $admin1Subscriber = new AddAdmin1FieldSubscriber($factory,$countrySubscriber->getCountry(), $admin1);
-        $builder->addEventSubscriber($admin1Subscriber);
-
-        $admin2 = array('name'=>'admin2',
-            'options'=>array(
-                'attr'=>array()
-            )
-        );
-        $admin2Subscriber = new AddAdmin2FieldSubscriber(
-            $factory,
-            $countrySubscriber->getCountry(),
-            $admin1Subscriber->getAdmin1(),
-            $admin2
-        );
-        $builder->addEventSubscriber($admin2Subscriber);
-
-        $admin3Subscriber= new AddAdmin3FieldSubscriber($factory, $admin2Subscriber->getAdmin2(),array(
-            'name'=>'admin3',
-            'options'=>array(
-                'attr'=>array()
-            )
-        ));
-        $builder->addEventSubscriber($admin3Subscriber);
-
     }
 
     /**

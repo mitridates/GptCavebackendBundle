@@ -15,8 +15,14 @@
     </div>
     {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
     {{ form_start(form) }}
-    {% include '@GptCavebackend/content/article/form/edit_form.html.twig' with {type: 'new'} %}
-    {% include '@GptCavebackend/partial/form/nav_new_submit_button.html.twig' %}
+
+    {% embed '@GptCavebackend/partial/card/card-new.html.twig'%}
+        {% block body %}
+            {% include '@GptCavebackend/content/article/form/edit_form.html.twig' with {type: 'new'} %}
+            {% include '@GptCavebackend/partial/form/nav_new_submit_button.html.twig' %}
+        {% endblock body %}
+    {% endembed %}
+
     {{ form_end(form) }}
 {%endblock content%}
 {% block footer_javascripts %}

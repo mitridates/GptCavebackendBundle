@@ -8,11 +8,12 @@
 <script>
 
     /**
+     * Gestiona el menu y los contenidos para su correspondiente div
      * @class
      * @constructor
      * @name Menuloader
-     * @param {Object} targetsContainer
      * @param {Object} menu
+     * @param {Object} targetsContainer
      */
     function Menuloader (menu, targetsContainer) {
         this.menu  = menu;
@@ -47,13 +48,14 @@
 
     /**
      * Load/reload div
-     * @param {Object} tab element anchor
-     * @param {boolean} [reload]
+     * @param {Object} menuItem Menú link
+     * @param {boolean} [reload] reload tab?
      */
     Menuloader.prototype.load= function(menuItem, reload)
     {
         let dataTarget  = document.querySelector(menuItem.hash) ;
         $this = this;
+
         if(typeof dataTarget === 'undefined'){
             console.log('Target hash ID desconocido: '+ menuItem.hash);
             return false;
@@ -82,7 +84,11 @@
         this.showData(dataTarget);
     };
 
-
+    /**
+     * Get/save modal form && remove data
+     * @function
+     * @param {Object} context Button
+     */
     let modalFormButton = function (context) {
         let $this= context || this,
             m = document.getElementById('exampleModal'),
@@ -93,7 +99,7 @@
                 body    : m.querySelector('.modal-body'),
                 footer  : m.querySelector('.modal-footer'),
                 error   : m.querySelector('.modal-error'),
-                replaceBttn: ()=> {
+                replaceBttn: ()=> {//replace bttn to remove listeners
                     let bttn = m.querySelector('.modal-submit'), newBttn = bttn.cloneNode(true);
                     m.querySelector('.modal-footer').replaceChild(newBttn, bttn);
                 }
@@ -152,7 +158,6 @@
                             alert(this.data);
                         }else {
                             Grot($($this).closest('.grotte-paginable')).loader('reload')
-                            //$this.parentNode.parentNode.removeChild($this.parentNode);
                         }
                     }
                 });

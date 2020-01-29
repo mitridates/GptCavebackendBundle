@@ -7,12 +7,12 @@
  */
 #}
 <div class="col-lg-6 col-sm-12">
-    {% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+    {% embed '@GptCavebackend/partial/card/card-edit.html.twig'%}
         {% block heading %}{{ ('cave.card.'~name)|trans({},'cavepages')|raw }}{% endblock heading %}
         {% block body %}
             {# paginator div #}
             <div id="grottepaginable-{{ name }}"
-                 class="grotte-paginable"
+                 class="grotte-paginable grottepaginable-{{ name }}"
                  data-path='{{path('cave_backend_cave_onetomany', {name: name, id: cave.getCaveid()})}}'
                  data-params=''>
             </div>

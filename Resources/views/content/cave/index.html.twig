@@ -8,17 +8,7 @@
 #}
 {% extends '@GptCavebackend/base.html.twig' %}
 
-{% block page_javascripts %}
-    {%include '@GptCavebackend/content/cave/forms/cave/script.html.twig'%}
-    <script>
-        $(document).ready(function() {
-           document.querySelector('.search').click();
-        });
-    </script>
-{% endblock page_javascripts %}
-
 {% block content %}
-
     {% embed '@GptCavebackend/partial/form/block_navbar.html.twig'%}
         {% block right %}
             <div class="navbar-btn">
@@ -27,7 +17,7 @@
         {% endblock %}
     {% endembed %}
 
-    {%include '@GptCavebackend/content/cave/index/index_search_form.html.twig' %}
+    {%include '@GptCavebackend/content/cave/index/index_search_form.html.twig'%}
 
     {# pager div #}
     <div id="search_results"
@@ -36,3 +26,21 @@
          data-params=''>
     </div>
 {% endblock content %}
+
+{% block footer_javascripts %}
+    <script>
+        let repo = new Repopulate( '#{{ form.country.vars.id }}');
+        repo.on('ev.onLoadResponse', (data, el, attr)=>{
+            return JSON.parse(data.response).out;//data is in 'out' array
+        });
+        repo.bindAll();
+
+        let searchForm = document.getElementById('{{ form.vars.attr.id}}');
+        searchForm.addEventListener('submit', event => {
+            event.preventDefault();
+            Grot('#search_results').loader('form', '#{{ form.vars.attr.id }}');
+        });
+        searchForm.querySelector('button[type="submit"]').click();
+
+    </script>
+{% endblock footer_javascripts %}

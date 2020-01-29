@@ -22,18 +22,16 @@
       {{ form_label(form.name)}}
     </td>
     <td class="form-specie form-specie-string">{{ form_widget(form.name)}}</td>
+    <td></td>
   </tr>
   <tr class="form-specie form-specie-string">
     <td>{{ form_label(form.genus)}}</td>
-    <td>{{ form_widget(form.genus)}}</td>
-  </tr>
-  <tr class="form-specie form-specie-string">
     <td>{{ form_label(form.refcomment)}}</td>
-    <td>{{ form_widget(form.refcomment)}}</td>
-
+    <td>{{ form_label(form.speciesignificance)}}</td>
   </tr>
   <tr class="form-specie form-specie-string">
-    <td>{{ form_label(form.speciesignificance)}}</td>
+    <td>{{ form_widget(form.genus)}}</td>
+    <td>{{ form_widget(form.refcomment)}}</td>
     <td>{{ form_widget(form.speciesignificance)}}</td>
   </tr>
 </table>
@@ -42,9 +40,9 @@
     $.fn.modal.Constructor.prototype._enforceFocus = function() {};
     Grot('#{{form.specie.vars.id}}').select2paginado('{{path('cave_backend_autocomplete_specie')}}', {placeholder: '{{('select.specie')|trans({},'cavemessages')|raw}}'});
     {% if  specieIsNotNull %}
-      Grot('.form-specie-string').form('clear').form('disable');
+    Grot('.form-specie-string').form('clear').form('disable');
     {% else %}
-      Grot('#{{ form.specie.vars.id }}').form('clear').form('disable');
+    Grot('#{{ form.specie.vars.id }}').form('clear').form('disable');
     {% endif %}
   });
 </script>

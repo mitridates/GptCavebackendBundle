@@ -1,0 +1,59 @@
+{#
+/**
+ * @file  edit.html.twig
+ * Formulario de edición
+ *
+ * @parent ../edit.html.twig
+ */
+#}
+<div class="row">
+    <div class="col-sm-12 col-lg-6">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.name)}}</td>
+                <td>{{ form_label(form.commonname) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.name) }}</td>
+                <td>{{ form_widget(form.commonname) }}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-sm-12 col-lg-6">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.genus)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.genus)}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-lg-6">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.family)}}</td>
+                <td>{{ form_label(form.orden)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.family)}}</td>
+                <td>{{ form_widget(form.orden)}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-sm-12 col-lg-6">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.class)}}</td>
+                <td>{{ form_label(form.phylum)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.class)}}</td>
+                <td>{{ form_widget(form.phylum)}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+{{ form_widget(form._token) }}

@@ -4,39 +4,47 @@
  * @parent ./edit.html.twig
  */
 #}
-<div style="display: none" id="karst-identity"
-     data-path="{{path('cave_backend_cave_create_partial', { 'id': cave.getCaveid(), name: 'identity' })}}">
-    <div class="text-center">...</div>
+<div style="display: none" id="karst-name"
+     data-path="{{path('cave_backend_cave_create_partial', { 'id': cave.getCaveid(), name: 'name' })}}">
+</div>
+<div style="display: none" id="karst-measure"
+     data-path="{{path('cave_backend_cave_create_partial', { 'id': cave.getCaveid(), name: 'measure' })}}">
 </div>
 <div style="display: none" id="karst-coordinates"
      data-path="{{path('cave_backend_cave_create_partial', { 'id': cave.getCaveid(), name: 'coordinates' })}}">
-    <div class="text-center">...</div>
 </div>
 <div style="display: none" id="karst-coarse"
      data-path="{{path('cave_backend_cave_create_partial', { 'id': cave.getCaveid(), name: 'coarse' })}}">
-    <div class="text-center">...</div>
 </div>
 
 <div style="display: none" id="karst-history"
      data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'history' })}}">
-    <div class="text-center">...</div>
 </div>
 <div style="display: none" id="karst-description"
-     data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'description' })}}">
-    <div class="text-center">...</div>
+     data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'description' })}}"
+>
 </div>
 <div style="display: none" id="karst-howtofind"
      data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'howtofind' })}}">
-    <div class="text-center">...</div>
 </div>
 <div style="display: none" id="karst-environment"
      data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'environment' })}}">
-    <div class="text-center">...</div>
 </div>
 <div style="display: none" id="karst-management"
      data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'management' })}}">
-    <div class="text-center">...</div>
 </div>
+
+{#FORMULARIOS MANYTOONE#}
+<div style="display: none" id="karst-typology">
+    {%include '@GptCavebackend/content/cave/edit/cave-manytoone-typology-forms.html.twig'%}
+</div>
+<div style="display: none" id="karst-status">
+    {%include '@GptCavebackend/content/cave/edit/cave-manytoone-status-forms.html.twig'%}
+</div>
+<div style="display: none" id="karst-progress">
+    {%include '@GptCavebackend/content/cave/edit/cave-manytoone-progress-forms.html.twig'%}
+</div>
+
 <div style="display: none" id="karst-mto01">
     {%include '@GptCavebackend/content/cave/edit/mto01.html.twig'%}
 </div>

@@ -5,7 +5,7 @@
  * @parent ../onetoone.html.twig
  */
 #}
-{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+{% embed '@GptCavebackend/partial/card/card-edit.html.twig'%}
 {% block heading %}{{ form_label(form.description)}}{% endblock heading %}
 {% block body %}
 {{ form_widget(form.description, { 'attr': {'style': 'min-height: 300px'} })}}</td>

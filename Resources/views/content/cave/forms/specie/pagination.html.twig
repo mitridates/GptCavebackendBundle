@@ -17,11 +17,10 @@
 {% if entity.getPosition() %}{{ entity.getPosition() }}.- {% endif %}
 
     {%if entity.getSpecie() is not null %}
-        <a href="{{path('cave_backend_specie_edit', { 'id': entity.getSpecie().getSpecie() })}}" title="Genus: {{ entity.getSpecie().getGenus() }}, Family: {{ entity.getSpecie().getFamily() }}">
             {{ entity.getSpecie().getCommonname()}} ({{ entity.getSpecie().getName()}})
-        </a>
+            <a class="fa fa-link" title="{{ entity.getSpecie().getCommonname()}}. ID {{ entity.getSpecie().getSpecieid()}}" href="{{path('cave_backend_specie_edit', { 'id': entity.getSpecie().getSpecieid() })}}"></a>
     {%else%}
-        <span>{{ entity.getName() }} {%if entity.getGenus() is not null %}({{ entity.getGenus()}})</span>{%endif%}
+        <span title="{%if entity.getSpeciesignificance() is not null %}({{ entity.getSpeciesignificance().getValue()}}) {%endif%}{{ entity.getRefcomment() }}">{{ entity.getName() }} {%if entity.getGenus() is not null %}({{ entity.getGenus()}}){%endif%}</span>
     {%endif%}
 
     {{- bttns.bttn_edit(name,

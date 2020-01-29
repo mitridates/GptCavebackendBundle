@@ -162,12 +162,14 @@ class CaveController extends AbstractController
 
     public function createPartialFormAction(Cave $cave, string $name)
     {
-        return $this->render('@GptCavebackend/content/cave/edit/cavepartial.html.twig', array(
+        $params = array(
             'arrayParams'=>$this->controllerParams->editParams($cave->getCaveid(), $cave->getName()),
             'formname'=> $name,
             'form' => call_user_func_array ([$this, 'createForm'] , $this->controllerParams->createPartialform($cave, $name))->createView(),
             'cave'=>$cave
-        ));
+        );
+
+        return $this->render('@GptCavebackend/content/cave/edit/cave_partial_forms.html.twig', $params);
     }
 
     /**
@@ -222,7 +224,7 @@ class CaveController extends AbstractController
      */
     public function createOnetooneFormAction(Cave $cave, string $name)
     {
-        return $this->render('@GptCavebackend/content/cave/edit/editonetoone.html.twig', array(
+        return $this->render('@GptCavebackend/content/cave/edit/cave_edit_onetoone_forms.html.twig', array(
             'arrayParams'=>$this->controllerParams->editParams($cave->getCaveid(), $cave->getName()),
             'formname'=> $name,
             'form' => call_user_func_array ([$this, 'createForm'] , $this->controllerParams->createOnetooneform($cave, $name))->createView(),

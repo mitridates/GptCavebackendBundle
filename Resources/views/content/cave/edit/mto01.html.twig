@@ -76,6 +76,10 @@
 
 <div class="row">
     {%include '@GptCavebackend/content/cave/edit/col6.html.twig' with {name: 'discovery', cave: cave} only%}
-    {%include '@GptCavebackend/content/cave/edit/col6.html.twig' with {name: 'descriptionline', cave: cave} only%}
+
+{#
+Innecesario si existe campo de texto
+{%include '@GptCavebackend/content/cave/edit/col6.html.twig' with {name: 'descriptionline', cave: cave} only%}
+#}
 
 </div>

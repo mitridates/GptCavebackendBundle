@@ -1,33 +1,31 @@
 {#
+/**
+ * Edit Cave
  * @file edit.html.twig
- * @parent menucontent.html.twig
  * @param array arrayParams
  * @param FormView form
- * @param FormInterface delete_form
+ * @param FormView delete_form
  * @param Cave cave
  */
 #}
 {% extends '@GptCavebackend/base.html.twig' %}
-{% block page_javascripts %}
-    {%include '@GptCavebackend/content/cave/script/scripts.html.twig'%}
-{%endblock%}
 {% block content %}
 
     {%include '@GptCavebackend/content/cave/navbar.html.twig'%}
     <nav class="yamm navbar navbar-expand-lg navbar-light bg-info">
         <ul class="navbar-nav" id="menuItems">
             <li class="nav-item dropdown yamm-fw ">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Formularios principales</a>
-                <div class="dropdown-menu">
-                    <div class="yamm-content">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ 'cave.dropdown.dataforms'|trans({}, 'cavepages') }}</a>
+                <div class="dropdown-menu" style="padding: 0; margin: 0;">
+                    <div class="yamm-content list-menu">
                         {%include '@GptCavebackend/content/cave/edit/menuitems.html.twig'%}
                     </div>
                 </div>
             </li>
             <li class="nav-item dropdown yamm-fw ">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Formularios Secundarios</a>
-                <div class="dropdown-menu">
-                    <div class="yamm-content">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ 'cave.dropdown.managementforms'|trans({}, 'cavepages') }}</a>
+                <div class="dropdown-menu" style="padding: 0; margin: 0;">
+                    <div class="yamm-content list-menu">
                         {%include '@GptCavebackend/content/cave/edit/menuitemsmanytoone.html.twig'%}
                     </div>
                 </div>
@@ -40,3 +38,7 @@
     </div><!--End #menuContent -->
     {% include '@GptCavebackend/partial/form/modal.html.twig' %}
 {% endblock %}
+
+{% block footer_javascripts %}
+    {%include '@GptCavebackend/content/cave/script/scripts.html.twig'%}
+{%endblock%}

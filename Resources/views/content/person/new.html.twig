@@ -15,11 +15,12 @@
     </div>
     {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
     {{ form_start(form) }}
+
     {% include '@GptCavebackend/content/person/form/edit_form.html.twig' with {type: 'new'}%}
     {% include '@GptCavebackend/partial/form/nav_new_submit_button.html.twig' %}
+
     {{ form_end(form) }}
 {%endblock content%}
-
 
 {% block footer_javascripts %}
     <script>
@@ -28,7 +29,7 @@
             return JSON.parse(data.response).out;//data is in 'out' array
         });
         repo.bindAll();
-        Grot('.organisation*').select2paginado('{{path('cave_backend_autocomplete_organisation')}}',{placeholder: '{{'select.organisation'|trans({},'cavemessages')|raw}}'});
 
+        Grot('.organisation*').select2paginado('{{path('cave_backend_autocomplete_organisation')}}',{placeholder: '{{'select.organisation'|trans({},'cavemessages')|raw}}'});
     </script>
 {% endblock footer_javascripts %}

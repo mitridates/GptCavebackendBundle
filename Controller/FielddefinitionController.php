@@ -289,6 +289,8 @@ class FielddefinitionController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $repository = new FielddefinitionBackendRepository($em);
         $translationExist = $fielddefinitionlang = $repository->getTranslation($fielddefinition->getCode(), $language);
+        $display_language= locale_get_display_language($language, $request->getLocale());
+
         if ($fielddefinitionlang === null)
         {
             $fielddefinitionlang= new Fielddefinitionlang($fielddefinition);
@@ -309,6 +311,7 @@ class FielddefinitionController extends AbstractController
                 'arrayParams' => $this->controllerParams->getParametersbag(),
                 "form" => $form->createView(),
                 "language" => $language,
+                "displayLanguage"=>$display_language,
                 "entity"=>$fielddefinitionlang,
                 "fielddefinition"=>$fielddefinition,
                 'translationExist'=>$translationExist
@@ -332,6 +335,7 @@ class FielddefinitionController extends AbstractController
             'arrayParams' => $this->controllerParams->getParametersbag(),
             "form" => $form->createView(),
             "language" => $language,
+            "displayLanguage"=>$display_language,
             "entity"=>$fielddefinitionlang,
             "fielddefinition"=>$fielddefinition,
             'translationExist'=>$translationExist

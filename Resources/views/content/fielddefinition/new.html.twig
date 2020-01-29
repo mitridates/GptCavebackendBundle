@@ -8,14 +8,20 @@
 #}
 {% extends '@GptCavebackend/base.html.twig' %}
 {% block content %}
-    {%include '@GptCavebackend/content/fielddefinition/form/navbar.html.twig'%}
+    {%include '@GptCavebackend/content/fielddefinition/navbar.html.twig'%}
     {% include '@GptCavebackend/partial/form/error/all_errors_message.html.twig'%}
     <div class="alert alert-secondary" role="alert">
         {{ ('fielddefinition.new.form.title')|trans({},'cavepages')|raw -}}
     </div>
     {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
     {{ form_start(form) }}
-    {%include '@GptCavebackend/content/fielddefinition/form/new.html.twig'%}
-    {% include '@GptCavebackend/partial/form/nav_new_submit_button.html.twig' %}
+
+    {% embed '@GptCavebackend/partial/card/card-new.html.twig' %}
+        {% block body %}
+            {%include '@GptCavebackend/content/fielddefinition/form/edit_form.html.twig'%}
+            {% include '@GptCavebackend/partial/form/nav_new_submit_button.html.twig' %}
+        {% endblock body %}
+    {% endembed %}
+
     {{ form_end(form) }}
 {%endblock content%}

@@ -160,13 +160,11 @@ specie.menu.new: "Nueva Esp&eacute;cie"
 specie.menu.edit: "Editar Esp&eacute;cie"
 specie.menu.index: "Buscar Esp&eacute;cies"
 #--NEW
-specie.new.page.title: "Nueva Espécie"
+specie.new.page.title: "Nueva Especie"
 specie.new.heading.title: "Nueva esp&eacute;cie"
-specie.new.form.mangenerator.title: "Esp&eacute;cie importada manualmente"
-specie.new.form.autogenerator.title: "Nueva Esp&eacute;cie"
-specie.new.form.autogenerator.text: "Crea una Esp&eacute;cie d&aacute;ndole un nombre, el resto de datos es opcional."
+specie.new.form.title: "NUEVA ESPECIE"
 #--INDEX
-specie.index.page.title: "Listado de Espécies"
+specie.index.page.title: "Listado de Especies"
 specie.index.navigator: "Listar Esp&eacute;cies"
 specie.index.heading.title: "Listado de Esp&eacute;cies"
 specie.index.search.form: "Buscador de Esp&eacute;cies"
@@ -174,7 +172,7 @@ specie.index.search.form: "Buscador de Esp&eacute;cies"
 #--EDITOR
 specie.edit.page.title: "%name%. ID %id%"
 specie.edit.heading.title: "%name%"
-specie.edit.form: "Editar esp&eacute;cie y clasificaci&oacute;n cient&iacute;fica"
+specie.edit.form.title: "EDITAR ESPECIE"
 ########### END MAPSERIES ###########
 
 #           MAP
@@ -288,24 +286,68 @@ cave.edit.heading.title: "%name%"
 
 
 #--Partial forms (form page links: cave.menu.*) & Card titles(smaller form/page data subdivision: cave.card.* )
+cave:
+    dropdown:
+        dataforms: "Datos identificativos descriptivos"
+        managementforms: "Tareas pendientes y mantenimiento"
+    card:
+        environment: "Condiciones ambientales de la cavidad"
+        entranceline: "Entrada - descripción (líneas)"
+        entranceft: "Entrada - tipol. kárstica (keywords)"
+        entrancedev: "Entrada - desarrollo (keywords)"
+        equipment: "Equipación especial recomendada (líneas)"
+        measure: "Medidas totales/parciales"
+        gridref: "Coordenadas UTM"
+        latlng: "Latitud/Longitud"
+        altitude: "Altitud"
+        coarse: "Datos aproximados de posición, en mapas o referencia catastral"
+        management: "Gestión de la cavidad"
+        name: "Otros nombres"
+        pitch: "Longitud pendientes (números)"
+        protection: "Medidas de protección (keywords)"
+        surfaceuse: "Uso de superficie (keywords)"
+        use: "Uso de la cavidad (keywords)"
+        cavetype: "Tipo de cavidad"
+        damage: "Daños en la cavidad (keywords)"
+        decoration: "Decoración (keywords)"
+        access: "Acceso y restricciones (keywords)"
+        development: "Desarrollo de la cavidad (keywords)"
+        hazard: "Riesgos (keywords)"
+        difficulty: "Equipo o dificultades inusuales (keywords)"
+    menu:
+        item:
+            name: "Identificación, localización"
+            measure: "Medidas de la cavidad"
+            coordinates: "Coordenadas (lat/lng, UTM), altitud"
+            coarse: "Posición/localización no exactos para su publicación   "
+            history: "Historia (texto)"
+            description: "Descripción (texto)"
+            howtofind: "Cómo encontrar (texto)"
+            typology: "Tipología"
+            status: "Estado y uso"
+            progress: "Progreso interior y equipación especial"
+        group:
+            main: "Formularios principales"
+            longtext: "Textos descriptivos"
+            descriptive: "Descripción mediante valores codificados, palabras o números"
 
-cave.menu.main.titleGroup: 'Identificación localización y posición'
-cave.menu.main.id: "Datos identificativos y localización"
-cave.menu.main.coordinates: "Coordenadas, lat/lng y altitud"
-cave.menu.main.coarse: "Posición 'no exacta'"
-cave.menu.texts.titleGroup: 'Textos descriptivos'
-cave.card.environment: "Condiciones ambientales de la cavidad"
-cave.card.identity: "Identificación y principales datos descriptivos de la cavidad"
-cave.card.measure: "Medidas totales/parciales"
-cave.card.gridref: "Coordenadas UTM"
-cave.card.latlng: "Latitud/Longitud"
-cave.card.altitude: "Altitud"
-cave.card.coarse: "Datos aproximados de posición, en mapas o referencia catastral"
-cave.card.history: "Historia"
-cave.card.description: "Descripción"
-cave.card.howtofind: "Cómo llegar"
-cave.card.management: "Gestión de la cavidad"
-cave.card.name: "Otros nombres"
+#cave.menu.main.titleGroup: 'Identificación, posición'
+#cave.menu.name: "Identificativos y localización, medidas"
+#cave.menu.main.coordinates: "Coordenadas, lat/lng y altitud"
+#cave.menu.main.coarse: "Posición 'no exacta'"
+#cave.menu.texts.titleGroup: 'Textos descriptivos'
+#cave.card.environment: "Condiciones ambientales de la cavidad"
+#cave.card.identity: "Identificación y principales datos descriptivos de la cavidad"
+#cave.card.measure: "Medidas totales/parciales"
+#cave.card.gridref: "Coordenadas UTM"
+#cave.card.latlng: "Latitud/Longitud"
+#cave.card.altitude: "Altitud"
+#cave.card.coarse: "Datos aproximados de posición, en mapas o referencia catastral"
+#cave.card.history: "Historia"
+#cave.card.description: "Descripción"
+#cave.card.howtofind: "Cómo llegar"
+#cave.card.management: "Gestión de la cavidad"
+#cave.card.name: "Otros nombres"
 
 
 
@@ -354,9 +396,7 @@ cave.card.name: "Otros nombres"
 #cave.discovery.tab: "Descubrimiento"
 #cave.environment.tab: "Condiciones ambientales"
 #cave.excluded.tab: "Ocultar campos"
-#cave.entranceline.tab: "Entrada, descripci&oacute;n (l&iacute;neas)"
-#cave.entranceft.tab: "Entrada, tipol. k&aacute;rstica (keywords)"
-#cave.entrancedev.tab: "Entrada, desarrollo (keywords)"
+
 #cave.equipment.tab: "Equipación especial (l&iacute;neas)"
 #cave.grid.tab: "Posici&oacute;n en mapas"
 #cave.hazard.tab: "Riesgos (keywords)"
@@ -375,10 +415,9 @@ cave.card.name: "Otros nombres"
 #cave.protection.tab: "M&eacute;todos de protecci&oacute;n (keywords)"
 #cave.reference.tab: "Referencias bibliogr&aacute;ficas"
 #cave.rocktype.tab: "Tipo de roca (keywords)"
-#cave.surfaceuse.tab: "Uso de superficie (keywords)"
 #cave.specie.tab: "Especies"
 #cave.todo.tab: "Pendiente"
-#cave.use.tab: "Uso de la cavidad (keywords)"
+
 #cave.widestmap.tab: "Mapas superiores"
 #
 ##-FORM PANEL && FORM PARTIAL PANEL IN TAB

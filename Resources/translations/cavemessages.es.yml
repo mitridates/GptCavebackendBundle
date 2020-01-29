@@ -19,6 +19,7 @@ notdefined: 'No definido'
 new.disabled: "No se pueden crear nuevos registros"
 options: "Opciones"
 reload: "Recargar"
+loading: "Cargando"
 reset: "Restaurar"
 search: "Buscar"
 save: "Guardar"

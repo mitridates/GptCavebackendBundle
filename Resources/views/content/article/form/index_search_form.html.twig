@@ -17,26 +17,47 @@
 {% embed '@GptCavebackend/partial/card/card-search.html.twig'%}
     {% block heading %}{{ 'article.index.search.form'|trans({},'cavepages')|raw -}}{% endblock heading %}
     {% block body %}
-        <table class="table">
-            <tr>
-                <td>{{ form_label(form.name)}}</td>
-                <td>{{ form_label(form.author)}}</td>
-                <td>{{ form_label(form.publicationyear)}}</td>
-                <td>{{ form_label(form.country)}}</td>
-                <td>{{ form_label(form.admin1)}}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>{{ form_widget(form.name) }}</td>
-                <td>{{ form_widget(form.author) }}</td>
-                <td>{{ form_widget(form.publicationyear) }}</td>
-                <td>{{ form_widget(form.country, country_attr) }}</td>
-                <td>{{ form_widget(form.admin1, admin1_attr) }}</td>
-                <td>
-                    {%include '@GptCavebackend/partial/form/buttons.html.twig'with {'btns' :{'search': {'type': 'submit'}, 'reset': {'type': 'reset' }},} only %}
-                </td>
-            </tr>
-        </table>
+        <div class="row">
+            <div class="col-sm-12 col-lg-4">
+                <table class="table">
+                    <tr>
+                        <td>{{ form_label(form.name)}}</td>
+                        <td>{{ form_label(form.author)}}</td>
+                          <td></td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_widget(form.name) }}</td>
+                        <td>{{ form_widget(form.author) }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-12 col-lg-4">
+                <table class="table">
+                    <tr>
+                        <td>{{ form_label(form.publicationyear)}}</td>
+                        <td>{{ form_label(form.country)}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_widget(form.publicationyear) }}</td>
+                        <td>{{ form_widget(form.country, country_attr) }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-12 col-lg-4">
+                <table class="table">
+                    <tr>
+                        <td>{{ form_label(form.admin1)}}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_widget(form.admin1, admin1_attr) }}</td>
+                        <td>
+                            {%include '@GptCavebackend/partial/form/buttons.html.twig'with {'btns' :{'search': {'type': 'submit'}, 'reset': {'type': 'reset' }},} only %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     {% endblock body %}
 {% endembed %}
 {{ form_widget(form._token) }}

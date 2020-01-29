@@ -47,7 +47,7 @@
          * @returns {Array}
          */
         getArrayObject: function () {
-            let types = ['input', 'select', 'checkbox', 'select'],
+            let types = ['input', 'select', 'checkbox'],
                 arr = [];
 
             $(this._selector).each(function( index ) {
@@ -56,7 +56,7 @@
                         arr.push(this);
                     });
                 }else{ //Find into dom element
-                    $(':input:not(:button, :submit, :reset, :hidden)', this).each(function () {
+                    $('input:not(:button :submit :reset :hidden), select, checkbox', this).each(function () {
                         arr.push(this);
                     });
                 }
@@ -95,7 +95,7 @@
     * @param {string} url
     * @param {Array} p params
     * @param {object} c callback array {{before, success, error, after}, {...}, ...}
-    * @returns {Grot.form.metods}
+    * @returns self
     */
     enviar: function(url, p, c){
 

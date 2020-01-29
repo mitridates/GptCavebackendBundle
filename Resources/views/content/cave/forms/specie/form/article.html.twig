@@ -8,7 +8,7 @@
 {% set articleIsNotNull = form.article.vars.value!='' %}
 <table class="table">
     <tr>
-        <td><input type="radio" name="form_specie_article_check" {{ articleIsNotNull? 'checked' : ''}} onchange="Grot('.form-article').form('clear').form('disable').hide();">
+        <td><input type="radio" name="form_specie_article_check" {{ articleIsNotNull? 'checked' : ''}} onchange="Grot('.form-article').form('clear').form('disable');">
             {{ form_label(form.article)}}
         </td>
     </tr>

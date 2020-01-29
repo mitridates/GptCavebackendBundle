@@ -5,28 +5,147 @@
  */
 #}
 <div class="row">
-<div class="col-sm-4">
-    <div class="list-group">
-        <span class="list-group-item">{{ 'cave.menu.main.titleGroup'|trans({}, 'cavepages') }}</span>
-        <a href="#karst-identity" onclick="menuloader.load(this)" class="list-group-item active">{{ 'cave.menu.main.id'|trans({}, 'cavepages') }}</a>
-        <a href="#karst-coordinates" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.menu.main.coordinates'|trans({}, 'cavepages') }}</a>
-        <a href="#karst-coarse" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.menu.main.coarse'|trans({}, 'cavepages') }}</a>
+<div class="col-lg-4 col-sm-12">
+    <div class="list-group list-menu-group">
+        <span class="list-group-item">{{ 'cave.menu.group.main'|trans({}, 'cavepages') }}</span>
+        <a href="#karst-name" onclick="menuloader.load(this)" class="list-group-item active">{{ 'cave.menu.item.name'|trans({}, 'cavepages') }}</a>
+        <a href="#karst-measure" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.menu.item.measure'|trans({}, 'cavepages') }}</a>
+        <a href="#karst-coordinates" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.menu.item.coordinates'|trans({}, 'cavepages') }}</a>
+        <a href="#karst-coarse" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.menu.item.coarse'|trans({}, 'cavepages') }}</a>
+        <a href="#karst-management" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.card.management'|trans({}, 'cavepages') }}</a>
+        <a href="#karst-environment" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.card.environment'|trans({}, 'cavepages') }}</a>
+        <span class="list-group-item">{{ 'cave.menu.group.longtext'|trans({}, 'cavepages') }}</span>
+        <a href="#karst-history" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.menu.item.history'|trans({}, 'cavepages') }}</a>
+        <a href="#karst-description" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.menu.item.description'|trans({}, 'cavepages') }}</a>
+        <a href="#karst-howtofind" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.menu.item.howtofind'|trans({}, 'cavepages') }}</a>
     </div>
 </div>
-<div class="col-sm-4">
-    <div class="list-group">
-        <span class="list-group-item">{{ 'cave.menu.texts.titleGroup'|trans({}, 'cavepages') }}</span>
-        <a href="#karst-history" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.card.history'|trans({}, 'cavepages') }}</a>
-        <a href="#karst-description" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.card.description'|trans({}, 'cavepages') }}</a>
-        <a href="#karst-howtofind" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.card.howtofind'|trans({}, 'cavepages') }}</a>
+<div class="col-lg-4 col-sm-12">
+    <div class="list-group list-menu-group">
+        <span class="list-group-item">{{ 'cave.menu.group.descriptive'|trans({}, 'cavepages') }}</span>
+        <a href="#karst-typology" onclick="menuloader.load(this)" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">{{ 'cave.menu.item.typology'|trans({}, 'cavepages') }}</h6>
+                <small class="text-muted">5 items</small>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <small>
+                        {% for type in ['entrancedev', 'entranceft', 'entranceline'] %}
+                            {{ ('cave.card.'~type)|trans({}, 'cavepages') }}<br>
+                        {% endfor %}
+                    </small>
+                </div>
+                <div class="col-6">
+                    <small>
+                        {% for type in ['decoration', 'cavetype'] %}
+                            {{ ('cave.card.'~type)|trans({}, 'cavepages') }}<br>
+                        {% endfor %}
+                    </small>
+                </div>
+            </div>
+        </a>
+
+        <a href="#karst-status" onclick="menuloader.load(this)" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">{{ 'cave.menu.item.status'|trans({}, 'cavepages') }}</h6>
+                <small class="text-muted">5 items</small>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <small>
+                        {% for type in ['decoration', 'protection', 'access'] %}
+                            {{ ('cave.card.'~type)|trans({}, 'cavepages') }}<br>
+                        {% endfor %}
+                    </small>
+                </div>
+                <div class="col-6">
+                    <small>
+                        {% for type in ['use', 'surfaceuse','damage'] %}
+                            {{ ('cave.card.'~type)|trans({}, 'cavepages') }}<br>
+                        {% endfor %}
+                    </small>
+                </div>
+            </div>
+        </a>
+
+
+        <a href="#karst-progress" onclick="menuloader.load(this)" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">{{ 'cave.menu.item.progress'|trans({}, 'cavepages') }}</h6>
+                <small class="text-muted">5 items</small>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <small>
+                        {% for type in ['development', 'hazard', 'pitch'] %}
+                            {{ ('cave.card.'~type)|trans({}, 'cavepages') }}<br>
+                        {% endfor %}
+                    </small>
+                </div>
+                <div class="col-6">
+                    <small>
+                        {% for type in ['difficulty', 'equipment'] %}
+                            {{ ('cave.card.'~type)|trans({}, 'cavepages') }}<br>
+                        {% endfor %}
+                    </small>
+                </div>
+            </div>
+        </a>
     </div>
 </div>
 
-<div class="col-sm-4">
-    <div class="list-group">
-        <span class="list-group-item">{{ 'cave.menu.texts.titleGroup'|trans({}, 'cavepages') }}</span>
-        <a href="#karst-environment" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.card.environment'|trans({}, 'cavepages') }}</a>
-        <a href="#karst-management" onclick="menuloader.load(this)" class="list-group-item">{{ 'cave.card.management'|trans({}, 'cavepages') }}</a>
+<div class="col-lg-4 col-sm-12">
+    <div class="list-group list-menu-group">
+        <span class="list-group-item">{{ 'cave.menu.group.miscelanea'|trans({}, 'cavepages') }}</span>
+        <a href="#karst-typology" onclick="menuloader.load(this)" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">{{ 'cave.menu.item.maps'|trans({}, 'cavepages') }}</h6>
+                <small class="text-muted">5 items</small>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <small>
+                        {% for type in ['grid', 'widestmap'] %}
+                            {{- ('cave.card.'~type)|trans({}, 'cavepages') -}}{{ loop.last? '.': ', '-}}
+                        {% endfor %}
+                    </small>
+                </div>
+            </div>
+        </a>
+
+        <a href="#karst-status" onclick="menuloader.load(this)" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">{{ 'cave.menu.item.db'|trans({}, 'cavepages') }}</h6>
+                <small class="text-muted">5 items</small>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <small>
+                        {% for type in ['otherdbid', 'crossreference', 'previousnumber'] %}
+                            {{- ('cave.card.'~type)|trans({}, 'cavepages') -}}{{ loop.last? '.': ', '-}}
+                        {% endfor %}
+                    </small>
+                </div>
+            </div>
+        </a>
+
+        <a href="#karst-status" onclick="menuloader.load(this)" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">{{ 'cave.menu.item.db'|trans({}, 'cavepages') }}</h6>
+                <small class="text-muted">5 items</small>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <small>
+                        {% for type in ['specie', 'reference'] %}
+                            {{- ('cave.card.'~type)|trans({}, 'cavepages') -}}{{ loop.last? '.': ', '-}}
+                        {% endfor %}
+                    </small>
+                </div>
+            </div>
+        </a>
+
     </div>
 </div>
 

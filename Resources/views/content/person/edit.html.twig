@@ -18,8 +18,10 @@
 
     {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
     {{ form_start(form) }}
+
     {% include '@GptCavebackend/content/person/form/edit_form.html.twig' %}
     {% include '@GptCavebackend/partial/form/nav_edit_submit_button.html.twig' %}
+
     {{ form_end(form) }}
 {% endblock %}
 

@@ -1,54 +1,27 @@
 {#
 /**
+ * New Specie
  * @file new.html.twig
- * Nueva especie
- *
  * @param array arrayParams
- * @param array forms array con formulario/s auto/man (man si hay más de dos organizaciones administradoras)
- * @param string activeForm nombre del formulario activo
+ * @param FormView form
  */
 #}
 {% extends '@GptCavebackend/base.html.twig' %}
-
-{# scripts #}
-{% block page_javascripts %}
-{%include '@GptCavebackend/content/specie/script/scripts.html.twig'%}
-{%endblock page_javascripts%}
-{# fin scripts #}
-
-{# contenido #}
 {% block content %}
+    {%include '@GptCavebackend/content/specie/navbar.html.twig'%}
+    {% include '@GptCavebackend/partial/form/error/all_errors_message.html.twig'%}
+    <div class="alert alert-secondary" role="alert">
+        {{ ('specie.new.form.title')|trans({},'cavepages')|raw -}}
+    </div>
+    {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+    {{ form_start(form) }}
 
-{#botones #}
-{% set btns =  {
-    'new': {'path':path('cave_backend_specie_new')},
-    'search': {'path':path('cave_backend_specie_index')},
-} %}
-{% embed '@GptCavebackend/partial/page/botonera.html.twig'%}
-{% block derecha %}
-    <div class="col-lg-12 text-right">
-        {%include '@GptCavebackend/partial/form/buttons.html.twig'  with {'btns' : btns} only %}
-    </div>
-    {% endblock derecha%}
-{% endembed %}
-{# fin botones #}
+    {% embed '@GptCavebackend/partial/card/card-new.html.twig'%}
+        {% block body %}
+            {% include '@GptCavebackend/content/specie/form/edit_form.html.twig' %}
+            {% include '@GptCavebackend/partial/form/nav_new_submit_button.html.twig' %}
+        {% endblock body %}
+    {% endembed %}
 
-{# bucle for para cargar los formularios #}
- <div class="panel-group" id="accordion">
-{%for name,form in forms %}
-<div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{loop.index}}">
-       {% set translation = 'specie.new.form.'~name~'generator.title' %}
-       {{ translation | trans({},'cavepages')|raw -}}</a>
-      </h4>
-    </div>
-       <div id="collapse{{loop.index}}" class="panel-collapse collapse {% if activeForm == name -%} in {%- endif -%}">
-      <div class="panel-body"> {%include '@GptCavebackend/content/specie/form/id'~name~'Form.html.twig' with {'form': form, 'name': name, 'active': (activeForm == name)}%}</div>
-    </div>
-  </div>
-{%endfor%}
-</div>
-{# fin formularios #}
+    {{ form_end(form) }}
 {%endblock content%}

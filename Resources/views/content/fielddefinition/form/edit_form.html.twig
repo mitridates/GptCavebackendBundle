@@ -1,6 +1,8 @@
 {#
 /**
- * @file stringandchoices.html.twig
+ * @file edit.html.twig
+ * Formulario de edición
+ *
  * @parent ../edit.html.twig
  */
 #}
@@ -54,6 +56,54 @@
             <tr>
                 <td>{{ form_widget(form.valuecode) }}</td>
                 <td>{{ form_widget(form.maxlength) }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+{%- set attr = { 'attr': {'style': 'height: 150px'} } -%}
+
+<div class="row">
+    <div class="col-lg-3 col-sm-12 pr-0">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.definition)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.definition, attr)}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-lg-3 col-sm-12 p-0">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.example)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.example, attr)}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-lg-3 col-sm-12 p-0">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.comment)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.comment, attr)}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-lg-3 col-sm-12 pl-0">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.uso)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.uso, attr)}}</td>
             </tr>
         </table>
     </div>

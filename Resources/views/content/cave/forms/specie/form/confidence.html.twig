@@ -12,20 +12,12 @@
 <table class="table">
   <tr>
     <td>{{ form_label(form.specieconfidence)}}</td>
-  </tr>
-  <tr>
-    <td>{{ form_widget(form.specieconfidence)}}</td>
-  </tr>
-  <tr>
     <td>{{ form_label(form.genusconfidence)}}</td>
-  </tr>
-  <tr>
-    <td>{{ form_widget(form.genusconfidence)}}</td>
-  </tr>
-  <tr>
     <td>{{ form_label(form.position)}}</td>
   </tr>
   <tr>
-    <td>{{ form_widget(form.position, {attr: {class: 'w-25'}})}}</td>
+    <td>{{ form_widget(form.specieconfidence)}}</td>
+    <td>{{ form_widget(form.genusconfidence)}}</td>
+    <td>{{ form_widget(form.position, {attr: {class: 'w-50'}})}}</td>
   </tr>
 </table>

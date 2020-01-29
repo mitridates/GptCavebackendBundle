@@ -1,59 +1,45 @@
 {#
 /**
+ * Edit specie
  * @file edit.html.twig
- * Editar specie
- *
  * @param array arrayParams
- * @param FormView form Formulario de edición
- * @param FormInterface delete_form Formulario delete
+ * @param FormView form
+ * @param FormView delete_form
  * @param Specie specie
  */
 #}
-{# event onsubmit para el formulario y botones externos #}
-{%set vars = {
-        'msg': form.vars.attr.id~'_msg',
-        'path': path('cave_backend_specie_edit', {'id': specie.getSpecieid()})
-        }
-%}
-{%set clickEvent %}Grot('#{{form.vars.attr.id}}').form('enviar',
-    '{{vars.path}}',//url
-    {},//params
-    {//callback error
-        before: function(){
-            $('#form-notification').html('').hide();
-        },
-        error: function(data){
-            (new Grot.mustache('form-notification', 'mst-form-error' )).show(data);
-        }
-    });return false;{%endset%}
 {% extends '@GptCavebackend/base.html.twig' %}
-{# scripts #}
-{% block page_javascripts %}
-{%include '@GptCavebackend/content/specie/script/scripts.html.twig'%}
-{%endblock%}
-
 {% block content %}
-<div id="{{vars.msg}}" class="text-center"></div>
+    {%include '@GptCavebackend/content/specie/navbar.html.twig'%}
+    <div id="errors"></div>
+    <div class="alert alert-primary" role="alert">
+        {{ ('specie.edit.form.title')|trans({},'cavepages')|raw -}}
+    </div>
 
-{# navbar menu & btns #}
-{%include '@GptCavebackend/content/specie/form/navbar.html.twig'%}
+    {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+    {{ form_start(form) }}
 
-{# formulario #}
-{%include '@GptCavebackend/content/specie/form/edit.html.twig'%}
+    {% embed '@GptCavebackend/partial/card/card-edit.html.twig'%}
+        {% block body %}
+            {% include '@GptCavebackend/content/specie/form/edit_form.html.twig' %}
+            {% include '@GptCavebackend/partial/form/nav_edit_submit_button.html.twig' %}
+        {% endblock body %}
+    {% endembed %}
 
+    {{ form_end(form) }}
 {% endblock %}
 
 {% block footer_javascripts %}
- <script type="text/javascript">
-     let editForm = document.getElementById('{{ form.vars.attr.id}}'),
-         errors= document.getElementById('errors');
+    <script type="text/javascript">
+        let editForm = document.getElementById('{{ form.vars.attr.id}}'),
+            errors= document.getElementById('errors');
 
-     editForm.addEventListener('submit', event => {
-         event.preventDefault();
-         Grot(editForm).form('enviar','{{path('cave_backend_person_save', {id: person.getPersonid()})}}', {}, function (data) {
-             errors.innerHTML= typeof data=== "string"? data : '';
-         })
-     });
-     shortcut.add('Shift+ctrl+s', function(){ editForm.querySelector('button[type=submit]').click(); });
-</script>
+        editForm.addEventListener('submit', event => {
+            event.preventDefault();
+            Grot(editForm).form('enviar','{{path('cave_backend_person_save', {id: specie.getSpecieid()})}}', {}, function (data) {
+                errors.innerHTML= typeof data=== "string"? data : '';
+            })
+        });
+        shortcut.add('Shift+ctrl+s', function(){ editForm.querySelector('button[type=submit]').click(); });
+    </script>
 {%endblock%}

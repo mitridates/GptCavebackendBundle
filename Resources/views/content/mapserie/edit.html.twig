@@ -4,7 +4,7 @@
  * @file edit.html.twig
  * @param array arrayParams
  * @param FormView form
- * @param FormInterface delete_form
+ * @param FormView delete_form
  * @param Mapserie mapserie
  */
 #}
@@ -15,13 +15,14 @@
     <div class="alert alert-primary" role="alert">
         {{ ('mapserie.edit.form.title')|trans({},'cavepages')|raw -}}
     </div>
+
     {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
     {{ form_start(form) }}
 
     {% embed '@GptCavebackend/partial/card/card-edit.html.twig' %}
         {% block body %}
-    {% include '@GptCavebackend/content/mapserie/form/edit_form.html.twig' %}
-    {% include '@GptCavebackend/partial/form/nav_edit_submit_button.html.twig' %}
+            {% include '@GptCavebackend/content/mapserie/form/edit_form.html.twig' %}
+            {% include '@GptCavebackend/partial/form/nav_edit_submit_button.html.twig' %}
         {% endblock body %}
     {% endembed %}
 

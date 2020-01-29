@@ -15,6 +15,7 @@
     <div class="alert alert-primary" role="alert">
         {{ ('area.edit.form.title')|trans({},'cavepages')|raw -}}
     </div>
+
     {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
     {{ form_start(form) }}
 

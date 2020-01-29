@@ -1,51 +1,38 @@
 {#
 /**
+ * Search form
  * @file index.html.twig
- * Página de inicio y búscador
- *
  * @param array arrayParams
- * @param FormView form Formulario de búsqueda
+ * @param FormView form
  */
 #}
 {% extends '@GptCavebackend/base.html.twig' %}
-
-{%set attr = {
-        'pager': {'id': 'search_results', 'params': {}},
-        'path': path('cave_backend_specie_ajaxpager')
-}%}
-
-{#scripts de la página#}
-{% block page_javascripts %}
-{%include '@GptCavebackend/content/specie/script/scripts.html.twig'%}
-{# load pagination #}
-<script>
-    $(document).ready(function() {
-        document.querySelector('.search').click();
-    });   
-</script>
-{% endblock page_javascripts %}
-
-{# contenido #}
 {% block content %}
-{# botones #}
-{% set btns =  {
-'new': path('cave_backend_specie_new')
-} %}
-{% embed '@GptCavebackend/partial/page/botonera.html.twig'%}
-    {% block derecha %}
-    <div class="col-lg-12 text-right">
-    {%include '@GptCavebackend/partial/form/buttons.html.twig'  with {'btns' : btns} only %}
+    {% embed '@GptCavebackend/partial/form/block_navbar.html.twig'%}
+        {% block right %}
+            <div class="navbar-btn">
+                {%include '@GptCavebackend/partial/form/buttons.html.twig'  with {'btns' : {'new': path('cave_backend_specie_new')}} only %}
+            </div>
+        {% endblock %}
+    {% endembed %}
+
+    {% include '@GptCavebackend/content/specie/form/index_search_form.html.twig'%}
+
+    {# pager div #}
+    <div id="search_results"
+         class="grotte-paginable"
+         data-path='{{path('cave_backend_specie_ajaxpager')}}'
+         data-params=''>
     </div>
-    {% endblock derecha%}
-{% endembed %}
-
-{# formulario de búsqueda #}
-{% include '@GptCavebackend/content/specie/form/index_search_form.html.twig'%}
-
-{# carga de resultados y paginador #}
-<div id="{{attr.pager.id}}" 
-     class="grotte-paginable"
-     data-path='{{attr.path}}'
-     data-params=''>
-</div>
 {% endblock content %}
+
+{% block footer_javascripts %}
+    <script>
+        let searchForm = document.getElementById('{{ form.vars.attr.id}}');
+        searchForm.addEventListener('submit', event => {
+            event.preventDefault();
+            Grot('#search_results').loader('form', '#{{ form.vars.attr.id }}');
+        });
+        searchForm.querySelector('button[type="submit"]').click();
+    </script>
+{% endblock footer_javascripts %}

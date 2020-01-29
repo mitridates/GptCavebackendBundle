@@ -4,14 +4,14 @@
  * @parent ../index_ajax.html.twig
 #}
 {% for entity in entities%}
-<tr>
+<tr class="text-center-row">
     <td><a href="{{path('cave_backend_specie_edit', { 'id': entity.getSpecieid() })}}">{{ entity.getSpecieid() }}</a></td>
     <td>{{ entity.getName() }}</td>
-    <td class="text-center">{{ entity.getCommonname()}}</td>
-    <td class="text-center">{{ entity.getGenus()}}</td>
-    <td class="text-center">{{ entity.getFamily()}}</td>
-    <td class="text-center">{{ entity.getOrden()}}</td>
-    <td class="text-center">{{ entity.getClass()}}</td>
-    <td class="text-center">{{ entity.getPhylum()}}</td>
+    <td>{{ entity.getCommonname()}}</td>
+    <td>{{ entity.getGenus()}}</td>
+    <td>{{ entity.getFamily()}}</td>
+    <td>{{ entity.getOrden()}}</td>
+    <td>{{ entity.getClass()}}</td>
+    <td>{{ entity.getPhylum()}}</td>
 </tr>
 {% endfor %}

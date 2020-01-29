@@ -12,8 +12,10 @@
     'data-parentid': 'countryid',
     'data-placeholder': 'select.government.level.admin1'|trans({},'cavemessages')|raw,
 }}%}
+
 {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
 {{ form_start(form) }}
+
 {% embed '@GptCavebackend/partial/card/card-search.html.twig'%}
     {% block heading %}{{ 'area.index.search.form'|trans({},'cavepages')|raw -}}{% endblock heading %}
     {% block body %}

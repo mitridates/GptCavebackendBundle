@@ -21,8 +21,10 @@
 
     {% include '@GptCavebackend/content/article/form/edit_form.html.twig' %}
     {% include '@GptCavebackend/partial/form/nav_edit_submit_button.html.twig' %}
+
     {{ form_end(form) }}
 {% endblock %}
+
 {% block footer_javascripts %}
     <script>
         let repo = new Repopulate( '#{{ form.country.vars.id }}'),

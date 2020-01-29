@@ -15,32 +15,33 @@
     <div class="alert alert-primary" role="alert">
         {{ ('organisation.edit.form.title')|trans({},'cavepages')|raw -}}
     </div>
+
     {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
     {{ form_start(form) }}
+
     {% embed '@GptCavebackend/partial/card/card-edit.html.twig'%}
-        {% block heading %}{{ 'organisation.edit.form.identity'|trans({},'cavepages')|raw }}
-        {% endblock heading %}
+        {% block heading %}{{ 'organisation.edit.form.identity'|trans({},'cavepages')|raw }}{% endblock heading %}
         {% block body %}
             {% include '@GptCavebackend/content/organisation/form/partial/identity.html.twig' %}
         {% endblock body %}
     {% endembed %}
+
     {% embed '@GptCavebackend/partial/card/card-edit.html.twig'%}
-        {% block heading %}{{ 'organisation.edit.form.clasification'|trans({},'cavepages')|raw }}
-        {% endblock heading %}
+        {% block heading %}{{ 'organisation.edit.form.clasification'|trans({},'cavepages')|raw }}{% endblock heading %}
         {% block body %}
             {% include '@GptCavebackend/content/organisation/form/partial/clasification.html.twig' %}
         {% endblock body %}
     {% endembed %}
+
     {% embed '@GptCavebackend/partial/card/card-edit.html.twig'%}
-        {% block heading %}{{ 'organisation.edit.form.contact'|trans({},'cavepages')|raw }}
-        {% endblock heading %}
+        {% block heading %}{{ 'organisation.edit.form.contact'|trans({},'cavepages')|raw }}{% endblock heading %}
         {% block body %}
             {% include '@GptCavebackend/content/organisation/form/partial/contact.html.twig' %}
         {% endblock body %}
     {% endembed %}
+
     {% embed '@GptCavebackend/partial/card/card-edit.html.twig'%}
-        {% block heading %}{{ 'organisation.edit.form.defunct'|trans({},'cavepages')|raw }}
-        {% endblock heading %}
+        {% block heading %}{{ 'organisation.edit.form.defunct'|trans({},'cavepages')|raw }}{% endblock heading %}
         {% block body %}
             {% include '@GptCavebackend/content/organisation/form/partial/defunct.html.twig' %}
         {% endblock body %}

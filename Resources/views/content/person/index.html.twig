@@ -27,7 +27,6 @@
 {% endblock content %}
 
 {% block footer_javascripts %}
-    {% include '@GptCavebackend/content/person/script/scripts.html.twig'%}
     <script type="text/javascript">
         let repo = new Repopulate( '#{{ form.country.vars.id }}');
         repo.on('ev.onLoadResponse', (data, el, attr)=>{
@@ -41,5 +40,7 @@
             Grot('#search_results').loader('form', '#{{ form.vars.attr.id }}');
         });
         searchForm.querySelector('button[type="submit"]').click();
+
+        Grot('.organisation*').select2paginado('{{path('cave_backend_autocomplete_organisation')}}',{placeholder: '{{'select.organisation'|trans({},'cavemessages')|raw}}'});
     </script>
 {% endblock footer_javascripts %}
