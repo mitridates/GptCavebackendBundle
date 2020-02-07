@@ -1,28 +1,31 @@
 {#
 /**
+ * Edit Cave onetoone form
  * @file environment.html.twig
- * Agrupa los formularios de edición parciales para Caveenvironment entity
- * @parent ../onetoone.html.twig
+ * @parent edit_onetoone_forms.html.twig
+ * @string formname
+ * @param array arrayParams
+ * @param FormView form
+ * @param Cave cave
+ * @param string delete_token THIS form delete token
  */
 #}
-{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
-{% block heading %}{{ ('cave.card.environment')|trans({},'cavepages')|raw -}}{% endblock heading %}
-{% block body %}
-    <div class="row">
-        <div class="col-lg-auto col-sm-12">
-            {% include '@GptCavebackend/content/cave/forms/environment/temperature.html.twig'%}
+{% embed '@GptCavebackend/partial/card/card-edit.html.twig' %}
+    {% block heading %}{{ ('cave.card.environment')|trans({},'cavepages')|raw -}}{% endblock heading %}
+    {% block body %}
+        <div class="row">
+            <div class="col-lg-auto col-sm-12">
+                {% include '@GptCavebackend/content/cave/forms/environment/temperature.html.twig'%}
+            </div>
+            <div class="col-lg-auto col-sm-12">
+                {% include '@GptCavebackend/content/cave/forms/environment/humidity.html.twig'%}
+            </div>
+            <div class="col-lg-auto col-sm-12">
+                {% include '@GptCavebackend/content/cave/forms/environment/waterflow.html.twig'%}
+            </div>
+            <div class="col-lg-auto col-sm-12">
+                {% include '@GptCavebackend/content/cave/forms/environment/water.html.twig'%}
+            </div>
         </div>
-        <div class="col-lg-auto col-sm-12">
-            {% include '@GptCavebackend/content/cave/forms/environment/humidity.html.twig'%}
-        </div>
-        <div class="col-lg-auto col-sm-12">
-            {% include '@GptCavebackend/content/cave/forms/environment/waterflow.html.twig'%}
-        </div>
-        <div class="col-lg-auto col-sm-12">
-            {% include '@GptCavebackend/content/cave/forms/environment/water.html.twig'%}
-        </div>
-    </div>
-
-
-{% endblock body %}
+    {% endblock body %}
 {% endembed %}

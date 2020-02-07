@@ -3,50 +3,104 @@
  * @file form.html.twig Cavereference form
  */
 #}
-{% set disabled = {'value': '', 'attr': {'disabled': 'disabled'} } %}
-      <table class="table table-bordered">
-          <tr>
-              <td>{{ form_label(form.article)}}
-                  <input type="radio" id="radio-{{ name }}-article-id" checked="checked" name="form_{{ name }}_article_check" onchange="disableArticle.editArticleId()">
-              </td>
-              <td>{{ form_label(form.subjects)}}</td>
-              <td>{{ form_label(form.range)}}</td>
-          </tr>
-          <tr>
-              <td>{{ form_widget(form.article, {value:''})}}</td>
-              <td>{{ form_widget(form.subjects, {value:''})}}</td>
-              <td>{{ form_widget(form.range, {value:''})}}</td>
-              <td align="center">{%include '@GptCavebackend/content/cave/forms/button/buttons_group_onetomany_form.html.twig'%}</td>
-          </tr>
-      </table>
+{% set articleIdIsNull = form.article.vars.value=='' %}
+<div class="row">
+    <div class="col-lg-4 col-sm-12">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.subjects)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.subjects)}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-lg-4 col-sm-12">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.range)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.range)}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-lg-4 col-sm-12">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.position)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.position, {attr: {class: 'w-50'}})}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
 
-      <table class="table table-bordered">
-          <tr>
-              <td>{{ form_label(form.articlename)}}
-                  <input type="radio" id="radio-{{ name }}-article-str" name="form_{{ name }}_article_check" onchange="disableArticle.editArticleStr()">
-              </td>
-              <td>{{ form_label(form.publication)}}</td>
-              <td>{{ form_label(form.surnames)}}</td>
-          </tr>
-          <tr>
-              <td>{{ form_widget(form.articlename,disabled)}}</td>
-              <td>{{ form_widget(form.publication,disabled)}}</td>
-              <td>{{ form_widget(form.surnames,disabled)}}</td>
-          </tr>
-      </table>
-      <table class="table table-bordered">
-          <tr>
-              <td>{{ form_label(form.volume)}}</td>
-              <td>{{ form_label(form.issue)}}</td>
-              <td>{{ form_label(form.year)}}</td>
-              <td>{{ form_label(form.yearsuffix)}}</td>
-          </tr>
-          <tr>
-              <td>{{ form_widget(form.volume,disabled)}}</td>
-              <td>{{ form_widget(form.issue,disabled)}}</td>
-              <td>{{ form_widget(form.year,disabled)}}</td>
-              <td>{{ form_widget(form.yearsuffix,disabled)}}</td>
-          </tr>
-      </table>
 
-      {%include '@GptCavebackend/content/cave/forms/reference/script.html.twig'%}
+<div class="row">
+    <div class="col-12">
+        <table class="table">
+            <tr>
+                <td class="w-25">{{ form_label(form.article)}}<input type="radio" name="{{ name }}check"  {{ articleIdIsNull?: 'checked'}} onchange="Grot('.articleId, .articleString').form('clear').form('disable');"></td>
+                <td class="articleId">{{ form_widget(form.article)}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <table class="table">
+            <tr>
+                <td class="w-25">{{ form_label(form.articlename)}}<input type="radio" name="{{ name }}check" {{ articleIdIsNull==false?: 'checked'}} onchange="Grot('.articleId, .articleString').form('clear').form('disable');"></td>
+                <td class="articleString">{{ form_widget(form.articlename)}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="row articleString">
+    <div class="col">
+
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.publication)}}</td>
+                <td>{{ form_widget(form.publication)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.surnames)}}</td>
+                <td>{{ form_widget(form.surnames)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.volume)}}</td>
+                <td>{{ form_widget(form.volume)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.issue)}}</td>
+                <td>{{ form_widget(form.issue)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.year)}}</td>
+                <td>{{ form_widget(form.year)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.yearsuffix)}}</td>
+                <td>{{ form_widget(form.yearsuffix)}}</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function() {
+        $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+        Grot('#{{form.article.vars.id}}').select2paginado('{{path('cave_backend_autocomplete_article')}}', {placeholder: '{{('select.article')|trans({},'cavemessages')|raw}}'});
+        {% if  articleIdIsNull==false %}
+        Grot('.articleString').form('clear').form('disable');
+        {% else %}
+        Grot('.articleId').form('clear').form('disable');
+        {% endif %}
+    });
+</script>

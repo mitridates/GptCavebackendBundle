@@ -7,6 +7,7 @@
  * so that the container will not spread to the entire viewport.
 */
 
+
 .container-fluid { max-width: 1600px; }
 
 /* Sticky footer styles
@@ -143,7 +144,7 @@ padding: 5px;
     /*     border: none !important;*/
 }
 
-.list-menu{ background-color: #EAF4FC; font-size: .8rem;}
+.list-menu{ background-color: lightgrey; font-size: .8rem;}
 .list-menu>.row>div[class*="col-"]{ padding: 0.5em;}
 .list-menu-group>a, .list-menu-group>span, .list-menu-group>i{padding: 0.15rem 0.2rem}
 .list-menu-group>span{color: #fff; background-color: #6c757d; text-align: center; font-weight: bold}

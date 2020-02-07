@@ -1,11 +1,10 @@
 {#
 /**
  * @file management.html.twig
- * Agrupa los formularios de edición parciales para Cavemanagement entity
- * @parent ../onetoone.html.twig
+ * @parent edit_onetoone_forms.html.twig
  */
 #}
-{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+{% embed '@GptCavebackend/partial/card/card-edit.html.twig' %}
 {% block heading %}{{ ('cave.card.management')|trans({},'cavepages')|raw -}}{% endblock heading %}
 {% block body %}
 <div class="row">

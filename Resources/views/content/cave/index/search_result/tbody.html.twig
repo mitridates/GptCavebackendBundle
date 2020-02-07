@@ -4,7 +4,7 @@
  * @parent ../../index_ajax.html.twig
 #}
 {% for entity in entities%}
-    <tr id="tr_{{name}}_{{entity.getCaveid()}}">
+    <tr id="tr_{{entity.getCaveid()}}">
         <td><a href="{{path('cave_backend_cave_edit',{'id': entity.getCaveid()})}}">{{ entity.getCaveid()}}</a></td>
         <td>{{ entity.getName()}}</td>
         <td>{{ entity.getCountry() is not null ? entity.getCountry().getName() : ''}}</td>

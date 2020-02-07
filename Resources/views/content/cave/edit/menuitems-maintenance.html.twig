@@ -1,0 +1,42 @@
+{#
+/**
+ * @file menuitems.html.twig
+ * @parent ./edit.html.twig
+ */
+#}
+<div class="row">
+    <div class="col-lg-4 col-sm-12">
+        <div class="list-group list-menu-group">
+            <span class="list-group-item">{{ 'cave.group.descriptive'|trans({}, 'cavepages') }}</span>
+            <a href="#karst-db" onclick="menuloader.load(this)" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">{{ 'cave.item.db'|trans({}, 'cavepages') }}</h6>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <small>{{'cave.card.otherdbid'|trans({}, 'cavepages')}}</small><br>
+                                <small>{{'cave.card.crossreference'|trans({}, 'cavepages')}}</small><br>
+                                <small>{{'cave.card.previousnumber'|trans({}, 'cavepages')}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#karst-meta" onclick="menuloader.load(this)" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">{{ 'cave.item.meta'|trans({}, 'cavepages') }}</h6>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <small>{{'cave.card.excluded'|trans({}, 'cavepages')}}</small><br>
+                        <small>{{'cave.card.todo'|trans({}, 'cavepages')}}</small><br>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</div>

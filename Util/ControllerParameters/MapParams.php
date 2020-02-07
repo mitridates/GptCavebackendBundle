@@ -1,112 +1,98 @@
 <?php
 namespace App\GptCavebackendBundle\Util\ControllerParameters;
-use App\Cave\CaveBundle\Entity\Map;
-use App\Cave\LibBundle\Format\Arraypath;
+use App\GptCaveBundle\Entity\Map;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-class MapParams extends BackendParams
+class MapParams extends  CommonParams
 {
-    /**
-     * @inheritDoc
-     */
-    public function getName(): string
-    {
-        return 'map';
-    }
+    public function __construct(array $params, TranslatorInterface $translator)
+{
+    parent::__construct('map', $params, $translator);
+}
+
+    private $relationship = array(
+        'onetomany'=>[
+            'comment',
+            'citation',/*'citation==publication*/
+            'furtherpc',
+            'furthergc',
+            'surveyor',
+            'drafter',
+            'cave'
+        ],
+        'onetoone'=>[
+            'details',
+            'controller',
+            'updater'
+        ],
+        'partial'=>[]
+    );
 
     /**
      * @inheritDoc
      */
     protected function init(): void
     {
-
-        $this->params
-            ->set('page', array_merge(
-                        $this->params->get('cave_backend:section:default'),
-                        $this->params->get('cave_backend:section:map', [])
-                ))
-            ->set('page:section', 'map')
-            ->set('page:onetomany', [
-                'comment',
-                'citation',/*'citation==publication*/
-                'furtherpc',
-                'furthergc',
-                'surveyor',
-                'drafter',
-                'cave'
-                /*'specialsheet'???*/
-            ])
-            ->set('page:onetoone', [
-                'details',
-                'controller',
-                'updater'
-            ])
-            ->set('page:router', [
-                'index'=> $this->getCrumb([
-                    'text'=> $this->translator->trans('map.menu.index',[], 'cavepages'),
-                    'route'=>'cave_backend_map_index'
-                    ]
-                ),
-                'new'=> $this->getCrumb([
-                        'text'=> $this->translator->trans('map.menu.new',[], 'cavepages'),
-                        'route'=>'cave_backend_map_new'
-                        ]
-                )
-            ])
-        ;
+        $this->parametersbag['relationship']= $this->relationship;
+        parent::init();
     }
 
     /**
-     * @return Arraypath
-     */
-    public function indexParams(){
-        return $this->params->set('page:name', 'index')
-            ->set('page:title', $this->translator->trans('map.index.page.title',[], 'cavepages'))
-            ->set('page:breadcrumb', [
-                $this->params->get('router:home'),
-                $this->params->get('page:router:index'),
-            ] );
-    }
-    /**
-     * @return Arraypath
-     */
-    public  function ajaxpagerParams(){
-        return $this->params
-            ->set('page:name', 'index_ajax');
-    }
-
-    /**
+     * Get createForm() parameters. No hay partial de Map, pero mantenemos la función
      * @param Map $map
-     * @return Arraypath
+     * @param string $name form type name suffix
+     * @return array
      */
-    public  function editParams(Map $map){
-
-        $this->params->set('page:router:edit',
-            $this->getCrumb([
-                'text'=> $this->translator->trans('map.menu.edit',['id'=>$map->getMapid()], 'cavepages'),
-                'route'=>['cave_backend_map_edit',['id'=>$map->getMapid()]]
-            ])
-        );
-        return $this->params->set('page:name', 'edit')
-            ->set('page:title', $this->translator->trans('map.edit.page.title',['%name%'=> $map->getName(), '%id%'=> $map->getMapid()], 'cavepages'))
-            ->set('page:breadcrumb', [
-                $this->params->get('router:home'),
-                $this->params->get('page:router:index'),
-                $this->params->get('page:router:edit'),
-            ] );
+    public function createPartialform(Map $map, $name): array
+    {
+        $prefix = $name=='map' ? 'EditMappartial': 'Edit';
+        $class =   sprintf('%s\%s', 'App\GptCavebackendBundle\Form\Type\Map', $prefix.  ucfirst($name)."Type");
+        return [
+            $class, $map,
+            ['attr'=> ['id'=>'edit-partial-'.$name.'-'.$map->getMapid()],
+                //'translator'=>$this->controllerParams->getTranslator()
+            ]
+        ];
     }
+
     /**
-     * @return Arraypath
+     * Get createForm() parameters
+     * @param Map $map
+     * @param string $name form type name suffix
+     * @return array
      */
-    public  function newParams(){
-        return $this->params
-            ->set('page:name', 'new')
-            ->set('page:title', $this->translator->trans('map.new.page.title',[],'cavepages'))
-            ->set('page:breadcrumb', [
-                    $this->params->get('router:home'),
-                    $this->params->get('page:router:new')
-                ]);
-
+    public function createOnetooneform(Map $map, $name): array
+    {
+        $type =   sprintf('%s\%s', 'App\GptCavebackendBundle\Form\Type\Map', 'Edit'.  ucfirst($name)."Type");
+        $class = sprintf('%s%s', 'App\GptCaveBundle\Entity\Map',$name);
+        return [
+            $type, $map->{'getMap'.$name}() ?? new $class($map),
+            ['attr'=> ['id'=>'edit-onetoone-'.$name.'-'.$map->getMapid()],
+                'translator'=>$this->getTranslator()
+            ]
+        ];
     }
 
+    /**
+     * Get createForm() parameters
+     * @param Map $map
+     * @param string $name form type name suffix
+     * @param int|null $sequence
+     * @param ObjectManager|null $em
+     * @return array
+     */
+    public function createManytooneform(Map $map, $name, $sequence, $em): array
+    {
+        $type =   sprintf('%s\%s', 'App\GptCavebackendBundle\Form\Type\Map', 'Edit'.  ucfirst($name)."Type");
+        $class = sprintf('%s%s', 'App\GptCaveBundle\Entity\Map',$name);
+        $entity = ($sequence && $em)? $em->getRepository($class)->findOneBy(['cave'=>$map->getMapid(), 'sequence'=>$sequence]) : new $class($map);
+        return [
+            $type, $entity,
+            ['attr'=> ['id'=>'edit-onetomany-'.$name.'-'.$map->getMapid()],
+                'translator'=>$this->getTranslator()
+            ]
+        ];
+    }
 
 }

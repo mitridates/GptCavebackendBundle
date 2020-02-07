@@ -4,7 +4,7 @@
  * @parent ../../index_ajax.html.twig
 #}
 {% for entity in entities%}
-<tr id="tr_{{name}}_{{entity.getMapid()}}">
+<tr id="tr_{{entity.getMapid()}}">
     <td align="center"><a href="{{path('cave_backend_map_edit',{'id': entity.getMapid()})}}">{{ entity.getMapid()}}</a></td>
     <td>{{ entity.getName()}}</td>
     <td>{{ entity.getScopecountry() is not null ? entity.getScopecountry().getName() : ''}}</td>

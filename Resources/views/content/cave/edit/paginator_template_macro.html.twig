@@ -1,0 +1,21 @@
+{#
+/**
+ * Manytoone pagination div
+ * @file paginator_template_macro.html.twig
+ */
+#}
+{% macro blue_paginator_div(cols, name , cave) %}
+    <div class="col-lg-{{ cols }} col-sm-12 pt-2">
+        <div class="card card-soft-blue card-minimo">
+            <div class="card-header">{{ ('cave.card.'~name)|trans({},'cavepages')|raw }}</div>
+            <div class="card-body">
+                <div id="grottepaginable-{{ name }}"
+                     class="grotte-paginable"
+                     style="height: 220px!important;"
+                     data-path='{{path('cave_backend_cave_manytoone', {name: name, id: cave.getCaveid()})}}'
+                     data-params=''>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

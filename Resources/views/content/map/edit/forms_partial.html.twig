@@ -1,0 +1,46 @@
+{#
+/**
+ * Edit Cave partial form
+ * @file forms_partial.html.twig
+ * @string formname
+ * @param array arrayParams
+ * @param FormView form
+ * @param Cave cave
+ */
+#}
+{% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
+{{ form_start(form) }}
+<div class="errors"></div>
+{% include '@GptCavebackend/content/map/forms/map/'~formname~'/'~formname~'.html.twig'%}
+{% include '@GptCavebackend/partial/form/nav_edit_submit_button.html.twig' %}
+{{ form_end(form) }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        let formMain =    document.getElementById('{{ form.vars.attr.id }}'),
+            submitBttn = formMain.querySelector('button[type=submit]'),
+            submitUrl =  '{{ path('cave_backend_map_save_partial', {id: map.getMapid(), name: formname}) }}',
+            errors =  formMain.querySelector('.errors'),
+            submitFn =  function () {
+                errors.innerHTML='';
+                Grot(formMain).form('submit', submitUrl, {callback: function (data) {
+                        if(data.length!==0) errors.innerHTML= data;
+                    }});
+                return false;
+            };
+
+        formMain.onsubmit = function () {
+            return false;
+        };
+
+        submitBttn.addEventListener('click', function () {submitFn(); return false;});
+
+    });
+</script>
+{#{% if formname == 'map' %}#}
+{#    {% import '@GptCavebackend/content/map/edit/paginator_template_macro.html.twig' as pager %}#}
+{#    <div class="row">#}
+{#        {{pager.blue_paginator_div(3, 'name' , map)}}#}
+{#        {{pager.blue_paginator_div(3, 'cavetype' , map)}}#}
+{#        {{pager.blue_paginator_div(6, 'discovery' , map)}}#}
+{#    </div>#}
+{#{% endif %}#}

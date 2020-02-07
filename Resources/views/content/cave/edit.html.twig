@@ -10,23 +10,28 @@
 #}
 {% extends '@GptCavebackend/base.html.twig' %}
 {% block content %}
-
+    {#
+    - Cada elemento (menuitem) hace relación a un div (menucontent).
+    - Un div contiene un formulario o un conjunto de div paginables con relaciones manytoone
+    - Un formulario puede ser una separata de Cave entity u otra entidad relacionada onetoone con Cave
+    - Los divs paginables utilizan ventana modal para los formularios.
+    #}
     {%include '@GptCavebackend/content/cave/navbar.html.twig'%}
-    <nav class="yamm navbar navbar-expand-lg navbar-light bg-info">
-        <ul class="navbar-nav" id="menuItems">
-            <li class="nav-item dropdown yamm-fw ">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ 'cave.dropdown.dataforms'|trans({}, 'cavepages') }}</a>
-                <div class="dropdown-menu" style="padding: 0; margin: 0;">
-                    <div class="yamm-content list-menu">
-                        {%include '@GptCavebackend/content/cave/edit/menuitems.html.twig'%}
+    <nav class="yamm navbar navbar-expand-lg navbar-dark bg-dark">
+            <ul class="navbar-nav" id="menuItems">
+                <li class="nav-item dropdown yamm-fw">
+                    <a href="#" class="nav-link dropdown-toggle font-weight-bold" data-toggle="dropdown">{{ 'cave.dropdown.dataforms'|trans({}, 'cavepages') }}</a>
+                    <div class="dropdown-menu" style="padding: 0; margin: 0;">
+                        <div class="yamm-content list-menu">
+                            {%include '@GptCavebackend/content/cave/edit/menuitems-management.html.twig'%}
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
             <li class="nav-item dropdown yamm-fw ">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ 'cave.dropdown.managementforms'|trans({}, 'cavepages') }}</a>
+                <a href="#" class="nav-link dropdown-toggle font-weight-bold" data-toggle="dropdown">{{ 'cave.dropdown.maintenanceforms'|trans({}, 'cavepages') }}</a>
                 <div class="dropdown-menu" style="padding: 0; margin: 0;">
                     <div class="yamm-content list-menu">
-                        {%include '@GptCavebackend/content/cave/edit/menuitemsmanytoone.html.twig'%}
+                        {%include '@GptCavebackend/content/cave/edit/menuitems-maintenance.html.twig'%}
                     </div>
                 </div>
             </li>

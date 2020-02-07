@@ -264,15 +264,7 @@ map.tab.panel.updater.addinput: "Introducir nombre de actualizador"
 
 #           CAVE
 #=======================================
-#--MENU
-cave.menu.home: "Cavidades"
-cave.menu.new: "Nueva cavidad"
-cave.menu.edit: "Editar cavidad"
-cave.menu.index: "Buscar Cavidad"
-#--NEW
-cave.new.page.title: "Nueva cavidad"
-cave.new.heading.title: "Nueva cavidad"
-cave.new.form.title: "NUEVA CAVIDAD"
+
 #--INDEX
 cave.index.page.title: "Listado de cavidades"
 cave.index.navigator: "Listar"
@@ -287,248 +279,80 @@ cave.edit.heading.title: "%name%"
 
 #--Partial forms (form page links: cave.menu.*) & Card titles(smaller form/page data subdivision: cave.card.* )
 cave:
+    menu: #--MENU
+        home: "Cavidades"
+        new: "Nueva cavidad"
+        edit: "Editar cavidad"
+        index: "Buscar Cavidad"
+    new:
+        page:
+            title: "Nueva cavidad"
+        heading:
+            title: "Nueva cavidad"
+        form:
+            title: "NUEVA CAVIDAD"
     dropdown:
-        dataforms: "Datos identificativos descriptivos"
-        managementforms: "Tareas pendientes y mantenimiento"
+        dataforms: "CAVIDAD O FORMACIÓN KARSTICA"
+        maintenanceforms: "MANTENIMIENTO"
     card:
-        environment: "Condiciones ambientales de la cavidad"
-        entranceline: "Entrada - descripción (líneas)"
-        entranceft: "Entrada - tipol. kárstica (keywords)"
-        entrancedev: "Entrada - desarrollo (keywords)"
-        equipment: "Equipación especial recomendada (líneas)"
-        measure: "Medidas totales/parciales"
-        gridref: "Coordenadas UTM"
-        latlng: "Latitud/Longitud"
+        access: "Acceso y restricciones (kw)"
         altitude: "Altitud"
+        cavetype: "Tipo de cavidad (kw)"
         coarse: "Datos aproximados de posición, en mapas o referencia catastral"
-        management: "Gestión de la cavidad"
-        name: "Otros nombres"
-        pitch: "Longitud pendientes (números)"
-        protection: "Medidas de protección (keywords)"
-        surfaceuse: "Uso de superficie (keywords)"
-        use: "Uso de la cavidad (keywords)"
-        cavetype: "Tipo de cavidad"
-        damage: "Daños en la cavidad (keywords)"
-        decoration: "Decoración (keywords)"
-        access: "Acceso y restricciones (keywords)"
-        development: "Desarrollo de la cavidad (keywords)"
-        hazard: "Riesgos (keywords)"
-        difficulty: "Equipo o dificultades inusuales (keywords)"
-        grid: "Posición en mapas"
-        widestmap: "Referencia en mapas"
-        otherdbid: "ID en otras bases de datos"
+        comment: "Comentarios (txt)"
+        content: "Contenidos de interés (kw)"
         crossreference: "Referencias cruzadas"
-        previousnumber: "Números de serie anteriores"
-        specie: "Especies"
-        reference: "Referencias bibliográficas"
+        damage: "Daños en la cavidad (kw)"
+        decoration: "Decoración (kw)"
+        development: "Desarrollo de la cavidad (kw)"
+        difficulty: "Equipo o dificultades inusuales (kw)"
+        discovery: "Descubridor"
+        entrancedev: "Entrada - desarrollo (kw)"
+        entranceft: "Entrada - tipol. kárstica (kw)"
+        entranceline: "Entrada - descripción (txt)"
+        environment: "Condiciones ambientales de la cavidad"
+        equipment: "Equipación especial(txt)"
         excluded: "Ocultar campos"
+        grid: "Posición en mapas"
+        gridref: "Coordenadas UTM"
+        hazard: "Riesgos (kw)"
+        identity: "Identificación de la cavidad"
+        importance: "Importancia (kw)"
+        latlng: "Latitud/Longitud"
+        management: "Gestión de la cavidad"
+        measure: "Medidas totales/parciales"
+        name: "Otros nombres"
+        otherdbid: "ID en otras bases de datos"
+        pitch: "Longitud pendientes (números)"
+        previousnumber: "Números de serie anteriores"
+        prospect: "Prospecciones (kw)"
+        protection: "Medidas de protección (kw)"
+        reference: "Referencias bibliográficas"
+        specie: "Especies"
+        surfaceuse: "Uso de superficie (kw)"
         todo: "Tareas pendientes"
-    menu:
-        item:
-            coarse: "Posición/localización no exactos para su publicación   "
-            coordinates: "Coordenadas (lat/lng, UTM), altitud"
-            db: "Bases de datos y bibliografía"
-            description: "Descripción (texto)"
-            history: "Historia (texto)"
-            howtofind: "Cómo encontrar (texto)"
-            maps: "Posición en mapas y mapas relacionados"
-            measure: "Medidas de la cavidad"
-            name: "Identificación, localización"
-            progress: "Progreso interior y equipación especial"
-            status: "Estado y uso"
-            typology: "Tipología"
-            miscelanea: "Miscelanea"
-        group:
-            main: "Formularios principales"
-            longtext: "Textos descriptivos"
-            descriptive: "Descripción mediante valores codificados, palabras o números"
+        use: "Uso de la cavidad (kw)"
+        widestmap: "Referencia en mapas"
+    item:
+        accessanddevelopment: "Entrada y desarrollo"
+        coarse: "Posición/localización no exactos para su publicación   "
+        coordinates: "Coordenadas (lat/lng, UTM), altitud"
+        db: "Bases de datos y bibliografía"
+        description: "Descripción (texto)"
+        history: "Historia (texto)"
+        howtofind: "Cómo encontrar (texto)"
+        maps: "Posición en mapas y mapas relacionados"
+        measure: "Medidas de la cavidad"
+        meta: "Otros mantenimiento"
+        miscelanea: "Miscelanea"
+        name: "Identificación, localización"
+        riskandequipment: "Riesgos y equipación"
+        status: "Estado y uso"
+    group:
+        descriptive: "Otros valores descriptivos"
+        longtext: "Textos descriptivos"
+        main: "Formularios principales"
 
-#cave.menu.main.titleGroup: 'Identificación, posición'
-#cave.menu.name: "Identificativos y localización, medidas"
-#cave.menu.main.coordinates: "Coordenadas, lat/lng y altitud"
-#cave.menu.main.coarse: "Posición 'no exacta'"
-#cave.menu.texts.titleGroup: 'Textos descriptivos'
-#cave.card.environment: "Condiciones ambientales de la cavidad"
-#cave.card.identity: "Identificación y principales datos descriptivos de la cavidad"
-#cave.card.measure: "Medidas totales/parciales"
-#cave.card.gridref: "Coordenadas UTM"
-#cave.card.latlng: "Latitud/Longitud"
-#cave.card.altitude: "Altitud"
-#cave.card.coarse: "Datos aproximados de posición, en mapas o referencia catastral"
-#cave.card.history: "Historia"
-#cave.card.description: "Descripción"
-#cave.card.howtofind: "Cómo llegar"
-#cave.card.management: "Gestión de la cavidad"
-#cave.card.name: "Otros nombres"
-
-
-
-
-#-OLD
-#cave.edit.section.contact: "Datos de contacto"
-#cave.edit.section.defunct: "El cavidad ha dejado de existir"
-#cave.edit.section.clasification: "Clasificaci&oacute;n"
-#cave.tab.access: "Acceso"
-#
-#cave.tab.dbid: "Bases de datos"
-#cave.tab.description: "Descripci&oacute;n"
-#cave.tab.descriptionother: "Descripci&oacute;n otros"
-#cave.tab.development: "Desarrollo/Equipo especial"
-#cave.tab.entrance: "Entrada (caracter&iacute;sticas)"
-#cave.tab.equipment: "Equipaci&oacute;n"
-#cave.tab.feature: "Caracter&iacute;sticas"
-#cave.tab.howtofind: "C&oacute;mo llegar"
-#cave.tab.position: "Posici&oacute;n geogr&aacute;fica"
-#cave.tab.management: "Tareas y mantenimiento"
-#cave.tab.manager: "Gestor de la cavidad"
-#cave.tab.map: "Mapas"
-#cave.tab.other: "Otros"
-#cave.tab.state: "Estado"
-#cave.tab.uso: "Uso"
-#
-##-SUB TABS
-##============
-#
-##-OLD
-##============
-#cave.access.tab: "Accesibilidad (keywords)"
-#cave.cave.tab: "Cavidad o formaci&oacute;n karstica"
-#cave.location.tab: "Localizaci&oacute;n"
-#cave.cavetype.tab: "Tipo de cavidad (keywords)"
-#cave.crossreference.tab: "Referencias cruzadas"
-#cave.comment.tab: "Comentarios (l&iacute;neas)"
-#cave.content.tab: "Contenidos de inter&eacute;s (keywords)"
-#cave.damage.tab: "Da&ntilde;os en cavidad (keywords)"
-#cave.decoration.tab: "Decoraci&oacute;n (keywords)"
-#cave.description.tab: "Descripci&oacute;n"
-#cave.descriptionline.tab: "Descripci&oacute;n (l&iacute;neas)"
-#cave.development.tab: "Desarrollo de la cavidad (keywords)"
-#cave.direction.tab: "C&oacute;mo llegar (l&iacute;neas)"
-#cave.difficulty.tab: "Obst&aacute;culos (keywords)"
-#cave.discovery.tab: "Descubrimiento"
-#cave.environment.tab: "Condiciones ambientales"
-#cave.excluded.tab: "Ocultar campos"
-
-#cave.equipment.tab: "Equipación especial (l&iacute;neas)"
-#cave.grid.tab: "Posici&oacute;n en mapas"
-#cave.hazard.tab: "Riesgos (keywords)"
-#cave.history.tab: "Historia"
-#cave.howtofind.tab: "C&oacute;mo llegar"
-#cave.importance.tab: "Importancia (keywords)"
-#cave.management.tab: "Gesti&oacute;n / posesi&oacute;n"
-#cave.measure.tab: "Medidas"
-#cave.name.tab: "Otros nombres (l&iacute;neas)"
-#cave.number.tab: "Subdivisi&oacute;n administrativa, &Aacute;rea y c&oacute;digo de "
-#cave.otherdbid.tab: "ID en otras bases de datos"
-#cave.previousnumber.tab: "N&uacute;meros de serie anteriores"
-#cave.pitch.tab: "Pendientes"
-#cave.position.tab: "Posici&oacute;n geogr&aacute;fica"
-#cave.prospect.tab: "Prospecciones (keywords)"
-#cave.protection.tab: "M&eacute;todos de protecci&oacute;n (keywords)"
-#cave.reference.tab: "Referencias bibliogr&aacute;ficas"
-#cave.rocktype.tab: "Tipo de roca (keywords)"
-#cave.specie.tab: "Especies"
-#cave.todo.tab: "Pendiente"
-
-#cave.widestmap.tab: "Mapas superiores"
-#
-##-FORM PANEL && FORM PARTIAL PANEL IN TAB
-##=======================================
-##--parcial Cave
-#cave.tab.cave.group: "Formación karstica"
-#cave.tab.cave.id: "Identificación"
-#cave.tab.cave.measure: "Medidas totales/parciales"
-
-#
-
-#
-#cave.tab.cave.position.panel: "Posici&oacute;n en mapas, aproximada y ubicaci&oacute;n catastral"
-#cave.tab.cave.position.panel.landunit: "Localizaci&oacute;n catastral manual si no es posible obtenerla de la base de datos"
-#cave.tab.cave.position.panel.coarse: "Posici&oacute;n aproximada (no exacta)"
-#cave.tab.cave.position.panel.mappossition: "Posici&oacute;n en mapas"
-##--Cavename onetomany
-#cave.tab.name.form: "Otros nombres"
-##--Cavehistory onetoone
-#cave.tab.history.form: "Historia"
-##--Description onetoone
-#cave.tab.description.form: "Descripci&oacute;n"
-##--descriptionline onetomany
-#cave.tab.descriptionline.form: "Descripci&oacute;n  mediante l&iacute;neas de texto"
-##--Caveenviroment onetoone
-#cave.tab.environment.form: "Mediciones ambientales de la cavidad"
-#cave.tab.environment.panel.temperature: "Temperatura"
-#cave.tab.environment.panel.waterflow: "Flujo de agua"
-#cave.tab.environment.panel.water: "Presencia de agua"
-#cave.tab.environment.panel.humidity: "Humedad"
-##--Cavecomment onetomany
-#cave.tab.comment.form: "Comentarios sobre la cavidad (l&iacute;neas)"
-##--Cavecontent onetomany
-#cave.tab.content.form: "Contenidos de inter&eacute;s (keywords)"
-##--Caveimportance onetomany
-#cave.tab.importance.form: "Importancia de la cavidad (keywords)"
-##-- Caverocktype onetomany
-#cave.tab.rocktype.form: "Tipo de roca"
-##-- Cavecavetype onetomany
-#cave.tab.cavetype.form: "Tipo de cavidad"
-##-- Cavedecoration onetomany
-#cave.tab.decoration.form: "Calidad (decoraci&oacute;n) de espeleotemas"
-##-- Caveprotection onetomany
-#cave.tab.protection.form: "M&eacute;todos de protecci&oacute;n"
-##-- Caveprotection onetomany
-#cave.tab.access.form: "Accesibilidad"
-##-- Caveprospect onetomany
-#cave.tab.prospect.form: "Posibles prospecciones"
-##-- Cavedamage onetomany
-#cave.tab.damage.form: "Da&ntilde;os en la cavidad"
-##-- Caveentranceft onetomany
-#cave.tab.entranceft.form: "Tipo de entrada de la formaci&oacute;n"
-##-- Caveentranceline onetomany
-#cave.tab.entranceline.form: "Descripci&oacute;n de la entrada (l&iacute;neas)"
-##-- Caveentranceline onetomany
-#cave.tab.entrancedev.form: "Morfolog&iacute;a de la entrada (keywords)"
-##-- Cavehowtofind onetoone
-#cave.tab.howtofind.form: "C&oacute;mo encontrar la cavidad"
-##-- Cavedirection onetomany
-#cave.tab.direction.form: "C&oacute;mo encontrar la cavidad (l&iacute;neas)"
-##-- Caveuse onetomany
-#cave.tab.use.form: "Uso de la cavidad"
-##-- Cavesurfaceuse onetomany
-#cave.tab.surfaceuse.form: "Uso de la superficie"
-##-- Cavedevelopment onetomany
-#cave.tab.development.form: "Desarrollo de la cavidad (keywords)"
-##-- Cavehazard onetomany
-#cave.tab.hazard.form: "Riesgos de la cavidad (keywords)"
-##-- Cavemanagement onetoone
-#cave.tab.management.form: "Gesti&oacute;n o posesi&oacute;n de la cavidad"
-#cave.tab.management.panel.manager: "Gestor"
-#cave.tab.management.panel.owner: "Poseedor"
-#cave.tab.management.panel.controller: "Controlador"
-##--Cavegrid onetomany
-#cave.tab.grid.form: "Mapa relacionado con esta formaci&oacute;n karstica y su posici&oacute;n"
-#cave.tab.grid.panel.map: "Mapa en la base de datos o texto alternativo"
-#cave.tab.grid.panel.poss: "Posici&oacute;n en este mapa"
-##-- Cavewidestmap onetomany
-#cave.tab.widestmap.form: "Mapas superiores"
-##-- Caveequipment onetomany
-#cave.tab.equipment.form: "Equipaci&oacute;n especial o complementaria (l&iacute;neas)"
-##-- Cavedifficulty onetomany
-#cave.tab.difficulty.form: "Equipaci&oacute;n especial o complementaria (keywords)"
-##--Cavediscovery
-#cave.tab.discovery.form: "Descubrimiento original o primer registro de la cavidad"
-#cave.tab.discovery.panel.event: "Tipo de evento"
-#cave.tab.discovery.panel.organisation: "Organizaci&oacute;n en el evento"
-#cave.tab.discovery.panel.person: "Persona en el evento"
-##-- Specie
-#cave.tab.specie.form: "Especies en la cavidad"
-#cave.tab.specie.panel.specie: "Especie"
-#cave.tab.specie.panel.article: "Art&iacute;culo (opcional cuando no hay especie en base de datos)"
-##--todo para revisar...
-##--Reference
-#cave.tab.reference.form: "Referencias bibliogr&aacute;ficas a la cavidad"
-##--Cave number
-#cave.tab.panel.number.countrystate: "Pa&iacute;s y divisi&oacute;n administrativa de primer nivel"
-#cave.tab.panel.number.statesudivision: "Segundo/tercer divisi&oacute;n administrativa y/o &Aacute;rea"
-#cave.tab.panel.number.sudivisionid: "ID/Serial en &Aacute;rea/subdivisi&oacute;n administrativa"
 
 ########### END CAVE ###########
 

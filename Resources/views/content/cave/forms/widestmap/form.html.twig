@@ -3,7 +3,8 @@
  * @file form.html.twig Cavewidestmap form
  */
 #}
-{% set mapIdIsNull = form.map is null %}
+
+{% set mapIdIsNull = form.map.vars.value=='' %}
 
 <div class="row">
     <div class="col-12">
@@ -20,7 +21,7 @@
     <div class="col-12">
     <table class="table">
         <tr>
-            <td class="w-25">{{ form_label(form.map)}}<input type="radio" name="{{ name }}check"  {{ mapIdIsNull==false?: 'checked'}} onchange="Grot('.widestmapId, .widestmapString').form('clear').form('disable');"></td>
+            <td class="w-25">{{ form_label(form.map)}}<input type="radio" name="{{ name }}check"  {{ mapIdIsNull?: 'checked'}} onchange="Grot('.widestmapId, .widestmapString').form('clear').form('disable');"></td>
             <td class="widestmapId">{{ form_widget(form.map)}}</td>
         </tr>
     </table>
@@ -31,7 +32,7 @@
     <div class="col-12">
     <table class="table">
         <tr>
-            <td class="w-25">{{ form_label(form.mapname)}}<input type="radio" name="{{ name }}check" {{ mapIdIsNull?: 'checked'}} onchange="Grot('.widestmapId, .widestmapString').form('clear').form('disable');"></td>
+            <td class="w-25">{{ form_label(form.mapname)}}<input type="radio" name="{{ name }}check" {{ mapIdIsNull==false?: 'checked'}} onchange="Grot('.widestmapId, .widestmapString').form('clear').form('disable');"></td>
             <td class="widestmapString">{{ form_widget(form.mapname)}}</td>
         </tr>
     </table>

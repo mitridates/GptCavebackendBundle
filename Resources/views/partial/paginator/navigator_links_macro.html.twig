@@ -6,10 +6,10 @@
 #}
 {% macro link(min, max, page) %}
     {% for i in range(min,max) %}
-        <li {% if page == i  %} class="active"{%endif%}>
-            <a
+        <li class="page-item{% if page == i  %} active{%endif%}">
+            <a href="JavaScript:void(0);"
                     onclick="Grot($(this).closest('.grotte-paginable')).loader('reload',{page: {{i}}});"
-                    style="cursor:pointer"
+                    class="page-link"
                     title="{{('page.number')|trans({'%number%': i},'cavemessages')|raw}}"
             >{{ i }}</a>
         </li>

@@ -5,7 +5,7 @@
  * @parent ./coordinates.html.twig
  */
 #}
-{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+{% embed '@GptCavebackend/partial/card/card-edit.html.twig' %}
     {% block heading %}{{ ('cave.card.gridref')|trans({},'cavepages')|raw -}}{% endblock heading %}
     {% block body %}
         <div class="row">

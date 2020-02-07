@@ -1,0 +1,28 @@
+{#
+/**
+ * Carga el div de paginación con los datos de la consulta
+ * @file paginator_result.html.twig
+ * @param string name Manytoone  entity & formtype suffix: Cave{name}
+ * @param string delete_token
+ * @param Cave cave
+ * @param array arrayParams
+ * @param ArrayCollection entities
+ * @param Paginator  paginator
+ #}
+{% import '@GptCavebackend/content/cave/edit/paginator_buttons_macro.html.twig' as bttns %}
+<div class="row m-0" style="background-color: lightgray;">
+    <div class="col-8">
+        {%include '@GptCavebackend/partial/paginator/navigator_rango.html.twig' with {'paginator': paginator, 'showRange': false} only %}
+    </div>
+    <div class="col-4 text-right">
+        {{bttns.bttn_new( name,
+            path('cave_backend_cave_create_manytoone', { cave: cave.getCaveid(), name: name}),
+            path('cave_backend_cave_save_manytoone', { cave: cave.getCaveid(), name: name}),
+            ('cave.card.'~name)|trans({},'cavepages')|raw)
+
+        }}
+    </div>
+</div>
+<div class="overflow-auto" style="height: 150px;">
+{% include '@GptCavebackend/content/cave/forms/'~name~'/pagination.html.twig' %}
+</div>

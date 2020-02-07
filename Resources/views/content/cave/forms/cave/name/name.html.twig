@@ -1,7 +1,12 @@
 {#
 /**
+ * Edit Cave partial form
  * @file name.html.twig
- * @parent ../cave.html.twig
+ * @parent cave_partial_forms.html.twig
+ * @string formname
+ * @param array arrayParams
+ * @param FormView form
+ * @param Cave cave
  */
 #}
 {% set country_attr= {attr: {'data-child': '#'~form.admin1.vars.id}} %}
@@ -25,11 +30,9 @@
   'data-parentid': 'admin2id',
   'data-placeholder': 'select.government.level.admin3'|trans({},'cavemessages')|raw,
 }}%}
-
-{% embed '@GptCavebackend/partial/card/card-edit.html.twig'%}
-  {% block heading %}{{ ('cave.card.identity')|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% embed '@GptCavebackend/partial/card/card-'~type|default('edit')~'.html.twig' %}
+  {% block heading %}{{ 'cave.card.identity'| trans({},'cavepages')|raw -}}{% endblock heading %}
   {% block body %}
-
     <div class="row">
       <div class="col-lg-5 col-sm-12">
         <table class="table">
@@ -76,22 +79,22 @@
             <td>{{ form_label(form.admin3)}}</td>
             <td>{{ form_widget(form.admin3,admin3_attr)}}</td>
           </tr>
-            <tr>
-              <td>{{ form_label(form.hide)}}</td>
-              <td>{{ form_widget(form.hide)}}</td>
-            </tr>
+          <tr>
+            <td>{{ form_label(form.hide)}}</td>
+            <td>{{ form_widget(form.hide)}}</td>
+          </tr>
         </table>
       </div>
-<script>
-  $(document).ready(function() {
-    let repo = new Repopulate( '#{{ form.country.vars.id }}');
-    repo.on('ev.onLoadResponse', (data, el, attr)=>{
-      return JSON.parse(data.response).out;//data is in 'out' array
-    });
-    repo.bindAll();
-  });
+      <script>
+        $(document).ready(function() {
+          let repo = new Repopulate( '#{{ form.country.vars.id }}');
+          repo.on('ev.onLoadResponse', (data, el, attr)=>{
+            return JSON.parse(data.response).out;//data is in 'out' array
+          });
+          repo.bindAll();
+        });
 
-</script>
+      </script>
       <div class="col-lg-4 col-sm-12">
         <table class="table">
           <tr>
@@ -116,37 +119,37 @@
           </tr>
         </table>
 
-    </div>
+      </div>
     </div>
 
 
     <div class="row">
 
-    <div class="col-lg-6 col-sm-12">
-      <table class="table">
-        <tr>
-          <td>{{ form_label(form.geographiclocation)}}</td>
-          <td>{{ form_label(form.system)}}</td>
-        </tr>
-        <tr>
-          <td>{{ form_widget(form.geographiclocation)}}</td>
-          <td>{{ form_widget(form.system)}}</td>
-        </tr>
-      </table>
-    </div>
+      <div class="col-lg-6 col-sm-12">
+        <table class="table">
+          <tr>
+            <td>{{ form_label(form.geographiclocation)}}</td>
+            <td>{{ form_label(form.system)}}</td>
+          </tr>
+          <tr>
+            <td>{{ form_widget(form.geographiclocation)}}</td>
+            <td>{{ form_widget(form.system)}}</td>
+          </tr>
+        </table>
+      </div>
 
-    <div class="col-lg-6 col-sm-12">
-      <table class="table">
-        <tr>
-          <td>{{ form_label(form.nearestlocality)}}</td>
-          <td>{{ form_label(form.localgovernmentarea)}}</td>
-        </tr>
-        <tr>
-          <td>{{ form_widget(form.nearestlocality)}}</td>
-          <td>{{ form_widget(form.localgovernmentarea)}}</td>
-        </tr>
-      </table>
-    </div>
+      <div class="col-lg-6 col-sm-12">
+        <table class="table">
+          <tr>
+            <td>{{ form_label(form.nearestlocality)}}</td>
+            <td>{{ form_label(form.localgovernmentarea)}}</td>
+          </tr>
+          <tr>
+            <td>{{ form_widget(form.nearestlocality)}}</td>
+            <td>{{ form_widget(form.localgovernmentarea)}}</td>
+          </tr>
+        </table>
+      </div>
 
     </div>
   {% endblock body %}

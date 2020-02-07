@@ -1,0 +1,32 @@
+{#
+/**
+ * Manytoone pagination
+ * @file pagination.html.twig
+ * @param string name Manytoone Cave{name}
+ * @param string delete_token
+ * @param Cave cave
+ * @param array arrayParams
+ * @param ArrayCollection entities
+ * @param Paginator  paginator
+ #}
+{% import '@GptCavebackend/content/cave/edit/paginator_buttons_macro.html.twig' as bttns %}
+{% for entity in entities%}
+{% set article = entity.getArticle()? false %}
+{% set data= {
+    name: article ? article.getName() : entity.getArticlename(),
+    year: article ? article.getPublicationyear() : entity.getYear()
+} %}
+<div class="border border-dark rounded">
+    {{- bttns.bttn_delete( name, path('cave_backend_cave_delete_manytoone', { cave: cave.getCaveid(), sequence: entity.getSequence(), name: name, deletetoken: delete_token}))-}}
+
+    {% if entity.getPosition() %}{{ entity.getPosition() }}.- {% endif %}
+{% if article %}<a href="{{ path('cave_backend_article_edit', {article: article.getArticleid()}) }}">{{ data.name }}</a> {% else %}{{ data.name}}{% endif %}
+
+    {{- bttns.bttn_edit(name,
+        path('cave_backend_cave_create_manytoone', { cave: cave.getCaveid(), name: name, sequence: entity.getSequence()}),
+        path('cave_backend_cave_save_manytoone', { cave: cave.getCaveid(), name: name, sequence: entity.getSequence()}),
+        ('cave.card.'~name)|trans({},'cavepages')|raw)
+    -}}
+</div>
+{% endfor %}
+

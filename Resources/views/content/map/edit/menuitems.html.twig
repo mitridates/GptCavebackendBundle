@@ -1,0 +1,78 @@
+{#
+/**
+ * @file menuitems.html.twig
+ * @parent ./edit.html.twig
+ */
+#}
+<div class="row">
+    <div class="col-lg-4 col-sm-12">
+        <div class="list-group list-menu-group">
+            <span class="list-group-item">{{ 'cave.group.main'|trans({}, 'cavepages') }}</span>
+            <a href="#map-name" onclick="menuloader.load(this)" class="list-group-item list-group-item-action active flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <div class="mb-1">{{ 'cave.item.map'|trans({}, 'cavepages') }}</div>
+                    {#<small class="text-muted">2 items</small>#}
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12">
+                        <small>{{'cave.card.name'|trans({}, 'cavepages')}}</small>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <small>{{'cave.card.cavetype'|trans({}, 'cavepages')}}</small><br>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <small>{{'cave.card.discovery'|trans({}, 'cavepages')}}</small><br>
+                    </div>
+                </div>
+            </a>
+            <a href="#map-measure" onclick="menuloader.load(this)" class="list-group-item list-group-item-action">{{ 'cave.item.measure'|trans({}, 'cavepages') }}</a>
+        </div>
+    </div>
+
+
+    <div class="col-lg-4 col-sm-12">
+        <div class="list-group list-menu-group">
+            <span class="list-group-item">{{ 'cave.group.descriptive'|trans({}, 'cavepages') }}</span>
+
+             <a href="#map-status" onclick="menuloader.load(this)" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">{{ 'cave.item.status'|trans({}, 'cavepages') }}</h6>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12"><small>{{'cave.card.decoration'|trans({}, 'cavepages')}}</small></div>
+                    <div class="col-lg-4 col-sm-12"><small>{{'cave.card.use'|trans({}, 'cavepages')}}</small></div>
+                    <div class="col-lg-4 col-sm-12"><small>{{'cave.card.surfaceuse'|trans({}, 'cavepages')}}</small></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12"><small>{{'cave.card.access'|trans({}, 'cavepages')}}</small></div>
+                    <div class="col-lg-4 col-sm-12"><small>{{'cave.card.protection'|trans({}, 'cavepages')}}</small></div>
+                    <div class="col-lg-4 col-sm-12"><small>{{'cave.card.damage'|trans({}, 'cavepages')}}</small></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+
+    <div class="col-lg-4 col-sm-12">
+        <div class="list-group list-menu-group">
+            <span class="list-group-item">{{ 'cave.group.descriptive'|trans({}, 'cavepages') }}</span>
+
+            <a href="#map-maps" onclick="menuloader.load(this)" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">{{ 'cave.item.maps'|trans({}, 'cavepages') }}</h6>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <small>{{'cave.card.grid'|trans({}, 'cavepages')}}</small>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <small>{{'cave.card.widestmap'|trans({}, 'cavepages')}}</small>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+</div>

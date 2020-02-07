@@ -104,7 +104,7 @@ class OrganisationController extends AbstractController
      */
     public function newAction(Request $request)
     {
-        $form = $this->createForm(OrganisationType::class, new Organisation())->handleRequest($request);
+        $form = $this->createForm(OrganisationType::class, new Organisation(), ['attr'=> ['id'=>'new-organisation']])->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
             try {

@@ -1,45 +1,42 @@
 {#
 /**
+ * Edit Map
  * @file edit.html.twig
- * Editar mapa
- *
- * @param Map map
  * @param array arrayParams
- * @param array $forms Formularios disponibles form[name][false]. Sólo se cargan en la llamada ajax.
- * @param FormInterface delete_form Formulario delete
- * @param array onetoone Formularios para las relacines onetoone con Map
- * @param array onetomany Formularios para las relacines onetomany con Map
- * @param string delete_token CsrfToken
+ * @param FormView form
+ * @param FormView delete_form
+ * @param Map map
  */
 #}
 {% extends '@GptCavebackend/base.html.twig' %}
 
-
-{# active tab #}
-{%set active = app.request.get('name')|default('map')%}
-
-{# tab suffix name #}
-{%set sufix= 'tab'%}
-
-{#css de la página#}
-{% block page_css %}
-{% endblock page_css %}
-
-{# scripts #}
-{% block page_javascripts %}
-{%include '@GptCavebackend/content/map/script/scripts.html.twig'%}
-{%endblock  page_javascripts %}
-
 {% block content %}
-    {# navbar menu & btns #}
-{%include '@GptCavebackend/content/map/form/navbar.html.twig'%}
+    {#
+    - Cada elemento (menuitem) hace relación a un div (menucontent).
+    - Un div contiene un formulario o un conjunto de div paginables con relaciones manytoone
+    - Un formulario puede ser una separata de Cave entity u otra entidad relacionada onetoone con Cave
+    - Los divs paginables utilizan ventana modal para los formularios.
+    #}
+    {%include '@GptCavebackend/content/cave/navbar.html.twig'%}
+    <nav class="yamm navbar navbar-expand-lg navbar-dark bg-dark">
+        <ul class="navbar-nav" id="menuItems">
+            <li class="nav-item dropdown yamm-fw">
+                <a href="#" class="nav-link dropdown-toggle font-weight-bold" data-toggle="dropdown">{{ 'map.dropdown.dataforms'|trans({}, 'cavepages') }}</a>
+                <div class="dropdown-menu" style="padding: 0; margin: 0;">
+                    <div class="yamm-content list-menu">
+                        {%include '@GptCavebackend/content/map/edit/menuitems-management.html.twig'%}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </nav>
 
-{# Tabs con formularios #}
-{%include '@GptCavebackend/content/map/tabs/main.html.twig'%}
-
-<div id="delete-form"  style="display: none">
-{{ form_start(delete_form) }}
-{{ form_end(delete_form) }}
-</div>  
-
+    <div  id="menuContent">
+        {%include '@GptCavebackend/content/map/edit/menucontent.html.twig'%}
+    </div><!--End #menuContent -->
+    {% include '@GptCavebackend/partial/form/modal.html.twig' %}
 {% endblock %}
+
+{% block footer_javascripts %}
+    {%include '@GptCavebackend/content/cave/script/scripts.html.twig'%}
+{%endblock%}

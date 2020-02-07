@@ -25,7 +25,7 @@
     <td>{{ entity.getSubjects()}}</td>
     <td  class="text-center">{{ entity.getRange()}}</td>
     <td class="text-center">
-    {%include '@GptCavebackend/content/cave/forms/button/buttons_group_onetomany_tbody.html.twig' with { 'data': data} only %}
+    {%include '@GptCavebackend/content/cave/forms/button/buttons_group_manytoone_tbody.html.twig' with { 'data': data} only %}
     </td>
 </tr>
 {% endfor %}

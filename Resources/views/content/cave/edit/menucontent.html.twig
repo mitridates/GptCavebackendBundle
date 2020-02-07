@@ -4,6 +4,7 @@
  * @parent ./edit.html.twig
  */
 #}
+{# FORMULARIOS PARCIALES DE LA ENTIDAD CAVE #}
 <div style="display: none" id="karst-name"
      data-path="{{path('cave_backend_cave_create_partial', { 'id': cave.getCaveid(), name: 'name' })}}">
 </div>
@@ -17,12 +18,12 @@
      data-path="{{path('cave_backend_cave_create_partial', { 'id': cave.getCaveid(), name: 'coarse' })}}">
 </div>
 
+{# FORMULARIOS ONETOONE #}
 <div style="display: none" id="karst-history"
      data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'history' })}}">
 </div>
 <div style="display: none" id="karst-description"
-     data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'description' })}}"
->
+     data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'description' })}}">
 </div>
 <div style="display: none" id="karst-howtofind"
      data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'howtofind' })}}">
@@ -33,34 +34,66 @@
 <div style="display: none" id="karst-management"
      data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'management' })}}">
 </div>
-
 {#FORMULARIOS MANYTOONE#}
-<div style="display: none" id="karst-typology">
-    {%include '@GptCavebackend/content/cave/edit/cave-manytoone-typology-forms.html.twig'%}
+{% import '@GptCavebackend/content/cave/edit/paginator_template_macro.html.twig' as pager %}
+<div style="display: none" id="karst-accessanddevelopment">
+    <div class="row">
+        {{pager.blue_paginator_div(3, 'entranceft' , cave)}}
+        {{pager.blue_paginator_div(3, 'entrancedev' , cave)}}
+        {{pager.blue_paginator_div(6, 'entranceline' , cave)}}
+    </div>
+
+    <div class="row">
+        {{pager.blue_paginator_div(9, 'development' , cave)}}
+        {{pager.blue_paginator_div(3, 'pitch' , cave)}}
+    </div>
 </div>
 <div style="display: none" id="karst-status">
-    {%include '@GptCavebackend/content/cave/edit/cave-manytoone-status-forms.html.twig'%}
-</div>
-<div style="display: none" id="karst-progress">
-    {%include '@GptCavebackend/content/cave/edit/cave-manytoone-progress-forms.html.twig'%}
+    <div class="row">
+        {{pager.blue_paginator_div(4, 'decoration' , cave)}}
+        {{pager.blue_paginator_div(4, 'use' , cave)}}
+        {{pager.blue_paginator_div(4, 'surfaceuse' , cave)}}
+    </div>
+    <div class="row">
+        {{pager.blue_paginator_div(4, 'access' , cave)}}
+        {{pager.blue_paginator_div(4, 'protection' , cave)}}
+        {{pager.blue_paginator_div(4, 'damage' , cave)}}
+    </div></div>
+<div style="display: none" id="karst-riskandequipment">
+    <div class="row">
+        {{pager.blue_paginator_div(4, 'hazard' , cave)}}
+        {{pager.blue_paginator_div(4, 'difficulty' , cave)}}
+        {{pager.blue_paginator_div(4, 'equipment' , cave)}}
+    </div>
 </div>
 <div style="display: none" id="karst-db">
-    {%include '@GptCavebackend/content/cave/edit/cave-manytoone-db-forms.html.twig'%}
+    <div class="row">
+        {{pager.blue_paginator_div(4, 'otherdbid' , cave)}}
+        {{pager.blue_paginator_div(4, 'crossreference' , cave)}}
+        {{pager.blue_paginator_div(4, 'previousnumber' , cave)}}
+    </div>
 </div>
 <div style="display: none" id="karst-maps">
-    {%include '@GptCavebackend/content/cave/edit/cave-manytoone-maps-forms.html.twig'%}
+    <div class="row">
+        {{pager.blue_paginator_div(6, 'grid' , cave)}}
+        {{pager.blue_paginator_div(6, 'widestmap' , cave)}}
+    </div>
 </div>
 <div style="display: none" id="karst-miscelanea">
-    {%include '@GptCavebackend/content/cave/edit/cave-manytoone-miscelanea-forms.html.twig'%}
+    <div class="row">
+        {{pager.blue_paginator_div(6, 'specie' , cave)}}
+        {{pager.blue_paginator_div(6, 'reference' , cave)}}
+        {{pager.blue_paginator_div(12, 'comment' , cave)}}
+    </div>
+    <div class="row">
+        {{pager.blue_paginator_div(4, 'content' , cave)}}
+        {{pager.blue_paginator_div(4, 'importance' , cave)}}
+        {{pager.blue_paginator_div(4, 'prospect' , cave)}}
+    </div>
 </div>
-
-
-<div style="display: none" id="karst-mto01">
-    {%include '@GptCavebackend/content/cave/edit/mto01.html.twig'%}
-</div>
-<div style="display: none" id="karst-mto02">
-    {%include '@GptCavebackend/content/cave/edit/mto02.html.twig'%}
-</div>
-<div style="display: none" id="karst-mto03">
-    {%include '@GptCavebackend/content/cave/edit/mto03.html.twig'%}
+<div style="display: none" id="karst-meta">
+    <div class="row">
+        {{pager.blue_paginator_div(4, 'excluded' , cave)}}
+        {{pager.blue_paginator_div(8, 'todo' , cave)}}
+    </div>
 </div>

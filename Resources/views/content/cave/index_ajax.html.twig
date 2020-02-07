@@ -18,7 +18,7 @@
 {%include '@GptCavebackend/content/cave/index/search_result/thead.html.twig' only %}
 {% endblock thead %}
 {% block tbody %}
-{%include '@GptCavebackend/content/cave/index/search_result/tbody.html.twig' with {'name': 'cave', 'entities': entities, 'entity_token': entity_token} only%}
+{%include '@GptCavebackend/content/cave/index/search_result/tbody.html.twig' with {'entities': entities, 'entity_token': entity_token} only%}
 {% endblock tbody %}
 {% block tfoot %}
 {% endblock tfoot %}

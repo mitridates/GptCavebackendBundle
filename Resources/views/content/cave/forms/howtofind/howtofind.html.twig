@@ -1,11 +1,16 @@
 {#
 /**
+ * Edit Cave onetoone form
  * @file howtofind.html.twig
- * Formulario de edición para Cavehowtofind entity
- * @parent ../onetoone.html.twig
+ * @parent edit_onetoone_forms.html.twig
+ * @string formname
+ * @param array arrayParams
+ * @param FormView form
+ * @param Cave cave
+ * @param string delete_token THIS form delete token
  */
 #}
-{% embed '@GptCavebackend/partial/page/panel.html.twig'%}
+{% embed '@GptCavebackend/partial/card/card-edit.html.twig' %}
 {% block heading %}{{ form_label(form.howtofind)}}{% endblock heading %}
 {% block body %}
 {{ form_widget(form.howtofind, { 'attr': {'style': 'min-height: 300px'} })}}

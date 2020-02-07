@@ -34,15 +34,6 @@
         });
         repo.bindAll();
 
-
-        editForm.addEventListener('submit', event => {
-            event.preventDefault();
-            Grot(editForm).form('enviar','{{path('cave_backend_organisation_save', {id: organisation.getOrganisationid()})}}', {}, function (data) {
-                errors.innerHTML= typeof data=== "string"? data : '';
-            })
-        });
-
-
         let repoaddress = new Repopulate( '#{{ form.countryaddress.vars.id }}');
         repoaddress.on('ev.onLoadResponse', (data, el, attr)=>{
             return JSON.parse(data.response).out;//data is in 'out' array

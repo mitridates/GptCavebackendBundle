@@ -9,10 +9,10 @@
  * @param ArrayCollection entities
  * @param Paginator  paginator
  #}
-{% import '@GptCavebackend/content/cave/edit/macro_edit_onetomany_buttons.html.twig' as bttns %}
+{% import '@GptCavebackend/content/cave/edit/paginator_buttons_macro.html.twig' as bttns %}
 {% for entity in entities%}
 <div class="border border-dark rounded d-inline-block">
-    {{- bttns.bttn_delete( name, path('cave_backend_cave_delete_onetomany', { cave: cave.getCaveid(), sequence: entity.getSequence(), name: name, deletetoken: delete_token}))-}}
+    {{- bttns.bttn_delete( name, path('cave_backend_cave_delete_manytoone', { cave: cave.getCaveid(), sequence: entity.getSequence(), name: name, deletetoken: delete_token}))-}}
 
 {% if entity.getPosition() %}{{ entity.getPosition() }}.- {% endif %}<span
 title="ID: {{ entity.getProspect().getId()}},
@@ -21,8 +21,8 @@ Code:  {{entity.getProspect().getCode()}}">
        {{entity.getProspect().getValue() }}</span>
 
     {{- bttns.bttn_edit(name,
-        path('cave_backend_cave_create_onetomany', { cave: cave.getCaveid(), name: name, sequence: entity.getSequence()}),
-        path('cave_backend_cave_save_onetomany', { cave: cave.getCaveid(), name: name, sequence: entity.getSequence()}),
+        path('cave_backend_cave_create_manytoone', { cave: cave.getCaveid(), name: name, sequence: entity.getSequence()}),
+        path('cave_backend_cave_save_manytoone', { cave: cave.getCaveid(), name: name, sequence: entity.getSequence()}),
         ('cave.card.'~name)|trans({},'cavepages')|raw)
     -}}
 </div>

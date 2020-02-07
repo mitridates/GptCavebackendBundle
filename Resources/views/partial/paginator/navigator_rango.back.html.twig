@@ -1,0 +1,138 @@
+{#
+/**
+ * Navegador de paginacion.
+ * @file navigator_rango.html.twig
+ * @param Paginator paginator Clase para paginación que devuelve:
+ *       getTotalPages(): número total de páginas
+ *       getPage(): página activa
+ *       getLimits()
+ *       getPageRows()
+ *       getTotalRows()
+ *       ...
+ */
+#}
+{# importamos macro para generar grupos de enlaces #}
+{% import '@GptCavebackend/partial/paginator/navigator_links_macro.html.twig' as links %}
+{% spaceless %}
+{# the number of pages that are displayed around the active page #}
+{% set showAlwaysFirstAndLast = showAlwaysFirstAndLast is defined? showAlwaysFirstAndLast : false %}
+{% set showRange = showRange is defined? showRange : true %}
+{%set navigatorid =  navigatorid|default('navigatorid-'~random(100))%}
+{%set adjacents =  adjacents|default(1)%}
+{%set arround =  arround|default(1)%}
+{#(adjacents*2) + arround*2 + page#}
+{%set maxpages =  maxpages|default((adjacents*2)+ (arround*2) + 1)%}
+{%set page =  paginator.getPage()%}
+
+<table class="table p-0 m-0" id="{{navigatorid}}">
+<tr>
+<td class="text-left">
+{# page x of y #}
+{% if showRange %} {{('pager.page.of.pages')|trans({'%page%': paginator.getPage(), '%pages%': paginator.getTotalPages()},'cavemessages')|raw}}{% endif %}
+{# END page x de y #}
+<i class="fa fa-info-circle" aria-hidden="true"
+title="{{('pager.page.of.pages')|trans({'%page%': paginator.getPage(), '%pages%': paginator.getTotalPages()},'cavemessages')|raw}},
+    {{('pager.results.from.to')|trans({'%from%': paginator.getLimits()[0], '%to%': paginator.getLimits()[0]+paginator.getPageRows()},'cavemessages')|raw}},
+    {{('pager.partial.results')|trans({'%result%': paginator.getPageRows()},'cavemessages')|raw}},
+    {{('pager.total.results')|trans({'%result%': paginator.getTotalRows()},'cavemessages')|raw}},
+    {{('pager.maxresults.perpage')|trans({'%result%': paginator.getLimits()[1]},'cavemessages')|raw}}."
+    ></i>&nbsp;
+
+
+{# add spinner  onclik #}
+<span onclick="Grot($(this).closest('.grotte-paginable')).loader('reload', {}, false);this.className = 'fa fa-refresh fa-spin'; return false;"
+          style="cursor:pointer" title="{{('update')|trans({},'cavemessages')|raw}}"  class="fa fa-refresh" aria-hidden="true"></span>&nbsp;
+{# END add spinner  onclik #}
+
+{# show all pages option#}
+{% if paginator.getTotalPages()>1 %}
+ <span onclick="Grot($(this).closest('.grotte-paginable')).loader('reload', {page: 1, ipp: {{paginator.getTotalRows()}} }, false); this.className = 'fa fa-refresh fa-spin'; return false;"
+       style="cursor:pointer" title="{{('show.all')|trans({},'cavemessages')|raw}}" class="fa fa-list-alt" aria-hidden="true"></span>
+{% endif %}
+{# extend navigation buttons embed ...block extendNavigator #}
+{% block extendNavigator %}{% endblock extendNavigator %}
+</td>
+
+
+
+{# navigation#}
+<td class="text-right">
+{% if paginator.getTotalPages() > 1 %}
+
+<nav aria-label="Page navigation" class="nomargin nopadding" >
+  <ul class="pagination nomargin pagination-sm">
+    {% if paginator.getPage() > 1 %}
+        <li><a aria-label="Previous" 
+               style="cursor:pointer" 
+               title="{{('previous.page')|trans({},'cavemessages')|raw}}" 
+               onclick="Grot($(this).closest('.grotte-paginable')).loader('reload', {page: {{paginator.getPage()-1}}}); return false;"
+               >&laquo;</a></li>
+
+    {% elseif showAlwaysFirstAndLast %}
+        <li class="disabled"><a 
+                aria-label="Previous" 
+               >&laquo;</a></li>
+    {% endif %}
+
+    
+        {%if (paginator.getTotalPages() < maxpages + (adjacents * 2))%}
+        {#pocas páginas: paginación normal#}
+        {{links.link(1, paginator.getTotalPages(), page)}}
+        {%else%}
+        {#hay paginacion mini#}
+                {#dentro de las primeras [1,2,3,4,5,6...last]#}
+                {% if paginator.getPage() < (adjacents * 2) + (arround*2)%}
+                    {#hacemos las primeras [1,2,3,4,5,6...#}
+                    {%set max = 1 + (adjacents * 2)+ (arround*2)%}
+                    {{links.link(1, max, page)}}
+                    {#hacemos final [...,lastpage]#}
+                    <li class="disabled"><a aria-label="elipsis">...</a></li>
+                    {{links.link(paginator.getTotalPages(), paginator.getTotalPages(), page)}}
+                    {#FIN#}
+
+                {#dentro de las ultimas [1,...222,223,224,225,226]#}
+                {%elseif paginator.getPage() > paginator.getTotalPages() - (adjacents * 2) - (arround*2) + 1%}
+                     {#comienzo normal [1,2,...?]#}
+                    {{links.link(1, adjacents, page)}}
+                    <li class="disabled"><a aria-label="elipsis">...</a></li>
+                    {#hacemos el final ...222,223,224,225,226]#}    
+                    {{links.link(paginator.getTotalPages() - (adjacents * 2) - (arround*2), paginator.getTotalPages(), page)}}
+                    {#FIN#}
+
+
+                {%else%}
+                    {#esta en un rango intermedio [1,2,..,x-a,x,x+a,...,222,223] #}
+                    {#comienzo normal [1,2,...?]#}
+                    {{links.link(1, adjacents, page)}}
+                    {#hacemos el grupo intermedio alrededor de la pagina actual ...,x-a,x,x+a,...#}
+                    <li class="disabled"><a aria-label="elipsis">...</a></li>
+                    {{links.link(paginator.getPage() - arround, paginator.getPage() + arround, page)}}
+                    <li class="disabled"><a aria-label="elipsis">...</a></li>
+                    {#hacemos final 223]#}
+                    {{links.link(paginator.getTotalPages(), paginator.getTotalPages(), page)}}
+
+                    {#FIN#}
+                {%endif%}
+    {% endif %}  
+
+{% if paginator.getPage() < paginator.getTotalPages() %}
+    <li><a 
+            aria-label="Next" 
+            onclick="Grot($(this).closest('.grotte-paginable')).loader('reload',{page: {{paginator.getPage()+1}}});"
+            style="cursor:pointer" 
+            title="{{('next.page')|trans({},'cavemessages')|raw}}"                        
+           >&raquo;</a></li>
+    <li>
+{% elseif showAlwaysFirstAndLast %}
+    <li class="disabled"><a 
+            aria-label="Next" 
+            >&raquo;</a></li>
+{% endif %}
+
+  </ul>
+</nav>
+{% endif %}
+</td>
+</tr>
+</table>
+{% endspaceless %}

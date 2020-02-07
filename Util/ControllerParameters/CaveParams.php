@@ -1,6 +1,7 @@
 <?php
 namespace App\GptCavebackendBundle\Util\ControllerParameters;
 use App\GptCaveBundle\Entity\Cave;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -59,7 +60,8 @@ class CaveParams extends CommonParams
      * @param string $name Partial form type name
      * @return array
      */
-    public function createPartialform(Cave $cave, $name){
+    public function createPartialform(Cave $cave, $name): array
+    {
         $class =   sprintf('%s\%s', 'App\GptCavebackendBundle\Form\Type\Cave', 'EditCavepartial'.  ucfirst($name)."Type");
         return [
             $class, $cave,
@@ -75,7 +77,8 @@ class CaveParams extends CommonParams
      * @param string $name Partial form type name
      * @return array
      */
-    public function createOnetooneform(Cave $cave, $name){
+    public function createOnetooneform(Cave $cave, $name): array
+    {
         $type =   sprintf('%s\%s', 'App\GptCavebackendBundle\Form\Type\Cave', 'Edit'.  ucfirst($name)."Type");
         $class = sprintf('%s%s', 'App\GptCaveBundle\Entity\Cave',$name);
         return [
@@ -91,10 +94,10 @@ class CaveParams extends CommonParams
      * @param Cave $cave
      * @param string $name Partial form type name
      * @param int|null $sequence
-     * @param EntityManagerInterface|null $em
+     * @param ObjectManager|null $em
      * @return array
      */
-    public function createOnetomanyform(Cave $cave, $name, $sequence, $em): array
+    public function createManytooneform(Cave $cave, $name, $sequence, $em): array
     {
         $type =   sprintf('%s\%s', 'App\GptCavebackendBundle\Form\Type\Cave', 'Edit'.  ucfirst($name)."Type");
         $class = sprintf('%s%s', 'App\GptCaveBundle\Entity\Cave',$name);

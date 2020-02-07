@@ -1,7 +1,7 @@
 <?php
 namespace App\GptCavebackendBundle\Controller;
 use App\GptCavebackendBundle\Form\Type\Cave\CavesearchType;
-use App\GptCavebackendBundle\Form\Type\Cave\EditCaveType;
+use App\GptCavebackendBundle\Form\Type\Cave\EditCavepartialNameType;
 use App\GptCavebackendBundle\Model\CaveExceptionInteface;
 use App\GptCavebackendBundle\Repository\CaveBackendRepository;
 use App\GptCavebackendBundle\Util\ControllerParameters\CaveParams;
@@ -108,7 +108,7 @@ class CaveController extends AbstractController
      */
     public function newAction(Request $request)
     {
-        $form = $this->createForm(EditCaveType::class, new Cave())->handleRequest($request);
+        $form = $this->createForm(EditCavepartialNameType::class, new Cave())->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
             try {
@@ -169,7 +169,7 @@ class CaveController extends AbstractController
             'cave'=>$cave
         );
 
-        return $this->render('@GptCavebackend/content/cave/edit/cave_partial_forms.html.twig', $params);
+        return $this->render('@GptCavebackend/content/cave/edit/forms_partial.html.twig', $params);
     }
 
     /**
@@ -224,7 +224,7 @@ class CaveController extends AbstractController
      */
     public function createOnetooneFormAction(Cave $cave, string $name)
     {
-        return $this->render('@GptCavebackend/content/cave/edit/cave_edit_onetoone_forms.html.twig', array(
+        return $this->render('@GptCavebackend/content/cave/edit/forms_onetoone.html.twig', array(
             'arrayParams'=>$this->controllerParams->editParams($cave->getCaveid(), $cave->getName()),
             'formname'=> $name,
             'form' => call_user_func_array ([$this, 'createForm'] , $this->controllerParams->createOnetooneform($cave, $name))->createView(),
@@ -308,15 +308,15 @@ class CaveController extends AbstractController
     /**
      * OneToMany pagination
      *
-     * @Route("/cave/onetomanypager/{id}/{name}",
-     *     name="cave_backend_cave_onetomany",
+     * @Route("/cave/manytoonepager/{id}/{name}",
+     *     name="cave_backend_cave_manytoone",
      *     methods={"GET","POST"})
      * @param Request $request
      * @param Cave $cave
      * @param string $name OneToMany Cave+name
      * @return Response
      */
-    public function onetomanypagerAction(Request $request, Cave $cave, $name)
+    public function manytoonepagerAction(Request $request, Cave $cave, $name)
     {
         $arrayParams= $this->controllerParams->getParametersbag();
 
@@ -330,9 +330,9 @@ class CaveController extends AbstractController
         $paginator = new Paginator($page, $ipp, $result->count());
 
         return $this->render(
-            '@GptCavebackend/content/cave/edit/onetomany_pagination.html.twig', array(
+            '@GptCavebackend/content/cave/edit/paginator_result.html.twig', array(
             "name"=>$name,
-            "delete_token"=>$this->container->get('security.csrf.token_manager')->getToken('delete_onetomany_token_'.$name),
+            "delete_token"=>$this->container->get('security.csrf.token_manager')->getToken('delete_manytoone_token_'.$name),
             "cave"=>$cave,
             'arrayParams'=>$arrayParams,
             'entities' => $result,
@@ -341,36 +341,36 @@ class CaveController extends AbstractController
     }
 
     /**
-     * Render Cave onetomany form
-     * @Route("/cave/createonetomany/{cave}/{name}/{sequence?}",
-     *     name="cave_backend_cave_create_onetomany",
+     * Render Cave manytoone form
+     * @Route("/cave/createmanytoone/{cave}/{name}/{sequence?}",
+     *     name="cave_backend_cave_create_manytoone",
      *     methods={"GET","POST"})
      * @param Cave $cave
      * @param string $name
      * @param int|null $sequence
      * @return Response
      */
-    public function createOnetomanyformAction(Cave $cave, string $name, $sequence=null)
+    public function createmanytooneformAction(Cave $cave, string $name, $sequence=null)
     {
 
-        list($formType, $entity, $parameters)=  $this->controllerParams->createOnetomanyform($cave, $name, $sequence, ($sequence)? $this->getDoctrine()->getManager() : null);
+        list($formType, $entity, $parameters)=  $this->controllerParams->createManytooneform($cave, $name, $sequence, ($sequence)? $this->getDoctrine()->getManager() : null);
         $form= $this->createForm($formType, $entity, $parameters)->createView();
 
-        return $this->render('@GptCavebackend/content/cave/edit/editonetomany.html.twig', array(
+        return $this->render('@GptCavebackend/content/cave/edit/forms_manytoone.html.twig', array(
             'arrayParams'=>$this->controllerParams->editParams($cave->getCaveid(), $cave->getName()),
             'name'=> $name,
             'form' => $form,
             'cave'=>$cave,
-            "delete_token"=>$this->container->get('security.csrf.token_manager')->getToken('delete_onetomany_token_'.$name)
+            "delete_token"=>$this->container->get('security.csrf.token_manager')->getToken('delete_manytoone_token_'.$name)
         ));
     }
 
 
     /**
-     * Save Cave onetomany form
+     * Save Cave manytoone form
      *
-     * @Route("/cave/saveonetomany/{cave}/{name}/{sequence?}",
-     *     name="cave_backend_cave_save_onetomany",
+     * @Route("/cave/savemanytoone/{cave}/{name}/{sequence?}",
+     *     name="cave_backend_cave_save_manytoone",
      *     methods={"GET","POST"})
      * @param Request $request
      * @param Cave $cave
@@ -378,14 +378,14 @@ class CaveController extends AbstractController
      * @param int|null $sequence
      * @return Response
      */
-    public function saveOnetomanyFormAction(Request $request, Cave $cave, string $name, int $sequence=null)
+    public function savemanytooneFormAction(Request $request, Cave $cave, string $name, int $sequence=null)
     {
         if(!$request->isXmlHttpRequest()){
             throw new HttpException(403, sprintf("Forbidden request method %s", $request->getMethod()));
         }
 
         $em =  $this->getDoctrine()->getManager();
-        list($formType, $entity, $parameters)=  $this->controllerParams->createOnetomanyform($cave, $name, $sequence, ($sequence)? $em : null);
+        list($formType, $entity, $parameters)=  $this->controllerParams->createManytooneform($cave, $name, $sequence, ($sequence)? $em : null);
         $form= $this->createForm($formType, $entity, $parameters)->handleRequest($request);
 
 
@@ -413,10 +413,10 @@ class CaveController extends AbstractController
 
 
     /**
-     * Delete onetomany
+     * Delete manytoone
      *
-     * @Route("/cave/deleteonetomany/{cave}/{name}/{sequence}/{deletetoken}",
-     *     name="cave_backend_cave_delete_onetomany",
+     * @Route("/cave/deletemanytoone/{cave}/{name}/{sequence}/{deletetoken}",
+     *     name="cave_backend_cave_delete_manytoone",
      *     methods={"GET"})
      * @param Request $request
      * @param Cave $cave
@@ -425,12 +425,12 @@ class CaveController extends AbstractController
      * @param string $deletetoken
      * @return Response
      */
-    public function deleteonetomanyAction(Request $request, Cave $cave, $name, $sequence, $deletetoken)
+    public function deletemanytooneAction(Request $request, Cave $cave, $name, $sequence, $deletetoken)
     {
         if(!$request->isXmlHttpRequest()){
             throw new HttpException(403, sprintf("Forbidden request method %s", $request->getMethod()));
         }
-        if ($this->isCsrfTokenValid('delete_onetomany_token_'.$name, $deletetoken))
+        if ($this->isCsrfTokenValid('delete_manytoone_token_'.$name, $deletetoken))
         {
             $em = $this->getDoctrine()->getManager();
             $entity= $em->getRepository("App\GptCaveBundle\Entity\Cave".$name)->findOneBy(['cave'=>$cave->getCaveid(), 'sequence'=>$sequence]);
@@ -445,233 +445,6 @@ class CaveController extends AbstractController
         }
         return new Response();
     }
-
-//    /**
-//     * Edición en ventana modal para entidades 1-n
-//     * La request es XmlHttpRequest
-//     *
-//     * @Route("/cave/editonetomany/{id}/{sequence}/{name}",
-//     *     name="cave_backend_cave_editonetomany",
-//     *     methods={"POST"})
-//     * @param Request $request
-//     * @param Cave $cave
-//     * @param int $sequence
-//     * @param string $name nombre del formulario|entidad a cargar
-//     * @return JsonResponse|Response
-//     * @throws NonUniqueResultException
-//     */
-//    public function editonetomanyAction(Request $request, Cave $cave, $sequence, $name)
-//    {
-//        if(!$request->isXmlHttpRequest()){
-//            throw new HttpException(403, sprintf("Forbidden request method %s", $request->getMethod()));
-//        }
-//
-//        $em = $this->getDoctrine()->getManager();
-//        $entity = $em->getRepository("App\GptCaveBundle\Entity\Cave".$name)->findOneBy(['cave'=>$cave->getCaveid(), 'sequence'=>$sequence]);
-//        $options= array(
-//                    "attr"=> ['class'=>'cave-onetomany cave-'.$name.'-modal-form','id'=>'cave-'.$name.'-modal-form'],
-//                    "parameters"=>new Arraypath($this->getParameter('cave_backend')),
-//                    "translator"=>$this->get('translator')
-//        );
-//
-//        if (null=== $entity) {
-//            return new JsonResponse(['error'=> [
-//                'global'=>$this->get("translator")->trans('error.registry.not.found', ['%more%'=>sprintf('cave ID: %s, sequence: %s', $cave->getCaveid(), $sequence)], "caveerrors")
-//            ]]);
-//        }
-//
-//        /**
-//         * Unica forma de pasar los attr al formulario
-//         * Necesario para modificar el id del formulario y evitar colisiones
-//         * con otro formulario en la misma ventana
-//         * los id quedan cave-'.$name.'-modal-form_{fieldname}
-//         */
-//        $form = $this->get('form.factory')->createNamedBuilder(
-//            'edit-modal-'.$name,
-//            sprintf('%s\\%s', CaveService::FORM_TYPE_NAMESPACE, 'Edit'.ucfirst($name)."Type"),
-//            $entity,$options)->getForm();
-//
-//        $form->handleRequest($request);
-//
-//        if (!$form->isSubmitted())
-//        {
-//            return $this->render(
-//                "@GptCavebackend/content/cave/tabs/modal.html.twig", array(
-//                'xparams' => new Arraypath(['cave_backend'=> $this->getParameter('cave_backend')]),
-//                "name"=>$name,
-//                "form" => $form->createView(),
-//                "entity"=>$entity,
-//                "cave"=>$cave
-//
-//            ));
-//        }
-//
-//        $data = [];
-//
-//        if ($form->isValid()) {
-//            /*$em->getConnection()->beginTransaction(); // Tansacciones. suspend auto-commit*/
-//            try{
-//                $em->persist($entity);
-//                $em->flush();
-//                $em->clear();
-//                /*$em->getConnection()->commit();*/
-//            }catch (\Exception $ex){
-//                /*$em->getConnection()->rollBack();*/
-//                if($ex instanceof TranslatableException){
-//                    $ex->trans($this->get("translator"));
-//                }
-//                return new JsonResponse(['error'=> ['global'=>['Unknow Exception: '.$ex->getMessage()]]]);
-//            }
-//        }else{
-//            return new JsonResponse(array('error'=> FormErrorsFielddefinitionSerializer::serializeFielddefinitions($form,
-//                $this->getDoctrine()->getRepository('GptCaveBundle:Fielddefinition'),
-//                $request->getLocale())));
-//        }
-//         return new JsonResponse($data);
-//    }
-
-//    /**
-//     * Formulario para entidades onetomany
-//     * La request es XmlHttpRequest
-//     * @Route("/cave/newonetomany/{id}/{name}",
-//     *     name="cave_backend_cave_newonetomany",
-//     *     methods={"POST"})
-//     * @param Request $request
-//     * @param Cave $cave
-//     * @param string $name nombre del formulario|entidad a cargar
-//     * @return JsonResponse
-//     * @throws NonUniqueResultException
-//     */
-//    public function newonetomanyAction(Request $request, Cave $cave, $name)
-//    {
-//        if(!$request->isXmlHttpRequest()){
-//            throw new HttpException(403, sprintf("Forbidden request method %s", $request->getMethod()));
-//        }
-//        $data = [];
-//        $options = [
-//            'parameters'=>new Arraypath($this->getParameter('cave_backend')),
-//            'translator'=>$this->get('translator')
-//        ];
-//        $form = $this->createForm(
-//                sprintf('%s\\%s', CaveService::FORM_TYPE_NAMESPACE, 'Edit'.ucfirst($name)."Type"),
-//                CaveService::getEntityClass($cave, $name), $options);
-//
-//        $form->handleRequest($request);
-//
-//        if (!$form->isSubmitted()) {
-//            $data = ['error'=> [
-//                'global'=>[$this->get("translator")->trans('error.form.not.found', [], "caveerrors")]]
-//            ];
-//            return new JsonResponse($data);
-//        }
-//
-//        $em = $this->getDoctrine()->getManager();
-//
-//        if ($form->isValid()) {
-//            $entity = $form->getData();
-//            $entity->setCave($cave);
-//
-//            try{
-//                $em->persist($entity);
-//                $em->flush();
-//                $em->clear();
-//                /*$em->getConnection()->commit();*/
-//            }catch (\Exception $ex){
-//                /*$em->getConnection()->rollBack();*/
-//                if($ex instanceof TranslatableException){
-//                    $ex->trans($this->get("translator"));
-//                }
-//
-//                $data = ['error'=> [
-//                    'global'=>[$ex->getMessage()]]
-//                ];
-//            }
-//        }else{//catch errors
-//            $data['error']=  FormErrorsFielddefinitionSerializer::serializeFielddefinitions($form,
-//                $this->getDoctrine()->getRepository('GptCaveBundle:Fielddefinition'),
-//                $request->getLocale());
-//        }
-//
-//        return new JsonResponse($data);
-//    }
-
-//    /**
-//     * Borrado mediante botones para entidades OnetoMany.
-//     * Validado mediante el token 'entity_token'.
-//     *
-//     * @Route("/cave/deleteonetomany/{id}/{sequence}/{name}",
-//     *     name="cave_backend_cave_deleteonetomany",
-//     *     methods={"POST"})
-//     * @param Request $request
-//     * @param Cave $cave
-//     * @param int $sequence PK
-//     * @param string $name nombre del formulario|entidad a borrar
-//     * @return JsonResponse
-//     */
-//    public function deleteonetomanyAction(Request $request, Cave $cave, $sequence, $name)
-//    {
-//        $data = [];
-//        if(!$request->isXmlHttpRequest()){
-//            throw new HttpException(403, sprintf("Forbidden request method %s", $request->getMethod()));
-//        }
-//        if ($this->isCsrfTokenValid('entity_token', $request->get('_token'))) {
-//                $em = $this->getDoctrine()->getManager();
-//                $entity= $em->getRepository("App\GptCaveBundle\Entity\Cave".$name)->findOneBy(['cave'=>$cave->getCaveid(), 'sequence'=>$sequence]);
-//            try{
-//                $em->remove($entity);
-//                $em->flush();
-//            }catch (\Exception $ex){
-//                if($ex instanceof TranslatableException){
-//                    $ex->trans($this->get("translator"));
-//                }
-//                $data = ['error'=> [
-//                    'global'=>[$ex->getMessage()]]
-//                ];
-//            }
-//        }else{
-//            $data = ['error'=> [
-//                'global'=>[$this->get("translator")->trans('warning.invalid.token',[], "caveerrors")]]
-//            ];
-//        }
-//            return new JsonResponse($data);
-//    }
-
-//    /**
-//     * Borrado mediante botones para entidades OnetoOne.
-//     * Validado mediante el token 'entity_token'
-//     *
-//     * @Route("/cave/deleteonetoone/{id}/{name}",
-//     *     name="cave_backend_cave_deleteonetoone",
-//     *     methods={"POST"})
-//     * @param Request $request
-//     * @param Cave $cave
-//     * @param string $name nombre del formulario|entidad a borrar
-//     * @return JsonResponse
-//     */
-//    public function deleteonetooneAction(Request $request, Cave $cave, $name)
-//    {
-//        if(!$request->isXmlHttpRequest()){
-//            throw new HttpException(403, sprintf("Forbidden request method %s", $request->getMethod()));
-//        }
-//        if ($this->isCsrfTokenValid('delete_token', $request->get('delete_token')))
-//        {
-//            $em = $this->getDoctrine()->getManager();
-//            $entity= $em->getRepository("App\GptCaveBundle\Entity\Cave".$name)->findOneBy(['cave'=>$cave->getCaveid()]);
-//
-//            if(null!==$entity){
-//                $em->remove($entity);
-//                $em->flush();
-//            }
-//            $data = ['success'=> [
-//                'title'=>$this->get("translator")->trans('form.successfully.deleted',['%id%'=>$cave->getCaveid()], "cavemessages")
-//            ]];
-//        }else{
-//            $data = ['error'=> [
-//                'global'=>[$this->get("translator")->trans('warning.invalid.token',[], "caveerrors")]]
-//            ];
-//        }
-//        return new JsonResponse($data);
-//    }
 
     /**
      * Delete

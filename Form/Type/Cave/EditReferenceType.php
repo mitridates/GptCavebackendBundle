@@ -1,12 +1,11 @@
 <?php
 namespace App\GptCavebackendBundle\Form\Type\Cave;
+use App\GptCavebackendBundle\EventListener\Form\AddArticleFieldSubscriber;
 use App\GptCaveBundle\Entity\Cavereference;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\GptCavebackendBundle\EventListener\Form\AddDynamicArticleFieldSubscriber;
-use App\Cave\LibBundle\Format\Arraypath;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormError;
@@ -25,31 +24,21 @@ class EditReferenceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $defaults)
     {
-        $bundle = $defaults['parameters'];//Arraypath parametros del bundle
-        $factory = $builder->getFormFactory();
         $this->translator = $defaults['translator'];
 
-        $article = new Arraypath(array(//parametros
-                        'name'=>'article',//propiedad
-                        'getMethod'=>'getArticle',//metodo
-                        'options'=>array(//opciones del campo html
-                                'placeholder'   => 'select.article',//para la traduccion del texto por defecto
-                                'attr'=>array(//attributos del html
-                                    'code_id'=>270,
-                                    'class'=>'select2 article',//css
-                                    'style'=>'width:100%',//css
-                                    )
-                                )
-                        )
-                );
-        $parameters = new Arraypath([
-                            'article'=>$article->toArray(),
-                            'bundle'=> $bundle->toArray()
-                        ]);
-        $articleSubscriber = new AddArticleFieldSubscriber(
-                                        $factory,array('parameters'=>$parameters));
-        $builder->addEventSubscriber($articleSubscriber); 
-        
+        $factory = $builder->getFormFactory();
+
+        $this->translator = $defaults['translator'];
+
+        $articleSubscriber = new AddArticleFieldSubscriber($factory, array(
+            'options'=>array(
+                'attr'=>array(
+                    'code_id'=>270
+                )
+            )
+        ));
+        $builder->addEventSubscriber($articleSubscriber);
+
         $fields = '268:subjects;269:range;71:surnames;266:year;267:yearsuffix;355:articlename;356:publication;357:volume;358:issue;10001:position';
 
         foreach(explode(';', $fields) as $el){
@@ -123,7 +112,6 @@ class EditReferenceType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'App\GptCaveBundle\Entity\Cavereference',
-            'parameters'=>array(),
             'translator'=>TranslatorInterface::class
             ));
     }

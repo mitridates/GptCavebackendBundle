@@ -1,0 +1,101 @@
+{#
+/**
+ * @file menucontent.html.twig
+ * @parent ./edit.html.twig
+ */
+#}
+{# FORMULARIOS PARCIALES DE LA ENTIDAD MAP #}
+<div style="display: none" id="map-map"
+     data-path="{{path('cave_backend_map_create_partial', { 'id': map.getMapid(), name: 'map' })}}">
+</div>
+{#<div style="display: none" id="map-measure"#}
+{#     data-path="{{path('cave_backend_map_create_partial', { 'id': map.getMapid(), name: 'measure' })}}">#}
+{#</div>#}
+{#<div style="display: none" id="map-coordinates"#}
+{#     data-path="{{path('cave_backend_map_create_partial', { 'id': map.getMapid(), name: 'coordinates' })}}">#}
+{#</div>#}
+{#<div style="display: none" id="map-coarse"#}
+{#     data-path="{{path('cave_backend_map_create_partial', { 'id': map.getMapid(), name: 'coarse' })}}">#}
+{#</div>#}
+
+{# FORMULARIOS ONETOONE #}
+
+{#<div style="display: none" id="map-history"#}
+{#     data-path="{{path('cave_backend_map_create_onetoone', { 'id': map.getMapid(), name: 'history' })}}">#}
+{#</div>#}
+{#<div style="display: none" id="map-description"#}
+{#     data-path="{{path('cave_backend_map_create_onetoone', { 'id': map.getMapid(), name: 'description' })}}">#}
+{#</div>#}
+{#<div style="display: none" id="map-howtofind"#}
+{#     data-path="{{path('cave_backend_map_create_onetoone', { 'id': map.getMapid(), name: 'howtofind' })}}">#}
+{#</div>#}
+{#<div style="display: none" id="map-environment"#}
+{#     data-path="{{path('cave_backend_map_create_onetoone', { 'id': map.getMapid(), name: 'environment' })}}">#}
+{#</div>#}
+{#<div style="display: none" id="map-management"#}
+{#     data-path="{{path('cave_backend_map_create_onetoone', { 'id': map.getMapid(), name: 'management' })}}">#}
+{#</div>#}
+{#FORMULARIOS MANYTOONE#}
+{% import '@GptCavebackend/content/map/edit/paginator_template_macro.html.twig' as pager %}
+
+{#<div style="display: none" id="map-accessanddevelopment">#}
+{#    <div class="row">#}
+{#        {{pager.blue_paginator_div(3, 'entranceft' , cave)}}#}
+{#        {{pager.blue_paginator_div(3, 'entrancedev' , cave)}}#}
+{#        {{pager.blue_paginator_div(6, 'entranceline' , cave)}}#}
+{#    </div>#}
+
+{#    <div class="row">#}
+{#        {{pager.blue_paginator_div(9, 'development' , cave)}}#}
+{#        {{pager.blue_paginator_div(3, 'pitch' , cave)}}#}
+{#    </div>#}
+{#</div>#}
+{#<div style="display: none" id="map-status">#}
+{#    <div class="row">#}
+{#        {{pager.blue_paginator_div(4, 'decoration' , cave)}}#}
+{#        {{pager.blue_paginator_div(4, 'use' , cave)}}#}
+{#        {{pager.blue_paginator_div(4, 'surfaceuse' , cave)}}#}
+{#    </div>#}
+{#    <div class="row">#}
+{#        {{pager.blue_paginator_div(4, 'access' , cave)}}#}
+{#        {{pager.blue_paginator_div(4, 'protection' , cave)}}#}
+{#        {{pager.blue_paginator_div(4, 'damage' , cave)}}#}
+{#    </div></div>#}
+{#<div style="display: none" id="map-riskandequipment">#}
+{#    <div class="row">#}
+{#        {{pager.blue_paginator_div(4, 'hazard' , cave)}}#}
+{#        {{pager.blue_paginator_div(4, 'difficulty' , cave)}}#}
+{#        {{pager.blue_paginator_div(4, 'equipment' , cave)}}#}
+{#    </div>#}
+{#</div>#}
+{#<div style="display: none" id="map-db">#}
+{#    <div class="row">#}
+{#        {{pager.blue_paginator_div(4, 'otherdbid' , cave)}}#}
+{#        {{pager.blue_paginator_div(4, 'crossreference' , cave)}}#}
+{#        {{pager.blue_paginator_div(4, 'previousnumber' , cave)}}#}
+{#    </div>#}
+{#</div>#}
+{#<div style="display: none" id="map-maps">#}
+{#    <div class="row">#}
+{#        {{pager.blue_paginator_div(6, 'grid' , cave)}}#}
+{#        {{pager.blue_paginator_div(6, 'widestmap' , cave)}}#}
+{#    </div>#}
+{#</div>#}
+{#<div style="display: none" id="map-miscelanea">#}
+{#    <div class="row">#}
+{#        {{pager.blue_paginator_div(6, 'specie' , cave)}}#}
+{#        {{pager.blue_paginator_div(6, 'reference' , cave)}}#}
+{#        {{pager.blue_paginator_div(12, 'comment' , cave)}}#}
+{#    </div>#}
+{#    <div class="row">#}
+{#        {{pager.blue_paginator_div(4, 'content' , cave)}}#}
+{#        {{pager.blue_paginator_div(4, 'importance' , cave)}}#}
+{#        {{pager.blue_paginator_div(4, 'prospect' , cave)}}#}
+{#    </div>#}
+{#</div>#}
+{#<div style="display: none" id="map-meta">#}
+{#    <div class="row">#}
+{#        {{pager.blue_paginator_div(4, 'excluded' , cave)}}#}
+{#        {{pager.blue_paginator_div(8, 'todo' , cave)}}#}
+{#    </div>#}
+{#</div>#}
