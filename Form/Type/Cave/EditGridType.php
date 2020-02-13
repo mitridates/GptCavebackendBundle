@@ -1,16 +1,15 @@
 <?php
 namespace App\GptCavebackendBundle\Form\Type\Cave;
+use App\GptCavebackendBundle\EventListener\Form\AddMapFieldSubscriber;
 use App\GptCaveBundle\Entity\Cavediscovery;
 use App\GptCaveBundle\Entity\Cavegrid;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\GptCavebackendBundle\EventListener\Form\AddDynamicMapFieldSubscriber;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Doctrine\ORM\EntityRepository;
-use App\Cave\LibBundle\Format\Arraypath;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -30,30 +29,17 @@ class EditGridType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $defaults)
     {
         $this->translator = $defaults['translator'];
-        $bundle = $defaults['parameters'];//Arraypath parametros del bundle
         $factory = $builder->getFormFactory();
-        
-        $map = new Arraypath(array(//parametros
-                        'name'=>'map',//propiedad
-                        'getMethod'=>'getMap',//metodo
-                        'options'=>array(//opciones del campo html
-                                'placeholder'   => 'select.map',//para la traduccion del texto por defecto
-                                'attr'=>array(//attributos del html
-                                    'code_id'=>411,
-                                    'class'=>'select2 map',//css
-                                    'style'=>'width:100%',//css
-                                    )
-                                )
-                        )
-                );
-        $parameters = new Arraypath([
-                            'map'=>$map->toArray(),
-                            'bundle'=> $bundle->toArray()
-                        ]);
-        $mapSubscriber = new AddMapFieldSubscriber(
-                                        $factory,array('parameters'=>$parameters));
-        $builder->addEventSubscriber($mapSubscriber); 
-        
+
+        $personSubscriber = new AddMapFieldSubscriber($factory, array(
+            'options'=>array(
+                'attr'=>array(
+                    'code_id'=>411
+                )
+            )
+        ));
+        $builder->addEventSubscriber($personSubscriber);
+
         $builder->add('refunits', EntityType::class, array(
                             'class'=>'GptCaveBundle:Fieldvaluecode',
                             'attr'=>array('code_id'=> 298, 'class'=>'select2', 'style'=>'width:100%'),
@@ -199,7 +185,6 @@ class EditGridType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'App\GptCaveBundle\Entity\Cavegrid',
-            'parameters'=>array(),
             'translator'=>TranslatorInterface::class
             ));
     }

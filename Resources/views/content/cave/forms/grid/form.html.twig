@@ -4,8 +4,8 @@
  * @parent  ../manytoone.html.twig
  */
 #}
-{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.get('page:style:form_panel_group')}%}
-{% block heading %}{{ ('cave.tab.'~name~'.form')|trans({},'cavepages')|raw -}}{% endblock heading %}
+{% embed '@GptCavebackend/partial/card/card-edit.html.twig'%}
+{% block heading %}{{ ('cave.card.grid')|trans({},'cavepages')|raw -}}{% endblock heading %}
 {% block body %}
 
     {%include '@GptCavebackend/content/cave/forms/grid/form/map.html.twig'%}

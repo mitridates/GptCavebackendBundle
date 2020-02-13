@@ -5,7 +5,7 @@
  * @parent ../form.html.twig
  */
 #}
-{% embed '@GptCavebackend/partial/page/panel.html.twig' with {type: arrayParams.page.style.form_panel}%}
+{% embed '@GptCavebackend/partial/card/card-edit.html.twig'%}
 {% block heading %}{{ ('cave.tab.'~name~'.panel.poss')|trans({},'cavepages')|raw -}}{% endblock heading %}
 {% block body %}
 <table class="table table-bordered">
@@ -33,13 +33,11 @@
     <td>{{ form_label(form.grefprecision)}}</td>
     <td>{{ form_label(form.grefaccuracy)}}</td>
     <td>{{ form_label(form.comment)}}</td>
-    <td></td>
   </tr>
   <tr>
     <td>{{ form_widget(form.grefprecision)}}</td>
     <td>{{ form_widget(form.grefaccuracy)}}</td>
     <td>{{ form_widget(form.comment)}}</td>
-    <td align="center" class="col-lg-4">{%include '@GptCavebackend/content/cave/forms/button/buttons_group_manytoone_form.html.twig'%}</td>
   </tr>
 </table>  
 {% endblock body %}
