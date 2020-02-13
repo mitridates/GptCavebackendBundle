@@ -56,7 +56,8 @@
                         alert(this.responseText);
                         return;
                     }else{
-                        menuloader.load( document.querySelector('a[href="#karst-{{ formname }}"]') , true)
+                        document.querySelector('a[href="#karst-{{ formname }}"]').dataset.loaded='false';
+                        CaveMenuToggle.load( document.querySelector('a[href="#karst-{{ formname }}"]') , true)
                     }
                 };
                 xhr.setRequestHeader('X-Requested-With','XMLHttpRequest');

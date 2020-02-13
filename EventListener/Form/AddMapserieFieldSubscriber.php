@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Set form field on page load or submit if selected value exists.
@@ -28,7 +29,17 @@ class AddMapserieFieldSubscriber implements EventSubscriberInterface
     public function __construct(FormFactoryInterface $factory, array $mapserie=[])
     {
         $this->factory = $factory;
-        $this->mapserie= $mapserie;
+        $this->mapserie= array_merge(
+            array(
+                'name'=>'mapserie',//field name/property if mapped
+                'getMethod'=>'getMapserie',//method if mapped
+                'options'=>array(
+                    'placeholder' => 'select.mapserie   ',
+                    'attr'=>array(
+                    )
+                )
+            ),
+            $mapserie);
     }
 
     /**

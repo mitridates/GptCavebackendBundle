@@ -142,9 +142,9 @@ Repopulate.prototype.buildQueryGet = function(attr, value){
 
 /**
  * Build Post Data
- * @param  {JSON} Object attributes
- * @param  {string} query value
  * @return {FormData} data to post
+ * @param {Object} attr
+ * @param {string} value
  */
 Repopulate.prototype.buildQueryPost = function(attr, value){
     let data = new FormData(), parameters = JSON.parse(attr.parameters)||{};
@@ -192,7 +192,7 @@ Repopulate.prototype.setOptions = function(elem, data, attr){
 Repopulate.prototype.getDataAttr = function(el){
     return {
         url: el.getAttribute('data-url'), //url | window[json=VariableName] | function.call(this, parameter)
-        parentid: el.getAttribute('data-parentid'),//if request: url?parentid=ParentSelectorValue
+        parentid: el.getAttribute('data-parentid'),//ParentQuerykey if request: url?ParentQuerykey=ParentSelectedValue
         parameters: el.getAttribute('data-parameters'),//json enconded parameters key=value
         child:el.getAttribute('data-child'),//
         placeholder: el.getAttribute('data-placeholder'),//string

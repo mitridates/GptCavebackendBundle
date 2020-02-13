@@ -35,7 +35,7 @@ class MapController extends AbstractController
      */
     public function __construct(TranslatorInterface $translator, ParameterBagInterface $params)
     {
-        $this->controllerParams = new MapParams($params->get('map_backend'), $translator);
+        $this->controllerParams = new MapParams($params->get('cave_backend'), $translator);
     }
 
     /**
@@ -56,7 +56,7 @@ class MapController extends AbstractController
             array(
                 'arrayParams'=>$this->controllerParams->indexParams(),
                 'form'   => $form->createView()
-            ));
+        ));
     }
 
     /**

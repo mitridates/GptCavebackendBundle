@@ -70,26 +70,21 @@ class EditCavepartialNameType extends AbstractType
         ));
         $builder->addEventSubscriber($countrySubscriber);
 
-        $admin1 = array(
+        $admin1Subscriber = new AddAdmin1FieldSubscriber($factory,$countrySubscriber->getCountry(), array(
             'options'=>array(
                 'attr'=>array(
                     'code_id'=>18,
                 )
             )
-        );
-        $admin1Subscriber = new AddAdmin1FieldSubscriber($factory,$countrySubscriber->getCountry(), $admin1);
+        ));
         $builder->addEventSubscriber($admin1Subscriber);
 
-        $admin2 = array('name'=>'admin2',
+        $admin2Subscriber = new AddAdmin2FieldSubscriber($factory, $countrySubscriber->getCountry(), $admin1Subscriber->getAdmin1(), array(
+            'name'=>'admin2',
             'options'=>array(
                 'attr'=>array()
+                )
             )
-        );
-        $admin2Subscriber = new AddAdmin2FieldSubscriber(
-            $factory,
-            $countrySubscriber->getCountry(),
-            $admin1Subscriber->getAdmin1(),
-            $admin2
         );
         $builder->addEventSubscriber($admin2Subscriber);
 

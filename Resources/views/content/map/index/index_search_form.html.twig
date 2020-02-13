@@ -1,40 +1,79 @@
 {#
 /**
+ * Form
  * @file index_search_form.html.twig
- * Formulario de búsqueda
- *
  * @parent ../index.html.twig
-  */
+ */
 #}
+{% set country_attr= {attr: {'data-child': '#'~form.scopeadmin1.vars.id}} %}
+
+{% set admin1_attr= {attr: {
+    'data-child': '#'~form.scopeadmin2.vars.id,
+    'data-url': path('cave_backend_json_admin1'),
+    'data-parentid': 'countryid',
+    'data-placeholder': 'select.government.level.admin1'|trans({},'cavemessages')|raw,
+}}%}
+
+{% set admin2_attr= {attr: {
+    'data-child': '#'~form.scopeadmin3.vars.id,
+    'data-url': path('cave_backend_json_admin2'),
+    'data-parentid': 'admin1id',
+    'data-placeholder': 'select.government.level.admin2'|trans({},'cavemessages')|raw
+}}%}
+
+{% set admin3_attr= {attr: {
+    'data-url': path('cave_backend_json_admin3'),
+    'data-parentid': 'admin2id',
+    'data-placeholder': 'select.government.level.admin3'|trans({},'cavemessages')|raw,
+}}%}
 {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
-{# onsubmit #}
-{%set submit%}Grot('#{{attr.pager.id}}').loader('form', '#{{form.vars.attr.id}}',
-    {},
-    {
-        before: function(){
-            $('#form-notification').html('').hide();
-        },
-        error: function(data){
-            (new Grot.mustache('form-notification', 'mst-form-error' )).show(data);
-        }
-    }
-    ); return false;{%endset%}
 
-{{ form_start(form, {'attr': {'onsubmit': submit , 'autocomplete': 'off'} } ) }}
+{% embed '@GptCavebackend/partial/card/card-search.html.twig'%}
+    {% block heading %}{{ 'map.index.search.form'|trans({},'cavepages')|raw -}}{% endblock heading %}
+    {% block body %}
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-lg-4 col-sm-12">
+                <table class="table">
+                    <tr>
+                        <td>{{ form_label(form.name)}}</td>
+                        <td>{{ form_label(form.scopecountry)}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_widget(form.name)}}</td>
+                        <td>{{ form_widget(form.scopecountry, country_attr)}}</td>
+                    </tr>
+                </table>
+            </div>
 
-{% include '@GptCavebackend/content/map/index/name.html.twig'%}
+            <div class="col-lg-4 col-sm-12">
+                <table class="table">
+                    <tr>
+                        <td>{{ form_label(form.scopeadmin1)}}</td>
+                        <td>{{ form_label(form.scopeadmin2)}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_widget(form.scopeadmin1, admin1_attr)}}</td>
+                        <td>{{ form_widget(form.scopeadmin2, admin2_attr)}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                <table class="table">
 
-<!-- otras ocpiones -->
-<div class="panel {{ arrayParams.get('page:style:searchPanel') }} card-minimo">
-    <div class="panel-heading">
-       <h4 class="panel-title"> <a data-toggle="collapse" href="#collapsemore">{{ 'search.more.options'|trans({},'cavemessages')|raw -}}</a></h4>
-    </div>
-<div id="collapsemore" class="panel-body panel-collapse collapse">
-{# country, admin1, admin2, admin3 ... #}
-{% include '@GptCavebackend/content/map/index/scope_politic.html.twig'%}
-{% include '@GptCavebackend/content/map/index/source.html.twig'%}
-{{ form_widget(form._token) }}
-</div>
-</div>
-<div id="{{form.vars.attr.id}}_msg" class="text-center"></div>
-{{ form_end(form) }}
+                    <tr>
+                        <td>{{ form_label(form.scopeadmin3)}}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_widget(form.scopeadmin3, admin3_attr)}}</td>
+                        <td>{%include '@GptCavebackend/partial/form/buttons.html.twig'with {'btns' :{'search': {'type': 'submit'}, 'reset': {'type': 'reset' }},} only %}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+
+    {% endblock body %}
+{% endembed %}

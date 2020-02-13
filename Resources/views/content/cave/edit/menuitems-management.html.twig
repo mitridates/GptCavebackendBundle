@@ -8,7 +8,7 @@
     <div class="col-lg-4 col-sm-12">
         <div class="list-group list-menu-group">
             <span class="list-group-item">{{ 'cave.group.main'|trans({}, 'cavepages') }}</span>
-            <a href="#karst-name" onclick="menuloader.load(this)" class="list-group-item list-group-item-action active flex-column align-items-start">
+            <a href="#karst-name" class="list-group-item list-group-item-action active flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <div class="mb-1">{{ 'cave.item.name'|trans({}, 'cavepages') }}</div>
                     {#                <small class="text-muted">2 items</small>#}
@@ -25,11 +25,11 @@
                     </div>
                 </div>
             </a>
-            <a href="#karst-measure" onclick="menuloader.load(this)" class="list-group-item list-group-item-action">{{ 'cave.item.measure'|trans({}, 'cavepages') }}</a>
-            <a href="#karst-coordinates" onclick="menuloader.load(this)" class="list-group-item list-group-item-action" >{{ 'cave.item.coordinates'|trans({}, 'cavepages') }}</a>
-            <a href="#karst-coarse" onclick="menuloader.load(this)" class="list-group-item list-group-item-action">{{ 'cave.item.coarse'|trans({}, 'cavepages') }}</a>
-            <a href="#karst-management" onclick="menuloader.load(this)" class="list-group-item list-group-item-action">{{ 'cave.card.management'|trans({}, 'cavepages') }}</a>
-            <a href="#karst-environment" onclick="menuloader.load(this)" class="list-group-item list-group-item-action">{{ 'cave.card.environment'|trans({}, 'cavepages') }}</a>
+            <a href="#karst-measure" class="list-group-item list-group-item-action">{{ 'cave.item.measure'|trans({}, 'cavepages') }}</a>
+            <a href="#karst-coordinates" class="list-group-item list-group-item-action" >{{ 'cave.item.coordinates'|trans({}, 'cavepages') }}</a>
+            <a href="#karst-coarse" class="list-group-item list-group-item-action">{{ 'cave.item.coarse'|trans({}, 'cavepages') }}</a>
+            <a href="#karst-management" class="list-group-item list-group-item-action">{{ 'cave.card.management'|trans({}, 'cavepages') }}</a>
+            <a href="#karst-environment" class="list-group-item list-group-item-action">{{ 'cave.card.environment'|trans({}, 'cavepages') }}</a>
         </div>
     </div>
 
@@ -38,7 +38,7 @@
         <div class="list-group list-menu-group">
             <span class="list-group-item">{{ 'cave.group.descriptive'|trans({}, 'cavepages') }}</span>
 
-            <a href="#karst-accessanddevelopment" onclick="menuloader.load(this)" class="list-group-item list-group-item-action flex-column align-items-start">
+            <a href="#karst-accessanddevelopment" class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <h6 class="mb-1">{{ 'cave.item.accessanddevelopment'|trans({}, 'cavepages') }}</h6>
                 </div>
@@ -63,7 +63,7 @@
                 </div>
             </a>
 
-            <a href="#karst-status" onclick="menuloader.load(this)" class="list-group-item list-group-item-action flex-column align-items-start">
+            <a href="#karst-status" class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <h6 class="mb-1">{{ 'cave.item.status'|trans({}, 'cavepages') }}</h6>
                 </div>
@@ -87,7 +87,7 @@
         <div class="list-group list-menu-group">
             <span class="list-group-item">{{ 'cave.group.descriptive'|trans({}, 'cavepages') }}</span>
 
-            <a href="#karst-riskandequipment" onclick="menuloader.load(this)" class="list-group-item list-group-item-action flex-column align-items-start">
+            <a href="#karst-riskandequipment" class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <h6 class="mb-1">{{ 'cave.item.riskandequipment'|trans({}, 'cavepages') }}</h6>
                 </div>
@@ -104,7 +104,7 @@
                 </div>
             </a>
 
-            <a href="#karst-maps" onclick="menuloader.load(this)" class="list-group-item list-group-item-action flex-column align-items-start">
+            <a href="#karst-maps" class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <h6 class="mb-1">{{ 'cave.item.maps'|trans({}, 'cavepages') }}</h6>
                 </div>
@@ -119,7 +119,7 @@
             </a>
 
 
-            <a href="#karst-miscelanea" onclick="menuloader.load(this)" class="list-group-item list-group-item-action flex-column align-items-start">
+            <a href="#karst-miscelanea" class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <h6 class="mb-1">{{ 'cave.item.miscelanea'|trans({}, 'cavepages') }}</h6>
                 </div>
@@ -147,9 +147,9 @@
     <div class="col-lg-4 col-sm-12">
         <div class="list-group list-menu-group">
             <span class="list-group-item">{{ 'cave.group.longtext'|trans({}, 'cavepages') }}</span>
-            <a href="#karst-history" onclick="menuloader.load(this)" class="list-group-item list-group-item-action">{{ 'cave.item.history'|trans({}, 'cavepages') }}</a>
-            <a href="#karst-description" onclick="menuloader.load(this)" class="list-group-item list-group-item-action">{{ 'cave.item.description'|trans({}, 'cavepages') }}</a>
-            <a href="#karst-howtofind" onclick="menuloader.load(this)" class="list-group-item list-group-item-action">{{ 'cave.item.howtofind'|trans({}, 'cavepages') }}</a>
+            <a href="#karst-history" class="list-group-item list-group-item-action">{{ 'cave.item.history'|trans({}, 'cavepages') }}</a>
+            <a href="#karst-description" class="list-group-item list-group-item-action">{{ 'cave.item.description'|trans({}, 'cavepages') }}</a>
+            <a href="#karst-howtofind" class="list-group-item list-group-item-action">{{ 'cave.item.howtofind'|trans({}, 'cavepages') }}</a>
         </div>
     </div>
 </div>

@@ -28,11 +28,11 @@
 }}%}
 
 {% form_theme form '@GptCavebackend/symfony/fields.html.twig' %}
-{{ form_start(form) }}
 
 {% embed '@GptCavebackend/partial/card/card-search.html.twig'%}
     {% block heading %}{{ 'cave.index.search.form'|trans({},'cavepages')|raw -}}{% endblock heading %}
     {% block body %}
+        {{ form_start(form) }}
         <div class="row">
             <div class="col-lg-4 col-sm-12">
                 <table class="table">

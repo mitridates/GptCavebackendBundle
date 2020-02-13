@@ -29,7 +29,7 @@
 
 {% block footer_javascripts %}
     <script>
-        let repo = new Repopulate( '#{{ form.country.vars.id }}');
+        let repo = new Repopulate( '#{{ form.scopecountry.vars.id }}');
         repo.on('ev.onLoadResponse', (data, el, attr)=>{
             return JSON.parse(data.response).out;//data is in 'out' array
         });

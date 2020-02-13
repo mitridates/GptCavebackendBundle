@@ -68,7 +68,7 @@
     * @public
     * @function
     * @param {string} path url
-    * @param {Object[]|null} o optiones de select2
+    * @param {Object} [o] Options
      */         
     Grot.prototype.select2paginado = function(path, o) {
             let thisDefaults = Object.create(defaults),
