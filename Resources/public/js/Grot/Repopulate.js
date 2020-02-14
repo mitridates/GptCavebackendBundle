@@ -102,8 +102,8 @@ Repopulate.prototype.clearSelectors = function(elem, deep){
  */
 Repopulate.prototype.populateChild = function(elem, value){
     let attr = this.getDataAttr(elem),
-        formdata= null
-    $this = this,
+        formdata= null,
+        $this = this,
         xhr = new XMLHttpRequest();
 
     if(this.xhr_method==='POST')
