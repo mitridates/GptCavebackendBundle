@@ -6,13 +6,14 @@
 /**
  * Shorthand form bootstrap modal
  * @param {Object} ob Boostrap modal div
+ * @requires EventEmitter
  * @throws DOMException
  */
 function Modalform(ob) {
     if(typeof ob != 'object' || !ob.classList.contains('modal')){
         throw new DOMException('invalid DOM modal object, must be Bootstrap modal div')
     }
-    if (EventEmitter && typeof EventEmitter === 'function') {
+    if (!EventEmitter && typeof EventEmitter != 'function') {
         throw new DOMException('EventEmitter function does not exists!')
     }
     this.listeners = {};
@@ -53,8 +54,6 @@ Modalform.prototype.load= function (fetchUrl) {
     xhr.send();
     return this;
 };
-
-
 
 Modalform.prototype.getBttn= function (bttn) {
     switch (bttn) {

@@ -1,124 +1,164 @@
 /**
- * @class
- * @constructor
- * @name menuToggle
- * @param {Object} menu Container for menu items
+ * Create complex navigation menu
+ * @class MenuToggle
+ * @param {String} menu Parent container ID for menu items
+ * @param {Object} options Options to initialize the component with
  */
-function menuToggle (menu) {
-    this.menu  = menu;
-    this.appendHash= true;
-    this.targetsContainer = document.getElementById(menu.dataset.container);
-    this.menuItemsSelector= 'a';
-    if(null===this.targetsContainer) console.log('Undefined menu destination container');
+function MenuToggle (menu, options) {
+
+    this.menu  = document.getElementById(menu);
+    //https://stackoverflow.com/questions/10490713/how-to-document-the-properties-of-the-object-in-the-jsdoc-3-tag-this
+    //https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Object/defineProperty
+    // /**
+    //  Menu targets from hash items
+    //  @name MenuToggle#dataTargets
+    //  @type Array
+    //  */
+    // Object.defineProperty(this, 'dataTargets', {
+    //     value: [],
+    //     set(v) {
+    //     }
+    // });
+    //this.dataTargets= ;
+    this.targetsContainer = document.getElementById(this.menu.dataset.container);
+    /**
+     This event emitter
+     @name MenuToggle#emitter
+     @type Object
+     @default null
+     */
+   // this.emitter = (!EventEmitter && typeof EventEmitter != 'function')? null :  new EventEmitter();
+    Object.defineProperty(this, 'emitter', {
+        value: (!EventEmitter && typeof EventEmitter != 'function')? null :  new EventEmitter(),
+        writable: false
+    });
+    if (!this.targetsContainer ) throw new DOMException('Undefined menu destination container')
 }
 
+MenuToggle.prototype = {
+    menuItemsSelector: 'a',
+    visitedSelector: 'color-visited',
+    activeSelector: 'active',
+    getMenuNodeList: function()
+    {
+        return this.menu.querySelectorAll(this.menuItemsSelector);
+    }
+};
+
+MenuToggle.prototype.on = function (event, listener) {
+    if(this.emitter) this.emitter.on(event, listener);
+    return this;
+};
+
 /**
- * Add event
+ * Init menu
  */
-menuToggle.prototype.on= function(type, callback, hash)
+MenuToggle.prototype.init= function()
 {
-    let menuItem, itemsNodeList, i=0, $this = this,
-    addItemHandler= function(el, eventType, func){
-        return {
-            el: el,
+    if(this.getMenuNodeList().length===0) {
+        console.log('Menu elements not found');
+        return;
+    }
+    if(this.emitter) this.emitter.emit('init');
+    let itemListener,
+        i=0,
+        $this= this,
+        itemsNodeList = this.getMenuNodeList();
+
+    for(; i<itemsNodeList.length; i++){
+        itemListener = {
+            el: itemsNodeList[i],
             handleEvent: function (event) {
-                if (event.type === type) {
-                    if($this.appendHash) document.location.hash = this.el.hash;
+                if (event.type === 'click') {
+                    if($this.emitter) {
+                        /**
+                         * Event for this menu element
+                         * @example menuToggle.on('click.dataTargetId', function(menuItem, dataTarget){})
+                         */
+                        $this.emitter.emit('click.'+this.el.hash.substr(1), this.el, document.querySelector(this.el.hash));
+                        /**
+                         * Event for all menu elements
+                         * @example menuToggle.on('click', function(menuItem, dataTarget){})
+                         */
+                        $this.emitter.emit('click', this.el, document.querySelector(this.el.hash));
+                    }
+                    history.pushState(null, null,  this.el.href)
                     event.preventDefault();
-                    func(this.el, document.querySelector(this.el.hash))
+                    $this.show(this.el)
                 }
             }
         };
-    };
 
-    if(hash){
-        menuItem = this.menu.querySelector(this.menuItemsSelector+'[href="'+hash+'"]');
-        if(menuItem){
-           menuItem.addEventListener(type, addItemHandler(menuItem , type, callback), false);
-        }
-    }else{
-        itemsNodeList = this.getMenuNodeList();
-        for(; i<itemsNodeList.length; i++){
-            itemsNodeList[i].addEventListener(type,  addItemHandler(itemsNodeList[i], type, callback), false);
-        }
+        itemsNodeList[i].addEventListener('click', itemListener, false);
     }
-}
 
-/**
- * Bind menu
- */
-menuToggle.prototype.init= function()
-{
-    let $this= this;
-    this.on('click', function (menuItem, dataTarget) {$this.load(menuItem)});
-    // let item,
-    //     i=0,
-    //     $this= this,
-    //     itemsNodeList = this.getMenuNodeList();
+    this.updateHistory()
+    this.loadHashOrDefault();
 
-    // for(; i<itemsNodeList.length; i++){
-    //     item = {
-    //         el: itemsNodeList[i],
-    //         handleEvent: function (event) {
-    //             if (event.type === 'click') {
-    //                 if($this.appendHash) document.location.hash = this.el.hash;
-    //                 event.preventDefault();
-    //                 $this.load(this.el)
-    //             }
-    //         }
-    //     };
-    //     itemsNodeList[i].addEventListener('click', item, false);
-    // }
+
+    //@todo
+
     return this;
-}
+};
 
-/**
- * Get menu nodeList
- * return self
- */
-menuToggle.prototype.getMenuNodeList= function()
-{
-    return this.menu.querySelectorAll(this.menuItemsSelector);
-}
+// /**
+//  * Get menu elements NodeList
+//  * @return {Object|null} NodeList
+//  */
+// MenuToggle.prototype.getMenuNodeList= function()
+// {
+//     return this.menu.querySelectorAll(this.menuItemsSelector);
+// }
 
 /**
  * Load hash || active || first item
  * return self
  */
-menuToggle.prototype.loadHashOrDefault= function()
+MenuToggle.prototype.loadHashOrDefault= function()
 {
-    let menuItem;
+    let menuItem, i=0,
+        source= ['[href="'+window.location.hash+'"]', '.'+this.activeSelector, ''];
 
-    menuItem = this.menu.querySelector(this.menuItemsSelector+'[href="'+window.location.hash+'"]') ||
-        this.menu.querySelector(this.menuItemsSelector+'.active') ||
-        this.menu.querySelector(this.menuItemsSelector);
-    menuItem.click();
-    return this;
-}
-
-
-/**
- * Show data
- * @param {Object} dataTarget data div container
- */
-menuToggle.prototype.showContainerDiv= function(dataTarget)
-{
-    for (let i = 0; i < this.targetsContainer.children.length; i++) {
-        let e = this.targetsContainer.children[i];
-        e.style.display = 'none';
+    for(;i<source.length;i++){
+        menuItem = this.menu.querySelector(this.menuItemsSelector+source[i]);
+        if(menuItem) break;
     }
-    dataTarget.style.display= 'inline';
-}
+    menuItem.click();
+
+    return this;
+};
+
 
 /**
- * Load/reload div
- * @param {Object} menuItem Menú link
- * @param {boolean} [reload] reload content
+ * @todo
+ * Add hash to history to use back and forward buttons/keyboard sort cut
+ * return {NULL}
+ * @param {Object} menuItem Menu link
  */
-menuToggle.prototype.load= function(menuItem, reload)
+MenuToggle.prototype.updateHistory= function()
 {
-    let dataTarget  = document.querySelector(menuItem.hash),
-        is_loaded= menuItem.dataset.loaded || false;
+    let $this= this,
+        popstateEvent ={
+            handleEvent: function (event) {
+              let currentHistorySelector= $this.menu.querySelector($this.menuItemsSelector+'[href="'+window.location.hash+'"]');
+                  //lastActiveSelector = $this.menu.querySelector('.'+$this.activeSelector);
+                $this.show(currentHistorySelector);
+            }
+        };
+    // navigate to a tab when the history changes
+    window.addEventListener("popstate", popstateEvent);
+};
+
+
+/**
+ * Load div
+ * @param {Object} menuItem Menu link
+ */
+MenuToggle.prototype.show= function(menuItem)
+{
+    let el, i=0,
+        previous= this.menu.querySelector('.'+this.activeSelector),
+        dataTarget  = document.querySelector(menuItem.hash);
 
     if(typeof dataTarget === "undefined")
     {
@@ -126,11 +166,39 @@ menuToggle.prototype.load= function(menuItem, reload)
         return false;
     }
 
-    // Update history
-    //window.history.pushState(null, null, menuItem.href);
 
-    this.menu.querySelector('.active').classList.remove('active')
-    menuItem.classList.add('active');
-    if(!is_loaded) menuItem.dataset.loaded='true';
-    this.showContainerDiv(dataTarget);
-}
+    if(previous) previous.classList.remove(this.activeSelector);
+
+    menuItem.classList.add(this.activeSelector, this.visitedSelector);
+
+    for (; i < this.targetsContainer.children.length; i++)
+    {
+        el = this.targetsContainer.children[i];
+        el.style.display = 'none';
+
+        if(this.emitter)
+        {
+            /**
+             * Hide event for for all menu elements
+             * @example menuToggle.on('click.dataTargetId', function(menuItem, dataTarget){})
+             */
+            this.emitter.emit('hide', el);
+            /**
+             * Hide event for this menu element
+             * @example menuToggle.on('hide.dataTargetId', function(dataTarget){})
+             */
+            this.emitter.emit('hide.' + el.id, el);
+        }
+    }
+
+    dataTarget.style.display= 'inline';
+
+    if(this.emitter)
+    {
+        /**
+         * Show event for this menu element
+         * @example menuToggle.on('hide.dataTargetId', function(dataTarget){})
+         */
+        this.emitter.emit('show.'+dataTarget.id, dataTarget);
+    }
+};

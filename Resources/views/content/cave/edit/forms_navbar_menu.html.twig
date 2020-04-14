@@ -1,0 +1,30 @@
+<nav class="yamm navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <ul class="navbar-nav" id="menuItems" data-container="menuContent">
+
+        <li class="nav-item dropdown yamm-fw">
+            <a href="#" class="nav-link dropdown-toggle font-weight-bold" data-toggle="dropdown">
+                {{ 'cave.dropdown.dataforms'|trans({}, 'cavepages') }}
+            </a>
+            <div class="dropdown-menu" style="padding: 0; margin: 0;">
+                <div class="yamm-content list-menu">
+                    {%include '@GptCavebackend/content/cave/edit/navbar_menu/menuitems-management.html.twig'%}
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item dropdown yamm-fw ">
+            <a href="#" class="nav-link dropdown-toggle font-weight-bold" data-toggle="dropdown">
+                {{ 'cave.dropdown.maintenanceforms'|trans({}, 'cavepages') }}
+            </a>
+            <div class="dropdown-menu" style="padding: 0; margin: 0;">
+                <div class="yamm-content list-menu">
+                    {%include '@GptCavebackend/content/cave/edit/navbar_menu/menuitems-maintenance.html.twig'%}
+                </div>
+            </div>
+        </li>
+
+    </ul>
+
+</nav>
+

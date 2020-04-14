@@ -9,6 +9,8 @@
  *       getPageRows()
  *       getTotalRows()
  *       ...
+ * @options
+ *      showRange bool Default true
  */
 #}
 {# importamos macro para generar grupos de enlaces #}
@@ -37,8 +39,8 @@
             {{('pager.maxresults.perpage')|trans({'%result%': paginator.getLimits()[1]},'cavemessages')|raw}}."
         ></i>&nbsp;&nbsp;
             {# spin && refresh #}
-            <span onclick="Grot($(this).closest('.grotte-paginable')).loader('reload', {}, false);this.className = 'fa fa-refresh fa-spin'; return false;"
-                  style="cursor:pointer" title="{{('update')|trans({},'cavemessages')|raw}}"  class="fa fa-refresh" aria-hidden="true">
+            <span onclick="Grot($(this).closest('.grotte-paginable')).loader('reload', {}, false);this.className = 'fa fa-sync fa-spin'; return false;"
+                  style="cursor:pointer" title="{{('update')|trans({},'cavemessages')|raw}}"  class="fa fa-sync" aria-hidden="true">
             </span>&nbsp;
             {% block extendNavigatorBttn %}{% endblock extendNavigatorBttn %}
         </div>

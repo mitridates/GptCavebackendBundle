@@ -55,7 +55,7 @@ var Grot = Grot || {};
         /*
          * @type jQuery context
          */         
-        var $this = $(this._selector);
+        let $this = $(this._selector);
         /*
          * @type Object[] Object data
          */
@@ -134,7 +134,7 @@ var Grot = Grot || {};
      *
      * @name Grot.loader                                                                          
      * @example Grot('selector').loader('method', [arguments...])
-     * @param {Object|string} method y/o argumentos
+     * @param {Object|string} [method] y/o argumentos
      * @return {Object} Grot... 
      */         
     Grot.prototype.loader = function(method) {

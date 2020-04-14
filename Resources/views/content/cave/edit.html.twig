@@ -17,26 +17,8 @@
     - Los divs paginables utilizan ventana modal para los formularios.
     #}
     {%include '@GptCavebackend/content/cave/navbar.html.twig'%}
-    <nav class="yamm navbar navbar-expand-lg navbar-dark bg-dark">
-            <ul class="navbar-nav" id="menuItems" data-container="menuContent">
-                <li class="nav-item dropdown yamm-fw">
-                    <a href="#" class="nav-link dropdown-toggle font-weight-bold" data-toggle="dropdown">{{ 'cave.dropdown.dataforms'|trans({}, 'cavepages') }}</a>
-                    <div class="dropdown-menu" style="padding: 0; margin: 0;">
-                        <div class="yamm-content list-menu">
-                            {%include '@GptCavebackend/content/cave/edit/menuitems-management.html.twig'%}
-                        </div>
-                    </div>
-                </li>
-            <li class="nav-item dropdown yamm-fw ">
-                <a href="#" class="nav-link dropdown-toggle font-weight-bold" data-toggle="dropdown">{{ 'cave.dropdown.maintenanceforms'|trans({}, 'cavepages') }}</a>
-                <div class="dropdown-menu" style="padding: 0; margin: 0;">
-                    <div class="yamm-content list-menu">
-                        {%include '@GptCavebackend/content/cave/edit/menuitems-maintenance.html.twig'%}
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </nav>
+
+    {%include '@GptCavebackend/content/cave/edit/forms_navbar_menu.html.twig'%}
 
     <div  id="menuContent">
         {%include '@GptCavebackend/content/cave/edit/menucontent.html.twig'%}
@@ -48,34 +30,36 @@
     {%include '@GptCavebackend/content/cave/script/scripts.html.twig'%}
     <script type="text/javascript" src="{{asset(arrayParams.bundle.webasset.js~'Grot/menuToggle.js')}}"></script>
     <script>
-        const CaveMenuToggle= new menuToggle(document.getElementById('menuItems'));
-        CaveMenuToggle.menuItemsSelector= 'a.list-group-item-action';
-        CaveMenuToggle.on('click', function (menuItem, dataTarget) {
 
-            if(menuItem.dataset.loaded) return;
+        const CaveMenuToggle= new MenuToggle('menuItems');
+        CaveMenuToggle.menuItemsSelector='a.list-group-item-action';
+        CaveMenuToggle.emitter= null;
+            CaveMenuToggle.on('click', function (menuItem, dataTarget){
 
-            let init = function(){
-                Grot.fn.init();
-                {%set selectors = ['organisation', 'mapserie', 'person', 'article', 'cave', 'specie']%}{#'map',#}
+            if(menuItem.classList.contains(CaveMenuToggle.visitedSelector)) return;
+
+            function updateSelectorAndPaginables()
+            {
+                {%set selectors = ['organisation', 'mapserie', 'person', 'article', 'cave', 'specie', 'map']%}
                 {%for selector in selectors %}
                 Grot('.{{selector}}*', dataTarget).select2paginado('{{path('cave_backend_autocomplete_'~selector)}}', { 'placeholder': '{{('select.'~selector)|trans({},'cavemessages')|raw}}' });
                 {%endfor%}
                 let paginables = dataTarget.querySelectorAll('.grotte-paginable');
-                for(let i=0; i<paginables.length; i++)
-                {
+                for(let i=0; i<paginables.length; i++){
                     Grot(paginables[i]).loader();
                 }
             }
 
-            if(dataTarget.dataset.path){
-                dataTarget.innerHTML= '<div class="text-center">{{'loading'|trans({},'cavemessages')|raw}}</div>';
-                Grot(dataTarget).loader({}, {'success': init});
-                dataTarget.dataset.loaded = "true";
-            }else{
-                init();
-            }
-        })
-        CaveMenuToggle.init().loadHashOrDefault();
+                if(dataTarget.dataset.path){
+                    dataTarget.innerHTML= '<div class="text-center">{{'loading'|trans({},'cavemessages')|raw}}</div>';
+                    Grot(dataTarget).loader({}, {'success': updateSelectorAndPaginables});
+                    dataTarget.dataset.loaded = "true";
+                }else{
+                    updateSelectorAndPaginables();
+                }
+                
+        }).init();
+            console.log(MenuToggle.prototype)
     </script>
 
 

@@ -107,6 +107,9 @@ padding: 5px;
 }
 
 .hide{display: none;}
+
+.color-visited{ color: orange}
+
 .cavemenu{}
 .cavemenu > div > div > div > span:first-child,
 .cavemenu > div > div > div > a:first-child { padding: 0.3em 0; text-align: center; background-color: #f2f2f2}
