@@ -1,3 +1,5 @@
+//https://www.freecodecamp.org/news/how-to-write-a-jquery-like-library-in-71-lines-of-code-learn-about-the-dom-e9fb99dbc8d2/
+//https://gomakethings.com/how-to-create-your-own-vanilla-js-dom-manipulation-library-like-jquery/
 /**
  * @fileOverview Constructor Grot
  * @author <a href="mailto:mitridates@gmail.com">Mitridates</a>
@@ -9,7 +11,7 @@
  * @class Clase para gestional el backend
  * @constructor
  * @name Grot
- * @param {*} selector
+ * @param {*} [selector]
  */
  function Grot (selector) {
     if (!(this instanceof Grot)) return new Grot(selector)
@@ -19,13 +21,10 @@
  * Establece el selector actual
  * @name Grot#setSelector
  * @method
- * @param {*} selector
- * @returns $this
+ * @param {Object|String} selector
+ * @returns self
  */
 Grot.prototype.setSelector = function(selector){
-    /**
-     * @default ''
-     */
     this._selector = selector || '';
     return this;
 };
@@ -41,7 +40,7 @@ Grot.prototype.setSelector = function(selector){
      * No exponemos variables
      * @var {Object} _data
      */   
-    var _data = {};
+    let _data = {};
     /**
      * Cache global para la página actual. IIEF para no exponer variables de forma global.
      * @name Grot.cache

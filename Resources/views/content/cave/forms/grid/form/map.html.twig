@@ -5,27 +5,78 @@
  * @parent ../form.html.twig
  */
 #}
-    <table class="table table-bordered">
-        <tr>
-            <td class="col-lg-3">
-                {{ form_label(form.map)}}
-                <input type="radio" name="form_{{ name }}_map_check" checked="checked"  onchange="Grot('#form_{{ name }}_map_table').form('clear').form('disable')">
-            </td>
-            <td>
-                {{ form_label(form.mapname)}}
-                <input type="radio" name="form_{{ name }}_map_check"  onchange="Grot('#form_{{ name }}_map_table').form('clear').form('disable')">
-            </td>
-            <td>{{ form_label(form.mapnumber)}}</td>
-            <td>{{ form_label(form.mapscale)}}</td>
-            <td>{{ form_label(form.mapgrid)}}</td>
-            <td>{{ form_label(form.geodeticdatum)}}</td>
-        </tr>
-        <tr id="form_{{ name }}_map_table">
-            <td>{{ form_widget(form.map, {'value': ''} )}}</td>
-            <td>{{ form_widget(form.mapname, {'value': '', 'attr': {'disabled': 'disabled'}} )}}</td>
-            <td>{{ form_widget(form.mapnumber, {'value': '', 'attr': {'disabled': 'disabled'}} )}}</td>
-            <td>{{ form_widget(form.mapscale, {'value': '', 'attr': {'disabled': 'disabled'}} )}}</td>
-            <td>{{ form_widget(form.mapgrid, {'value': '', 'attr': {'disabled': 'disabled'}} )}}</td>
-            <td>{{ form_widget(form.geodeticdatum, {'value': '', 'attr': {'disabled': 'disabled'}} )}}</td>
-        </tr>
-    </table>
+{% set mapIdIsNull = form.map.vars.value=='' %}
+<div class="row">
+    <div class="col-12">
+        <table class="table">
+            <tr>
+                <td class="w-25">{{ form_label(form.position)}}</td>
+                <td>{{ form_widget(form.position, {attr: {class: 'w-25'}})}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <table class="table">
+            <tr>
+                <td class="w-25">{{ form_label(form.map)}}<input type="radio" name="form_{{ name }}_map_check"  {{ mapIdIsNull?: 'checked'}} onchange="Grot('.widestmapId, .widestmapString').form('clear').form('disable');"></td>
+                <td class="widestmapId">{{ form_widget(form.map)}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.mapname)}} <input type="radio" name="form_{{ name }}_map_check" {{ mapIdIsNull==false?: 'checked'}}  onchange="Grot('.widestmapId, .widestmapString').form('clear').form('disable');"></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<div class="row widestmapString">
+    <div class="col-12">
+        <table class="table">
+            <tr>
+                <td>{{ form_label(form.mapname)}}</td>
+                <td>{{ form_widget(form.mapname)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.mapnumber)}}</td>
+                <td>{{ form_widget(form.mapnumber)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.mapscale)}}</td>
+                <td>{{ form_widget(form.mapscale)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.mapgrid)}}</td>
+                <td>{{ form_widget(form.mapgrid)}}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.geodeticdatum)}}</td>
+                <td>{{ form_widget(form.geodeticdatum)}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+        Grot('#{{form.map.vars.id}}').select2paginado('{{path('cave_backend_autocomplete_map')}}', {placeholder: '{{('select.map')|trans({},'cavemessages')|raw}}'});
+        {% if  mapIdIsNull==false %}
+        Grot('.widestmapString').form('clear').form('disable');
+        {% else %}
+        Grot('.widestmapId').form('clear').form('disable');
+        {% endif %}
+    });
+</script>

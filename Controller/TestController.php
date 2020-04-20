@@ -49,4 +49,17 @@ class TestController extends AbstractController
             'arrayParams'=>$this->controllerParams->getParametersbag(),
         ]);
     }
+    /**
+     * @Route("/test/JSimas",
+     *      name="cave_backend_test_jsimas",
+     *     methods={"GET","POST"}
+     *     )
+     * @return Response
+     */
+    public function jsimasAction()
+    {
+        return $this->render('@GptCavebackend/playground/JSimas.html.twig', [
+            'arrayParams'=>$this->controllerParams->getParametersbag(),
+        ]);
+    }
 }

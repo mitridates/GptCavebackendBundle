@@ -22,7 +22,8 @@
 <body>
 
 
-<select id="country" data-child="#admin1, #area">
+<select id="country"
+        data-child="#admin1, #area">
     <option value="">Seleccione país</option>
     <option value="es">España</option>
     <option value="au">Australia</option>
@@ -31,34 +32,34 @@
 
 <select id="admin1" data-child="#admin2"
         data-url="{{ path('cave_backend_json_admin1') }}"
-        data-querykey="countryid"
-        data-emptyOption="Seleccione admin1"
+        data-parentid="countryid"
+        data-placeholder="Seleccione admin1"
         data-parameters='{"format":"select2"}'#}
 ></select>
 
 
 <select id="admin2" data-child="#admin3"
         data-url="{{ path('cave_backend_json_admin2') }}"
-        data-querykey="admin1id"
+        data-parentid="admin1id"
         {#        data-returnformat="text,id"#}
-        data-emptyOption="Seleccione admin2"
+        data-placeholder="Seleccione admin2"
         {#        data-parameters='{"format":"select2"}'#}
 ></select>
 
 <select id="admin3"
         data-url="{{ path('cave_backend_json_admin3') }}"
-        data-querykey="admin2id"
+        data-parentid="admin2id"
         {#        data-returnformat="text,id"#}
-        data-emptyOption="Seleccione admin3"
+        data-placeholder="Seleccione admin3"
         {#        data-parameters='{"format":"select2"}'#}
 ></select>
 
 
 <select id="area"
         data-url="{{ path('cave_backend_json_area') }}"
-        data-querykey="countryid"
+        data-parentid="countryid"
         {#        data-returnformat="text,id"#}
-        data-emptyOption="Seleccione area"
+        data-placeholder="Seleccione area"
         {#        data-parameters='{"format":"select2"}'#}
 ></select>
 </body>

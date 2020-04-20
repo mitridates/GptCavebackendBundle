@@ -28,14 +28,13 @@
 
 {% block footer_javascripts %}
     {%include '@GptCavebackend/content/cave/script/scripts.html.twig'%}
-    <script type="text/javascript" src="{{asset(arrayParams.bundle.webasset.js~'Grot/menuToggle.js')}}"></script>
+    <script type="text/javascript" src="{{asset(arrayParams.bundle.webasset.js~'Grot/MenuToggle.js')}}"></script>
     <script>
-
-        const CaveMenuToggle= new MenuToggle('menuItems');
-        CaveMenuToggle.menuItemsSelector='a.list-group-item-action';
-        CaveMenuToggle.emitter= null;
-            CaveMenuToggle.on('click', function (menuItem, dataTarget){
-
+        let CaveMenuToggle= new MenuToggle('menuItems');
+        CaveMenuToggle.setMenuItemQuerySelector('a.list-group-item-action').
+        on('click', function (menuItem, dataTarget)
+        {
+            console.log(this)
             if(menuItem.classList.contains(CaveMenuToggle.visitedSelector)) return;
 
             function updateSelectorAndPaginables()
@@ -50,17 +49,13 @@
                 }
             }
 
-                if(dataTarget.dataset.path){
-                    dataTarget.innerHTML= '<div class="text-center">{{'loading'|trans({},'cavemessages')|raw}}</div>';
-                    Grot(dataTarget).loader({}, {'success': updateSelectorAndPaginables});
-                    dataTarget.dataset.loaded = "true";
-                }else{
-                    updateSelectorAndPaginables();
-                }
-                
+            if(dataTarget.dataset.path){
+                dataTarget.innerHTML= '<div class="text-center">{{'loading'|trans({},'cavemessages')|raw}}</div>';
+                Grot(dataTarget).loader({}, {'success': updateSelectorAndPaginables});
+                dataTarget.dataset.loaded = "true";
+            }else{
+                updateSelectorAndPaginables();
+            }
         }).init();
-            console.log(MenuToggle.prototype)
     </script>
-
-
 {%endblock%}
