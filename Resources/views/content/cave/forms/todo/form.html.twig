@@ -3,13 +3,27 @@
  * @file form.html.twig Cavetodo form
  */
 #}
-<table class="table">
-  <tr>
-    <td>{{ form_label(form.todo)}}</td>
-    <td class="w-25">{{ form_label(form.position)}}</td>
-  </tr>
-  <tr>
-    <td>{{ form_widget(form.todo)}}</td>
-    <td>{{ form_widget(form.position, {attr: {class: 'w-50'}})}}</td>
-  </tr>
-</table>
+<div class="row">
+  <div class="col-lg-8 col-sm-12">
+    <table class="table">
+      <tr>
+        <td>{{ form_label(form.todo)}}</td>
+      </tr>
+      <tr>
+        <td>{{ form_widget(form.todo)}}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-lg-4 col-sm-12">
+    <table class="table">
+      <tr>
+        <td>{{ form_label(form.priority)}}</td>
+        <td class="w-25">{{ form_label(form.position)}}</td>
+      </tr>
+      <tr>
+        <td>{{ form_widget(form.priority)}}</td>
+        <td>{{ form_widget(form.position)}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

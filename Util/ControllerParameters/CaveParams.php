@@ -8,7 +8,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * findmemo(CA0680), descriptionmemo(CA0530)
  * @internal CA0070:70 name pasa a Cave
- * @@internal publishablelandunit(CA0439) (fieldvaluecodes [441, 253, 254, 255, 256]) y CA0245 Cave exact position pasan a CA0000
+ * @@internal publishablelandunit(CA0439) (fieldvaluecodes [441, 253, 254, 255, 256]) y CA0245 Cave exact position pasan a Cave
  * @@internal tablas en http://www.uisic.uis-speleo.org  entrancedescriptionmemo(CA0534)
  */
 class CaveParams extends CommonParams

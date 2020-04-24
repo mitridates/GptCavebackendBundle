@@ -1,0 +1,47 @@
+{#
+/**
+ * @file script.html.twig
+ * Scripts para este formulario
+ * @parent ./form.html.twig
+ */
+#}
+<script>
+  var disableArticle = (function () {
+
+    var article = '#{{ form.article.vars.id }}';
+    var articlestr = [
+        '#{{ form.articlename.vars.id }}',
+        '#{{ form.publication.vars.id }}',
+        '#{{ form.volume.vars.id }}',
+        '#{{ form.issue.vars.id }}',
+        '#{{ form.surnames.vars.id }}',
+        '#{{ form.year.vars.id }}',
+        '#{{ form.yearsuffix.vars.id }}'
+    ];
+    var checkArticleId = document.getElementById('radio-{{ name }}-article-id');
+    var checkArticleStr = document.getElementById('radio-{{ name }}-article-str');
+
+    function disableArticleid(to) {
+      Grot(article).form('clear').form('disable',to);
+    }
+    function disableArticlestr(to) {
+      Grot(articlestr.join(', ')).form('clear').form('disable',to);
+    }
+
+    function editArticleId(to){
+      disableArticleid(typeof to !== 'undefined'? to : false);
+      disableArticlestr(typeof to !== 'undefined'? to : true);
+    }
+
+    function editArticleStr(to){
+      disableArticleid(typeof to !== 'undefined'? to : true);
+      disableArticlestr(typeof to !== 'undefined'? to : false);
+    }
+
+    return {
+      editArticleId: editArticleId,
+      editArticleStr: editArticleStr,
+    };
+
+  })();
+</script>

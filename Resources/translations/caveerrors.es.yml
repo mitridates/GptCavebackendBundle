@@ -19,7 +19,6 @@ registry.not.found: "registro no encontrado con los parámetros: %params%"
 registry.already.exists: "El registro ya existe"
 not.enough.args: "Argumentos insuficientes. %more%"
 unknown.error: "Error desconocido!"
-form.must.complete.this.field: "Este campo es obligatorio"
 
 
 
@@ -29,4 +28,5 @@ error.registry.not.found: "Registro no encontrado. %more%"
 critical.unknow.form: "Formulario '%name%' desconocido"
 form.errors.found: "Encontrados errores en el formulario"
 form.cannot.be.empty: "No se puede guardar un formulario vac&iacute;o"
+form.must.complete.this.field: "Este campo es obligatorio"
 #form.use.button.to.delete: "Para eliminar el formulario actual utilice los botones en pantalla"

@@ -11,7 +11,7 @@
 {% endmacro %}
 
 {% macro bttn_edit(name, getFormUlr , sendFormUrl, title) %}
-    <button type="button" class="btn btn-sm fa fa-edit pull-right" title="{{ ('edit')|trans({},'cavemessages')|raw -}}"
+    <button type="button" class="btn btn-sm fa fa-edit float-right" title="{{ ('edit')|trans({},'cavemessages')|raw -}}"
             onclick="modalFormButton(this).getForm('{{ name }}', '{{ getFormUlr }}' , '{{ sendFormUrl }}', '{{ title }}')"></button>
 {% endmacro %}
 

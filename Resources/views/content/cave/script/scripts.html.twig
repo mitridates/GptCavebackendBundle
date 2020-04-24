@@ -66,24 +66,24 @@
             modal.title.innerHTML= title;
             func.getForm(name, getFormUlr , sendFormUrl)
         },
-            removeForm= function (deleteFormUrl) {
-                if($this.classList.contains('fa-trash')){
-                    $this.classList.replace('fa-trash', 'fa-exclamation-triangle');
-                    let replace = ()=> $this.classList.replace('fa-exclamation-triangle','fa-trash');
-                    setTimeout(replace, 3000);
-                    return false;
-                }
+        removeForm= function (deleteFormUrl) {
+            if($this.classList.contains('fa-trash')){
+                $this.classList.replace('fa-trash', 'fa-exclamation-triangle');
+                let replace = ()=> $this.classList.replace('fa-exclamation-triangle','fa-trash');
+                setTimeout(replace, 3000);
+                return false;
+            }
 
-                $.ajax({type: 'GET', url: deleteFormUrl,
-                    success: function(data) {
-                        if(data!==''){
-                            alert(this.data);
-                        }else {
-                            Grot($($this).closest('.grotte-paginable')).loader('reload')
-                        }
+            $.ajax({type: 'GET', url: deleteFormUrl,
+                success: function(data) {
+                    if(data!==''){
+                        alert(this.data);
+                    }else {
+                        Grot($($this).closest('.grotte-paginable')).loader('reload')
                     }
-                });
-            };
+                }
+            });
+        };
 
         return {
             getForm: getForm,

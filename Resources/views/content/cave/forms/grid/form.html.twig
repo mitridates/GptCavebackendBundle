@@ -10,6 +10,15 @@
 
     {%include '@GptCavebackend/content/cave/forms/grid/form/map.html.twig'%}
     {%include '@GptCavebackend/content/cave/forms/grid/form/grid.html.twig'%}
-
+    <div class="row">
+        <div class="col-sm-12 col-lg-4">
+            <table class="table">
+                <tr>
+                    <td>{{ form_label(form.position)}}</td>
+                    <td>{{ form_widget(form.position, {attr: {class: 'w-25'}})}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 {% endblock body %}
 {% endembed %}

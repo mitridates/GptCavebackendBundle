@@ -1,5 +1,6 @@
 <?php
 namespace App\GptCavebackendBundle\Form\Type\Cave;
+use App\GptCavebackendBundle\EventListener\Form\AddAreaFieldSubscriber;
 use App\GptCaveBundle\Entity\Cavepreviousnumber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -50,30 +51,16 @@ class EditPreviousnumberType extends AbstractType
         $admin1Subscriber = new AddAdmin1FieldSubscriber($factory,$countrySubscriber->getCountry(), $admin1);
         $builder->addEventSubscriber($admin1Subscriber);
 
-        $admin2 = array('name'=>'admin2',
-            'attr'=>array(
-                'code_id'=>233,
-                'style'=>'width:100%'//css
-            )
-        );
-        $admin2Subscriber = new AddAdmin2FieldSubscriber(
-            $factory,
-            $countrySubscriber->getCountry(),
-            $admin1Subscriber->getAdmin1(),
-            $admin2
-        );
-        $builder->addEventSubscriber($admin2Subscriber);
 
-        $admin3Subscriber= new AddAdmin3FieldSubscriber($factory, $admin2Subscriber->getAdmin2(),array(
-            'name'=>'admin3',
+        $area = array(
             'options'=>array(
-                'attr'=>array(//attributos del html
-                    'style'=>'width:100%'//css
+                'attr'=>array(
+                    'code_id'=>233,
                 )
             )
-        ));
-        $builder->addEventSubscriber($admin3Subscriber);
-
+        );
+        $areaSubscriber = new AddAreaFieldSubscriber($factory,$countrySubscriber->getCountry(), null, $area);
+        $builder->addEventSubscriber($areaSubscriber);
 
         $builder->add('position', NULL, ['attr'=>['code_id'=>10001]]);
         $builder->add('serial', NULL, ['attr'=>['code_id'=>234]]);

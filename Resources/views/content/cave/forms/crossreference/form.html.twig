@@ -17,29 +17,62 @@
   'data-placeholder': 'select.area'|trans({},'cavemessages')|raw
 }}%}
 
-<table class="table">
-  <tr>
-    <td>{{ form_label(form.serial)}}</td>
-    <td class="w-50">{{ form_label(form.position)}}</td>
-  </tr>
-  <tr>
-    <td>{{ form_widget(form.serial)}}</td>
-    <td>{{ form_widget(form.position, {attr: {class: 'w-50'}})}}</td>
-  </tr>
-</table>
-<table class="table">
-    <td class="w-50">{{ form_label(form.country)}}</td>
-    <td>{{ form_widget(form.country, country_attr)}}</td>
-  </tr>
-  <tr>
-    <td>{{ form_label(form.admin1)}}</td>
-    <td>{{ form_widget(form.admin1, admin1_attr)}}</td>
-  </tr>
-  <tr>
-    <td>{{ form_label(form.area)}}</td>
-    <td>{{ form_widget(form.area, area_attr)}}</td>
-  </tr>
-</table>
+
+<div class="row">
+  <div class="col-sm-12 col-lg-3">
+    <table class="table">
+      <tr>
+        <td>{{ form_label(form.serial)}}</td>
+      </tr>
+      <tr>
+        <td>{{ form_widget(form.serial)}}</td>
+      </tr>
+    </table>
+  </div>  
+  <div class="col-sm-12 col-lg-3">
+    <table class="table">
+      <tr>
+        <td>{{ form_label(form.country)}}</td>
+      </tr>
+      <tr>
+        <td>{{ form_widget(form.country, country_attr)}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="col-sm-12 col-lg-3">
+    <table class="table">
+      <tr>
+        <td>{{ form_label(form.admin1)}}</td>
+      </tr>
+      <tr>
+        <td>{{ form_widget(form.admin1, admin1_attr)}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="col-sm-12 col-lg-3">
+    <table class="table">
+      <tr>
+        <td>{{ form_label(form.area)}}</td>
+      </tr>
+      <tr>
+        <td>{{ form_widget(form.area, area_attr)}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-lg-4">
+    <table class="table">
+      <tr>
+        <td>{{ form_label(form.position)}}</td>
+        <td>{{ form_widget(form.position, {attr: {class: 'w-25'}})}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
 <script>
   $(document).ready(function() {
     let repo = new Repopulate( '#{{ form.country.vars.id }}');
@@ -48,5 +81,4 @@
     });
     repo.bindAll();
   });
-
 </script>

@@ -16,7 +16,7 @@
     Mediante la extensión twig "get_fielddefinition_name(attr.code_id,locale=null,abbreviation=false)" añadimos información extra.
 #}
 {% if attr.code_id is defined %}
-    {%- set fd_value_name = get_fielddefinition_name(attr.code_id,app.request.locale) -%}
+    {%- set fd_value_name = get_fielddefinition_name(attr.code_id,app.request.locale, true) -%}
     {%if fd_value_name is null %}
         {%- set fd_value_name = 'undefined code "'~attr.code_id -%}
     {%endif%}

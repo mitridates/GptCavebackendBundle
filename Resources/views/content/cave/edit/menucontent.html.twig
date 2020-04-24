@@ -1,3 +1,5 @@
+{% import '@GptCavebackend/content/cave/edit/paginator_template_macro.html.twig' as pager %}
+
 {#
 /**
  * @file menucontent.html.twig
@@ -38,7 +40,6 @@
      data-path="{{path('cave_backend_cave_create_onetoone', { 'id': cave.getCaveid(), name: 'management' })}}">
 </div>
 {#FORMULARIOS MANYTOONE#}
-{% import '@GptCavebackend/content/cave/edit/paginator_template_macro.html.twig' as pager %}
 <div style="display: none" id="karst-accessanddevelopment">
     <div class="row">
         {{pager.blue_paginator_div(3, 'entranceft' , cave)}}

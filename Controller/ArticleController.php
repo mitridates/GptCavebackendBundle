@@ -210,8 +210,6 @@ class ArticleController extends AbstractController
             $msg= $this->controllerParams->getTranslator()->trans('id.successfully.deleted', array('%id%'=>$article->getArticleid()), 'cavemessages');
             $em = $this->getDoctrine()->getManager();
             try{
-                //TODO no debería eliminarse de la base de datos ya que
-                // el registro no puede reutilizarse
                 $em->remove($article);
                 $em->flush();
                 $this->addFlash('success', $msg);

@@ -5,41 +5,62 @@
  * @parent ../form.html.twig
  */
 #}
-{% embed '@GptCavebackend/partial/card/card-edit.html.twig'%}
-{% block heading %}{{ ('cave.tab.'~name~'.panel.poss')|trans({},'cavepages')|raw -}}{% endblock heading %}
-{% block body %}
-<table class="table table-bordered">
-  <tr>
-    <td>{{ form_label(form.mapeasting)}}</td>
-    <td>{{ form_label(form.mapnorthing)}}</td>
-    <td>{{ form_label(form.refunits)}}</td>
-    <td>{{ form_label(form.date)}}</td>
-    <td>{{ form_label(form.mapedition)}}</td>
+<hr/>
 
-  </tr>
-  <tr>
-    <td>{{ form_widget(form.mapeasting)}}</td>
-    <td>{{ form_widget(form.mapnorthing)}}</td>
-    <td>{{ form_widget(form.refunits)}}</td>
-    <td>{{ form_widget(form.date)}}</td>
-    <td>{{ form_widget(form.mapedition)}}</td>
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <table class="table">
+        <tr>
+          <td>{{ form_label(form.mapeasting)}}</td>
+          <td>{{ form_label(form.mapnorthing)}}</td>
+        </tr>
+        <tr>
+          <td>{{ form_widget(form.mapeasting)}}</td>
+          <td>{{ form_widget(form.mapnorthing)}}</td>
+        </tr>
+      </table>
+    </div>
 
-  </tr>
-</table>  
-  
-<table class="table table-bordered">
-  <tr>
+    <div class="col-lg-6 col-sm-12">
+      <table class="table">
+        <tr>
+          <td>{{ form_label(form.refunits)}}</td>
+          <td>{{ form_label(form.date)}}</td>
+        </tr>
+        <tr>
+          <td>{{ form_widget(form.refunits)}}</td>
+          <td>{{ form_widget(form.date)}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 
-    <td>{{ form_label(form.grefprecision)}}</td>
-    <td>{{ form_label(form.grefaccuracy)}}</td>
-    <td>{{ form_label(form.comment)}}</td>
-  </tr>
-  <tr>
-    <td>{{ form_widget(form.grefprecision)}}</td>
-    <td>{{ form_widget(form.grefaccuracy)}}</td>
-    <td>{{ form_widget(form.comment)}}</td>
-  </tr>
-</table>  
-{% endblock body %}
-{% endembed %}
+
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <table class="table">
+        <tr>
+          <td class="w-25">{{ form_label(form.mapedition)}}</td>
+          <td>{{ form_label(form.comment)}}</td>
+        </tr>
+        <tr>
+          <td>{{ form_widget(form.mapedition)}}</td>
+          <td>{{ form_widget(form.comment)}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="col-lg-6 col-sm-12">
+      <table class="table">
+        <tr>
+          <td>{{ form_label(form.grefprecision)}}</td>
+          <td>{{ form_label(form.grefaccuracy)}}</td>
+        </tr>
+        <tr>
+          <td>{{ form_widget(form.grefprecision)}}</td>
+          <td>{{ form_widget(form.grefaccuracy)}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 

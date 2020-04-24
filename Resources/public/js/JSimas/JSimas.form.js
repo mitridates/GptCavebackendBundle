@@ -1,48 +1,11 @@
 'use strict';
-/*
- */
-'use strict';
-/*
- */
-(function() {
-    let methods= {
-        getArray function (nodeItems) {
-            let types = ['input', 'select', 'checkbox'],
-                arr = [];
-
-            nodeItems.forEach(function( el, index ) {
-
-                if($(this).is(types.join(', '))){//es 1-n objetos : [selector, ...]
-                    $(this).each(function () {
-                        arr.push(this);
-                    });
-                }else{ //Find into dom element
-                    $('input:not(:button :submit :reset :hidden), select, checkbox', this).each(function () {
-                        arr.push(this);
-                    });
-                }
-            });
-            return arr;
-        }
-    };
-    /*
-     * Un spinner básico para los callback para la función
-     */
-    JSimas.formData = {
-        show: function() { spin('inline');},
-        hide: function() {spin('none');}
-    };
-})(window.JSimas = window.JSimas || {});
 
 (function(JSimas, undefined) {
 
     /**
-     * @description Distintas acciones sobre un formulario
-     *      JSimas .form($('.formulario')).serialize();
-     *      JSimas.form('.formulario').serialize();
+     * Distintas acciones sobre un formulario
      * @name JSimas#form
-     * @param {string|undefined} method - Llamada a alguno de los metodos existentes
-     * @return {*} methods|array... Depende si tiene sentido el encadenamiento o es una función para obtener datos
+     * @param {string} method - Llamada a metodo
      */
     JSimas.prototype.form = function(method) {
         if ( methods[method] ) {//method, {arguments}
@@ -51,31 +14,32 @@
             console.log( 'Method ' +  method + ' inexistente en JSimas.form' );
         }
     };
+
     let spinner= (JSimas.hasOwnProperty('spinner'))? {show:() => null, hide:() => null} : JSimas.spinner,
+
         methods=
         {
             /**
-             *  Retorna el objeto/objetos input de un selector del dom
-             * El selector puede ser uno o varios selectores JSimas('#selecor'|'selector1, ...').form
-             * Busca dentro de nodos DOM JSimas(#form|#table|#div|#td...)
-             * @private
+             * Obtener del dom||formulario||objeto los elementos ['input', 'select', 'checkbox'] en un array
+             * @param {Object} [f]
              * @returns {Array}
              */
-            getArrayObject: function () {
-                let types = ['input', 'select', 'checkbox'],
-                    arr = [];
+            getArrayObject: function (f) {
+                let arr= [],
+                    filter = f || 'input:not(:button :submit :reset :hidden), select, checkbox',
+                    filterNode= function(el)  {
+                        if(el.matches(filter)){//es 1-n objetos : [selector, ...]
+                            arr.push(el)
+                        }
+                    };
 
-                $(this._selector).each(function( index ) {
-                    if($(this).is(types.join(', '))){//es 1-n objetos : [selector, ...]
-                        $(this).each(function () {
-                            arr.push(this);
-                        });
-                    }else{ //Find into dom element
-                        $('input:not(:button :submit :reset :hidden), select, checkbox', this).each(function () {
-                            arr.push(this);
-                        });
+                this._selector.forEach(
+                    function(el, i, list) {
+                        if(el.hasChildNodes()) el.querySelectorAll(filter).forEach(function(e) {filterNode(e)})
+                        else filterNode(el)
                     }
-                });
+                );
+
                 return arr;
             },
             /**

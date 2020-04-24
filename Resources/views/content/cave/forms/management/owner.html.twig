@@ -5,36 +5,82 @@
  * @parent ./management.html.twig
  */
 #}
-
-<table class="table">
-    <tr>
-        <td>{{ form_label(form.ownertype)}}</td>
-        <td>{{ form_widget(form.ownertype)}}</td>
-    </tr>
-    {% for f in ['ownerperson' , 'ownerorganisation','ownername'] %}
-        {% set isNull= form[f].vars.value=='' %}
+<div class="col-lg-3 col-sm-12">
+    <table class="table">
         <tr>
-            <td>{{ form_label(form[f])}}
-                <input type="radio"  name="form_management_owner_check" data-target="{{ form[f].vars.id }}"
-                       {% if isNull==false %}checked="checked"{% endif %}
-                       onchange="managementOwnerDisabled(this)">
-            </td>
-
-            <td>{{ form_widget(form[f], {'attr': {'disabled': (isNull)? 'disabled' : false}})}}</td>
+            <td>{{ form_label(form.ownertype)}}</td>
         </tr>
-    {% endfor %}
+        <tr>
+            <td>{{ form_widget(form.ownertype)}}</td>
+        </tr>
+    </table>
+</div>
 
-</table>
+    <div class="col-lg-3 col-sm-12">
+        <table class="table">
+            <tr>
+                <td>
+                    {{ form_label(form.ownerperson)}}
+                    <input type="radio"  name="form_management_owner_check" data-target="{{ form.ownerperson.vars.id }}"
+                            {{ form.ownerperson.vars.value==''? '': 'checked'}}
+                           onchange="managementOwnerDisabled(this)">
+                </td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.ownerperson)}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-lg-3 col-sm-12">
+        <table class="table">
+            <tr>
+                <td>
+                    {{ form_label(form.ownername)}}
+                    <input type="radio"  name="form_management_owner_check" data-target="{{ form.ownername.vars.id }}"
+                            {{ form.ownername.vars.value==''? '':'checked'}}
+                           onchange="managementOwnerDisabled(this)">
+                </td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.ownername)}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-lg-3 col-sm-12">
+        <table class="table">
+            <tr>
+                <td>
+                    {{ form_label(form.ownerorganisation)}}
+                    <input type="radio"  name="form_management_owner_check" data-target="{{ form.ownerorganisation.vars.id }}"
+                            {{ form.ownerorganisation.vars.value==''? '':'checked'}} onchange="managementOwnerDisabled(this)">
+                </td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(form.ownerorganisation) }}</td>
+            </tr>
+        </table>
+    </div>
 
 <script>
-    function managementOwnerDisabled(element, notdsbld){
+    function managementOwnerDisabled(elem, notdsbld){
         let form =    document.getElementById('{{ form.vars.attr.id }}');
         let elements = form.querySelectorAll('[name=form_management_owner_check]');
-
         for(let i = 0 ; i<elements.length; i++){
             let field = document.getElementById(elements[i].dataset.target);
             Grot(field).form('clear')
-            field.disabled = (elements[i]===element)?  false : true;
+            field.disabled = (elements[i]===elem)?  false : true;
         }
     };
+
+    Grot.fn.ready(function () {
+        let current,
+            i=0,
+            elems = ['{{ form.ownerperson.vars.id  }}', '{{ form.ownerorganisation.vars.id  }}', '{{ form.ownername.vars.id  }}'];
+        for(; i<elems.length; i++){
+            current = document.getElementById(elems[i])
+            current.disabled = (current.value!='')?  false : true;
+        }
+    });
 </script>

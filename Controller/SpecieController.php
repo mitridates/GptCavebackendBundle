@@ -221,8 +221,6 @@ class SpecieController extends AbstractController
             $msg= $this->get('translator')->trans('id.successfully.deleted', array('%id%'=>$specie->getSpecieid()), 'cavemessages');
             $em = $this->getDoctrine()->getManager();
             try{
-                //TODO no debería eliminarse de la base de datos ya que
-                // el registro no puede reutilizarse
                 $em->remove($specie);
                 $em->flush();
                 $this->addFlash('success', $msg);

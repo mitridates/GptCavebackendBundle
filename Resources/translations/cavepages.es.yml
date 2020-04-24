@@ -332,7 +332,7 @@ cave:
         surfaceuse: "Uso de superficie (kw)"
         todo: "Tareas pendientes"
         use: "Uso de la cavidad (kw)"
-        widestmap: "Referencia en mapas"
+        widestmap: "Mapas superiores"
     item:
         accessanddevelopment: "Entrada y desarrollo"
         coarse: "Posición/localización no exactos para su publicación   "

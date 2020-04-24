@@ -20,8 +20,6 @@
 }%}
 {%set arr = arr|default({0: {'msg': msg|default(''), 'level': level}})%}
 {%for el in arr%}
-<span title="{{el.level ~' - '~ el.msg}}"
-      class="fa fa-{{paleta[el.level].icon}}
-      text-{{paleta[el.level].color}}"></span>
+<i title="{{el.level ~' - '~ el.msg}}" class="fa fa-{{paleta[el.level].icon}} text-{{paleta[el.level].color}}"></i>
 {%endfor%}
 {% endspaceless %}

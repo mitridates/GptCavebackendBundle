@@ -32,11 +32,13 @@ class EditSpecieType extends AbstractType
 
         $specieSubscriber = new AddSpecieFieldSubscriber($factory, array(
             'options'=>array(
+                'required' => true,
                 'attr'=>array(
                     'code_id'=>364
                 )
             )
         ));
+
         $builder->addEventSubscriber($specieSubscriber);
 
         $articleSubscriber = new AddArticleFieldSubscriber($factory, array(
@@ -49,7 +51,7 @@ class EditSpecieType extends AbstractType
         $builder->addEventSubscriber($articleSubscriber);
 
 
-        foreach(explode(';','510:specieconfidence;509:genusconfidence;40:speciesignificance') as $el){
+        foreach(explode(';','510:specieconfidence;509:genusconfidence') as $el){
             $field = explode(':', $el);
             $builder->add(
                 $field[1], EntityType::class, array(
@@ -72,17 +74,6 @@ class EditSpecieType extends AbstractType
         $builder->add('position', NULL, ['attr'=>['code_id'=>10001]]);
                     
                                     
-        $fields = '38:name;37:genus;39:refsurname;260:refyear;261:refyearsuffix;262:refcomment';
-        
-        foreach(explode(';', $fields) as $el){
-            if(!strpos($el,':')) {var_dump ($el);exit;}
-            $field = explode(':', $el);
-            $arr = [
-                    'attr'=>['code_id'=>$field[0]]
-                   ];           
-            $builder->add($field[1], NULL, $arr);
-        }
-
          $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event){
             /**
              * @var Cavespecie $entity
@@ -90,111 +81,75 @@ class EditSpecieType extends AbstractType
              $entity = $event->getData();
              $form = $event->getForm();
 
-             $specieIsNull=     $this->checkSpecie($entity, $form);
-             $articleIsNull=    $this->checkArticle($entity, $form);
-             $confidenceIsNull= $this->checkConfidence($entity, $form);
 
-             if( $specieIsNull=== NULL
-                 && $articleIsNull=== NULL
-                 && $confidenceIsNull=== NULL
-             ){
-                 $form->addError(new FormError($this->translator->trans('form.cannot.be.empty',  [], 'caveerrors')));
+             if($entity->getSpecie() === NULL) {
+                 $form->get('specie')->addError(new FormError($this->translator->trans('form.must.complete.this.field', [], 'caveerrors')));
              }
          });
-         
+
     }
 
-    /**
-     * @param Cavespecie $entity
-     * @param FormInterface $form
-     * @return bool|null
-     */
-    private function checkConfidence(Cavespecie $entity, FormInterface &$form){
-        $is_valid = true;
-        if($entity->getGenusconfidence()=== NULL || $entity->getSpecieconfidence()=== NULL){
-            if($entity->getGenusconfidence()=== NULL){
-                $form->get('genusconfidence')->addError(new FormError($this->translator->trans('form.must.complete.this.field',  [], 'caveerrors')));
-                $is_valid= false;
-            }
-            if($entity->getSpecieconfidence()=== NULL){
-                $form->get('specieconfidence')->addError(new FormError($this->translator->trans('form.must.complete.this.field',  [], 'caveerrors')));
-                $is_valid= false;
-            }
-        }
-        return $is_valid;
-    }
+//    /**
+//     * @param Cavespecie $entity
+//     * @param FormInterface $form
+//     * @return bool|null
+//     */
+//    private function checkConfidence(Cavespecie $entity, FormInterface &$form){
+//        $is_valid = true;
+//        if($entity->getGenusconfidence()=== NULL || $entity->getSpecieconfidence()=== NULL){
+//            if($entity->getGenusconfidence()=== NULL){
+//                $form->get('genusconfidence')->addError(new FormError($this->translator->trans('form.must.complete.this.field',  [], 'caveerrors')));
+//                $is_valid= false;
+//            }
+//            if($entity->getSpecieconfidence()=== NULL){
+//                $form->get('specieconfidence')->addError(new FormError($this->translator->trans('form.must.complete.this.field',  [], 'caveerrors')));
+//                $is_valid= false;
+//            }
+//        }
+//        return $is_valid;
+//    }
+//
+//    /**
+//     * @param Cavespecie $entity
+//     * @param FormInterface $form
+//     * @return bool|null
+//     */
+//    private function checkSpecie(Cavespecie $entity, FormInterface &$form){
+//        $fieldNames = ['name', 'genus', 'refcomment', 'speciesignificance', 'refcomment'];
+//        $is_empty= 0;
+//
+//        foreach($fieldNames as $name){
+//            if( $entity->{'get'.ucfirst($name)}()!== NULL){
+//                $is_empty++;
+//            }
+//        }
+//
+//        $specieIsNull = $entity->getSpecie() === NULL;
+//
+//        if($specieIsNull  && $is_empty===0){//vacío
+//
+//            $form->get('specie')->addError(new FormError($this->translator->trans('form.use.selector.or.text',  [], 'caveerrors')));
+//            return NULL;
+//
+//        }elseif(!$specieIsNull  && $is_empty===0){//hay id
+//
+//            return true;
+//
+//        }elseif($specieIsNull  && $is_empty!==0){//hay string
+//
+//            if($entity->getName()==NULL){
+//
+//                $form->get('name')->addError(new FormError($this->translator->trans('form.empty.master.has.filled.children',  [], 'caveerrors')));
+//
+//            }else{
+//
+//                return true;
+//
+//            }
+//        }
+//        return false;
+//    }
 
-    /**
-     * @param Cavespecie $entity
-     * @param FormInterface $form
-     * @return bool|null
-     */
-    private function checkSpecie(Cavespecie $entity, FormInterface &$form){
-        $fieldNames = ['name', 'genus', 'refcomment', 'speciesignificance', 'refcomment'];
-        $is_empty= 0;
-
-        foreach($fieldNames as $name){
-            if( $entity->{'get'.ucfirst($name)}()!== NULL){
-                $is_empty++;
-            }
-        }
-
-        $specieIsNull = $entity->getSpecie() === NULL;
-
-        if($specieIsNull  && $is_empty===0){//vacío
-
-            $form->get('specie')->addError(new FormError($this->translator->trans('form.use.selector.or.text',  [], 'caveerrors')));
-            return NULL;
-
-        }elseif(!$specieIsNull  && $is_empty===0){//hay id
-
-            return true;
-
-        }elseif($specieIsNull  && $is_empty!==0){//hay string
-
-            if($entity->getName()==NULL){
-
-                $form->get('name')->addError(new FormError($this->translator->trans('form.empty.master.has.filled.children',  [], 'caveerrors')));
-
-            }else{
-
-                return true;
-
-            }
-        }
-        return false;
-    }
-
-    /**
-     * @param Cavespecie $entity
-     * @param FormInterface $form
-     * @return bool|null
-     */
-    private function checkArticle(Cavespecie $entity, FormInterface &$form){
-        $fieldNames = ['refsurname', 'refyear', 'refyearsuffix'];
-        $is_empty= 0;
-        
-        foreach($fieldNames as $name){
-            if( $entity->{'get'.ucfirst($name)}()!== NULL){
-                $is_empty++;
-            }
-        }
-
-        if($entity->getArticle() == NULL && $is_empty==0){//vacío
-            return NULL;
-        }elseif($entity->getArticle() !== NULL && $is_empty==0){//hay id
-            return true;
-        }elseif($entity->getArticle() == NULL && $is_empty!==0){//hay string
-
-            if($entity->getRefsurname()==NULL){
-                $form->get('refsurname')->addError(new FormError($this->translator->trans('form.empty.master.has.filled.children',  [], 'caveerrors')));
-            }else{
-                return true;
-            }
-
-        }
-        return false;
-    }  
     
     /**
      * @param OptionsResolver $resolver

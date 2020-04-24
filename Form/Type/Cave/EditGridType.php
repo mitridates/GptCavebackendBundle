@@ -61,12 +61,9 @@ class EditGridType extends AbstractType
                     'required' => false,
                     'attr'=>[
                         'code_id'=>632,
-                        'class' => '',
-                        'data-provide' => 'datepicker',
-                        'data-date-format' => 'dd-mm-yyyy'
+                        'class' => ''
                         ],
                    'widget' => 'single_text',
-                    'format' => 'dd-MM-yyyy'
                     ]
                 );
         $fields =   '241:mapeasting;242:mapnorthing;244:grefprecision;302:grefaccuracy;240:mapedition;' .

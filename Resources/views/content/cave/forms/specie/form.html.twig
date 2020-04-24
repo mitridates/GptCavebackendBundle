@@ -7,24 +7,51 @@
 {% embed '@GptCavebackend/partial/card/card-edit.html.twig' %}
     {% block body %}
         <div class="row">
-            <div class="col">
-                {%include '@GptCavebackend/content/cave/forms/specie/form/confidence.html.twig'%}
+            <div class="col-sm-12 col-lg-4">
+                <table class="table">
+                    <tr><td>{{ form_label(form.specie)}}</td></tr>
+                    <tr><td>{{ form_widget(form.specie)}}</td></tr>
+                </table>
+            </div>
+            <div class="col-sm-12 col-lg-4">
+                <table class="table">
+                    <tr><td>{{ form_label(form.specieconfidence)}}</td></tr>
+                    <tr><td>{{ form_widget(form.specieconfidence)}}</td></tr>
+                </table>
+            </div>
+
+            <div class="col-sm-12 col-lg-4">
+                <table class="table">
+                    <tr><td>{{ form_label(form.genusconfidence)}}</td></tr>
+                    <tr><td>{{ form_widget(form.genusconfidence)}}</td></tr>
+                </table>
             </div>
         </div>
+
         <div class="row">
-            <div class="col">
-                {%include '@GptCavebackend/content/cave/forms/specie/form/specie.html.twig'%}
+
+            <div class="col-sm-12 col-lg-8">
+                <table class="table">
+                    <tr><td>{{ form_label(form.article)}}</td></tr>
+                    <tr><td>{{ form_widget(form.article)}}</td></tr>
+                </table>
             </div>
+
+            <div class="col-sm-12 col-lg-4">
+                <table class="table">
+                    <tr><td>{{ form_label(form.position)}}</td></tr>
+                    <tr><td>{{ form_widget(form.position, {attr: {class: 'w-25'}})}}</td></tr>
+                </table>
+            </div>
+
         </div>
     {% endblock body %}
 {% endembed %}
 
-{% embed '@GptCavebackend/partial/card/card-edit.html.twig' %}
-        {% block body %}
-            <div class="row">
-                <div class="col">
-                    {%include '@GptCavebackend/content/cave/forms/specie/form/article.html.twig'%}
-                </div>
-            </div>
-        {% endblock body %}
-{% endembed %}
+<script>
+    $(document).ready(function() {
+        $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+        Grot('#{{form.specie.vars.id}}').select2paginado('{{path('cave_backend_autocomplete_specie')}}', {placeholder: '{{('select.specie')|trans({},'cavemessages')|raw}}'});
+        Grot('#{{form.article.vars.id}}').select2paginado('{{path('cave_backend_autocomplete_article')}}', {placeholder: '{{('select.article')|trans({},'cavemessages')|raw}}'});
+    });
+</script>

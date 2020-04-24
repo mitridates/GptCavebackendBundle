@@ -1,5 +1,6 @@
 <?php
 namespace App\GptCavebackendBundle\Form\Type\Cave;
+use App\GptCavebackendBundle\EventListener\Form\AddAreaFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -69,6 +70,15 @@ class EditCavepartialNameType extends AbstractType
             )
         ));
         $builder->addEventSubscriber($countrySubscriber);
+
+        $areaSubscriber = new AddAreaFieldSubscriber($factory, $countrySubscriber->getCountry(),  null, array(
+            'options'=>array(
+                'attr'=>array(
+                    'code_id'=>303
+                )
+            )
+        ));
+        $builder->addEventSubscriber($areaSubscriber);
 
         $admin1Subscriber = new AddAdmin1FieldSubscriber($factory,$countrySubscriber->getCountry(), array(
             'options'=>array(

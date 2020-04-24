@@ -12,19 +12,11 @@ class MapParams extends  CommonParams
 }
 
     private $relationship = array(
-        'onetomany'=>[
-            'comment',
-            'citation',/*'citation==publication*/
-            'furtherpc',
-            'furthergc',
-            'surveyor',
-            'drafter',
-            'cave'
+        'onetomany'=>[/*'citation==publication*/
+            'comment','citation', 'furtherpc','furthergc','surveyor','drafter','cave'
         ],
         'onetoone'=>[
-            'details',
-            'controller',
-            'updater'
+            'details','controller','updater'
         ],
         'partial'=>[]
     );
@@ -38,23 +30,25 @@ class MapParams extends  CommonParams
         parent::init();
     }
 
-    /**
-     * Get createForm() parameters. No hay partial de Map, pero mantenemos la función
-     * @param Map $map
-     * @param string $name form type name suffix
-     * @return array
-     */
-    public function createPartialform(Map $map, $name): array
-    {
-        $prefix = $name=='map' ? 'EditMappartial': 'Edit';
-        $class =   sprintf('%s\%s', 'App\GptCavebackendBundle\Form\Type\Map', $prefix.  ucfirst($name)."Type");
-        return [
-            $class, $map,
-            ['attr'=> ['id'=>'edit-partial-'.$name.'-'.$map->getMapid()],
-                //'translator'=>$this->controllerParams->getTranslator()
-            ]
-        ];
-    }
+//    /**
+//     * Get createForm() parameters. No hay partial de Map, pero mantenemos la función
+//     * @param Map $map
+//     * @param string $name form type name suffix
+//     * @return array
+//     */
+//    public function createPartialform(Map $map, $name): array
+//    {
+////        $prefix = $name=='map' ? 'EditMappartial': 'Edit';
+////        $class =   sprintf('%s\%s', 'App\GptCavebackendBundle\Form\Type\Map', $prefix.  ucfirst($name)."Type");
+//        $class =   sprintf('%s\%s', 'App\GptCavebackendBundle\Form\Type\Map', 'EditMappartial'.  ucfirst($name)."Type");
+//
+//        return [
+//            $class, $map,
+//            ['attr'=> ['id'=>'edit-partial-'.$name.'-'.$map->getMapid()],
+//                //'translator'=>$this->controllerParams->getTranslator()
+//            ]
+//        ];
+//    }
 
     /**
      * Get createForm() parameters

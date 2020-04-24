@@ -19,7 +19,7 @@
         {{  entity.getTodo()}} {% include '@GptCavebackend/partial/page/priority_icon.html.twig'
                 with {'level': entity.getPriority().getCode(),
                         'msg': entity.getPriority().getValue()
-                } only %} {{- entity.getPriority().getValue()-}}
+                } only %}
 
     {{- bttns.bttn_edit(name,
         path('cave_backend_cave_create_manytoone', { cave: cave.getCaveid(), name: name, sequence: entity.getSequence()}),

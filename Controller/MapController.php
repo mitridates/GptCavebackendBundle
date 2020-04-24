@@ -1,7 +1,7 @@
 <?php
 namespace App\GptCavebackendBundle\Controller;
-use App\GptCavebackendBundle\Form\Type\Map\EditMapType;
 use App\GptCavebackendBundle\Form\Type\Map\MapsearchType;
+use App\GptCavebackendBundle\Form\Type\Map\EditMapType;
 use App\GptCavebackendBundle\Model\CaveExceptionInteface;
 use App\GptCavebackendBundle\Repository\MapBackendRepository;
 use App\GptCavebackendBundle\Util\ControllerParameters\MapParams;
@@ -464,8 +464,6 @@ class MapController extends AbstractController
             $msg= $this->controllerParams->getTranslator()->trans('id.successfully.deleted', array('%id%'=>$map->getMapid()), 'cavemessages');
             $em = $this->getDoctrine()->getManager();
             try{
-                //TODO no debería eliminarse de la base de datos ya que
-                // el registro no puede reutilizarse
                 $em->remove($map);
                 $em->flush();
                 $this->addFlash('success', $msg);

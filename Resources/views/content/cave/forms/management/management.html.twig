@@ -7,17 +7,20 @@
 {% embed '@GptCavebackend/partial/card/card-edit.html.twig' %}
 {% block heading %}{{ ('cave.card.management')|trans({},'cavepages')|raw -}}{% endblock heading %}
 {% block body %}
-<div class="row">
-    <div class="col-lg-auto col-sm-12">
+    <div class="row">
         {% include '@GptCavebackend/content/cave/forms/management/owner.html.twig'%}
     </div>
-    <div class="col-lg-4 col-sm-12">
-        {% include '@GptCavebackend/content/cave/forms/management/category.html.twig'%}
+
+    <div class="row">
+        <div class="col-lg-6 col-sm-12">
+            {% include '@GptCavebackend/content/cave/forms/management/category.html.twig'%}
+        </div>
+        <div class="col-lg-2 col-sm-12">
+            {% include '@GptCavebackend/content/cave/forms/management/controller.html.twig'%}
+        </div>
     </div>
-    <div class="col-lg-4 col-sm-12">
-        {% include '@GptCavebackend/content/cave/forms/management/controller.html.twig'%}
-    </div>
-</div>
+
+
 
 
 {% endblock body %}

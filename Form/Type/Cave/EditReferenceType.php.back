@@ -39,7 +39,7 @@ class EditReferenceType extends AbstractType
         ));
         $builder->addEventSubscriber($articleSubscriber);
 
-        $fields = '268:subjects;269:range;10001:position';
+        $fields = '268:subjects;269:range;71:surnames;266:year;267:yearsuffix;355:articlename;356:publication;357:volume;358:issue;10001:position';
 
         foreach(explode(';', $fields) as $el){
             if(!strpos($el,':')) {var_dump ($el);exit;}
@@ -56,11 +56,53 @@ class EditReferenceType extends AbstractType
              $entity = $event->getData();
              $form = $event->getForm();
 
-             if($entity->getArticle() === NULL) {
-                 $form->get('article')->addError(new FormError($this->translator->trans('form.must.complete.this.field', [], 'caveerrors')));
+             $articleIsNull=     $this->checkArticle($entity, $form);
+
+             if( $articleIsNull=== NULL){
+                 $form->addError(new FormError($this->translator->trans('form.cannot.be.empty',  [], 'caveerrors')));
              }
          });
 
+    }
+
+    /**
+     * @param Cavereference $entity
+     * @param FormInterface $form
+     * @return bool|null
+     */
+    private function checkArticle(Cavereference $entity, FormInterface &$form){
+        $fieldNames = ['articlename', 'publication', 'volume', 'issue', 'surnames', 'year', 'yearsuffix'];
+        $is_empty= 0;
+
+        foreach($fieldNames as $name){
+            if( $entity->{'get'.ucfirst($name)}()!== NULL){
+                $is_empty++;
+            }
+        }
+        $articleIsNull = $entity->getArticle() === NULL;
+
+        if($articleIsNull && $is_empty===0) {//vacío
+
+            return NULL;
+
+        }elseif(!$articleIsNull && $is_empty===0) {//valido
+
+            return true;
+
+
+        }elseif(!$articleIsNull && $is_empty!==0){
+
+            $form->addError(new FormError($this->translator->trans('form.use.selector.or.text',  [], 'caveerrors')));
+
+        }elseif($articleIsNull && $is_empty!==0){//hay string
+
+            if($entity->getArticlename()===NULL){
+                $form->get('articlename')->addError(new FormError($this->translator->trans('form.empty.master.has.filled.children',  [], 'caveerrors')));
+            }else{
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

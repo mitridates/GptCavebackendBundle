@@ -149,7 +149,6 @@ class CaveController extends AbstractController
         ));
     }
 
-
     /**
      * Render Cave partial form
      * @Route("/cave/createpartial/{id}/{name}",
@@ -461,12 +460,10 @@ class CaveController extends AbstractController
         $form = $this->createDeleteForm($cave);
         $form->handleRequest($request);
 
-       if ($form->isSubmitted() && $form->isValid()) {
-           $msg= $this->controllerParams->getTranslator()->trans('id.successfully.deleted', array('%id%'=>$cave->getCaveid()), 'cavemessages');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $msg= $this->controllerParams->getTranslator()->trans('id.successfully.deleted', array('%id%'=>$cave->getCaveid()), 'cavemessages');
             $em = $this->getDoctrine()->getManager();
             try{
-                //TODO no debería eliminarse de la base de datos ya que
-                // el registro no puede reutilizarse
                 $em->remove($cave);
                 $em->flush();
                 $this->addFlash('success', $msg);
@@ -490,7 +487,7 @@ class CaveController extends AbstractController
         return $this->createFormBuilder(null, ['attr'=> ['id'=>'cave_delete_form']])
             ->setAction($this->generateUrl('cave_backend_cave_delete', array(
                 "id" => $cave->getCaveid()
-                )))
+            )))
             ->setMethod("DELETE")
             ->getForm()
         ;

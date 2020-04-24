@@ -34,7 +34,6 @@
         CaveMenuToggle.setMenuItemQuerySelector('a.list-group-item-action').
         on('click', function (menuItem, dataTarget)
         {
-            console.log(this)
             if(menuItem.classList.contains(CaveMenuToggle.visitedSelector)) return;
 
             function updateSelectorAndPaginables()

@@ -6,25 +6,40 @@
  */
 #}
 {% set personIsNotNull = form.person.vars.value!='' %}
-<table class="table">
-    <tr>
-        <td>{{ form_label(form.person)}}
-            <input type="radio" name="form_discovery_person_check"  {{ personIsNotNull?'checked' :''}}  onchange="Grot('.form-discovery-person').form('clear').form('disable')">
-        </td>
-        <td class="form-discovery-person">{{ form_widget(form.person)}}</td>
-    </tr>
-    <tr>
+<div class="row">
+    <div class="col-sm-12 col-lg-6">
+        <table class="table">
+            <tr>
+                <td>
+                    {{ form_label(form.person)}}
+                    <input type="radio" name="form_discovery_person_check"  {{ personIsNotNull?'checked' :''}}
+                           onchange="Grot('.form-discovery-person').form('clear').form('disable')">
+                </td>
+            </tr>
+            <tr class="form-discovery-person">
+                <td>{{ form_widget(form.person)}}</td>
+            </tr>
+        </table>
+    </div>
 
-    <td>{{ form_label(form.firstname)}}
-        <input type="radio" name="form_discovery_person_check" {{ personIsNotNull? '':'checked'}}  onchange="Grot('.form-discovery-person').form('clear').form('disable')">
-        </td>
-        <td>{{ form_label(form.surname)}}</td>
-    </tr>
-    <tr class="form-discovery-person">
-        <td>{{ form_widget(form.firstname)}}</td>
-        <td>{{ form_widget(form.surname)}}</td>
-    </tr>
-</table>
+    <div class="col-sm-12 col-lg-6">
+        <table class="table">
+            <tr>
+                <td>
+                    {{ form_label(form.firstname)}}
+                    <input type="radio" name="form_discovery_person_check" {{ personIsNotNull? '':'checked'}}
+                           onchange="Grot('.form-discovery-person').form('clear').form('disable')">
+                </td>
+                <td>{{ form_label(form.surname)}}</td>
+            </tr>
+            <tr class="form-discovery-person">
+                <td>{{ form_widget(form.firstname)}}</td>
+                <td>{{ form_widget(form.surname)}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
 <script>
     $(document).ready(function() {
         $.fn.modal.Constructor.prototype._enforceFocus = function() {};

@@ -11,15 +11,16 @@
  #}
 {% import '@GptCavebackend/content/cave/edit/paginator_buttons_macro.html.twig' as bttns %}
 {% for entity in entities%}
-    {% set country= entity.getCountry() is not null ? {name: entity.getCountry().getName(), code: entity.getCountry().getCountryid()} : false %}
-    {% set admin1= entity.getAdmin1() is not null ? {name: entity.getAdmin1().getName(), code: entity.getAdmin1().getAdmin1id()} : false %}
-    {% set area= entity.getArea() is not null ? {name: entity.getArea().getName(), code: entity.getArea().getAreaid()} : false %}
-
+{% set article = entity.getArticle()? false %}
+{% set data= {
+    name: article ? article.getName() : entity.getArticlename(),
+    year: article ? article.getPublicationyear() : entity.getYear()
+} %}
 <div class="border border-dark rounded">
     {{- bttns.bttn_delete( name, path('cave_backend_cave_delete_manytoone', { cave: cave.getCaveid(), sequence: entity.getSequence(), name: name, deletetoken: delete_token}))-}}
 
-    {% if entity.getPosition() %}{{ entity.getPosition() }}.- {% endif %}{{ entity.getSerial() }}
-
+    {% if entity.getPosition() %}{{ entity.getPosition() }}.- {% endif %}
+{% if article %}<a href="{{ path('cave_backend_article_edit', {article: article.getArticleid()}) }}">{{ data.name }}</a> {% else %}{{ data.name}}{% endif %}
 
     {{- bttns.bttn_edit(name,
         path('cave_backend_cave_create_manytoone', { cave: cave.getCaveid(), name: name, sequence: entity.getSequence()}),
@@ -28,3 +29,4 @@
     -}}
 </div>
 {% endfor %}
+

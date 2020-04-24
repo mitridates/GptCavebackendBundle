@@ -11,6 +11,12 @@
 #}
 {% set country_attr= {attr: {'data-child': '#'~form.admin1.vars.id}} %}
 
+{% set area_attr= {attr: {
+  'data-url': path('cave_backend_json_area'),
+  'data-parentid': 'countryid',
+  'data-placeholder': 'select.area'|trans({},'cavemessages')|raw,
+}}%}
+
 {% set admin1_attr= {attr: {
   'data-child': '#'~form.admin2.vars.id,
   'data-url': path('cave_backend_json_admin1'),
@@ -68,6 +74,10 @@
             <td>{{ form_widget(form.country, country_attr)}}</td>
           </tr>
           <tr>
+            <td>{{ form_label(form.area)}}</td>
+            <td>{{ form_widget(form.area, area_attr)}}</td>
+          </tr>
+          <tr>
             <td>{{ form_label(form.admin1)}}</td>
             <td>{{ form_widget(form.admin1, admin1_attr)}}</td>
           </tr>
@@ -78,10 +88,6 @@
           <tr>
             <td>{{ form_label(form.admin3)}}</td>
             <td>{{ form_widget(form.admin3,admin3_attr)}}</td>
-          </tr>
-          <tr>
-            <td>{{ form_label(form.hide)}}</td>
-            <td>{{ form_widget(form.hide)}}</td>
           </tr>
         </table>
       </div>
@@ -125,7 +131,7 @@
 
     <div class="row">
 
-      <div class="col-lg-6 col-sm-12">
+      <div class="col-lg-5 col-sm-12">
         <table class="table">
           <tr>
             <td>{{ form_label(form.geographiclocation)}}</td>
@@ -138,7 +144,7 @@
         </table>
       </div>
 
-      <div class="col-lg-6 col-sm-12">
+      <div class="col-lg-5 col-sm-12">
         <table class="table">
           <tr>
             <td>{{ form_label(form.nearestlocality)}}</td>
@@ -151,6 +157,16 @@
         </table>
       </div>
 
+      <div class="col-lg-2 col-sm-12">
+        <table class="table">
+          <tr>
+            <td>& nbsp;</td>
+          </tr>
+          <tr>
+            <td>{{ form_widget(form.hide)}}</td>
+          </tr>
+        </table>
+      </div>
     </div>
   {% endblock body %}
 {% endembed %}

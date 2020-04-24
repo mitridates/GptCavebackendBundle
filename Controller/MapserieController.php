@@ -212,8 +212,6 @@ class MapserieController extends AbstractController
             $msg= $this->controllerParams->getTranslator()->trans('id.successfully.deleted', array('%id%'=>$mapserie->getMapserieid()), 'cavemessages');
             $em = $this->getDoctrine()->getManager();
             try{
-                //TODO no debería eliminarse de la base de datos ya que
-                // el registro no puede reutilizarse
                 $em->remove($mapserie);
                 $em->flush();
                 $this->addFlash('success', $msg);

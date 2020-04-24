@@ -42,7 +42,7 @@ Repopulate.prototype.bindAll = function (element){
 
             elem.addEventListener("change", function(){
                 $this.clearSelectors(child, true);
-                if (elem.options.length===0 || (elem===$this.root && elem.options[elem.selectedIndex].value===0)) return;
+                if (elem.options.length===0 || (elem===$this.root && !elem.options[elem.selectedIndex].value)) return;
                 $this.populateChild(child, elem.options[elem.selectedIndex].value);
             });
 
